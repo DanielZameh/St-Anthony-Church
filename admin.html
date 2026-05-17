@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel – St Antony Church</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #001a38; --navy-deep: #001226; --navy-mid: #0d2d55;
+      --gold: #C9A84C; --gold-light: #e8c96e; --gold-pale: rgba(201,168,76,.12);
+      --bg: #0a1628; --surface: #112240; --surface2: #1a3358; --border: rgba(201,168,76,.18);
+      --text: #cdd9e8; --text-dim: #7a98bb; --text-bright: #e8f0f8;
+      --green: #22c55e; --red: #ef4444; --yellow: #f59e0b;
+      --shadow: 0 4px 24px rgba(0,0,0,.35); --radius: .875rem;
+      --transition: .25s ease; --sidebar-w: 240px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { max-width: 100%; }
+    button { cursor: pointer; font-family: inherit; border: none; outline: none; }
+    input, textarea, select { font-family: inherit; }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      width: var(--sidebar-w); min-height: 100vh; background: var(--navy-deep);
+      border-right: 1px solid var(--border); display: flex; flex-direction: column;
+      position: fixed; top: 0; left: 0; z-index: 100;
+      transition: transform var(--transition);
+    }
+    .sidebar-logo {
+      display: flex; align-items: center; gap: .75rem; padding: 1.5rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-logo img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--gold); }
+    .sidebar-logo-text { font-size: .8rem; color: var(--text-dim); }
+    .sidebar-logo-text strong { display: block; font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--gold); }
+    .sidebar-nav { flex: 1; padding: 1.5rem .75rem; display: flex; flex-direction: column; gap: .25rem; }
+    .nav-item {
+      display: flex; align-items: center; gap: .85rem; padding: .75rem 1rem;
+      border-radius: .625rem; cursor: pointer; font-size: .875rem; color: var(--text-dim);
+      transition: all var(--transition); position: relative;
+    }
+    .nav-item i { font-size: 1.15rem; }
+    .nav-item:hover { background: var(--surface); color: var(--text-bright); }
+    .nav-item.active { background: var(--gold-pale); color: var(--gold); }
+    .nav-item.active i { color: var(--gold); }
+    .badge { position: absolute; right: .75rem; top: 50%; transform: translateY(-50%); background: var(--red); color: #fff; font-size: .65rem; font-weight: 700; padding: .15rem .4rem; border-radius: 99px; }
+    .sidebar-footer { padding: 1rem .75rem; border-top: 1px solid var(--border); }
+    .sidebar-footer a { display: flex; align-items: center; gap: .75rem; font-size: .85rem; color: var(--text-dim); padding: .6rem .75rem; border-radius: .5rem; transition: all var(--transition); }
+    .sidebar-footer a:hover { color: var(--gold); }
+
+    /* ===== MAIN ===== */
+    .main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* Top Bar */
+    .topbar {
+      height: 64px; background: var(--navy-deep); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; padding: 0 2rem;
+      position: sticky; top: 0; z-index: 50;
+    }
+    .topbar-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--gold-light); }
+    .topbar-right { display: flex; align-items: center; gap: 1rem; }
+    .topbar-time { font-size: .8rem; color: var(--text-dim); }
+    .topbar-badge { width: 36px; height: 36px; border-radius: 50%; background: var(--gold-pale); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.1rem; }
+
+    /* Content */
+    .content { padding: 2rem; flex: 1; }
+
+    /* ===== PAGES ===== */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ===== STATS CARDS ===== */
+    .stat-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.25rem; margin-bottom: 2.5rem; }
+    .stat-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.5rem; display: flex; align-items: center; gap: 1rem;
+    }
+    .stat-card-icon { width: 48px; height: 48px; border-radius: .75rem; background: var(--gold-pale); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: var(--gold); flex-shrink: 0; }
+    .stat-card-val { font-size: 1.75rem; font-weight: 700; color: var(--text-bright); line-height: 1; }
+    .stat-card-label { font-size: .75rem; color: var(--text-dim); margin-top: .25rem; }
+
+    /* ===== TABLE ===== */
+    .table-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
+    .table-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--gold-light); }
+    .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: .9rem 1.1rem; text-align: left; font-size: .85rem; }
+    th { background: var(--surface2); color: var(--gold); font-weight: 600; text-transform: uppercase; font-size: .72rem; letter-spacing: 1px; border-bottom: 1px solid var(--border); }
+    td { border-bottom: 1px solid rgba(201,168,76,.07); color: var(--text); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(201,168,76,.04); }
+    .empty-row td { text-align: center; color: var(--text-dim); padding: 2.5rem; }
+
+    /* ===== BADGES ===== */
+    .tag { display: inline-block; font-size: .7rem; font-weight: 600; padding: .2rem .6rem; border-radius: 99px; }
+    .tag-green { background: rgba(34,197,94,.15); color: var(--green); }
+    .tag-gold { background: var(--gold-pale); color: var(--gold); }
+    .tag-red { background: rgba(239,68,68,.15); color: var(--red); }
+    .tag-blue { background: rgba(96,165,250,.12); color: #60a5fa; }
+
+    /* ===== BUTTONS ===== */
+    .btn { display: inline-flex; align-items: center; gap: .4rem; padding: .55rem 1.1rem; border-radius: .5rem; font-size: .82rem; font-weight: 600; transition: all var(--transition); }
+    .btn-gold { background: var(--gold); color: var(--navy-deep); }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .btn-ghost { background: transparent; border: 1.5px solid var(--border); color: var(--text-dim); }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-danger { background: rgba(239,68,68,.15); color: var(--red); }
+    .btn-danger:hover { background: rgba(239,68,68,.25); }
+    .btn-sm { padding: .3rem .7rem; font-size: .75rem; }
+
+    /* ===== FORM ===== */
+    .form-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; }
+    .form-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--gold-light); margin-bottom: 1.5rem; }
+    .form-grid { display: grid; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: .35rem; }
+    label { font-size: .78rem; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: .5px; }
+    .form-control {
+      padding: .75rem 1rem; border-radius: .5rem; font-size: .875rem;
+      background: var(--navy-mid); border: 1.5px solid var(--border); color: var(--text-bright);
+      transition: border-color var(--transition); outline: none; width: 100%;
+    }
+    .form-control:focus { border-color: var(--gold); }
+    textarea.form-control { min-height: 100px; resize: vertical; }
+    .checkbox-row { display: flex; align-items: center; gap: .5rem; font-size: .875rem; color: var(--text); margin-top: .25rem; }
+    .checkbox-row input { width: 16px; height: 16px; accent-color: var(--gold); cursor: pointer; }
+    .form-actions { display: flex; justify-content: flex-end; gap: .75rem; margin-top: 1.5rem; }
+
+    /* ===== MESSAGE CARD ===== */
+    .msg-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.25rem 1.5rem; margin-bottom: 1rem; cursor: pointer;
+      transition: border-color var(--transition);
+    }
+    .msg-card:hover { border-color: var(--gold); }
+    .msg-card.unread { border-left: 3px solid var(--gold); }
+    .msg-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: .5rem; }
+    .msg-card-name { font-weight: 600; color: var(--text-bright); font-size: .9rem; }
+    .msg-card-date { font-size: .75rem; color: var(--text-dim); }
+    .msg-card-subject { font-size: .85rem; color: var(--gold); font-weight: 500; margin-bottom: .4rem; }
+    .msg-card-preview { font-size: .82rem; color: var(--text-dim); }
+    .msg-detail { display: none; background: var(--surface); border: 1px solid var(--gold); border-radius: var(--radius); padding: 1.5rem; margin-top: .5rem; }
+    .msg-detail p { line-height: 1.8; font-size: .875rem; color: var(--text); }
+
+    /* ===== MODAL ===== */
+    .overlay { position:fixed; inset:0; background:rgba(0,0,0,.6); backdrop-filter:blur(4px); z-index:200; display:flex; align-items:center; justify-content:center; padding:1.5rem; opacity:0; visibility:hidden; transition: opacity var(--transition), visibility var(--transition); }
+    .overlay.open { opacity:1; visibility:visible; }
+    .overlay-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:2rem; width:100%; max-width:480px; position:relative; }
+    .overlay-close { position:absolute; top:1rem; right:1rem; font-size:1.4rem; color:var(--text-dim); background:none; transition: color var(--transition); }
+    .overlay-close:hover { color:var(--gold); }
+
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:900px){
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .main { margin-left: 0; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* Alert */
+    .alert { padding: .75rem 1.25rem; border-radius: .5rem; font-size: .875rem; font-weight: 500; margin-bottom: 1.25rem; display: none; }
+    .alert-success { background: rgba(34,197,94,.15); border: 1px solid rgba(34,197,94,.3); color: var(--green); display: block; }
+    .alert-error { background: rgba(239,68,68,.15); border: 1px solid rgba(239,68,68,.3); color: var(--red); display: block; }
+
+    /* ===== LOGIN SCREEN ===== */
+    #login-screen {
+      position: fixed; inset: 0; z-index: 9999;
+      background: linear-gradient(135deg, #001226 0%, #0d2d55 60%, #1a4a7a 100%);
+      display: flex; align-items: center; justify-content: center; padding: 1.5rem;
+    }
+    #login-screen::before {
+      content: '☩'; position: absolute; font-size: 30rem;
+      color: rgba(201,168,76,.04); top: 50%; left: 50%;
+      transform: translate(-50%, -50%); pointer-events: none; line-height: 1;
+    }
+    .login-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 1.25rem; padding: 3rem 2.5rem; width: 100%; max-width: 420px;
+      text-align: center; box-shadow: 0 24px 64px rgba(0,0,0,.5);
+      position: relative;
+    }
+    .login-logo { width: 72px; height: 72px; border-radius: 50%; border: 3px solid var(--gold); margin: 0 auto 1.25rem; display: block; object-fit: cover; }
+    .login-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--gold-light); margin-bottom: .25rem; }
+    .login-sub { font-size: .8rem; color: var(--text-dim); margin-bottom: 2rem; }
+    .login-form { display: grid; gap: 1rem; text-align: left; }
+    .login-label { font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--text-dim); display: block; margin-bottom: .35rem; }
+    .login-input {
+      width: 100%; padding: .85rem 1rem .85rem 2.75rem; border-radius: .6rem;
+      background: var(--navy-mid); border: 1.5px solid var(--border); color: var(--text-bright);
+      font-size: .9rem; outline: none; font-family: inherit;
+      transition: border-color .25s ease;
+    }
+    .login-input:focus { border-color: var(--gold); }
+    .login-input-wrap { position: relative; }
+    .login-input-wrap i { position: absolute; left: .9rem; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 1rem; }
+    .login-btn {
+      padding: .9rem; border-radius: .6rem; background: var(--gold); color: var(--navy-deep);
+      font-weight: 700; font-size: .95rem; font-family: inherit; cursor: pointer; border: none;
+      transition: all .25s ease; margin-top: .5rem;
+    }
+    .login-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .login-error { color: var(--red); font-size: .82rem; background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.3); border-radius: .4rem; padding: .6rem .9rem; display: none; margin-top: .25rem; }
+    .login-error.show { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <img src="https://yt3.googleusercontent.com/fDYMuJkul64KgPbt9c-u9v6JfRH1Kdz-1ugEk1uwnlohvQJUP56XnqV4f25HqqHtQSpeahv7MQ=s160-c-k-c0x00ffffff-no-rj" alt="Logo" />
+    <div class="sidebar-logo-text">
+      <strong>St Antony</strong>
+      Admin Panel
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-item" data-page="dashboard"><i class="ri-dashboard-3-line"></i> Dashboard</div>
+    <div class="nav-item" data-page="events"><i class="ri-calendar-event-line"></i> Events</div>
+    <div class="nav-item" data-page="add-event"><i class="ri-add-circle-line"></i> Add Event</div>
+    <div class="nav-item" data-page="schedules"><i class="ri-time-line"></i> Schedules</div>
+    <div class="nav-item" data-page="bookings"><i class="ri-book-2-line"></i> Bookings <span class="badge" id="bk-badge"></span></div>
+    <div class="nav-item" data-page="messages"><i class="ri-mail-line"></i> Messages <span class="badge" id="msg-badge"></span></div>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="index.html" target="_blank"><i class="ri-external-link-line"></i> View Public Site</a>
+    <a href="#" onclick="logout()" style="color:var(--red);margin-top:.25rem"><i class="ri-logout-box-r-line"></i> Logout</a>
+  </div>
+</aside>
+
+<!-- ===== LOGIN SCREEN ===== -->
+<div id="login-screen">
+  <div class="login-box">
+    <img class="login-logo" src="https://yt3.googleusercontent.com/fDYMuJkul64KgPbt9c-u9v6JfRH1Kdz-1ugEk1uwnlohvQJUP56XnqV4f25HqqHtQSpeahv7MQ=s160-c-k-c0x00ffffff-no-rj" alt="Logo" />
+    <h1 class="login-title">Admin Panel</h1>
+    <p class="login-sub">St Antony Coptic Orthodox Church · Shoubra</p>
+    <form class="login-form" id="login-form" onsubmit="doLogin(event)">
+      <div>
+        <label class="login-label" for="l-user">Username</label>
+        <div class="login-input-wrap">
+          <i class="ri-user-line"></i>
+          <input class="login-input" type="text" id="l-user" placeholder="Enter username" autocomplete="username" required />
+        </div>
+      </div>
+      <div>
+        <label class="login-label" for="l-pass">Password</label>
+        <div class="login-input-wrap">
+          <i class="ri-lock-line"></i>
+          <input class="login-input" type="password" id="l-pass" placeholder="Enter password" autocomplete="current-password" required />
+        </div>
+      </div>
+      <div class="login-error" id="login-error">❌ Incorrect username or password.</div>
+      <button class="login-btn" type="submit"><i class="ri-shield-check-line"></i> Sign In</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main">
+  <div class="topbar">
+    <span class="topbar-title" id="topbar-title">Dashboard</span>
+    <div class="topbar-right">
+      <span class="topbar-time" id="topbar-clock"></span>
+      <div class="topbar-badge"><i class="ri-shield-check-fill"></i></div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ===== DASHBOARD ===== -->
+    <div class="page active" id="page-dashboard">
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div class="stat-card-icon"><i class="ri-calendar-event-line"></i></div>
+          <div><div class="stat-card-val" id="dash-events">0</div><div class="stat-card-label">Total Events</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon"><i class="ri-book-2-line"></i></div>
+          <div><div class="stat-card-val" id="dash-bookings">0</div><div class="stat-card-label">Total Bookings</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon"><i class="ri-mail-line"></i></div>
+          <div><div class="stat-card-val" id="dash-unread">0</div><div class="stat-card-label">Unread Messages</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon"><i class="ri-group-line"></i></div>
+          <div><div class="stat-card-val" id="dash-persons">0</div><div class="stat-card-label">Booked Persons</div></div>
+        </div>
+      </div>
+
+      <!-- Recent Bookings -->
+      <div class="table-header">
+        <span class="table-title">Recent Bookings</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Name</th><th>Event</th><th>Persons</th><th>Phone</th><th>Date</th></tr></thead>
+          <tbody id="dash-bookings-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== EVENTS LIST ===== -->
+    <div class="page" id="page-events">
+      <div class="table-header">
+        <span class="table-title">All Events</span>
+        <button class="btn btn-gold" onclick="nav('add-event')"><i class="ri-add-line"></i> Add Event</button>
+      </div>
+      <div class="alert" id="events-alert"></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Title</th><th>Date</th><th>Duration</th><th>Category</th><th>Bookable</th><th>Actions</th></tr></thead>
+          <tbody id="events-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== ADD / EDIT EVENT ===== -->
+    <div class="page" id="page-add-event">
+      <div class="alert" id="add-alert"></div>
+      <div class="form-card">
+        <h2 class="form-title" id="add-form-title">☩ Add New Event</h2>
+        <form id="event-form" class="form-grid">
+          <input type="hidden" id="edit-id" />
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ev-title">Event Title</label>
+              <input id="ev-title" class="form-control" type="text" placeholder="e.g. Youth Spiritual Conference" required />
+            </div>
+            <div class="form-group">
+              <label for="ev-category">Category</label>
+              <select id="ev-category" class="form-control">
+                <option value="Feast">Feast</option>
+                <option value="Retreat">Spiritual Retreat</option>
+                <option value="Youth">Youth</option>
+                <option value="Liturgy">Liturgy</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ev-date">Date</label>
+              <input id="ev-date" class="form-control" type="text" placeholder="e.g. Jan 30, 2026" required />
+            </div>
+            <div class="form-group">
+              <label for="ev-duration">Duration</label>
+              <input id="ev-duration" class="form-control" type="text" placeholder="e.g. 3 Hours, 2 Days" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="ev-img">Image URL (optional)</label>
+            <input id="ev-img" class="form-control" type="url" placeholder="https://..." />
+          </div>
+          <div class="form-group">
+            <label for="ev-desc">Description</label>
+            <textarea id="ev-desc" class="form-control" placeholder="Describe the event…" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Booking Options</label>
+            <div class="checkbox-row">
+              <input type="checkbox" id="ev-bookable" checked />
+              <span>Allow members to book seats for this event</span>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-ghost" onclick="resetForm()">Cancel</button>
+            <button type="submit" class="btn btn-gold" id="save-btn"><i class="ri-save-line"></i> Save Event</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ===== SCHEDULES PAGE ===== -->
+    <div class="page" id="page-schedules">
+      <div class="table-header">
+        <span class="table-title">Weekly Schedules</span>
+      </div>
+      <div class="alert" id="sch-alert"></div>
+      <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:2rem;align-items:start">
+        <!-- Form -->
+        <div class="form-card">
+          <h2 class="form-title" id="sch-form-title">☩ Add Schedule</h2>
+          <form id="schedule-form" class="form-grid">
+            <input type="hidden" id="sch-edit-id" />
+            <div class="form-group">
+              <label for="sch-title">Title</label>
+              <input id="sch-title" class="form-control" type="text" placeholder="e.g. قداس الأحد" required />
+            </div>
+            <div class="form-group">
+              <label for="sch-time">Time</label>
+              <input id="sch-time" class="form-control" type="text" placeholder="e.g. 07:00 AM – 10:30 AM" required />
+            </div>
+            <div class="form-group">
+              <label for="sch-desc">Description</label>
+              <textarea id="sch-desc" class="form-control" placeholder="Brief description…" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="sch-icon">Icon Class</label>
+              <select id="sch-icon" class="form-control">
+                <option value="ri-sun-rise-line">🌅 Sunrise (Sunday)</option>
+                <option value="ri-moon-foggy-line">🌙 Moon (Evening)</option>
+                <option value="ri-group-line">👥 Group (Meeting)</option>
+                <option value="ri-church-line">⛪ Church</option>
+                <option value="ri-book-open-line">📖 Book (Readings)</option>
+                <option value="ri-star-line">⭐ Star (Feast)</option>
+                <option value="ri-heart-line">❤ Heart (Charity)</option>
+                <option value="ri-parent-line">👨‍👩‍👧 Family</option>
+              </select>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn btn-ghost" onclick="resetSchForm()">Cancel</button>
+              <button type="submit" class="btn btn-gold" id="sch-save-btn"><i class="ri-save-line"></i> Save</button>
+            </div>
+          </form>
+        </div>
+        <!-- Table -->
+        <div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Icon</th><th>Title</th><th>Time</th><th>Actions</th></tr></thead>
+              <tbody id="schedules-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== BOOKINGS ===== -->
+    <div class="page" id="page-bookings">
+      <div class="table-header">
+        <span class="table-title">All Bookings</span>
+        <button class="btn btn-danger btn-sm" onclick="clearBookings()"><i class="ri-delete-bin-line"></i> Clear All</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Name</th><th>Event</th><th>Persons</th><th>Phone</th><th>Submitted</th></tr></thead>
+          <tbody id="bookings-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== MESSAGES ===== -->
+    <div class="page" id="page-messages">
+      <div class="table-header">
+        <span class="table-title">Contact Messages</span>
+        <button class="btn btn-danger btn-sm" onclick="clearMessages()"><i class="ri-delete-bin-line"></i> Clear All</button>
+      </div>
+      <div id="messages-list"></div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<script>
+  /* ===== LOGIN ===== */
+  const ADMIN_USER = 'Antony';
+  const ADMIN_PASS = 'church';
+  const loginScreen = document.getElementById('login-screen');
+
+  const checkAuth = () => {
+    if (sessionStorage.getItem('admin-auth') === '1') {
+      loginScreen.style.display = 'none';
+    }
+  };
+  checkAuth();
+
+  const doLogin = (e) => {
+    e.preventDefault();
+    const u = document.getElementById('l-user').value.trim();
+    const p = document.getElementById('l-pass').value;
+    const err = document.getElementById('login-error');
+    if (u === ADMIN_USER && p === ADMIN_PASS) {
+      sessionStorage.setItem('admin-auth', '1');
+      loginScreen.style.transition = 'opacity .5s ease';
+      loginScreen.style.opacity = '0';
+      setTimeout(() => loginScreen.style.display = 'none', 500);
+      err.classList.remove('show');
+    } else {
+      err.classList.add('show');
+      document.getElementById('l-pass').value = '';
+    }
+  };
+
+  const logout = () => {
+    sessionStorage.removeItem('admin-auth');
+    loginScreen.style.opacity = '1';
+    loginScreen.style.display = 'flex';
+    document.getElementById('l-user').value = '';
+    document.getElementById('l-pass').value = '';
+    document.getElementById('login-error').classList.remove('show');
+  };
+
+  /* ===== STORE ===== */
+  const store = { get: k => JSON.parse(localStorage.getItem(k)||'null'), set: (k,v) => localStorage.setItem(k, JSON.stringify(v)) };
+
+  /* ===== CLOCK ===== */
+  const clock = document.getElementById('topbar-clock');
+  const tick = () => { clock.textContent = new Date().toLocaleString('en-GB',{hour:'2-digit',minute:'2-digit',weekday:'short',day:'numeric',month:'short'}); };
+  tick(); setInterval(tick, 60000);
+
+  /* ===== NAV ===== */
+  const nav = (page) => {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.page === page));
+    document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.id === 'page-' + page));
+    const titles = { dashboard:'Dashboard', events:'Manage Events', 'add-event':'Add Event', schedules:'Weekly Schedules', bookings:'Booking Requests', messages:'Messages' };
+    document.getElementById('topbar-title').textContent = titles[page] || '';
+    if (page === 'dashboard') renderDashboard();
+    if (page === 'events') renderEventsTable();
+    if (page === 'schedules') renderSchedulesTable();
+    if (page === 'bookings') renderBookingsTable();
+    if (page === 'messages') renderMessages();
+  };
+  // set first active item
+  document.querySelectorAll('.nav-item')[0].classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.addEventListener('click', () => nav(n.dataset.page)));
+
+  /* ===== BADGES ===== */
+  const refreshBadges = () => {
+    const bookings = store.get('church-bookings') || [];
+    const messages = store.get('church-messages') || [];
+    const unread = messages.filter(m=>!m.read).length;
+    const bkBadge = document.getElementById('bk-badge');
+    const msgBadge = document.getElementById('msg-badge');
+    bkBadge.textContent = bookings.length || ''; bkBadge.style.display = bookings.length ? 'block' : 'none';
+    msgBadge.textContent = unread || ''; msgBadge.style.display = unread ? 'block' : 'none';
+  };
+  refreshBadges();
+
+  /* ===== DEFAULT EVENTS: start empty ===== */
+  if (!store.get('church-events')) store.set('church-events', []);
+  if (!store.get('church-schedules')) store.set('church-schedules', []);
+
+  /* ===== DASHBOARD ===== */
+  const renderDashboard = () => {
+    const events = store.get('church-events') || [];
+    const bookings = store.get('church-bookings') || [];
+    const messages = store.get('church-messages') || [];
+    const unread = messages.filter(m=>!m.read).length;
+    const persons = bookings.reduce((s,b) => s + parseInt(b.persons||0), 0);
+    document.getElementById('dash-events').textContent = events.length;
+    document.getElementById('dash-bookings').textContent = bookings.length;
+    document.getElementById('dash-unread').textContent = unread;
+    document.getElementById('dash-persons').textContent = persons;
+
+    const tbody = document.getElementById('dash-bookings-table');
+    const recent = [...bookings].reverse().slice(0, 5);
+    tbody.innerHTML = recent.length ? recent.map(b => `
+      <tr>
+        <td>${b.name}</td><td>${b.eventName}</td>
+        <td><span class="tag tag-gold">${b.persons} person${b.persons>1?'s':''}</span></td>
+        <td>${b.phone}</td><td>${b.date}</td>
+      </tr>`).join('') : `<tr><td colspan="5" class="empty-row">No bookings yet</td></tr>`;
+    refreshBadges();
+  };
+  renderDashboard();
+
+  /* ===== SCHEDULES MANAGEMENT ===== */
+  const renderSchedulesTable = () => {
+    const schedules = store.get('church-schedules') || [];
+    const tbody = document.getElementById('schedules-table');
+    tbody.innerHTML = schedules.length ? schedules.map(s => `
+      <tr>
+        <td><i class="${s.icon}" style="color:var(--gold);font-size:1.3rem"></i></td>
+        <td><strong style="color:var(--text-bright)">${s.title}</strong></td>
+        <td>${s.time}</td>
+        <td style="white-space:nowrap">
+          <button class="btn btn-ghost btn-sm" onclick="editSch(${s.id})"><i class="ri-edit-line"></i> Edit</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteSch(${s.id})"><i class="ri-delete-bin-line"></i></button>
+        </td>
+      </tr>`).join('') : `<tr><td colspan="4" class="empty-row">No schedules yet. Add one!</td></tr>`;
+  };
+
+  const schForm = document.getElementById('schedule-form');
+  const resetSchForm = () => {
+    schForm.reset();
+    document.getElementById('sch-edit-id').value = '';
+    document.getElementById('sch-form-title').textContent = '☩ Add Schedule';
+    document.getElementById('sch-save-btn').innerHTML = '<i class="ri-save-line"></i> Save';
+  };
+
+  const editSch = (id) => {
+    const schedules = store.get('church-schedules') || [];
+    const s = schedules.find(x => x.id === id);
+    if (!s) return;
+    document.getElementById('sch-edit-id').value = id;
+    document.getElementById('sch-title').value = s.title;
+    document.getElementById('sch-time').value = s.time;
+    document.getElementById('sch-desc').value = s.description;
+    document.getElementById('sch-icon').value = s.icon || 'ri-calendar-line';
+    document.getElementById('sch-form-title').textContent = '✏️ Edit Schedule';
+    document.getElementById('sch-save-btn').innerHTML = '<i class="ri-save-line"></i> Update';
+  };
+
+  const deleteSch = (id) => {
+    if (!confirm('Delete this schedule?')) return;
+    let schedules = store.get('church-schedules') || [];
+    schedules = schedules.filter(s => s.id !== id);
+    store.set('church-schedules', schedules);
+    renderSchedulesTable();
+    const al = document.getElementById('sch-alert');
+    al.className = 'alert alert-success'; al.textContent = '✔ Schedule deleted.'; setTimeout(()=>al.className='alert',2500);
+  };
+
+  schForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const schedules = store.get('church-schedules') || [];
+    const editId = parseInt(document.getElementById('sch-edit-id').value);
+    const s = {
+      id: editId || Date.now(),
+      title: document.getElementById('sch-title').value,
+      time: document.getElementById('sch-time').value,
+      description: document.getElementById('sch-desc').value,
+      icon: document.getElementById('sch-icon').value,
+    };
+    if (editId) { const i = schedules.findIndex(x=>x.id===editId); if(i>-1) schedules[i]=s; }
+    else schedules.push(s);
+    store.set('church-schedules', schedules);
+    renderSchedulesTable();
+    const al = document.getElementById('sch-alert');
+    al.className = 'alert alert-success'; al.textContent = editId ? '✔ Schedule updated!' : '✔ Schedule added!';
+    resetSchForm();
+    setTimeout(()=>al.className='alert', 2500);
+  });
+
+  /* ===== EVENTS TABLE ===== */
+  const renderEventsTable = () => {
+    const events = store.get('church-events') || [];
+    const tbody = document.getElementById('events-table');
+    tbody.innerHTML = events.length ? events.map(ev => `
+      <tr>
+        <td><strong style="color:var(--text-bright)">${ev.title}</strong></td>
+        <td>${ev.date}</td>
+        <td>${ev.duration}</td>
+        <td><span class="tag tag-gold">${ev.category}</span></td>
+        <td>${ev.bookable ? '<span class="tag tag-green">Yes</span>' : '<span class="tag tag-red">No</span>'}</td>
+        <td style="white-space:nowrap">
+          <button class="btn btn-ghost btn-sm" onclick="editEvent(${ev.id})"><i class="ri-edit-line"></i> Edit</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteEvent(${ev.id})"><i class="ri-delete-bin-line"></i> Delete</button>
+        </td>
+      </tr>`).join('') : `<tr><td colspan="6" class="empty-row">No events yet. Add one!</td></tr>`;
+  };
+
+  /* ===== ADD / EDIT EVENT ===== */
+  const eventForm = document.getElementById('event-form');
+  const resetForm = () => {
+    eventForm.reset();
+    document.getElementById('edit-id').value = '';
+    document.getElementById('add-form-title').textContent = '☩ Add New Event';
+    document.getElementById('save-btn').innerHTML = '<i class="ri-save-line"></i> Save Event';
+    nav('events');
+  };
+
+  const editEvent = (id) => {
+    const events = store.get('church-events') || [];
+    const ev = events.find(e => e.id === id);
+    if (!ev) return;
+    document.getElementById('edit-id').value = id;
+    document.getElementById('ev-title').value = ev.title;
+    document.getElementById('ev-category').value = ev.category;
+    document.getElementById('ev-date').value = ev.date;
+    document.getElementById('ev-duration').value = ev.duration;
+    document.getElementById('ev-img').value = ev.img || '';
+    document.getElementById('ev-desc').value = ev.description;
+    document.getElementById('ev-bookable').checked = ev.bookable;
+    document.getElementById('add-form-title').textContent = '✏️ Edit Event';
+    document.getElementById('save-btn').innerHTML = '<i class="ri-save-line"></i> Update Event';
+    nav('add-event');
+  };
+
+  const deleteEvent = (id) => {
+    if (!confirm('Delete this event?')) return;
+    let events = store.get('church-events') || [];
+    events = events.filter(e => e.id !== id);
+    store.set('church-events', events);
+    renderEventsTable();
+    const al = document.getElementById('events-alert');
+    al.className = 'alert alert-success'; al.textContent = '✔ Event deleted.'; setTimeout(()=>al.className='alert',2500);
+  };
+
+  eventForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const events = store.get('church-events') || [];
+    const editId = parseInt(document.getElementById('edit-id').value);
+    const ev = {
+      id: editId || Date.now(),
+      title: document.getElementById('ev-title').value,
+      category: document.getElementById('ev-category').value,
+      date: document.getElementById('ev-date').value,
+      duration: document.getElementById('ev-duration').value,
+      img: document.getElementById('ev-img').value,
+      description: document.getElementById('ev-desc').value,
+      bookable: document.getElementById('ev-bookable').checked,
+    };
+    if (editId) { const i = events.findIndex(e=>e.id===editId); if (i>-1) events[i]=ev; }
+    else events.push(ev);
+    store.set('church-events', events);
+    const al = document.getElementById('add-alert');
+    al.className = 'alert alert-success'; al.textContent = editId ? '✔ Event updated!' : '✔ Event added!';
+    eventForm.reset(); document.getElementById('edit-id').value='';
+    document.getElementById('add-form-title').textContent = '☩ Add New Event';
+    document.getElementById('save-btn').innerHTML = '<i class="ri-save-line"></i> Save Event';
+    setTimeout(()=>{ al.className='alert'; }, 2500);
+  });
+
+  /* ===== BOOKINGS TABLE ===== */
+  const renderBookingsTable = () => {
+    const bookings = store.get('church-bookings') || [];
+    const tbody = document.getElementById('bookings-table');
+    tbody.innerHTML = bookings.length ? [...bookings].reverse().map((b,i) => `
+      <tr>
+        <td style="color:var(--text-dim)">#${bookings.length - i}</td>
+        <td><strong style="color:var(--text-bright)">${b.name}</strong></td>
+        <td>${b.eventName}</td>
+        <td><span class="tag tag-gold">${b.persons} ${parseInt(b.persons)>1?'persons':'person'}</span></td>
+        <td>${b.phone}</td>
+        <td style="font-size:.8rem;color:var(--text-dim)">${b.date}</td>
+      </tr>`).join('') : `<tr><td colspan="6" class="empty-row">No bookings yet</td></tr>`;
+  };
+
+  const clearBookings = () => {
+    if (!confirm('Clear all bookings?')) return;
+    store.set('church-bookings', []);
+    renderBookingsTable(); refreshBadges(); renderDashboard();
+  };
+
+  /* ===== MESSAGES ===== */
+  const renderMessages = () => {
+    const messages = store.get('church-messages') || [];
+    const list = document.getElementById('messages-list');
+    if (!messages.length) { list.innerHTML = '<p style="color:var(--text-dim);padding:2rem;text-align:center">No messages yet.</p>'; return; }
+    list.innerHTML = [...messages].reverse().map((m, i) => `
+      <div class="msg-card ${m.read?'':'unread'}" onclick="toggleMsg(${messages.length-1-i})">
+        <div class="msg-card-header">
+          <span class="msg-card-name">${m.name} ${!m.read?'<span class="tag tag-gold" style="margin-left:.5rem;font-size:.65rem">NEW</span>':''}</span>
+          <span class="msg-card-date">${m.date}</span>
+        </div>
+        <div class="msg-card-subject">${m.subject}</div>
+        <div class="msg-card-preview">${m.message.substring(0,100)}${m.message.length>100?'…':''}</div>
+        <div class="msg-detail" id="msg-detail-${messages.length-1-i}">
+          <p style="margin-bottom:.5rem;font-size:.8rem;color:var(--text-dim)">${m.email}</p>
+          <p>${m.message}</p>
+        </div>
+      </div>`).join('');
+  };
+
+  const toggleMsg = (i) => {
+    const messages = store.get('church-messages') || [];
+    messages[i].read = true;
+    store.set('church-messages', messages);
+    const detail = document.getElementById('msg-detail-' + i);
+    if (detail) detail.style.display = detail.style.display === 'block' ? 'none' : 'block';
+    refreshBadges();
+  };
+
+  const clearMessages = () => {
+    if (!confirm('Clear all messages?')) return;
+    store.set('church-messages', []);
+    renderMessages(); refreshBadges(); renderDashboard();
+  };
+</script>
+</body>
+</html>
