@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>كنيسة الأنبا أنطونيوس القبطية الأرثوذكسية – شبرا</title>
+  <meta name="description" content="الموقع الرسمي لكنيسة الأنبا أنطونيوس القبطية الأرثوذكسية في شبرا، القاهرة. اعرف مواعيد القداسات، الفعاليات القادمة، واحجز مكانك." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <style>
+    /* ===== ROOT VARIABLES ===== */
+    :root {
+      --navy: #001a38;
+      --navy-deep: #001226;
+      --gold: #C9A84C;
+      --gold-light: #e8c96e;
+      --gold-pale: #f5e6c0;
+      --cream: #fdf8f0;
+      --white: #ffffff;
+      --gray: #6b7280;
+      --gray-light: #f3f4f6;
+      --text: #1f2937;
+      --shadow: 0 8px 32px rgba(0,26,56,.12);
+      --shadow-lg: 0 16px 48px rgba(0,26,56,.18);
+      --radius: 1rem;
+      --transition: .3s ease;
+      --header-h: 72px;
+    }
+    .dark {
+      --navy: #0a1628;
+      --navy-deep: #060e1c;
+      --cream: #0f1c30;
+      --white: #1a2740;
+      --gray-light: #132035;
+      --text: #e5e7eb;
+      --gray: #9ca3af;
+      --shadow: 0 8px 32px rgba(0,0,0,.4);
+    }
+
+    /* ===== BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Cairo', sans-serif; background: var(--cream); color: var(--text); transition: background var(--transition), color var(--transition); direction: rtl; }
+    h1,h2,h3 { font-family: 'Cairo', sans-serif; font-weight: 700; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; font-family: inherit; border: none; outline: none; }
+
+    /* ===== LAYOUT ===== */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    .section { padding: 6rem 0 3rem; }
+    .section-label { display: block; font-size: .75rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: .5rem; text-align: center; }
+    .section-title { font-size: clamp(1.75rem, 4vw, 2.5rem); text-align: center; color: var(--navy); margin-bottom: 3rem; }
+    .dark .section-title { color: var(--gold-light); }
+
+    /* ===== HEADER ===== */
+    .header {
+      position: fixed; top: 0; left: 0; width: 100%; height: var(--header-h);
+      z-index: 1000; transition: background var(--transition), box-shadow var(--transition);
+    }
+    .header.scrolled { background: var(--navy); box-shadow: var(--shadow); }
+    .nav { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; gap: .75rem; }
+    .nav-logo img { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
+    .nav-logo span { font-family: 'Cairo', sans-serif; font-size: 1.1rem; color: var(--white); font-weight: 700; }
+    .header.scrolled .nav-logo span, .nav-logo span { color: #fff; }
+    .nav-links { display: flex; gap: 2.5rem; }
+    .nav-links a { font-size: .9rem; font-weight: 500; color: rgba(255,255,255,.85); transition: color var(--transition); position: relative; padding-bottom: 4px; }
+    .nav-links a::after { content:''; position:absolute; bottom:0; right:0; width:0; height:2px; background:var(--gold); transition: width var(--transition); }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-actions { display: flex; align-items: center; gap: 1rem; }
+    .btn-theme { background:none; color:rgba(255,255,255,.8); font-size: 1.25rem; transition: color var(--transition); }
+    .btn-theme:hover { color: var(--gold); }
+    .btn-admin { font-size: .8rem; font-weight: 600; padding: .45rem 1rem; border-radius: 99px; background: var(--gold); color: var(--navy-deep); transition: transform var(--transition), background var(--transition); }
+    .btn-admin:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .nav-toggle { display: none; font-size: 1.5rem; color: #fff; background: none; }
+
+    /* Mobile nav */
+    @media (max-width: 768px) {
+      .nav-links { display: none; position: fixed; top: var(--header-h); right: 0; width: 100%; background: var(--navy-deep); flex-direction: column; align-items: center; gap: 0; padding: 1.5rem 0; }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: .75rem 2rem; width: 100%; text-align: center; }
+      .nav-toggle { display: block; }
+      .btn-admin { display: none; }
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      background: linear-gradient(135deg, var(--navy-deep) 0%, #0d2d55 60%, #1a4a7a 100%);
+      position: relative; overflow: hidden; padding-top: var(--header-h);
+    }
+    .hero::before {
+      content: '☩'; position: absolute; font-size: 28rem; color: rgba(201,168,76,.04);
+      top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; line-height: 1;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .hero-label { font-size: .75rem; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .hero-title { font-size: clamp(2.2rem, 5vw, 4rem); color: #fff; line-height: 1.15; margin-bottom: 1.5rem; }
+    .hero-title em { font-style: normal; color: var(--gold); }
+    .hero-desc { color: rgba(255,255,255,.7); line-height: 1.8; font-size: .95rem; margin-bottom: 2.5rem; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { padding: .9rem 2rem; border-radius: .5rem; background: var(--gold); color: var(--navy-deep); font-weight: 600; transition: all var(--transition); }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,.35); }
+    .btn-outline { padding: .9rem 2rem; border-radius: .5rem; border: 2px solid rgba(255,255,255,.4); color: #fff; font-weight: 500; transition: all var(--transition); }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-visual { display: flex; justify-content: center; }
+    .hero-blob {
+      width: 380px; height: 380px;
+      border-radius: 65% 35% 50% 50% / 40% 60% 40% 60%;
+      background: linear-gradient(135deg, rgba(201,168,76,.3), rgba(201,168,76,.05));
+      border: 1px solid rgba(201,168,76,.25);
+      overflow: hidden; display: flex; justify-content: center; align-items: center;
+      animation: morph 8s ease-in-out infinite;
+    }
+    .hero-blob img { width: 100%; height: 100%; object-fit: cover; opacity: .85; }
+    @keyframes morph {
+      0%,100% { border-radius: 65% 35% 50% 50% / 40% 60% 40% 60%; }
+      50% { border-radius: 35% 65% 40% 60% / 60% 40% 60% 40%; }
+    }
+    @media (max-width: 768px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 2.5rem; }
+      .hero-btns { justify-content: center; }
+      .hero-blob { width: 260px; height: 260px; }
+    }
+
+    /* ===== STATS BAR ===== */
+    .stats { background: var(--gold); padding: 2rem 0; }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center; }
+    .stat-number { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--navy-deep); }
+    .stat-label { font-size: .8rem; font-weight: 600; color: rgba(0,26,56,.7); text-transform: uppercase; letter-spacing: 1px; }
+
+    /* ===== ABOUT ===== */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .about-img { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-lg); position: relative; }
+    .about-img::after { content:'☩'; position:absolute; bottom:1.5rem; right:1.5rem; color:var(--gold); font-size:2rem; }
+    .about-img img { width:100%; height:400px; object-fit:cover; }
+    .about-tag { display:inline-block; background: var(--gold-pale); color: var(--navy); font-size:.75rem; font-weight:600; padding:.3rem .9rem; border-radius:99px; margin-bottom:1.25rem; }
+    .dark .about-tag { background: rgba(201,168,76,.2); color: var(--gold-light); }
+    .about-text h2 { font-size: clamp(1.5rem,3vw,2.25rem); color:var(--navy); margin-bottom:1.25rem; line-height:1.3; }
+    .dark .about-text h2 { color: var(--gold-light); }
+    .about-text p { color:var(--gray); line-height:1.9; margin-bottom:1.5rem; }
+    .about-perks { display:grid; gap:.75rem; }
+    .perk { display:flex; align-items:center; gap:.75rem; font-size:.9rem; }
+    .perk i { color:var(--gold); font-size:1.1rem; }
+    @media(max-width:768px){.about-grid{grid-template-columns:1fr;}}
+
+    /* ===== SCHEDULE ===== */
+    .schedules { background: linear-gradient(135deg, var(--navy-deep), #0d2d55); }
+    .schedules .section-title { color: var(--gold-light); }
+    .schedule-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.5rem; }
+    .schedule-card {
+      background: rgba(255,255,255,.05); border:1px solid rgba(201,168,76,.2);
+      border-radius:var(--radius); padding:2rem 1.5rem; text-align:center;
+      transition: transform var(--transition), border-color var(--transition);
+    }
+    .schedule-card:hover { transform:translateY(-8px); border-color:var(--gold); }
+    .schedule-icon { font-size:2.5rem; color:var(--gold); margin-bottom:1rem; }
+    .schedule-card h3 { font-size:1.1rem; color:#fff; margin-bottom:.5rem; }
+    .schedule-time { font-weight:700; color:var(--gold); font-size:.9rem; margin-bottom:.75rem; }
+    .schedule-desc { color:rgba(255,255,255,.6); font-size:.85rem; line-height:1.7; }
+    .dark-fix { color: var(--navy) !important; }
+    .dark .dark-fix { color: var(--gold-light) !important; }
+
+    /* ===== EVENTS ===== */
+    .events-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.75rem; }
+    .event-card {
+      background:var(--white); border-radius:var(--radius); overflow:hidden;
+      box-shadow:var(--shadow); display:flex; flex-direction:column;
+      transition:transform var(--transition), box-shadow var(--transition);
+    }
+    .dark .event-card { background: #132035; }
+    .event-card:hover { transform:translateY(-8px); box-shadow:var(--shadow-lg); }
+    .event-card-img { height:200px; width:100%; object-fit:cover; background:#0d2d55; display:flex; align-items:center; justify-content:center; font-size:4rem; }
+    .event-card-img img { width:100%; height:100%; object-fit:cover; }
+    .event-card-body { padding:1.5rem; flex:1; display:flex; flex-direction:column; }
+    .event-card-tag { font-size:.7rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:.5rem; }
+    .event-card h3 { font-size:1.1rem; color:var(--navy); margin-bottom:.75rem; }
+    .dark .event-card h3 { color:#e5e7eb; }
+    .event-card-meta { display:flex; flex-wrap:wrap; gap:.75rem; margin-bottom:1rem; }
+    .event-meta-item { display:flex; align-items:center; gap:.4rem; font-size:.8rem; color:var(--gray); }
+    .event-meta-item i { color:var(--gold); }
+    .event-card p { font-size:.875rem; color:var(--gray); line-height:1.7; flex:1; margin-bottom:1.25rem; }
+    .btn-book { align-self:flex-start; padding:.65rem 1.4rem; border-radius:.5rem; background:var(--navy); color:#fff; font-size:.85rem; font-weight:600; transition:all var(--transition); }
+    .btn-book:hover { background:var(--gold); color:var(--navy-deep); }
+    .dark .btn-book { background: var(--gold); color: var(--navy-deep); }
+    .no-events { text-align:center; color:var(--gray); padding:3rem 1rem; grid-column:1/-1; }
+    .no-events i { font-size:3rem; color:var(--gold); display:block; margin-bottom:1rem; }
+
+    /* ===== CONTACT ===== */
+    .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
+    .contact-info h2 { font-size:clamp(1.5rem,3vw,2rem); color:var(--navy); margin-bottom:1rem; }
+    .dark .contact-info h2 { color:var(--gold-light); }
+    .contact-info p { color:var(--gray); line-height:1.8; margin-bottom:2rem; }
+    .contact-items { display:grid; gap:1.25rem; }
+    .contact-item { display:flex; align-items:flex-start; gap:1rem; }
+    .contact-item-icon { width:44px; height:44px; border-radius:.5rem; background:var(--gold); display:flex; align-items:center; justify-content:center; color:var(--navy-deep); font-size:1.2rem; flex-shrink:0; }
+    .contact-item-text h4 { font-family:'Poppins',sans-serif; font-weight:600; color:var(--navy); font-size:.9rem; }
+    .dark .contact-item-text h4 { color:#e5e7eb; }
+    .contact-item-text p { font-size:.85rem; color:var(--gray); margin:0; }
+    .contact-form { display:grid; gap:1rem; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .contact-form input, .contact-form textarea {
+      width:100%; padding:.9rem 1.1rem; border-radius:.6rem; font-family:inherit; font-size:.9rem;
+      border:1.5px solid #e5e7eb; background:var(--white); color:var(--text);
+      transition:border-color var(--transition); outline:none;
+    }
+    .dark .contact-form input, .dark .contact-form textarea {
+      background:#132035; border-color:#1e3a5f; color:#e5e7eb;
+    }
+    .contact-form input:focus, .contact-form textarea:focus { border-color:var(--gold); }
+    .contact-form textarea { height:130px; resize:vertical; }
+    .form-submit { padding:.9rem; border-radius:.6rem; background:var(--navy); color:#fff; font-size:.9rem; font-weight:600; transition:all var(--transition); }
+    .dark .form-submit { background:var(--gold); color:var(--navy-deep); }
+    .form-submit:hover { background:var(--gold); color:var(--navy-deep); transform:translateY(-2px); }
+    .form-success { display:none; text-align:center; padding:2rem; border-radius:var(--radius); background:rgba(201,168,76,.1); border:1px solid var(--gold); }
+    .form-success i { font-size:2.5rem; color:var(--gold); display:block; margin-bottom:.75rem; }
+    @media(max-width:768px){.contact-grid{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}}
+
+    /* ===== FOOTER ===== */
+    .footer { background:var(--navy-deep); color:rgba(255,255,255,.6); padding:4rem 0 2rem; }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr; gap:3rem; margin-bottom:3rem; }
+    .footer-brand img { width:48px; height:48px; border-radius:50%; border:2px solid var(--gold); object-fit:cover; margin-bottom:1rem; }
+    .footer-brand p { font-size:.875rem; line-height:1.8; max-width:280px; }
+    .footer-col h4 { color:#fff; font-family:'Poppins',sans-serif; font-weight:600; font-size:.95rem; margin-bottom:1.25rem; }
+    .footer-col ul { display:grid; gap:.75rem; }
+    .footer-col a { font-size:.875rem; transition:color var(--transition); }
+    .footer-col a:hover { color:var(--gold); }
+    .footer-socials { display:flex; gap:1rem; margin-top:1.25rem; }
+    .footer-socials a { width:38px; height:38px; border-radius:.5rem; background:rgba(255,255,255,.07); display:flex; align-items:center; justify-content:center; font-size:1.1rem; transition:background var(--transition), color var(--transition); }
+    .footer-socials a:hover { background:var(--gold); color:var(--navy-deep); }
+    .footer-bottom { border-top:1px solid rgba(255,255,255,.08); padding-top:1.5rem; text-align:center; font-size:.8rem; }
+    @media(max-width:768px){.footer-grid{grid-template-columns:1fr;}}
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      position:fixed; inset:0; z-index:2000;
+      background:rgba(0,18,38,.75); backdrop-filter:blur(6px);
+      display:flex; align-items:center; justify-content:center; padding:1.5rem;
+      opacity:0; visibility:hidden; transition:opacity var(--transition), visibility var(--transition);
+    }
+    .modal-overlay.open { opacity:1; visibility:visible; }
+    .modal-box {
+      background:var(--white); border-radius:1.25rem; padding:2.5rem 2rem;
+      width:100%; max-width:480px; position:relative;
+      box-shadow:0 24px 64px rgba(0,0,0,.3); text-align:center;
+    }
+    .dark .modal-box { background:#132035; }
+    .modal-close { position:absolute; top:1.25rem; right:1.25rem; font-size:1.5rem; color:var(--gray); background:none; transition:color var(--transition); }
+    .modal-close:hover { color:var(--gold); }
+    .modal-icon { font-size:2.5rem; color:var(--gold); margin-bottom:1rem; }
+    .modal-box h2 { font-size:1.5rem; color:var(--navy); margin-bottom:.25rem; }
+    .dark .modal-box h2 { color:#e5e7eb; }
+    .modal-event-name { color:var(--gold); font-weight:600; font-size:.95rem; margin-bottom:1.75rem; }
+    .modal-form { display:grid; gap:.9rem; text-align:left; }
+    .modal-form input {
+      width:100%; padding:.9rem 1rem; border-radius:.6rem; font-family:inherit; font-size:.9rem;
+      border:1.5px solid #e5e7eb; background:var(--cream); color:var(--text); outline:none;
+      transition:border-color var(--transition);
+    }
+    .dark .modal-form input { background:#0f1c30; border-color:#1e3a5f; color:#e5e7eb; }
+    .modal-form input:focus { border-color:var(--gold); }
+    .modal-submit { padding:.9rem; border-radius:.6rem; background:var(--navy); color:#fff; font-weight:600; transition:all var(--transition); text-align:center; }
+    .dark .modal-submit { background:var(--gold); color:var(--navy-deep); }
+    .modal-submit:hover { background:var(--gold); color:var(--navy-deep); }
+    .modal-success { display:none; flex-direction:column; align-items:center; gap:.75rem; }
+    .modal-success i { font-size:3.5rem; color:#22c55e; }
+    .modal-success p { color:var(--gray); font-size:.9rem; }
+
+    /* ===== SCROLL TO TOP ===== */
+    .scroll-top { position:fixed; bottom:2rem; right:2rem; z-index:900; width:44px; height:44px; border-radius:50%; background:var(--gold); color:var(--navy-deep); font-size:1.25rem; display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow); opacity:0; transform:translateY(20px); transition:all var(--transition); }
+    .scroll-top.show { opacity:1; transform:translateY(0); }
+    .scroll-top:hover { transform:translateY(-4px); }
+
+    /* ===== REVEAL ANIMATION ===== */
+    .reveal { opacity:0; transform:translateY(30px); transition:opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header" id="header">
+  <nav class="nav container">
+    <a href="#home" class="nav-logo">
+      <img src="https://yt3.googleusercontent.com/fDYMuJkul64KgPbt9c-u9v6JfRH1Kdz-1ugEk1uwnlohvQJUP56XnqV4f25HqqHtQSpeahv7MQ=s160-c-k-c0x00ffffff-no-rj" alt="شعار كنيسة الأنبا أنطونيوس" />
+      <span>كنيسة الأنبا أنطونيوس</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#home" class="active">الرئيسية</a></li>
+      <li><a href="#about">عن الكنيسة</a></li>
+      <li><a href="#schedules">المواعيد</a></li>
+      <li><a href="#events">الفعاليات</a></li>
+      <li><a href="#contact">تواصل معنا</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-theme" id="theme-btn" title="تغيير السمة"><i class="ri-moon-line"></i></button>
+      <a href="admin.html" class="btn-admin">⚙ الإدارة</a>
+      <button class="nav-toggle" id="nav-toggle"><i class="ri-menu-line"></i></button>
+    </div>
+  </nav>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-data">
+        <p class="hero-label">☩ كنيسة قبطية أرثوذكسية · شبرا، القاهرة</p>
+        <h1 class="hero-title">كنيسة <em>الأنبا أنطونيوس</em><br>القبطية الأرثوذكسية</h1>
+        <p class="hero-desc">جذورنا في الإيمان القديم، ونمونا في المحبة والخدمة.<br>انضم إلينا في القداسات والأسرار والشركة الروحية.</p>
+        <div class="hero-btns">
+          <a href="#events" class="btn-primary">الفعاليات القادمة</a>
+          <a href="#schedules" class="btn-outline">مواعيد الخدمات</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-blob">
+          <img src="https://i0.wp.com/andrewshenouda.com/wp-content/uploads/2018/07/AS-SAINTANTONY-CHURCH-2.jpg?w=1500&ssl=1" alt="مذبح الكنيسة" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<div class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div><div class="stat-number">+٧٠</div><div class="stat-label">سنة في الخدمة</div></div>
+      <div><div class="stat-number">+٥٠٠</div><div class="stat-label">عيلة رعوية</div></div>
+      <div><div class="stat-number">١٠</div><div class="stat-label">قداسات أسبوعياً</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ABOUT ===== -->
+<section class="about section container" id="about">
+  <div class="about-grid reveal">
+    <div class="about-img">
+      <img src="https://i0.wp.com/andrewshenouda.com/wp-content/uploads/2018/07/AS-SAINTANTONY-CHURCH-2.jpg?w=1500&ssl=1" alt="مذبح كنيسة الأنبا أنطونيوس" />
+    </div>
+    <div class="about-text">
+      <span class="about-tag">☩ تاريخنا وإرثنا</span>
+      <h2>رعية قبطية أرثوذكسية<br>في قلب شبرا</h2>
+      <p>
+        كنيسة الأنبا أنطونيوس هي رعية قبطية أرثوذكسية عريقة في قلب شبرا، تتبع إيبارشية شبرا الجنوبية برعاية نيافة الأنبا مكاري. نحافظ على التراث الليتورجي الإسكندري العريق بينما نرعى مجتمعاً حديثاً متسامحاً منذ أكثر من ٧٠ سنة.
+      </p>
+      <p>
+        شفيعنا الأنبا أنطونيوس الكبير، أبو الرهبان جميعاً، بيرشدنا في رحلتنا الروحية عبر الصلاة والصوم والخدمة. بنقدم أكتر من ١٠ قداسات كل أسبوع لخدمة شعب الكنيسة.
+      </p>
+      <div class="about-perks">
+        <div class="perk"><i class="ri-checkbox-circle-line"></i> قداس الأحد ومدارس الأحد</div>
+        <div class="perk"><i class="ri-checkbox-circle-line"></i> اجتماعات الشباب والشمامسة</div>
+        <div class="perk"><i class="ri-checkbox-circle-line"></i> الأعياد والرحلات الروحية</div>
+        <div class="perk"><i class="ri-checkbox-circle-line"></i> الخدمة الاجتماعية والأعمال الخيرية</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRIESTS ===== -->
+<section class="section container" id="priests">
+  <span class="section-label">خدام الشعب</span>
+  <h2 class="section-title">آباؤنا الكهنة</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem;">
+    <div class="schedule-card" style="background:var(--white);border:1px solid rgba(201,168,76,.2);color:var(--text);">
+      <div class="schedule-icon"><i class="ri-user-star-line"></i></div>
+      <h3 style="color:var(--navy)" class="dark-fix">القس بيشوي حلمي</h3>
+    </div>
+    <div class="schedule-card" style="background:var(--white);border:1px solid rgba(201,168,76,.2);color:var(--text);">
+      <div class="schedule-icon"><i class="ri-user-star-line"></i></div>
+      <h3 style="color:var(--navy)" class="dark-fix">القس مينا مكرم</h3>
+    </div>
+    <div class="schedule-card" style="background:var(--white);border:1px solid rgba(201,168,76,.2);color:var(--text);">
+      <div class="schedule-icon"><i class="ri-user-star-line"></i></div>
+      <h3 style="color:var(--navy)" class="dark-fix">القمص أنطونيوس يونان</h3>
+    </div>
+    <div class="schedule-card" style="background:var(--white);border:1px solid rgba(201,168,76,.2);color:var(--text);">
+      <div class="schedule-icon"><i class="ri-user-star-line"></i></div>
+      <h3 style="color:var(--navy)" class="dark-fix">القس هيمانوت شوقي</h3>
+    </div>
+    <div class="schedule-card" style="background:var(--white);border:1px solid rgba(201,168,76,.2);color:var(--text);">
+      <div class="schedule-icon"><i class="ri-user-star-line"></i></div>
+      <h3 style="color:var(--navy)" class="dark-fix">القس بولا رسمي</h3>
+    </div>
+    <div class="schedule-card" style="background:var(--white);border:1px solid rgba(201,168,76,.2);color:var(--text);">
+      <div class="schedule-icon"><i class="ri-user-star-line"></i></div>
+      <h3 style="color:var(--navy)" class="dark-fix">القس يوحنا ميلاد</h3>
+    </div>
+    <div class="schedule-card" style="background:var(--white);border:1px solid rgba(201,168,76,.2);color:var(--text);">
+      <div class="schedule-icon"><i class="ri-user-star-line"></i></div>
+      <h3 style="color:var(--navy)" class="dark-fix">القمص باخوم حبيب</h3>
+    </div>
+    <div class="schedule-card" style="background:var(--white);border:1px solid rgba(201,168,76,.2);color:var(--text);">
+      <div class="schedule-icon"><i class="ri-user-star-line"></i></div>
+      <h3 style="color:var(--navy)" class="dark-fix">القس يوسف ناظر</h3>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SCHEDULES ===== -->
+<section class="schedules section" id="schedules">
+  <div class="container">
+    <span class="section-label">الحياة الليتورجية</span>
+    <h2 class="section-title" style="color:var(--gold-light)">مواعيد الخدمات الأسبوعية</h2>
+    <div class="schedule-grid" id="schedules-list">
+      <!-- populated by JS from localStorage (managed by admin) -->
+    </div>
+  </div>
+</section>
+
+<!-- ===== EVENTS ===== -->
+<section class="section container" id="events">
+  <span class="section-label">الفعاليات القادمة</span>
+  <h2 class="section-title">فعاليات الكنيسة</h2>
+  <div class="events-grid" id="events-list">
+    <!-- populated by JS -->
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="section container" id="contact">
+  <span class="section-label">تواصل معنا</span>
+  <h2 class="section-title">ابعت لنا رسالة</h2>
+  <div class="contact-grid reveal">
+    <div class="contact-info">
+      <h2>يسعدنا نسمع منك</h2>
+      <p>سواء كان عندك سؤال، أو محتاج صلاة، أو عايز تنضم لمجتمعنا — احنا هنا معاك.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-item-icon"><i class="ri-map-pin-line"></i></div>
+          <div class="contact-item-text">
+            <h4>العنوان</h4>
+            <p>٢٣ شارع ترعة الجلاد، شبرا، القاهرة</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon"><i class="ri-phone-line"></i></div>
+          <div class="contact-item-text">
+            <h4>التليفون</h4>
+            <p>٠٢٢٣٥٠٦٩٣‬</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon"><i class="ri-facebook-fill"></i></div>
+          <div class="contact-item-text">
+            <h4>فيسبوك</h4>
+            <p><a href="https://www.facebook.com/St.Antony.Shoubra" target="_blank" style="color:var(--gold)">St.Antony.Shoubra</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form" id="contact-form">
+      <div class="form-row">
+        <input type="text" id="cf-name" placeholder="الاسم الكامل" required />
+        <input type="email" id="cf-email" placeholder="البريد الإلكتروني" required />
+      </div>
+      <input type="text" id="cf-subject" placeholder="الموضوع" />
+      <textarea id="cf-message" placeholder="رسالتك…" required></textarea>
+      <button type="submit" class="form-submit">ابعت الرسالة <i class="ri-send-plane-line"></i></button>
+      <div class="form-success" id="form-success">
+        <i class="ri-checkbox-circle-line"></i>
+        <strong>تم الإرسال!</strong>
+        <p>شكراً ليك. هنرد عليك في أقرب وقت.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="https://yt3.googleusercontent.com/fDYMuJkul64KgPbt9c-u9v6JfRH1Kdz-1ugEk1uwnlohvQJUP56XnqV4f25HqqHtQSpeahv7MQ=s160-c-k-c0x00ffffff-no-rj" alt="الشعار" />
+        <p>كنيسة الأنبا أنطونيوس القبطية الأرثوذكسية، شبرا، القاهرة. بنكبر مع بعض في الإيمان والمحبة والخدمة. ☩</p>
+        <div class="footer-socials">
+          <a href="https://www.facebook.com/St.Antony.Shoubra" target="_blank"><i class="ri-facebook-fill"></i></a>
+          <a href="#"><i class="ri-instagram-line"></i></a>
+          <a href="#"><i class="ri-youtube-line"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>روابط سريعة</h4>
+        <ul>
+          <li><a href="#home">الرئيسية</a></li>
+          <li><a href="#about">عن الكنيسة</a></li>
+          <li><a href="#schedules">المواعيد</a></li>
+          <li><a href="#events">الفعاليات</a></li>
+          <li><a href="#contact">تواصل معنا</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>الإيبارشية</h4>
+        <ul>
+          <li><a href="#">شبرا الجنوبية</a></li>
+          <li><a href="#">نيافة الأنبا مكاريوس</a></li>
+          <li><a href="#">الكنيسة القبطية الأرثوذكسية</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">☩ © ٢٠٢٦ كنيسة الأنبا أنطونيوس القبطية الأرثوذكسية، شبرا. جميع الحقوق محفوظة.</div>
+  </div>
+</footer>
+
+<!-- ===== BOOKING MODAL ===== -->
+<div class="modal-overlay" id="booking-modal">
+  <div class="modal-box">
+    <button class="modal-close" id="modal-close"><i class="ri-close-line"></i></button>
+    <div class="modal-icon">☩</div>
+    <h2>احجز مكانك</h2>
+    <p class="modal-event-name" id="modal-event-name"></p>
+    <form class="modal-form" id="booking-form">
+      <input type="hidden" id="booking-event-id" />
+      <input type="text" id="bk-name" placeholder="الاسم الكامل" required />
+      <input type="tel" id="bk-phone" placeholder="رقم التليفون" required />
+      <input type="number" id="bk-persons" placeholder="عدد الأشخاص" min="1" required />
+      <button type="submit" class="modal-submit">تأكيد الحجز</button>
+    </form>
+    <div class="modal-success" id="booking-success">
+      <i class="ri-checkbox-circle-line"></i>
+      <strong>تم الحجز!</strong>
+      <p>هنتواصل معاك قريباً لتأكيد حجزك.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SCROLL TOP ===== -->
+<button class="scroll-top" id="scroll-top"><i class="ri-arrow-up-line"></i></button>
+
+<script>
+  /* ---- HELPERS ---- */
+  const $ = (sel, ctx = document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+  const store = {
+    get: k => JSON.parse(localStorage.getItem(k) || 'null'),
+    set: (k, v) => localStorage.setItem(k, JSON.stringify(v))
+  };
+
+  /* ---- THEME ---- */
+  const applyTheme = (dark) => {
+    document.body.classList.toggle('dark', dark);
+    $('#theme-btn i').className = dark ? 'ri-sun-line' : 'ri-moon-line';
+  };
+  let isDark = store.get('dark-theme') ?? false;
+  applyTheme(isDark);
+  $('#theme-btn').onclick = () => { isDark = !isDark; store.set('dark-theme', isDark); applyTheme(isDark); };
+
+  /* ---- HEADER SCROLL ---- */
+  const header = $('#header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 50);
+    $('#scroll-top').classList.toggle('show', window.scrollY > 300);
+  });
+  $('#scroll-top').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  /* ---- MOBILE NAV ---- */
+  const navLinks = $('#nav-links');
+  $('#nav-toggle').onclick = () => navLinks.classList.toggle('open');
+  $$('.nav-links a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  /* ---- ACTIVE NAV LINK ---- */
+  const sections = $$('section[id]');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY + 100;
+    sections.forEach(s => {
+      const link = $(`.nav-links a[href="#${s.id}"]`);
+      if (link) link.classList.toggle('active', y >= s.offsetTop && y < s.offsetTop + s.offsetHeight);
+    });
+  });
+
+  /* ---- REVEAL ---- */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  $$('.reveal').forEach(el => io.observe(el));
+
+  /* ---- DEFAULT EVENTS: start empty, admin adds them ---- */
+  if (!store.get('church-events')) store.set('church-events', []);
+  /* ---- RENDER SCHEDULES (from localStorage) ---- */
+  const renderSchedules = () => {
+    const schedules = store.get('church-schedules') || [];
+    const container = document.getElementById('schedules-list');
+    if (!container) return;
+    if (!schedules.length) {
+      container.innerHTML = `<div class="no-events" style="color:rgba(255,255,255,.5)"><i class="ri-time-line"></i><p>لا توجد مواعيد حتى الآن. تابعونا قريباً.</p></div>`;
+      return;
+    }
+    container.innerHTML = schedules.map(s => `
+      <div class="schedule-card reveal">
+        <div class="schedule-icon"><i class="${s.icon || 'ri-calendar-line'}"></i></div>
+        <h3>${s.title}</h3>
+        <p class="schedule-time">${s.time}</p>
+        <p class="schedule-desc">${s.description}</p>
+      </div>`).join('');
+    container.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  };
+  renderSchedules();
+
+
+  const catEmoji = { Feast:'⛪', Retreat:'🏔', Youth:'👥', Liturgy:'☩', other:'📅' };
+  const renderEvents = () => {
+    const events = store.get('church-events') || [];
+    const container = $('#events-list');
+    if (!events.length) {
+      container.innerHTML = `<div class="no-events"><i class="ri-calendar-event-line"></i><p>مفيش فعاليات دلوقتي. ترقبونا قريباً!</p></div>`;
+      return;
+    }
+    container.innerHTML = events.map(ev => `
+      <article class="event-card reveal">
+        <div class="event-card-img">
+          ${ev.img ? `<img src="${ev.img}" alt="${ev.title}"/>` : `<span>${catEmoji[ev.category]||'📅'}</span>`}
+        </div>
+        <div class="event-card-body">
+          <p class="event-card-tag">☩ ${ev.category}</p>
+          <h3>${ev.title}</h3>
+          <div class="event-card-meta">
+            <span class="event-meta-item"><i class="ri-calendar-line"></i>${ev.date}</span>
+            <span class="event-meta-item"><i class="ri-time-line"></i>${ev.duration}</span>
+          </div>
+          <p>${ev.description}</p>
+          ${ev.bookable ? `<button class="btn-book" onclick="openBooking(${ev.id}, '${ev.title.replace(/'/g, "\\'")}')">احجز مكانك</button>` : `<span style="font-size:.8rem;color:var(--gray)">☩ حضور مفتوح للجميع</span>`}
+        </div>
+      </article>
+    `).join('');
+    $$('#events-list .reveal').forEach(el => io.observe(el));
+  };
+  renderEvents();
+
+  /* ---- BOOKING MODAL ---- */
+  const bookingModal = $('#booking-modal');
+  const openBooking = (id, name) => {
+    $('#modal-event-name').textContent = name;
+    $('#booking-event-id').value = id;
+    $('#booking-form').style.display = 'grid';
+    $('#booking-success').style.display = 'none';
+    $('#booking-form').reset();
+    bookingModal.classList.add('open');
+  };
+  $('#modal-close').onclick = () => bookingModal.classList.remove('open');
+  bookingModal.addEventListener('click', e => { if (e.target === bookingModal) bookingModal.classList.remove('open'); });
+
+  $('#booking-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const eventId = parseInt($('#booking-event-id').value);
+    const events = store.get('church-events') || [];
+    const event = events.find(ev => ev.id === eventId);
+    const booking = {
+      id: Date.now(),
+      eventId, eventName: event?.title || '',
+      name: $('#bk-name').value,
+      phone: $('#bk-phone').value,
+      persons: $('#bk-persons').value,
+      date: new Date().toLocaleString()
+    };
+    const bookings = store.get('church-bookings') || [];
+    bookings.push(booking);
+    store.set('church-bookings', bookings);
+    $('#booking-form').style.display = 'none';
+    $('#booking-success').style.display = 'flex';
+  });
+
+  /* ---- CONTACT FORM ---- */
+  $('#contact-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const msg = {
+      id: Date.now(),
+      name: $('#cf-name').value,
+      email: $('#cf-email').value,
+      subject: $('#cf-subject').value || '(بدون موضوع)',
+      message: $('#cf-message').value,
+      date: new Date().toLocaleString(),
+      read: false
+    };
+    const messages = store.get('church-messages') || [];
+    messages.push(msg);
+    store.set('church-messages', messages);
+    $('#contact-form').querySelectorAll('input, textarea, button[type=submit]').forEach(el => el.style.display = 'none');
+    const s = $('#form-success');
+    s.style.display = 'block';
+  });
+</script>
+</body>
+</html>
