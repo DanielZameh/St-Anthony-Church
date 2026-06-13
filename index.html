@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>كنيسة الأنبا أنطونيوس القبطية الأرثوذكسية – شبرا</title>
-  <meta name="description" content="الموقع الرسمي لكنيسة الأنبا أنطونيوس القبطية الأرثوذكسية في شبرا، القاهرة. اعرف مواعيد القداسات، الفعاليات القادمة، واحجز مكانك." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+  <title>كنيسة الأنبا أنطونيوس القبطية الأرثوذكسية | الموقع الرسمي</title>
+  <meta name="description" content="الموقع الرسمي لكنيسة الأنبا أنطونيوس القبطية الأرثوذكسية في شبرا، القاهرة. اعرف مواعيد القداسات، الفعاليات القادمة، واحجز مكانك."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"/>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
   <style>
-    /* ===== ROOT VARIABLES ===== */
+    /* ===== ROOT VARIABLES & AESTHETICS ===== */
     :root {
       --navy: #001a38;
       --navy-deep: #001226;
+      --navy-mid: #0d2d55;
       --gold: #C9A84C;
       --gold-light: #e8c96e;
-      --gold-pale: #f5e6c0;
+      --gold-pale: rgba(201, 168, 76, 0.12);
       --cream: #fdf8f0;
       --white: #ffffff;
       --gray: #6b7280;
       --gray-light: #f3f4f6;
       --text: #1f2937;
-      --shadow: 0 8px 32px rgba(0,26,56,.12);
-      --shadow-lg: 0 16px 48px rgba(0,26,56,.18);
+      --shadow: 0 8px 32px rgba(0, 26, 56, 0.08);
+      --shadow-lg: 0 16px 48px rgba(0, 26, 56, 0.15);
       --radius: 1rem;
-      --transition: .3s ease;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       --header-h: 72px;
+      --green: #22c55e;
+      --red: #ef4444;
     }
+    
     .dark {
       --navy: #0a1628;
       --navy-deep: #060e1c;
@@ -36,654 +40,2348 @@
       --gray-light: #132035;
       --text: #e5e7eb;
       --gray: #9ca3af;
-      --shadow: 0 8px 32px rgba(0,0,0,.4);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.4);
     }
 
-    /* ===== BASE ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Cairo', sans-serif; background: var(--cream); color: var(--text); transition: background var(--transition), color var(--transition); direction: rtl; }
-    h1,h2,h3 { font-family: 'Cairo', sans-serif; font-weight: 700; }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      transition: background var(--transition), color var(--transition);
+      direction: rtl;
+      min-height: 100vh;
+    }
+    h1, h2, h3, h4 { font-family: 'Cairo', sans-serif; font-weight: 700; }
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
     img { max-width: 100%; display: block; }
-    button { cursor: pointer; font-family: inherit; border: none; outline: none; }
+    button { cursor: pointer; font-family: inherit; border: none; outline: none; background: none; }
+    input, textarea, select { font-family: inherit; }
 
-    /* ===== LAYOUT ===== */
+    .page-view { display: none; }
+    .page-view.active { display: block; }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
     .section { padding: 6rem 0 3rem; }
-    .section-label { display: block; font-size: .75rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: .5rem; text-align: center; }
+    .section-label { display: block; font-size: 0.75rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; text-align: center; }
     .section-title { font-size: clamp(1.75rem, 4vw, 2.5rem); text-align: center; color: var(--navy); margin-bottom: 3rem; }
     .dark .section-title { color: var(--gold-light); }
 
     /* ===== HEADER ===== */
     .header {
       position: fixed; top: 0; left: 0; width: 100%; height: var(--header-h);
-      z-index: 1000; transition: background var(--transition), box-shadow var(--transition);
+      z-index: 1000; transition: background var(--transition), box-shadow var(--transition), opacity var(--transition), visibility var(--transition);
     }
     .header.scrolled { background: var(--navy); box-shadow: var(--shadow); }
+    .header.header-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
     .nav { height: 100%; display: flex; align-items: center; justify-content: space-between; }
-    .nav-logo { display: flex; align-items: center; gap: .75rem; }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; cursor: pointer; }
     .nav-logo img { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
-    .nav-logo span { font-family: 'Cairo', sans-serif; font-size: 1.1rem; color: var(--white); font-weight: 700; }
-    .header.scrolled .nav-logo span, .nav-logo span { color: #fff; }
-    .nav-links { display: flex; gap: 2.5rem; }
-    .nav-links a { font-size: .9rem; font-weight: 500; color: rgba(255,255,255,.85); transition: color var(--transition); position: relative; padding-bottom: 4px; }
-    .nav-links a::after { content:''; position:absolute; bottom:0; right:0; width:0; height:2px; background:var(--gold); transition: width var(--transition); }
+    .nav-logo span { font-size: 1.1rem; color: #fff; font-weight: 700; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { font-size: 0.9rem; font-weight: 500; color: rgba(255, 255, 255, 0.85); transition: color var(--transition); position: relative; padding-bottom: 4px; cursor: pointer; }
+    .nav-links a::after { content: ''; position: absolute; bottom: 0; right: 0; width: 0; height: 2px; background: var(--gold); transition: width var(--transition); }
     .nav-links a:hover, .nav-links a.active { color: var(--gold); }
     .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-    .nav-actions { display: flex; align-items: center; gap: 1rem; }
-    .btn-theme { background:none; color:rgba(255,255,255,.8); font-size: 1.25rem; transition: color var(--transition); }
-    .btn-theme:hover { color: var(--gold); }
-    .btn-admin { font-size: .8rem; font-weight: 600; padding: .45rem 1rem; border-radius: 99px; background: var(--gold); color: var(--navy-deep); transition: transform var(--transition), background var(--transition); }
+    .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+    .btn-icon { background: none; color: rgba(255, 255, 255, 0.8); display: flex; align-items: center; justify-content: center; transition: color var(--transition); font-size: 1.2rem; }
+    .btn-icon:hover { color: var(--gold); }
+    .btn-admin { font-size: 0.8rem; font-weight: 600; padding: 0.45rem 1rem; border-radius: 99px; background: var(--gold); color: var(--navy-deep); transition: transform var(--transition), background var(--transition); cursor: pointer; }
     .btn-admin:hover { background: var(--gold-light); transform: translateY(-1px); }
     .nav-toggle { display: none; font-size: 1.5rem; color: #fff; background: none; }
 
-    /* Mobile nav */
     @media (max-width: 768px) {
       .nav-links { display: none; position: fixed; top: var(--header-h); right: 0; width: 100%; background: var(--navy-deep); flex-direction: column; align-items: center; gap: 0; padding: 1.5rem 0; }
       .nav-links.open { display: flex; }
-      .nav-links a { padding: .75rem 2rem; width: 100%; text-align: center; }
-      .nav-toggle { display: block; }
+      .nav-links a { padding: 0.75rem 2rem; width: 100%; text-align: center; }
+      .nav-toggle { display: flex; align-items: center; }
       .btn-admin { display: none; }
     }
 
     /* ===== HERO ===== */
-    .hero {
-      min-height: 100vh; display: flex; align-items: center;
-      background: linear-gradient(135deg, var(--navy-deep) 0%, #0d2d55 60%, #1a4a7a 100%);
-      position: relative; overflow: hidden; padding-top: var(--header-h);
-    }
-    .hero::before {
-      content: '☩'; position: absolute; font-size: 28rem; color: rgba(201,168,76,.04);
-      top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; line-height: 1;
-    }
+    .hero { min-height: 100vh; display: flex; align-items: center; background: linear-gradient(135deg, var(--navy-deep) 0%, #0d2d55 60%, #1a4a7a 100%); position: relative; overflow: hidden; padding-top: var(--header-h); }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 20% 50%, rgba(201, 168, 76, 0.08) 0%, transparent 60%); pointer-events: none; }
     .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    .hero-label { font-size: .75rem; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .hero-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
     .hero-title { font-size: clamp(2.2rem, 5vw, 4rem); color: #fff; line-height: 1.15; margin-bottom: 1.5rem; }
     .hero-title em { font-style: normal; color: var(--gold); }
-    .hero-desc { color: rgba(255,255,255,.7); line-height: 1.8; font-size: .95rem; margin-bottom: 2.5rem; }
+    .hero-desc { color: rgba(255, 255, 255, 0.7); line-height: 1.8; font-size: 0.95rem; margin-bottom: 2.5rem; }
     .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn-primary { padding: .9rem 2rem; border-radius: .5rem; background: var(--gold); color: var(--navy-deep); font-weight: 600; transition: all var(--transition); }
-    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,.35); }
-    .btn-outline { padding: .9rem 2rem; border-radius: .5rem; border: 2px solid rgba(255,255,255,.4); color: #fff; font-weight: 500; transition: all var(--transition); }
+    .btn-primary { padding: 0.9rem 2rem; border-radius: 0.5rem; background: var(--gold); color: var(--navy-deep); font-weight: 600; transition: all var(--transition); display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer; }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201, 168, 76, 0.35); }
+    .btn-outline { padding: 0.9rem 2rem; border-radius: 0.5rem; border: 2px solid rgba(255, 255, 255, 0.4); color: #fff; font-weight: 500; transition: all var(--transition); display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer; }
     .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
     .hero-visual { display: flex; justify-content: center; }
-    .hero-blob {
-      width: 380px; height: 380px;
-      border-radius: 65% 35% 50% 50% / 40% 60% 40% 60%;
-      background: linear-gradient(135deg, rgba(201,168,76,.3), rgba(201,168,76,.05));
-      border: 1px solid rgba(201,168,76,.25);
-      overflow: hidden; display: flex; justify-content: center; align-items: center;
-      animation: morph 8s ease-in-out infinite;
-    }
-    .hero-blob img { width: 100%; height: 100%; object-fit: cover; opacity: .85; }
-    @keyframes morph {
-      0%,100% { border-radius: 65% 35% 50% 50% / 40% 60% 40% 60%; }
-      50% { border-radius: 35% 65% 40% 60% / 60% 40% 60% 40%; }
-    }
-    @media (max-width: 768px) {
-      .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 2.5rem; }
-      .hero-btns { justify-content: center; }
-      .hero-blob { width: 260px; height: 260px; }
-    }
+    .hero-blob { width: 380px; height: 380px; border-radius: 65% 35% 50% 50% / 40% 60% 40% 60%; background: linear-gradient(135deg, rgba(201, 168, 76, 0.3), rgba(201, 168, 76, 0.05)); border: 1px solid rgba(201, 168, 76, 0.25); overflow: hidden; display: flex; justify-content: center; align-items: center; animation: morph 8s ease-in-out infinite; }
+    .hero-blob img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
+    @keyframes morph { 0%, 100% { border-radius: 65% 35% 50% 50% / 40% 60% 40% 60%; } 50% { border-radius: 35% 65% 40% 60% / 60% 40% 60% 40%; } }
+    @media (max-width: 768px) { .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 2.5rem; } .hero-btns { justify-content: center; } .hero-blob { width: 260px; height: 260px; } }
+
+    .countdown-strip { margin-top: 2.5rem; }
+    .cdown-card { background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(201, 168, 76, 0.25); border-radius: 0.875rem; padding: 1rem 1.25rem; display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; transition: border-color 0.2s; }
+    .cdown-card:hover { border-color: var(--gold); }
+    .cdown-icon { width: 42px; height: 42px; background: var(--gold); border-radius: 0.625rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .cdown-icon i { color: var(--navy-deep); font-size: 1.2rem; }
+    .cdown-info { flex: 1; min-width: 0; }
+    .cdown-title { font-weight: 600; color: #fff; font-size: 0.88rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cdown-date { font-size: 0.72rem; color: rgba(255, 255, 255, 0.5); margin-top: 0.1rem; }
+    .cdown-num { font-size: 1.4rem; font-weight: 700; color: var(--gold); line-height: 1; text-align: center; }
+    .cdown-unit { font-size: 0.62rem; color: rgba(255, 255, 255, 0.4); text-transform: uppercase; letter-spacing: 1px; text-align: center; }
 
     /* ===== STATS BAR ===== */
-    .stats { background: var(--gold); padding: 2rem 0; }
+    .stats-bar { background: var(--gold); padding: 2rem 0; }
     .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center; }
-    .stat-number { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--navy-deep); }
-    .stat-label { font-size: .8rem; font-weight: 600; color: rgba(0,26,56,.7); text-transform: uppercase; letter-spacing: 1px; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--navy-deep); font-weight: 700; }
+    .stat-lbl { font-size: 0.8rem; font-weight: 600; color: rgba(0, 26, 56, 0.7); text-transform: uppercase; letter-spacing: 1px; }
 
     /* ===== ABOUT ===== */
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    .about-img { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-lg); position: relative; }
-    .about-img::after { content:'☩'; position:absolute; bottom:1.5rem; right:1.5rem; color:var(--gold); font-size:2rem; }
-    .about-img img { width:100%; height:400px; object-fit:cover; }
-    .about-tag { display:inline-block; background: var(--gold-pale); color: var(--navy); font-size:.75rem; font-weight:600; padding:.3rem .9rem; border-radius:99px; margin-bottom:1.25rem; }
-    .dark .about-tag { background: rgba(201,168,76,.2); color: var(--gold-light); }
-    .about-text h2 { font-size: clamp(1.5rem,3vw,2.25rem); color:var(--navy); margin-bottom:1.25rem; line-height:1.3; }
+    .about-img { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-lg); }
+    .about-img img { width: 100%; height: 400px; object-fit: cover; }
+    .about-tag { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--gold-pale); color: var(--navy); font-size: 0.75rem; font-weight: 600; padding: 0.3rem 0.9rem; border-radius: 99px; margin-bottom: 1.25rem; }
+    .dark .about-tag { background: rgba(201, 168, 76, 0.2); color: var(--gold-light); }
+    .about-text h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); color: var(--navy); margin-bottom: 1.25rem; line-height: 1.3; }
     .dark .about-text h2 { color: var(--gold-light); }
-    .about-text p { color:var(--gray); line-height:1.9; margin-bottom:1.5rem; }
-    .about-perks { display:grid; gap:.75rem; }
-    .perk { display:flex; align-items:center; gap:.75rem; font-size:.9rem; }
-    .perk i { color:var(--gold); font-size:1.1rem; }
-    @media(max-width:768px){.about-grid{grid-template-columns:1fr;}}
+    .about-text p { color: var(--gray); line-height: 1.9; margin-bottom: 1.5rem; }
+    .perks { display: grid; gap: 0.75rem; }
+    .perk { display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; }
+    .perk i { color: var(--gold); flex-shrink: 0; }
+    @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
 
-    /* ===== SCHEDULE ===== */
-    .schedules { background: linear-gradient(135deg, var(--navy-deep), #0d2d55); }
-    .schedules .section-title { color: var(--gold-light); }
-    .schedule-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.5rem; }
-    .schedule-card {
-      background: rgba(255,255,255,.05); border:1px solid rgba(201,168,76,.2);
-      border-radius:var(--radius); padding:2rem 1.5rem; text-align:center;
-      transition: transform var(--transition), border-color var(--transition);
-    }
-    .schedule-card:hover { transform:translateY(-8px); border-color:var(--gold); }
-    .schedule-icon { font-size:2.5rem; color:var(--gold); margin-bottom:1rem; }
-    .schedule-card h3 { font-size:1.1rem; color:#fff; margin-bottom:.5rem; }
-    .schedule-time { font-weight:700; color:var(--gold); font-size:.9rem; margin-bottom:.75rem; }
-    .schedule-desc { color:rgba(255,255,255,.6); font-size:.85rem; line-height:1.7; }
-    .dark-fix { color: var(--navy) !important; }
-    .dark .dark-fix { color: var(--gold-light) !important; }
+    /* ===== PRIESTS ===== */
+    .priests-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.25rem; }
+    .priest-card { background: var(--white); border: 1px solid var(--gold-pale); border-radius: var(--radius); padding: 2rem 1.5rem; text-align: center; box-shadow: var(--shadow); transition: transform var(--transition); }
+    .priest-card:hover { transform: translateY(-4px); }
+    .priest-icon { display: flex; justify-content: center; margin-bottom: 1rem; color: var(--gold); }
+    .priest-icon i { font-size: 2rem; }
+    .priest-name { color: var(--navy); font-size: 1.1rem; }
+    .dark .priest-name { color: var(--white); }
 
     /* ===== EVENTS ===== */
-    .events-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.75rem; }
-    .event-card {
-      background:var(--white); border-radius:var(--radius); overflow:hidden;
-      box-shadow:var(--shadow); display:flex; flex-direction:column;
-      transition:transform var(--transition), box-shadow var(--transition);
-    }
-    .dark .event-card { background: #132035; }
-    .event-card:hover { transform:translateY(-8px); box-shadow:var(--shadow-lg); }
-    .event-card-img { height:200px; width:100%; object-fit:cover; background:#0d2d55; display:flex; align-items:center; justify-content:center; font-size:4rem; }
-    .event-card-img img { width:100%; height:100%; object-fit:cover; }
-    .event-card-body { padding:1.5rem; flex:1; display:flex; flex-direction:column; }
-    .event-card-tag { font-size:.7rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:.5rem; }
-    .event-card h3 { font-size:1.1rem; color:var(--navy); margin-bottom:.75rem; }
-    .dark .event-card h3 { color:#e5e7eb; }
-    .event-card-meta { display:flex; flex-wrap:wrap; gap:.75rem; margin-bottom:1rem; }
-    .event-meta-item { display:flex; align-items:center; gap:.4rem; font-size:.8rem; color:var(--gray); }
-    .event-meta-item i { color:var(--gold); }
-    .event-card p { font-size:.875rem; color:var(--gray); line-height:1.7; flex:1; margin-bottom:1.25rem; }
-    .btn-book { align-self:flex-start; padding:.65rem 1.4rem; border-radius:.5rem; background:var(--navy); color:#fff; font-size:.85rem; font-weight:600; transition:all var(--transition); }
-    .btn-book:hover { background:var(--gold); color:var(--navy-deep); }
+    .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.75rem; }
+    .ev-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; transition: transform var(--transition), box-shadow var(--transition); }
+    .dark .ev-card { background: #132035; }
+    .ev-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+    .ev-img { height: 200px; width: 100%; object-fit: cover; background: var(--navy-mid); display: flex; align-items: center; justify-content: center; }
+    .ev-img img { width: 100%; height: 100%; object-fit: cover; }
+    .ev-img i { font-size: 3rem; color: var(--gold-light); }
+    .ev-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .ev-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+    .ev-card h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: 0.75rem; }
+    .dark .ev-card h3 { color: #e5e7eb; }
+    .ev-meta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; }
+    .ev-meta-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--gray); }
+    .ev-meta-item i { color: var(--gold); }
+    .ev-card p { font-size: 0.875rem; color: var(--gray); line-height: 1.7; flex: 1; margin-bottom: 1.25rem; }
+    .btn-book { align-self: flex-start; padding: 0.65rem 1.4rem; border-radius: 0.5rem; background: var(--navy); color: #fff; font-size: 0.85rem; font-weight: 600; transition: all var(--transition); display: inline-flex; align-items: center; gap: 0.4rem; }
+    .btn-book:hover { background: var(--gold); color: var(--navy-deep); }
     .dark .btn-book { background: var(--gold); color: var(--navy-deep); }
-    .no-events { text-align:center; color:var(--gray); padding:3rem 1rem; grid-column:1/-1; }
-    .no-events i { font-size:3rem; color:var(--gold); display:block; margin-bottom:1rem; }
+    .no-events { text-align: center; color: var(--gray); padding: 3rem 1rem; grid-column: 1 / -1; }
+    .no-events i { color: var(--gold); display: block; margin: 0 auto 1rem; font-size: 2.5rem; }
 
     /* ===== CONTACT ===== */
-    .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
-    .contact-info h2 { font-size:clamp(1.5rem,3vw,2rem); color:var(--navy); margin-bottom:1rem; }
-    .dark .contact-info h2 { color:var(--gold-light); }
-    .contact-info p { color:var(--gray); line-height:1.8; margin-bottom:2rem; }
-    .contact-items { display:grid; gap:1.25rem; }
-    .contact-item { display:flex; align-items:flex-start; gap:1rem; }
-    .contact-item-icon { width:44px; height:44px; border-radius:.5rem; background:var(--gold); display:flex; align-items:center; justify-content:center; color:var(--navy-deep); font-size:1.2rem; flex-shrink:0; }
-    .contact-item-text h4 { font-family:'Poppins',sans-serif; font-weight:600; color:var(--navy); font-size:.9rem; }
-    .dark .contact-item-text h4 { color:#e5e7eb; }
-    .contact-item-text p { font-size:.85rem; color:var(--gray); margin:0; }
-    .contact-form { display:grid; gap:1rem; }
-    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
-    .contact-form input, .contact-form textarea {
-      width:100%; padding:.9rem 1.1rem; border-radius:.6rem; font-family:inherit; font-size:.9rem;
-      border:1.5px solid #e5e7eb; background:var(--white); color:var(--text);
-      transition:border-color var(--transition); outline:none;
-    }
-    .dark .contact-form input, .dark .contact-form textarea {
-      background:#132035; border-color:#1e3a5f; color:#e5e7eb;
-    }
-    .contact-form input:focus, .contact-form textarea:focus { border-color:var(--gold); }
-    .contact-form textarea { height:130px; resize:vertical; }
-    .form-submit { padding:.9rem; border-radius:.6rem; background:var(--navy); color:#fff; font-size:.9rem; font-weight:600; transition:all var(--transition); }
-    .dark .form-submit { background:var(--gold); color:var(--navy-deep); }
-    .form-submit:hover { background:var(--gold); color:var(--navy-deep); transform:translateY(-2px); }
-    .form-success { display:none; text-align:center; padding:2rem; border-radius:var(--radius); background:rgba(201,168,76,.1); border:1px solid var(--gold); }
-    .form-success i { font-size:2.5rem; color:var(--gold); display:block; margin-bottom:.75rem; }
-    @media(max-width:768px){.contact-grid{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}}
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .contact-info h2 { font-size: clamp(1.5rem, 3vw, 2rem); color: var(--navy); margin-bottom: 1rem; }
+    .dark .contact-info h2 { color: var(--gold-light); }
+    .contact-info p { color: var(--gray); line-height: 1.8; margin-bottom: 2rem; }
+    .contact-items { display: grid; gap: 1.25rem; }
+    .contact-item { display: flex; align-items: flex-start; gap: 1rem; }
+    .contact-icon { width: 44px; height: 44px; border-radius: 0.5rem; background: var(--gold); display: flex; align-items: center; justify-content: center; color: var(--navy-deep); flex-shrink: 0; }
+    .contact-icon i { font-size: 1.2rem; }
+    .contact-item-text h4 { font-weight: 600; color: var(--navy); font-size: 0.9rem; }
+    .dark .contact-item-text h4 { color: #e5e7eb; }
+    .contact-item-text p { font-size: 0.85rem; color: var(--gray); margin: 0; }
+    .contact-form { display: grid; gap: 1rem; }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .contact-form input, .contact-form textarea { width: 100%; padding: 0.9rem 1.1rem; border-radius: 0.6rem; font-family: inherit; font-size: 0.9rem; border: 1.5px solid #e5e7eb; background: var(--white); color: var(--text); transition: border-color var(--transition); outline: none; }
+    .dark .contact-form input, .dark .contact-form textarea { background: #132035; border-color: #1e3a5f; color: #e5e7eb; }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: var(--gold); }
+    .contact-form textarea { height: 130px; resize: vertical; }
+    .form-submit { padding: 0.9rem; border-radius: 0.6rem; background: var(--navy); color: #fff; font-size: 0.9rem; font-weight: 600; transition: all var(--transition); display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+    .dark .form-submit { background: var(--gold); color: var(--navy-deep); }
+    .form-submit:hover { background: var(--gold); color: var(--navy-deep); transform: translateY(-2px); }
+    .form-success { display: none; text-align: center; padding: 2rem; border-radius: var(--radius); background: rgba(201, 168, 76, 0.1); border: 1px solid var(--gold); }
+    .form-success i { color: var(--gold); display: block; margin: 0 auto 0.75rem; font-size: 2rem; }
+    @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } .form-row-2 { grid-template-columns: 1fr; } }
 
     /* ===== FOOTER ===== */
-    .footer { background:var(--navy-deep); color:rgba(255,255,255,.6); padding:4rem 0 2rem; }
-    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr; gap:3rem; margin-bottom:3rem; }
-    .footer-brand img { width:48px; height:48px; border-radius:50%; border:2px solid var(--gold); object-fit:cover; margin-bottom:1rem; }
-    .footer-brand p { font-size:.875rem; line-height:1.8; max-width:280px; }
-    .footer-col h4 { color:#fff; font-family:'Poppins',sans-serif; font-weight:600; font-size:.95rem; margin-bottom:1.25rem; }
-    .footer-col ul { display:grid; gap:.75rem; }
-    .footer-col a { font-size:.875rem; transition:color var(--transition); }
-    .footer-col a:hover { color:var(--gold); }
-    .footer-socials { display:flex; gap:1rem; margin-top:1.25rem; }
-    .footer-socials a { width:38px; height:38px; border-radius:.5rem; background:rgba(255,255,255,.07); display:flex; align-items:center; justify-content:center; font-size:1.1rem; transition:background var(--transition), color var(--transition); }
-    .footer-socials a:hover { background:var(--gold); color:var(--navy-deep); }
-    .footer-bottom { border-top:1px solid rgba(255,255,255,.08); padding-top:1.5rem; text-align:center; font-size:.8rem; }
-    @media(max-width:768px){.footer-grid{grid-template-columns:1fr;}}
+    .footer { background: var(--navy-deep); color: rgba(255, 255, 255, 0.6); padding: 4rem 0 2rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    .footer-brand img { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; margin-bottom: 1rem; }
+    .footer-brand p { font-size: 0.875rem; line-height: 1.8; max-width: 280px; }
+    .footer-col h4 { color: #fff; font-weight: 600; font-size: 0.95rem; margin-bottom: 1.25rem; }
+    .footer-col ul { display: grid; gap: 0.75rem; }
+    .footer-col a { font-size: 0.875rem; transition: color var(--transition); cursor: pointer; }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-socials { display: flex; gap: 1rem; margin-top: 1.25rem; }
+    .footer-socials a { width: 38px; height: 38px; border-radius: 0.5rem; background: rgba(255, 255, 255, 0.07); display: flex; align-items: center; justify-content: center; transition: background var(--transition), color var(--transition); }
+    .footer-socials a:hover { background: var(--gold); color: var(--navy-deep); }
+    .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 1.5rem; text-align: center; font-size: 0.8rem; }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; } }
 
-    /* ===== MODAL ===== */
-    .modal-overlay {
-      position:fixed; inset:0; z-index:2000;
-      background:rgba(0,18,38,.75); backdrop-filter:blur(6px);
-      display:flex; align-items:center; justify-content:center; padding:1.5rem;
-      opacity:0; visibility:hidden; transition:opacity var(--transition), visibility var(--transition);
-    }
-    .modal-overlay.open { opacity:1; visibility:visible; }
-    .modal-box {
-      background:var(--white); border-radius:1.25rem; padding:2.5rem 2rem;
-      width:100%; max-width:480px; position:relative;
-      box-shadow:0 24px 64px rgba(0,0,0,.3); text-align:center;
-    }
-    .dark .modal-box { background:#132035; }
-    .modal-close { position:absolute; top:1.25rem; right:1.25rem; font-size:1.5rem; color:var(--gray); background:none; transition:color var(--transition); }
-    .modal-close:hover { color:var(--gold); }
-    .modal-icon { font-size:2.5rem; color:var(--gold); margin-bottom:1rem; }
-    .modal-box h2 { font-size:1.5rem; color:var(--navy); margin-bottom:.25rem; }
-    .dark .modal-box h2 { color:#e5e7eb; }
-    .modal-event-name { color:var(--gold); font-weight:600; font-size:.95rem; margin-bottom:1.75rem; }
-    .modal-form { display:grid; gap:.9rem; text-align:left; }
-    .modal-form input {
-      width:100%; padding:.9rem 1rem; border-radius:.6rem; font-family:inherit; font-size:.9rem;
-      border:1.5px solid #e5e7eb; background:var(--cream); color:var(--text); outline:none;
-      transition:border-color var(--transition);
-    }
-    .dark .modal-form input { background:#0f1c30; border-color:#1e3a5f; color:#e5e7eb; }
-    .modal-form input:focus { border-color:var(--gold); }
-    .modal-submit { padding:.9rem; border-radius:.6rem; background:var(--navy); color:#fff; font-weight:600; transition:all var(--transition); text-align:center; }
-    .dark .modal-submit { background:var(--gold); color:var(--navy-deep); }
-    .modal-submit:hover { background:var(--gold); color:var(--navy-deep); }
-    .modal-success { display:none; flex-direction:column; align-items:center; gap:.75rem; }
-    .modal-success i { font-size:3.5rem; color:#22c55e; }
-    .modal-success p { color:var(--gray); font-size:.9rem; }
+    /* ===== SCROLL & REVEAL & TOAST ===== */
+    .scroll-top { position: fixed; bottom: 2rem; right: 2rem; z-index: 900; width: 44px; height: 44px; border-radius: 50%; background: var(--gold); color: var(--navy-deep); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); opacity: 0; transform: translateY(20px); transition: all var(--transition); }
+    .scroll-top.show { opacity: 1; transform: translateY(0); }
+    .scroll-top:hover { transform: translateY(-4px); }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .toast { position: fixed; bottom: 2rem; left: 2rem; background: var(--navy); color: #fff; padding: 0.9rem 1.4rem; border-radius: 0.75rem; box-shadow: 0 8px 32px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 0.65rem; transform: translateY(5rem); opacity: 0; transition: all 0.4s; z-index: 9999; font-size: 0.875rem; direction: rtl; }
+    .toast i { color: var(--gold); }
+    .toast.show { transform: translateY(0); opacity: 1; }
 
-    /* ===== SCROLL TO TOP ===== */
-    .scroll-top { position:fixed; bottom:2rem; right:2rem; z-index:900; width:44px; height:44px; border-radius:50%; background:var(--gold); color:var(--navy-deep); font-size:1.25rem; display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow); opacity:0; transform:translateY(20px); transition:all var(--transition); }
-    .scroll-top.show { opacity:1; transform:translateY(0); }
-    .scroll-top:hover { transform:translateY(-4px); }
+    /* ===== WEEKLY TIMETABLE PAGE ===== */
+    .tt-page { background: var(--cream); min-height: 100vh; padding-top: var(--header-h); transition: background var(--transition); }
+    .tt-hero { background: linear-gradient(135deg, var(--navy-deep), #0d2d55); padding: 4rem 0 3rem; text-align: center; }
+    .tt-hero h1 { font-size: clamp(1.75rem, 4vw, 3rem); color: #fff; margin-bottom: 0.5rem; }
+    .tt-hero p { color: rgba(255, 255, 255, 0.65); font-size: 0.95rem; }
+    .tt-hero-icon { display: flex; justify-content: center; color: var(--gold); margin-bottom: 1rem; }
+    .tt-hero-icon i { font-size: 2.5rem; }
+    
+    .timetable-grid { display: grid; gap: 2rem; margin-top: 3rem; }
+    .day-block { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; border-right: 4px solid var(--gold); transition: background var(--transition); }
+    .day-block-header { background: var(--navy); padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; color: #fff; }
+    .day-name { font-size: 1.25rem; font-weight: 700; color: var(--gold-light); display: flex; align-items: center; gap: 0.5rem; }
+    .day-badge { background: var(--gold-pale); color: var(--gold-light); font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 99px; font-weight: 600; }
+    .day-services-list { padding: 1rem 1.5rem; display: grid; gap: 1rem; }
+    .service-row { display: grid; grid-template-columns: 180px 1fr; gap: 1.5rem; padding: 1rem 0; border-bottom: 1px solid rgba(201, 168, 76, 0.1); align-items: start; }
+    .service-row:last-child { border-bottom: none; }
+    .service-time-meta { display: flex; flex-direction: column; gap: 0.25rem; }
+    .service-time { font-size: 0.95rem; font-weight: 700; color: var(--gold); display: flex; align-items: center; gap: 0.4rem; }
+    .service-time i { font-size: 1.1rem; }
+    .service-day-desc { font-size: 0.72rem; color: var(--gray); font-weight: 600; }
+    .service-content { display: flex; flex-direction: column; gap: 0.35rem; }
+    .service-name-title { font-size: 1.05rem; color: var(--navy); font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+    .dark .service-name-title { color: #fff; }
+    .service-meta-info { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.82rem; color: var(--gray); margin-top: 0.15rem; }
+    .service-meta-info span { display: flex; align-items: center; gap: 0.3rem; }
+    .service-meta-info i { color: var(--gold); }
+    .service-notes-text { font-size: 0.85rem; color: var(--gray); line-height: 1.6; margin-top: 0.25rem; font-style: italic; }
+    .day-empty-msg { text-align: center; color: var(--gray); padding: 2rem 0; font-size: 0.9rem; }
+    
+    @media (max-width: 640px) {
+      .service-row { grid-template-columns: 1fr; gap: 0.5rem; }
+      .service-time-meta { flex-direction: row; align-items: center; gap: 0.75rem; border-bottom: 1px dashed rgba(201, 168, 76, 0.15); padding-bottom: 0.5rem; }
+    }
 
-    /* ===== REVEAL ANIMATION ===== */
-    .reveal { opacity:0; transform:translateY(30px); transition:opacity .6s ease, transform .6s ease; }
-    .reveal.visible { opacity:1; transform:translateY(0); }
+    /* ===== TIMETABLE VIEW TOGGLE ===== */
+    .tt-view-toggle { display: flex; gap: 0.75rem; justify-content: center; margin-bottom: 2rem; }
+    .tt-toggle-btn { padding: 0.6rem 1.5rem; border-radius: 99px; border: 2px solid var(--gold); background: transparent; color: var(--gold); font-family: inherit; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.25s; display: flex; align-items: center; gap: 0.5rem; }
+    .tt-toggle-btn.active { background: var(--gold); color: var(--navy-deep); }
+    .tt-toggle-btn:hover:not(.active) { background: rgba(201,168,76,0.12); }
+
+    /* ===== VISUAL TIMETABLE GRID ===== */
+    .tt-visual-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius); box-shadow: var(--shadow); }
+    .tt-visual-grid { display: grid; min-width: 900px; border-radius: var(--radius); overflow: hidden; background: var(--white); border: 1px solid rgba(201,168,76,0.15); transition: background var(--transition); }
+    .dark .tt-visual-grid { background: #112240; }
+    .tt-grid-header { display: contents; }
+    .tt-col-time { grid-column: 1; background: var(--navy-deep); }
+    .tt-day-head { background: var(--navy); padding: 0.75rem 0.5rem; text-align: center; color: var(--gold); font-weight: 700; font-size: 0.85rem; border-left: 1px solid rgba(201,168,76,0.1); }
+    .tt-day-head.today { background: var(--gold); color: var(--navy-deep); }
+    .tt-time-label { background: var(--navy-deep); color: rgba(255,255,255,0.5); font-size: 0.7rem; padding: 0 0.5rem; display: flex; align-items: flex-start; justify-content: center; padding-top: 4px; border-top: 1px solid rgba(255,255,255,0.05); white-space: nowrap; font-weight: 600; }
+    .tt-day-cell { position: relative; border-left: 1px solid rgba(201,168,76,0.08); border-top: 1px solid rgba(201,168,76,0.08); background: transparent; }
+    .tt-hour-slot { height: 60px; }
+    .tt-session-block { position: absolute; left: 3px; right: 3px; border-radius: 6px; padding: 4px 7px; overflow: hidden; cursor: default; transition: all 0.2s; z-index: 1; display: flex; flex-direction: column; justify-content: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+    .tt-session-block:hover { transform: scale(1.02); z-index: 5; box-shadow: 0 4px 16px rgba(0,0,0,0.25); }
+    .tt-session-block .sb-name { font-size: 0.7rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tt-session-block .sb-time { font-size: 0.62rem; opacity: 0.85; margin-top: 2px; }
+    .tt-session-block .sb-group { font-size: 0.6rem; opacity: 0.75; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tt-empty-grid { text-align: center; padding: 5rem 2rem; color: var(--gray); }
+    .tt-empty-grid i { color: rgba(201,168,76,0.35); font-size: 3.5rem; display: block; margin-bottom: 1rem; }
+    
+    /* Color palette for session blocks */
+    .sb-c0 { background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: #fff; }
+    .sb-c1 { background: linear-gradient(135deg, #065f46, #10b981); color: #fff; }
+    .sb-c2 { background: linear-gradient(135deg, #7c2d12, #f97316); color: #fff; }
+    .sb-c3 { background: linear-gradient(135deg, #581c87, #a855f7); color: #fff; }
+    .sb-c4 { background: linear-gradient(135deg, #831843, #ec4899); color: #fff; }
+    .sb-c5 { background: linear-gradient(135deg, #134e4a, #14b8a6); color: #fff; }
+    .sb-c6 { background: linear-gradient(135deg, #713f12, #eab308); color: #fff; }
+    .sb-c7 { background: linear-gradient(135deg, #1e1b4b, #6366f1); color: #fff; }
+
+    /* ===== OSRA ADMIN CARDS (SESSIONS EXPANSION) ===== */
+    .osra-card-adm { background: var(--white); border: 1px solid #e2e8f0; border-radius: 0.75rem; margin-bottom: 0.75rem; overflow: hidden; transition: background var(--transition); }
+    .dark .osra-card-adm { background: #1a3358; border-color: rgba(201,168,76,0.15); }
+    .osra-card-head { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; cursor: pointer; background: #f8fafc; border-bottom: 1px solid #e2e8f0; }
+    .dark .osra-card-head { background: #1e3a5f; border-color: rgba(201,168,76,0.1); }
+    .osra-card-name { font-weight: 700; color: var(--navy); font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
+    .dark .osra-card-name { color: #e5e7eb; }
+    .osra-card-meta { font-size: 0.75rem; color: var(--gray); margin-top: 0.2rem; }
+    .osra-card-actions { display: flex; gap: 0.4rem; align-items: center; flex-shrink: 0; }
+    .osra-sessions-list { padding: 0.75rem 1.25rem; display: grid; gap: 0.4rem; }
+    .osra-session-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0.75rem; background: #f0f4f8; border-radius: 0.5rem; font-size: 0.8rem; }
+    .dark .osra-session-row { background: #132035; }
+    .osra-session-row .ss-day-badge { background: var(--navy); color: var(--gold); font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 99px; white-space: nowrap; }
+    .osra-session-row .ss-info { flex: 1; min-width: 0; }
+    .osra-session-row .ss-name { font-weight: 600; color: var(--navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .dark .osra-session-row .ss-name { color: #e5e7eb; }
+    .osra-session-row .ss-meta { color: var(--gray); font-size: 0.72rem; }
+    .osra-session-row .ss-actions { display: flex; gap: 0.3rem; flex-shrink: 0; }
+    .osra-no-sessions { padding: 0.75rem 1.25rem; text-align: center; color: var(--gray); font-size: 0.82rem; }
+
+    /* ===== PUBLIC MEDIA PAGE ===== */
+    .media-page { background: var(--cream); min-height: 100vh; padding-top: var(--header-h); transition: background var(--transition); }
+    .media-hero { background: linear-gradient(135deg, var(--navy-deep), #0d2d55); padding: 4rem 0 3rem; text-align: center; }
+    .media-hero h1 { font-size: clamp(1.75rem, 4vw, 3rem); color: #fff; margin-bottom: 0.5rem; }
+    .media-hero p { color: rgba(255, 255, 255, 0.65); font-size: 0.95rem; }
+    .media-hero-icon { display: flex; justify-content: center; color: var(--gold); margin-bottom: 1rem; }
+    .media-hero-icon i { font-size: 2.5rem; }
+    
+    .media-filters { background: var(--white); border-bottom: 1px solid rgba(201, 168, 76, 0.2); padding: 1rem 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; justify-content: center; position: sticky; top: var(--header-h); z-index: 50; transition: background var(--transition); }
+    .dark .media-filters { background: #1a2740; }
+    .mf-btn { padding: 0.5rem 1.25rem; border-radius: 20px; border: 1.5px solid rgba(201, 168, 76, 0.25); background: transparent; color: var(--gray); font-size: 0.82rem; font-weight: 500; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+    .mf-btn:hover, .mf-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+    .dark .mf-btn:hover, .dark .mf-btn.active { background: var(--gold); color: var(--navy-deep); border-color: var(--gold); }
+    .mf-search { display: flex; align-items: center; gap: 0.5rem; background: var(--gray-light); border-radius: 20px; padding: 0.45rem 1rem; margin-right: auto; }
+    .dark .mf-search { background: #132035; }
+    .mf-search i { color: var(--gray); }
+    .mf-search input { border: none; background: transparent; font-family: inherit; font-size: 0.82rem; color: var(--text); outline: none; width: 150px; direction: rtl; }
+    
+    .media-content { max-width: 1200px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+    .media-section-title { font-size: 1.25rem; color: var(--navy); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(201, 168, 76, 0.2); font-weight: 700; }
+    .dark .media-section-title { color: var(--gold-light); }
+    .media-section-title i { color: var(--gold); }
+    .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+    .media-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
+    .dark .media-card { background: #132035; }
+    .media-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .media-thumb { height: 180px; background: var(--navy); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .media-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .media-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.35); }
+    .media-play i { color: #fff; font-size: 2.5rem; }
+    .media-pdf-icon { color: var(--gold); font-size: 3rem; }
+    .media-file-icon { color: var(--gray); font-size: 3rem; }
+    .media-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
+    .media-cat { font-size: 0.68rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.35rem; }
+    .media-title { font-weight: 600; color: var(--navy); font-size: 0.92rem; margin-bottom: 0.35rem; flex: 1; }
+    .dark .media-title { color: #e5e7eb; }
+    .media-type { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.72rem; color: var(--gray); }
+    .media-empty { text-align: center; padding: 5rem 2rem; color: var(--gray); }
+    .media-empty i { color: rgba(201, 168, 76, 0.3); display: block; margin: 0 auto 1rem; font-size: 3.5rem; }
+    
+    .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.92); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; padding: 1.5rem; backdrop-filter: blur(4px); }
+    .lightbox.open { opacity: 1; visibility: visible; }
+    .lb-inner { position: relative; max-width: 900px; width: 100%; text-align: center; }
+    .lb-close { position: fixed; top: 1.5rem; right: 1.5rem; color: #fff; background: rgba(255, 255, 255, 0.1); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; transition: background 0.2s; cursor: pointer; font-size: 1.5rem; }
+    .lb-close:hover { background: rgba(255, 255, 255, 0.2); color: var(--gold); }
+    .lb-media { max-width: 100%; max-height: 70vh; border-radius: 0.75rem; }
+    .lb-title { color: #fff; margin-top: 1rem; font-size: 1.1rem; font-weight: 600; }
+    .lb-cat { color: var(--gold); font-size: 0.8rem; margin-top: 0.25rem; }
+    video.lb-media { width: 100%; background: #000; }
+    .lb-pdf-view { color: #fff; display: flex; flex-direction: column; align-items: center; gap: 1rem; padding: 3rem 0; }
+    .lb-pdf-view i { font-size: 4rem; color: var(--gold); }
+
+    /* ===== MODAL & BOOKING MODAL ===== */
+    .modal-overlay { position: fixed; inset: 0; z-index: 2000; background: rgba(0, 18, 38, 0.75); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; padding: 1.5rem; opacity: 0; visibility: hidden; transition: opacity var(--transition), visibility var(--transition); }
+    .modal-overlay.open { opacity: 1; visibility: visible; }
+    .modal-box { background: var(--white); border-radius: 1.25rem; padding: 2.5rem 2rem; width: 100%; max-width: 480px; position: relative; box-shadow: var(--shadow-lg); text-align: center; transition: background var(--transition); }
+    .dark .modal-box { background: #132035; }
+    .modal-close { position: absolute; top: 1.25rem; right: 1.25rem; color: var(--gray); background: none; display: flex; align-items: center; transition: color var(--transition); font-size: 1.4rem; }
+    .modal-close:hover { color: var(--gold); }
+    .modal-icon { display: flex; justify-content: center; color: var(--gold); margin-bottom: 1rem; font-size: 2.2rem; }
+    .modal-box h2 { font-size: 1.5rem; color: var(--navy); margin-bottom: 0.25rem; }
+    .dark .modal-box h2 { color: #e5e7eb; }
+    .modal-event-name { color: var(--gold); font-weight: 600; font-size: 0.95rem; margin-bottom: 1.75rem; }
+    .modal-form { display: grid; gap: 0.9rem; text-align: right; }
+    .modal-form input { width: 100%; padding: 0.9rem 1rem; border-radius: 0.6rem; font-family: inherit; font-size: 0.9rem; border: 1.5px solid #e5e7eb; background: var(--cream); color: var(--text); outline: none; transition: border-color var(--transition); }
+    .dark .modal-form input { background: #0f1c30; border-color: #1e3a5f; color: #e5e7eb; }
+    .modal-form input:focus { border-color: var(--gold); }
+    .modal-submit { padding: 0.9rem; border-radius: 0.6rem; background: var(--navy); color: #fff; font-weight: 600; transition: all var(--transition); display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.95rem; }
+    .dark .modal-submit { background: var(--gold); color: var(--navy-deep); }
+    .modal-submit:hover { background: var(--gold); color: var(--navy-deep); }
+    .modal-success { display: none; flex-direction: column; align-items: center; gap: 0.75rem; }
+    .modal-success i { color: var(--green); font-size: 3rem; }
+    .modal-success p { color: var(--gray); font-size: 0.9rem; }
+
+    /* ===== ADMIN CONTROL PANEL PAGE ===== */
+    .admin-page { min-height: 100vh; background: #f4f6fb; display: flex; transition: background var(--transition); }
+    .dark .admin-page { background: #0a1628; }
+    
+    .login-screen { position: fixed; inset: 0; z-index: 99999; background: linear-gradient(135deg, #001226 0%, #0d2d55 60%, #1a4a7a 100%); display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+    .login-screen::before { content: '☩'; position: absolute; font-size: 30rem; color: rgba(201, 168, 76, 0.04); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; line-height: 1; }
+    .login-box { background: #fff; border-radius: 1.25rem; padding: 3rem 2.5rem; width: 100%; max-width: 420px; text-align: center; box-shadow: var(--shadow-lg); position: relative; }
+    .login-logo { width: 72px; height: 72px; border-radius: 50%; border: 3px solid var(--gold); margin: 0 auto 1.25rem; display: block; object-fit: cover; }
+    .login-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--navy); margin-bottom: 0.25rem; }
+    .login-sub { font-size: 0.8rem; color: var(--gray); margin-bottom: 2rem; }
+    .login-form { display: grid; gap: 1rem; text-align: right; }
+    .login-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray); display: block; margin-bottom: 0.35rem; }
+    .login-input-wrap { position: relative; }
+    .login-input-wrap i { position: absolute; right: 0.9rem; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 1.1rem; }
+    .login-input { width: 100%; padding: 0.85rem 2.75rem 0.85rem 1rem; border-radius: 0.6rem; background: var(--gray-light); border: 1.5px solid #e2e8f0; color: var(--text); font-size: 0.9rem; outline: none; font-family: inherit; transition: border-color 0.25s; }
+    .login-input:focus { border-color: var(--gold); }
+    .login-btn { padding: 0.9rem; border-radius: 0.6rem; background: var(--navy); color: #fff; font-weight: 700; font-size: 0.95rem; font-family: inherit; cursor: pointer; border: none; transition: all 0.25s; margin-top: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+    .login-btn:hover { background: var(--navy-deep); transform: translateY(-2px); }
+    .login-error { color: var(--red); font-size: 0.82rem; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 0.4rem; padding: 0.6rem 0.9rem; display: none; margin-top: 0.25rem; }
+    .login-error.show { display: block; }
+
+    .adm-sidebar { width: 250px; background: var(--navy-deep); min-height: 100vh; position: fixed; top: 0; left: 0; z-index: 200; display: flex; flex-direction: column; transition: transform 0.3s; border-right: 1px solid rgba(201, 168, 76, 0.15); }
+    .adm-logo { padding: 1.5rem 1.25rem; border-bottom: 1px solid rgba(201, 168, 76, 0.15); display: flex; align-items: center; gap: 0.75rem; }
+    .adm-logo img { width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--gold); }
+    .adm-logo-text strong { display: block; font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--gold); }
+    .adm-logo-text span { font-size: 0.7rem; color: rgba(255, 255, 255, 0.4); }
+    .adm-nav { flex: 1; padding: 1.25rem 0.75rem; display: flex; flex-direction: column; gap: 0.2rem; }
+    .adm-nav-label { font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255, 255, 255, 0.3); padding: 0.5rem 0.75rem 0.25rem; }
+    .adm-link { display: flex; align-items: center; gap: 0.8rem; padding: 0.75rem 1rem; border-radius: 0.5rem; cursor: pointer; font-size: 0.875rem; color: rgba(255, 255, 255, 0.6); transition: all 0.2s; border: none; background: none; font-family: inherit; width: 100%; text-align: right; }
+    .adm-link:hover { background: rgba(255, 255, 255, 0.06); color: #fff; }
+    .adm-link.active { background: var(--gold-pale); color: var(--gold); }
+    .adm-link i { font-size: 1.1rem; flex-shrink: 0; }
+    .adm-footer { padding: 1rem 0.75rem; border-top: 1px solid rgba(201, 168, 76, 0.1); }
+    .adm-user { display: flex; align-items: center; gap: 0.75rem; }
+    .adm-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; color: var(--navy-deep); font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+    
+    .adm-main { margin-left: 250px; flex: 1; min-height: 100vh; display: flex; flex-direction: column; }
+    .adm-topbar { height: 60px; background: #fff; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 0 1.75rem; position: sticky; top: 0; z-index: 100; transition: background var(--transition), border-color var(--transition); }
+    .dark .adm-topbar { background: #112240; border-color: rgba(201, 168, 76, 0.15); }
+    .adm-topbar-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--navy); }
+    .dark .adm-topbar-title { color: var(--gold-light); }
+    .adm-badge { background: var(--gold); color: var(--navy-deep); font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 20px; }
+    .adm-content { padding: 1.75rem; flex: 1; }
+
+    .adm-panel { display: none; }
+    .adm-panel.active { display: block; }
+    .adm-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
+    .adm-stat { background: #fff; border-radius: 0.875rem; padding: 1.4rem; display: flex; align-items: center; gap: 1rem; box-shadow: 0 2px 12px rgba(0, 30, 60, 0.06); transition: background var(--transition); }
+    .dark .adm-stat { background: #112240; }
+    .adm-stat-icon { width: 48px; height: 48px; border-radius: 0.625rem; display: flex; align-items: center; justify-content: center; background: var(--gold-pale); color: var(--gold); flex-shrink: 0; }
+    .adm-stat-icon i { font-size: 1.3rem; }
+    .adm-stat-val { font-size: 1.75rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .dark .adm-stat-val { color: #e5e7eb; }
+    .adm-stat-label { font-size: 0.72rem; color: var(--gray); margin-top: 0.2rem; }
+
+    .adm-card { background: #fff; border-radius: 0.875rem; box-shadow: 0 2px 12px rgba(0, 30, 60, 0.06); padding: 1.5rem; margin-bottom: 1.5rem; transition: background var(--transition); }
+    .dark .adm-card { background: #112240; }
+    .adm-card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid #e2e8f0; }
+    .dark .adm-card-head { border-bottom-color: rgba(201, 168, 76, 0.15); }
+    .adm-card-title { font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; }
+    .dark .adm-card-title { color: #e5e7eb; }
+    .adm-card-title i { color: var(--gold); }
+
+    .adm-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .adm-form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    .adm-form-group.full { grid-column: 1 / -1; }
+    .adm-label { font-size: 0.75rem; font-weight: 600; color: var(--gray); }
+    .adm-label span { color: var(--gray); font-weight: 400; font-size: 0.7rem; }
+    .adm-input, .adm-select, .adm-textarea { width: 100%; padding: 0.7rem 1rem; border: 1.5px solid #e2e8f0; border-radius: 0.5rem; font-family: inherit; font-size: 0.875rem; color: var(--text); background: #f8fafc; transition: border-color 0.2s, background var(--transition), border var(--transition); direction: rtl; text-align: right; outline: none; }
+    .adm-input:focus, .adm-select:focus, .adm-textarea:focus { border-color: var(--gold); }
+    .adm-textarea { height: 100px; resize: vertical; }
+    .dark .adm-input, .dark .adm-select, .dark .adm-textarea { background: #1a3358; border-color: rgba(201, 168, 76, 0.15); color: #e5e7eb; }
+    
+    .time-row { display: flex; gap: 0.5rem; align-items: center; }
+    .time-ar-badge { background: var(--navy); color: var(--gold); font-size: 0.78rem; font-weight: 600; padding: 0.35rem 0.7rem; border-radius: 0.375rem; white-space: nowrap; }
+
+    .adm-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.65rem 1.25rem; border-radius: 0.5rem; font-weight: 600; font-size: 0.82rem; cursor: pointer; transition: all 0.2s; border: none; font-family: inherit; }
+    .adm-btn-gold { background: var(--gold); color: var(--navy-deep); }
+    .adm-btn-gold:hover { background: var(--gold-light); }
+    .adm-btn-navy { background: var(--navy); color: #fff; }
+    .adm-btn-navy:hover { background: var(--navy-deep); }
+    .adm-btn-danger { background: rgba(239, 68, 68, 0.1); color: #dc2626; }
+    .adm-btn-danger:hover { background: rgba(239, 68, 68, 0.2); }
+    .adm-btn-sm { padding: 0.35rem 0.75rem; font-size: 0.75rem; }
+
+    .adm-table-wrap { overflow-x: auto; }
+    .adm-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .adm-table th { background: #f8fafc; padding: 0.7rem 1rem; text-align: right; font-weight: 600; color: var(--gray); font-size: 0.72rem; letter-spacing: 0.5px; text-transform: uppercase; border-bottom: 2px solid #e2e8f0; }
+    .dark .adm-table th { background: #1a3358; border-color: rgba(201, 168, 76, 0.15); }
+    .adm-table td { padding: 0.85rem 1rem; border-bottom: 1px solid #e2e8f0; color: var(--text); }
+    .dark .adm-table td { border-bottom-color: rgba(255, 255, 255, 0.04); }
+    .adm-table tr:last-child td { border-bottom: none; }
+    .adm-table tr:hover td { background: #f8fafc; }
+    .dark .adm-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+    .tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 99px; font-size: 0.7rem; font-weight: 600; }
+    .tag-green { background: rgba(34, 197, 94, 0.1); color: #16a34a; }
+    .tag-gold { background: var(--gold-pale); color: #92700a; }
+    .dark .tag-gold { color: var(--gold-light); }
+    .tag-blue { background: rgba(96, 165, 250, 0.1); color: #3b7aff; }
+    .tag-red { background: rgba(239, 68, 68, 0.1); color: #dc2626; }
+
+    .adm-upload-zone { border: 2px dashed #e2e8f0; border-radius: 0.875rem; padding: 2.5rem 2rem; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+    .adm-upload-zone:hover { border-color: var(--gold); background: rgba(201, 168, 76, 0.04); }
+    .adm-upload-zone i { color: var(--gold); display: block; margin: 0 auto 0.75rem; font-size: 2.5rem; }
+    .adm-upload-zone p { font-size: 0.875rem; color: var(--gray); }
+    .adm-upload-zone strong { color: var(--navy); }
+    .dark .adm-upload-zone strong { color: #e5e7eb; }
+    .adm-media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.75rem; margin-top: 1.25rem; }
+    .adm-thumb { border-radius: 0.625rem; overflow: hidden; aspect-ratio: 1; background: #f0f4f8; display: flex; align-items: center; justify-content: center; border: 1px solid #e2e8f0; position: relative; }
+    .adm-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .adm-thumb i { font-size: 2rem; color: var(--gold); }
+    .adm-thumb-label { font-size: 0.65rem; color: var(--gray); text-align: center; padding: 0.3rem; }
+
+    @media (max-width: 900px) {
+      .adm-form-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      .adm-sidebar { transform: translateX(100%); }
+      .adm-sidebar.open { transform: translateX(0); }
+      .adm-main { margin-left: 0; }
+    }
   </style>
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
-<header class="header" id="header">
-  <nav class="nav container">
-    <a href="#home" class="nav-logo">
-      <img src="https://yt3.googleusercontent.com/fDYMuJkul64KgPbt9c-u9v6JfRH1Kdz-1ugEk1uwnlohvQJUP56XnqV4f25HqqHtQSpeahv7MQ=s160-c-k-c0x00ffffff-no-rj" alt="شعار كنيسة الأنبا أنطونيوس" />
-      <span>كنيسة الأنبا أنطونيوس</span>
-    </a>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="#home" class="active">الرئيسية</a></li>
-      <li><a href="#about">عن الكنيسة</a></li>
-      <li><a href="#schedules">المواعيد</a></li>
-      <li><a href="#events">الفعاليات</a></li>
-      <li><a href="#contact">تواصل معنا</a></li>
-    </ul>
-    <div class="nav-actions">
-      <button class="btn-theme" id="theme-btn" title="تغيير السمة"><i class="ri-moon-line"></i></button>
-      <a href="admin.html" class="btn-admin">⚙ الإدارة</a>
-      <button class="nav-toggle" id="nav-toggle"><i class="ri-menu-line"></i></button>
-    </div>
-  </nav>
-</header>
-
-<!-- ===== HERO ===== -->
-<section class="hero" id="home">
-  <div class="container">
-    <div class="hero-grid">
-      <div class="hero-data">
-        <p class="hero-label">☩ كنيسة قبطية أرثوذكسية · شبرا، القاهرة</p>
-        <h1 class="hero-title">كنيسة <em>الأنبا أنطونيوس</em><br>القبطية الأرثوذكسية</h1>
-        <p class="hero-desc">جذورنا في الإيمان القديم، ونمونا في المحبة والخدمة.<br>انضم إلينا في القداسات والأسرار والشركة الروحية.</p>
-        <div class="hero-btns">
-          <a href="#events" class="btn-primary">الفعاليات القادمة</a>
-          <a href="#schedules" class="btn-outline">مواعيد الخدمات</a>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <div class="hero-blob">
-          <img src="https://i0.wp.com/andrewshenouda.com/wp-content/uploads/2018/07/AS-SAINTANTONY-CHURCH-2.jpg?w=1500&ssl=1" alt="مذبح الكنيسة" />
-        </div>
+  <!-- ===== HEADER ===== -->
+  <header class="header" id="header">
+    <div class="nav container">
+      <a class="nav-logo" onclick="showPage('home')">
+        <img src="https://yt3.googleusercontent.com/fDYMuJkul64KgPbt9c-u9v6JfRH1Kdz-1ugEk1uwnlohvQJUP56XnqV4f25HqqHtQSpeahv7MQ=s160-c-k-c0x00ffffff-no-rj" alt="logo"/>
+        <span>كنيسة الأنبا أنطونيوس</span>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a onclick="showPage('home');scrollTo('home-top')" class="active" data-nav="home">الرئيسية</a></li>
+        <li><a onclick="showPage('home');scrollTo('about')" data-nav="about">عن الكنيسة</a></li>
+        <li><a onclick="showPage('home');scrollTo('events')" data-nav="events">الفعاليات</a></li>
+        <li><a onclick="showPage('timetable')" data-nav="timetable">الجداول</a></li>
+        <li><a onclick="showPage('media')" data-nav="media">الميديا</a></li>
+        <li><a onclick="showPage('home');scrollTo('contact')" data-nav="contact">تواصل معنا</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="btn-icon" id="theme-btn" title="تغيير السمة">
+          <i class="ri-moon-line" id="theme-icon"></i>
+        </button>
+        <button class="btn-admin" onclick="showPage('admin')">الإدارة</button>
+        <button class="nav-toggle btn-icon" id="nav-toggle">
+          <i class="ri-menu-line"></i>
+        </button>
       </div>
     </div>
-  </div>
-</section>
+  </header>
 
-<!-- ===== STATS ===== -->
-<div class="stats">
-  <div class="container">
-    <div class="stats-grid">
-      <div><div class="stat-number">+٧٠</div><div class="stat-label">سنة في الخدمة</div></div>
-      <div><div class="stat-number">+٥٠٠</div><div class="stat-label">عيلة رعوية</div></div>
-      <div><div class="stat-number">١٠</div><div class="stat-label">قداسات أسبوعياً</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== ABOUT ===== -->
-<section class="about section container" id="about">
-  <div class="about-grid reveal">
-    <div class="about-img">
-      <img src="https://i0.wp.com/andrewshenouda.com/wp-content/uploads/2018/07/AS-SAINTANTONY-CHURCH-2.jpg?w=1500&ssl=1" alt="مذبح كنيسة الأنبا أنطونيوس" />
-    </div>
-    <div class="about-text">
-      <span class="about-tag">☩ تاريخنا وإرثنا</span>
-      <h2>رعية قبطية أرثوذكسية<br>في قلب شبرا</h2>
-      <p>
-        كنيسة الأنبا أنطونيوس هي رعية قبطية أرثوذكسية عريقة في قلب شبرا، تتبع إيبارشية شبرا الجنوبية برعاية نيافة الأنبا مكاري. نحافظ على التراث الليتورجي الإسكندري العريق بينما نرعى مجتمعاً حديثاً متسامحاً منذ أكثر من ٧٠ سنة.
-      </p>
-      <p>
-        شفيعنا الأنبا أنطونيوس الكبير، أبو الرهبان جميعاً، بيرشدنا في رحلتنا الروحية عبر الصلاة والصوم والخدمة. بنقدم أكتر من ١٠ قداسات كل أسبوع لخدمة شعب الكنيسة.
-      </p>
-      <div class="about-perks">
-        <div class="perk"><i class="ri-checkbox-circle-line"></i> قداس الأحد ومدارس الأحد</div>
-        <div class="perk"><i class="ri-checkbox-circle-line"></i> اجتماعات الشباب والشمامسة</div>
-        <div class="perk"><i class="ri-checkbox-circle-line"></i> الأعياد والرحلات الروحية</div>
-        <div class="perk"><i class="ri-checkbox-circle-line"></i> الخدمة الاجتماعية والأعمال الخيرية</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== PRIESTS ===== -->
-<section class="section container" id="priests">
-  <span class="section-label">خدام الشعب</span>
-  <h2 class="section-title">آباؤنا الكهنة</h2>
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem;">
-    <div class="schedule-card" style="background:var(--white);border:1px solid rgba(201,168,76,.2);color:var(--text);">
-      <div class="schedule-icon"><i class="ri-user-star-line"></i></div>
-      <h3 style="color:var(--navy)" class="dark-fix">القس بيشوي حلمي</h3>
-    </div>
-    <div class="schedule-card" style="background:var(--white);border:1px solid rgba(201,168,76,.2);color:var(--text);">
-      <div class="schedule-icon"><i class="ri-user-star-line"></i></div>
-      <h3 style="color:var(--navy)" class="dark-fix">القس مينا مكرم</h3>
-    </div>
-    <div class="schedule-card" style="background:var(--white);border:1px solid rgba(201,168,76,.2);color:var(--text);">
-      <div class="schedule-icon"><i class="ri-user-star-line"></i></div>
-      <h3 style="color:var(--navy)" class="dark-fix">القمص أنطونيوس يونان</h3>
-    </div>
-    <div class="schedule-card" style="background:var(--white);border:1px solid rgba(201,168,76,.2);color:var(--text);">
-      <div class="schedule-icon"><i class="ri-user-star-line"></i></div>
-      <h3 style="color:var(--navy)" class="dark-fix">القس هيمانوت شوقي</h3>
-    </div>
-    <div class="schedule-card" style="background:var(--white);border:1px solid rgba(201,168,76,.2);color:var(--text);">
-      <div class="schedule-icon"><i class="ri-user-star-line"></i></div>
-      <h3 style="color:var(--navy)" class="dark-fix">القس بولا رسمي</h3>
-    </div>
-    <div class="schedule-card" style="background:var(--white);border:1px solid rgba(201,168,76,.2);color:var(--text);">
-      <div class="schedule-icon"><i class="ri-user-star-line"></i></div>
-      <h3 style="color:var(--navy)" class="dark-fix">القس يوحنا ميلاد</h3>
-    </div>
-    <div class="schedule-card" style="background:var(--white);border:1px solid rgba(201,168,76,.2);color:var(--text);">
-      <div class="schedule-icon"><i class="ri-user-star-line"></i></div>
-      <h3 style="color:var(--navy)" class="dark-fix">القمص باخوم حبيب</h3>
-    </div>
-    <div class="schedule-card" style="background:var(--white);border:1px solid rgba(201,168,76,.2);color:var(--text);">
-      <div class="schedule-icon"><i class="ri-user-star-line"></i></div>
-      <h3 style="color:var(--navy)" class="dark-fix">القس يوسف ناظر</h3>
-    </div>
-  </div>
-</section>
-
-<!-- ===== SCHEDULES ===== -->
-<section class="schedules section" id="schedules">
-  <div class="container">
-    <span class="section-label">الحياة الليتورجية</span>
-    <h2 class="section-title" style="color:var(--gold-light)">مواعيد الخدمات الأسبوعية</h2>
-    <div class="schedule-grid" id="schedules-list">
-      <!-- populated by JS from localStorage (managed by admin) -->
-    </div>
-  </div>
-</section>
-
-<!-- ===== EVENTS ===== -->
-<section class="section container" id="events">
-  <span class="section-label">الفعاليات القادمة</span>
-  <h2 class="section-title">فعاليات الكنيسة</h2>
-  <div class="events-grid" id="events-list">
-    <!-- populated by JS -->
-  </div>
-</section>
-
-<!-- ===== CONTACT ===== -->
-<section class="section container" id="contact">
-  <span class="section-label">تواصل معنا</span>
-  <h2 class="section-title">ابعت لنا رسالة</h2>
-  <div class="contact-grid reveal">
-    <div class="contact-info">
-      <h2>يسعدنا نسمع منك</h2>
-      <p>سواء كان عندك سؤال، أو محتاج صلاة، أو عايز تنضم لمجتمعنا — احنا هنا معاك.</p>
-      <div class="contact-items">
-        <div class="contact-item">
-          <div class="contact-item-icon"><i class="ri-map-pin-line"></i></div>
-          <div class="contact-item-text">
-            <h4>العنوان</h4>
-            <p>٢٣ شارع ترعة الجلاد، شبرا، القاهرة</p>
+  <!-- ==================== HOME PAGE ==================== -->
+  <div class="page-view active" id="page-home">
+    <section class="hero" id="home-top">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <p class="hero-label">
+              <i class="ri-cross-line"></i>
+              كنيسة قبطية أرثوذكسية · شبرا، القاهرة
+            </p>
+            <h1 class="hero-title">كنيسة <em>الأنبا أنطونيوس</em><br>القبطية الأرثوذكسية</h1>
+            <p class="hero-desc">جذورنا في الإيمان القديم، ونمونا في المحبة والخدمة. انضم إلينا في القداسات والأسرار والشركة الروحية.</p>
+            <div class="hero-btns">
+              <button class="btn-primary" onclick="showPage('home');scrollTo('events')">
+                <i class="ri-calendar-event-line"></i>
+                الفعاليات القادمة
+              </button>
+              <button class="btn-outline" onclick="showPage('timetable')">
+                <i class="ri-time-line"></i>
+                مواعيد الخدمات
+              </button>
+            </div>
+            <div class="countdown-strip" id="home-countdown"></div>
           </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-item-icon"><i class="ri-phone-line"></i></div>
-          <div class="contact-item-text">
-            <h4>التليفون</h4>
-            <p>٠٢٢٣٥٠٦٩٣‬</p>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-item-icon"><i class="ri-facebook-fill"></i></div>
-          <div class="contact-item-text">
-            <h4>فيسبوك</h4>
-            <p><a href="https://www.facebook.com/St.Antony.Shoubra" target="_blank" style="color:var(--gold)">St.Antony.Shoubra</a></p>
+          <div class="hero-visual">
+            <div class="hero-blob">
+              <img src="https://i0.wp.com/andrewshenouda.com/wp-content/uploads/2018/07/AS-SAINTANTONY-CHURCH-2.jpg?w=1500&ssl=1" alt="الكنيسة"/>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <form class="contact-form" id="contact-form">
-      <div class="form-row">
-        <input type="text" id="cf-name" placeholder="الاسم الكامل" required />
-        <input type="email" id="cf-email" placeholder="البريد الإلكتروني" required />
-      </div>
-      <input type="text" id="cf-subject" placeholder="الموضوع" />
-      <textarea id="cf-message" placeholder="رسالتك…" required></textarea>
-      <button type="submit" class="form-submit">ابعت الرسالة <i class="ri-send-plane-line"></i></button>
-      <div class="form-success" id="form-success">
-        <i class="ri-checkbox-circle-line"></i>
-        <strong>تم الإرسال!</strong>
-        <p>شكراً ليك. هنرد عليك في أقرب وقت.</p>
-      </div>
-    </form>
-  </div>
-</section>
+    </section>
 
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <img src="https://yt3.googleusercontent.com/fDYMuJkul64KgPbt9c-u9v6JfRH1Kdz-1ugEk1uwnlohvQJUP56XnqV4f25HqqHtQSpeahv7MQ=s160-c-k-c0x00ffffff-no-rj" alt="الشعار" />
-        <p>كنيسة الأنبا أنطونيوس القبطية الأرثوذكسية، شبرا، القاهرة. بنكبر مع بعض في الإيمان والمحبة والخدمة. ☩</p>
-        <div class="footer-socials">
-          <a href="https://www.facebook.com/St.Antony.Shoubra" target="_blank"><i class="ri-facebook-fill"></i></a>
-          <a href="#"><i class="ri-instagram-line"></i></a>
-          <a href="#"><i class="ri-youtube-line"></i></a>
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="container">
+        <div class="stats-grid">
+          <div><div class="stat-num">+٩٠</div><div class="stat-lbl">سنة في الخدمة</div></div>
+          <div><div class="stat-num">+٣٠</div><div class="stat-lbl">أسرة</div></div>
+          <div><div class="stat-num">١٠</div><div class="stat-lbl">قداسات أسبوعياً</div></div>
         </div>
       </div>
-      <div class="footer-col">
-        <h4>روابط سريعة</h4>
-        <ul>
-          <li><a href="#home">الرئيسية</a></li>
-          <li><a href="#about">عن الكنيسة</a></li>
-          <li><a href="#schedules">المواعيد</a></li>
-          <li><a href="#events">الفعاليات</a></li>
-          <li><a href="#contact">تواصل معنا</a></li>
-        </ul>
+    </div>
+
+    <!-- About Section -->
+    <section class="about section container" id="about">
+      <div class="about-grid reveal">
+        <div class="about-img">
+          <img src="https://i0.wp.com/andrewshenouda.com/wp-content/uploads/2018/07/AS-SAINTANTONY-CHURCH-2.jpg?w=1500&ssl=1" alt="مذبح الكنيسة"/>
+        </div>
+        <div class="about-text">
+          <span class="about-tag">
+            <i class="ri-history-line"></i>
+            تاريخنا وإرثنا
+          </span>
+          <h2>رعية قبطية أرثوذكسية<br>في قلب شبرا</h2>
+          <p>كنيسة الأنبا أنطونيوس هي رعية قبطية أرثوذكسية عريقة في قلب شبرا، تتبع إيبارشية شبرا الجنوبية برعاية نيافة الأنبا مكاري. نحافظ على التراث الليتورجي الإسكندري العريق بينما نرعى مجتمعاً حديثاً متسامحاً منذ أكثر من ٧٠ سنة.</p>
+          <p>شفيعنا الأنبا أنطونيوس الكبير، أبو الرهبان جميعاً، بيرشدنا في رحلتنا الروحية عبر الصلاة والصوم والخدمة.</p>
+          <div class="perks">
+            <div class="perk"><i class="ri-checkbox-circle-line"></i> قداس الأحد ومدارس الأحد</div>
+            <div class="perk"><i class="ri-checkbox-circle-line"></i> اجتماعات الشباب والشمامسة</div>
+            <div class="perk"><i class="ri-checkbox-circle-line"></i> الأعياد والرحلات الروحية</div>
+            <div class="perk"><i class="ri-checkbox-circle-line"></i> الخدمة الاجتماعية والأعمال الخيرية</div>
+          </div>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>الإيبارشية</h4>
-        <ul>
-          <li><a href="#">شبرا الجنوبية</a></li>
-          <li><a href="#">نيافة الأنبا مكاريوس</a></li>
-          <li><a href="#">الكنيسة القبطية الأرثوذكسية</a></li>
-        </ul>
+    </section>
+
+    <!-- Priests Section -->
+    <section class="section container" id="priests">
+      <span class="section-label">خدام الشعب</span>
+      <h2 class="section-title">آباؤنا الكهنة</h2>
+      <div class="priests-grid reveal">
+        <div class="priest-card">
+          <div class="priest-icon"><i class="ri-user-star-line"></i></div>
+          <h3 class="priest-name">القس بيشوي حلمي</h3>
+        </div>
+        <div class="priest-card">
+          <div class="priest-icon"><i class="ri-user-star-line"></i></div>
+          <h3 class="priest-name">القس مينا مكرم</h3>
+        </div>
+        <div class="priest-card">
+          <div class="priest-icon"><i class="ri-user-star-line"></i></div>
+          <h3 class="priest-name">القمص أنطونيوس يونان</h3>
+        </div>
+        <div class="priest-card">
+          <div class="priest-icon"><i class="ri-user-star-line"></i></div>
+          <h3 class="priest-name">القس هيمانوت شوقي</h3>
+        </div>
+        <div class="priest-card">
+          <div class="priest-icon"><i class="ri-user-star-line"></i></div>
+          <h3 class="priest-name">القس بولا رسمي</h3>
+        </div>
+        <div class="priest-card">
+          <div class="priest-icon"><i class="ri-user-star-line"></i></div>
+          <h3 class="priest-name">القس يوحنا ميلاد</h3>
+        </div>
+        <div class="priest-card">
+          <div class="priest-icon"><i class="ri-user-star-line"></i></div>
+          <h3 class="priest-name">القمص باخوم حبيب</h3>
+        </div>
+        <div class="priest-card">
+          <div class="priest-icon"><i class="ri-user-star-line"></i></div>
+          <h3 class="priest-name">القس يوسف ناظر</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="section container" id="events">
+      <span class="section-label">الفعاليات القادمة</span>
+      <h2 class="section-title">فعاليات الكنيسة</h2>
+      <div class="events-grid" id="events-list"></div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section container" id="contact">
+      <span class="section-label">تواصل معنا</span>
+      <h2 class="section-title">ابعت لنا رسالة</h2>
+      <div class="contact-grid reveal">
+        <div class="contact-info">
+          <h2>يسعدنا نسمع منك</h2>
+          <p>سواء كان عندك سؤال، أو محتاج صلاة، أو عايز تنضم لمجتمعنا — احنا هنا معاك.</p>
+          <div class="contact-items">
+            <div class="contact-item">
+              <div class="contact-icon"><i class="ri-map-pin-line"></i></div>
+              <div class="contact-item-text"><h4>العنوان</h4><p>٢٣ شارع ترعة الجلاد، شبرا، القاهرة</p></div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><i class="ri-phone-line"></i></div>
+              <div class="contact-item-text"><h4>التليفون</h4><p>٠٢٢٣٥٠٦٩٣</p></div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><i class="ri-facebook-box-line"></i></div>
+              <div class="contact-item-text"><h4>فيسبوك</h4><p><a href="https://www.facebook.com/St.Antony.Shoubra" target="_blank" style="color:var(--gold)">St.Antony.Shoubra</a></p></div>
+            </div>
+          </div>
+        </div>
+        
+        <form class="contact-form" id="contact-form">
+          <div class="form-row-2">
+            <input type="text" id="cf-name" placeholder="الاسم الكامل" required/>
+            <input type="email" id="cf-email" placeholder="البريد الإلكتروني" required/>
+          </div>
+          <input type="text" id="cf-subject" placeholder="الموضوع"/>
+          <textarea id="cf-message" placeholder="رسالتك…" required></textarea>
+          <button type="submit" class="form-submit">
+            <i class="ri-send-plane-line"></i>
+            ابعت الرسالة
+          </button>
+          <div class="form-success" id="form-success">
+            <i class="ri-checkbox-circle-line"></i>
+            <strong>تم الإرسال!</strong>
+            <p>شكراً ليك. هنرد عليك في أقرب وقت.</p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <img src="https://yt3.googleusercontent.com/fDYMuJkul64KgPbt9c-u9v6JfRH1Kdz-1ugEk1uwnlohvQJUP56XnqV4f25HqqHtQSpeahv7MQ=s160-c-k-c0x00ffffff-no-rj" alt="logo"/>
+            <p>كنيسة الأنبا أنطونيوس القبطية الأرثوذكسية، شبرا، القاهرة. بنكبر مع بعض في الإيمان والمحبة والخدمة.</p>
+            <div class="footer-socials">
+              <a href="https://www.facebook.com/St.Antony.Shoubra" target="_blank"><i class="ri-facebook-fill"></i></a>
+              <a href="#"><i class="ri-instagram-line"></i></a>
+              <a href="#"><i class="ri-youtube-fill"></i></a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>روابط سريعة</h4>
+            <ul>
+              <li><a onclick="showPage('home');scrollTo('home-top')">الرئيسية</a></li>
+              <li><a onclick="showPage('home');scrollTo('about')">عن الكنيسة</a></li>
+              <li><a onclick="showPage('timetable')">الجداول</a></li>
+              <li><a onclick="showPage('home');scrollTo('events')">الفعاليات</a></li>
+              <li><a onclick="showPage('media')">الميديا</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>الإيبارشية</h4>
+            <ul>
+              <li><a href="#">شبرا الجنوبية</a></li>
+              <li><a href="#">نيافة الأنبا مكاريوس</a></li>
+              <li><a href="#">الكنيسة القبطية الأرثوذكسية</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">© ٢٠٢٦ كنيسة الأنبا أنطونيوس القبطية الأرثوذكسية، شبرا. جميع الحقوق محفوظة.</div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ==================== TIMETABLE PAGE ==================== -->
+  <div class="page-view" id="page-timetable">
+    <div class="tt-page">
+      <div class="tt-hero">
+        <div class="tt-hero-icon">
+          <i class="ri-time-line"></i>
+        </div>
+        <h1>جدول الخدمات الأسبوعي</h1>
+        <p>مواعيد الأسر والخدمات والقداسات مرتبة على مدار أيام الأسبوع</p>
+      </div>
+      <div class="container" style="padding: 2rem 1.5rem 3rem;">
+        <span class="section-label">مواعيد الأسبوع</span>
+        <h2 class="section-title">الأسر والخدمات اليومية</h2>
+
+        <!-- View Toggle -->
+        <div class="tt-view-toggle">
+          <button class="tt-toggle-btn active" id="tt-btn-grid" onclick="switchTTView('grid')">
+            <i class="ri-layout-grid-line"></i> Visual Grid
+          </button>
+          <button class="tt-toggle-btn" id="tt-btn-list" onclick="switchTTView('list')">
+            <i class="ri-list-check-2"></i> List View
+          </button>
+        </div>
+
+        <!-- Visual Grid View -->
+        <div id="tt-grid-view">
+          <div class="tt-visual-wrap" id="tt-visual-container"></div>
+        </div>
+
+        <!-- List View -->
+        <div id="tt-list-view" style="display:none">
+          <div class="timetable-grid" id="timetable-container"></div>
+        </div>
       </div>
     </div>
-    <div class="footer-bottom">☩ © ٢٠٢٦ كنيسة الأنبا أنطونيوس القبطية الأرثوذكسية، شبرا. جميع الحقوق محفوظة.</div>
   </div>
-</footer>
 
-<!-- ===== BOOKING MODAL ===== -->
-<div class="modal-overlay" id="booking-modal">
-  <div class="modal-box">
-    <button class="modal-close" id="modal-close"><i class="ri-close-line"></i></button>
-    <div class="modal-icon">☩</div>
-    <h2>احجز مكانك</h2>
-    <p class="modal-event-name" id="modal-event-name"></p>
-    <form class="modal-form" id="booking-form">
-      <input type="hidden" id="booking-event-id" />
-      <input type="text" id="bk-name" placeholder="الاسم الكامل" required />
-      <input type="tel" id="bk-phone" placeholder="رقم التليفون" required />
-      <input type="number" id="bk-persons" placeholder="عدد الأشخاص" min="1" required />
-      <button type="submit" class="modal-submit">تأكيد الحجز</button>
-    </form>
-    <div class="modal-success" id="booking-success">
-      <i class="ri-checkbox-circle-line"></i>
-      <strong>تم الحجز!</strong>
-      <p>هنتواصل معاك قريباً لتأكيد حجزك.</p>
+  <!-- ==================== MEDIA PAGE ==================== -->
+  <div class="page-view" id="page-media">
+    <div class="media-page">
+      <div class="media-hero">
+        <div class="media-hero-icon">
+          <i class="ri-gallery-line"></i>
+        </div>
+        <h1>مكتبة الميديا والملفات</h1>
+        <p>فيديوهات، صور، وعروض وملفات PDF الخاصة بمجموعات الكنيسة</p>
+      </div>
+      
+      <div class="media-filters">
+        <div class="mf-search">
+          <i class="ri-search-line"></i>
+          <input type="text" id="media-search" placeholder="ابحث..." oninput="filterMedia()"/>
+        </div>
+        <button class="mf-btn active" onclick="filterMediaCat('الكل',this)">الكل</button>
+        <button class="mf-btn" onclick="filterMediaCat('قداسات',this)">قداسات</button>
+        <button class="mf-btn" onclick="filterMediaCat('مناسبات',this)">مناسبات</button>
+        <button class="mf-btn" onclick="filterMediaCat('عظات',this)">عظات</button>
+        <button class="mf-btn" onclick="filterMediaCat('أناشيد',this)">أناشيد</button>
+        <button class="mf-btn" onclick="filterMediaCat('صور',this)">صور</button>
+      </div>
+      
+      <div class="media-content" id="media-public-content"></div>
     </div>
   </div>
-</div>
 
-<!-- ===== SCROLL TOP ===== -->
-<button class="scroll-top" id="scroll-top"><i class="ri-arrow-up-line"></i></button>
+  <!-- ==================== ADMIN PANEL PAGE ==================== -->
+  <div class="page-view" id="page-admin">
+    <div class="admin-page" id="admin-wrap">
+      
+      <!-- Admin Login -->
+      <div class="login-screen" id="login-screen">
+        <div class="login-box">
+          <img class="login-logo" src="https://yt3.googleusercontent.com/fDYMuJkul64KgPbt9c-u9v6JfRH1Kdz-1ugEk1uwnlohvQJUP56XnqV4f25HqqHtQSpeahv7MQ=s160-c-k-c0x00ffffff-no-rj" alt="logo"/>
+          <h1 class="login-title">Admin Panel</h1>
+          <p class="login-sub">St. Antony Coptic Church · Shoubra</p>
+          <form class="login-form" id="login-form" onsubmit="doLogin(event)">
+            <div>
+              <label class="login-label">Username</label>
+              <div class="login-input-wrap">
+                <i class="ri-user-line"></i>
+                <input class="login-input" type="text" id="l-user" placeholder="Enter username" autocomplete="username" required/>
+              </div>
+            </div>
+            <div>
+              <label class="login-label">Password</label>
+              <div class="login-input-wrap">
+                <i class="ri-lock-line"></i>
+                <input class="login-input" type="password" id="l-pass" placeholder="Enter password" autocomplete="current-password" required/>
+              </div>
+            </div>
+            <div class="login-error" id="login-error">Incorrect username or password. Please try again.</div>
+            <button class="login-btn" type="submit">
+              <i class="ri-shield-keyhole-line"></i>
+              Sign In
+            </button>
+          </form>
+        </div>
+      </div>
 
-<script>
-  /* ---- HELPERS ---- */
-  const $ = (sel, ctx = document) => ctx.querySelector(sel);
-  const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
-  const store = {
-    get: k => JSON.parse(localStorage.getItem(k) || 'null'),
-    set: (k, v) => localStorage.setItem(k, JSON.stringify(v))
-  };
+      <!-- Admin Sidebar -->
+      <aside class="adm-sidebar" id="adm-sidebar">
+        <div class="adm-logo">
+          <img src="https://yt3.googleusercontent.com/fDYMuJkul64KgPbt9c-u9v6JfRH1Kdz-1ugEk1uwnlohvQJUP56XnqV4f25HqqHtQSpeahv7MQ=s160-c-k-c0x00ffffff-no-rj" alt="logo"/>
+          <div class="adm-logo-text"><strong>كنيسة الأنبا أنطونيوس</strong><span>Admin Panel</span></div>
+        </div>
+        <nav class="adm-nav">
+          <div class="adm-nav-label">MAIN</div>
+          <button class="adm-link active" onclick="admNav('dashboard')">
+            <i class="ri-dashboard-line"></i>
+            Dashboard
+          </button>
+          <button class="adm-link" onclick="admNav('events')">
+            <i class="ri-calendar-line"></i>
+            Events
+          </button>
+          <button class="adm-link" onclick="admNav('timetable')">
+            <i class="ri-time-line"></i>
+            Groups & Timetable
+          </button>
+          <div class="adm-nav-label" style="margin-top:.5rem">CONTENT</div>
+          <button class="adm-link" onclick="admNav('media')">
+            <i class="ri-folder-image-line"></i>
+            Media Library
+          </button>
+          <button class="adm-link" onclick="admNav('messages')">
+            <i class="ri-mail-line"></i>
+            Messages
+          </button>
+          <div class="adm-nav-label" style="margin-top:.5rem">LINKS</div>
+          <button class="adm-link" onclick="showPage('home')">
+            <i class="ri-global-line"></i>
+            View Public Site
+          </button>
+        </nav>
+        <div class="adm-footer">
+          <div class="adm-user">
+            <div class="adm-avatar">A</div>
+            <div>
+              <div style="color:#fff;font-size:.8rem;font-weight:600">Anthony</div>
+              <div style="color:rgba(255,255,255,.4);font-size:.7rem">Administrator</div>
+            </div>
+            <button onclick="logout()" style="margin-right:auto;background:none;color:rgba(255,255,255,.4);display:flex;align-items:center;" title="Logout">
+              <i class="ri-logout-box-r-line" style="font-size:1.15rem"></i>
+            </button>
+          </div>
+        </div>
+      </aside>
 
-  /* ---- THEME ---- */
-  const applyTheme = (dark) => {
-    document.body.classList.toggle('dark', dark);
-    $('#theme-btn i').className = dark ? 'ri-sun-line' : 'ri-moon-line';
-  };
-  let isDark = store.get('dark-theme') ?? false;
-  applyTheme(isDark);
-  $('#theme-btn').onclick = () => { isDark = !isDark; store.set('dark-theme', isDark); applyTheme(isDark); };
+      <!-- Admin Main Content -->
+      <div class="adm-main" id="adm-main">
+        <div class="adm-topbar">
+          <div style="display:flex;align-items:center;gap:1rem">
+            <button onclick="document.getElementById('adm-sidebar').classList.toggle('open')" style="background:none;color:var(--navy);display:flex;align-items:center;">
+              <i class="ri-menu-line" style="font-size:1.25rem"></i>
+            </button>
+            <span class="adm-topbar-title" id="adm-page-title">Dashboard</span>
+          </div>
+          <span class="adm-badge">Control Panel</span>
+        </div>
+        
+        <div class="adm-content">
 
-  /* ---- HEADER SCROLL ---- */
-  const header = $('#header');
-  window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 50);
-    $('#scroll-top').classList.toggle('show', window.scrollY > 300);
-  });
-  $('#scroll-top').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+          <!-- ADMIN DASHBOARD -->
+          <div class="adm-panel active" id="adm-dashboard">
+            <div class="adm-stats">
+              <div class="adm-stat"><div class="adm-stat-icon"><i class="ri-calendar-event-line"></i></div><div><div class="adm-stat-val" id="ds-events">0</div><div class="adm-stat-label">Total Events</div></div></div>
+              <div class="adm-stat"><div class="adm-stat-icon"><i class="ri-group-line"></i></div><div><div class="adm-stat-val" id="ds-osras">0</div><div class="adm-stat-label">Groups</div></div></div>
+              <div class="adm-stat"><div class="adm-stat-icon"><i class="ri-image-line"></i></div><div><div class="adm-stat-val" id="ds-media">0</div><div class="adm-stat-label">Media Files</div></div></div>
+              <div class="adm-stat"><div class="adm-stat-icon"><i class="ri-mail-unread-line"></i></div><div><div class="adm-stat-val" id="ds-msgs">0</div><div class="adm-stat-label">New Messages</div></div></div>
+            </div>
+            <div class="adm-card">
+              <div class="adm-card-head"><div class="adm-card-title"><i class="ri-calendar-line"></i> Upcoming Events</div></div>
+              <div class="adm-table-wrap">
+                <table class="adm-table">
+                  <thead><tr><th>Event Name</th><th>Date</th><th>Category</th><th>Time Left</th></tr></thead>
+                  <tbody id="ds-events-table"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
 
-  /* ---- MOBILE NAV ---- */
-  const navLinks = $('#nav-links');
-  $('#nav-toggle').onclick = () => navLinks.classList.toggle('open');
-  $$('.nav-links a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+          <!-- ADMIN EVENTS -->
+          <div class="adm-panel" id="adm-events">
+            <div class="adm-card">
+              <div class="adm-card-head"><div class="adm-card-title"><i class="ri-add-circle-line"></i> Add New Event</div></div>
+              <div class="adm-form-grid">
+                <div class="adm-form-group"><label class="adm-label">Event Title <span>(required)</span></label><input id="ev-title" class="adm-input" type="text" placeholder="مثال: اجتماع درس الكتاب العام"/></div>
+                <div class="adm-form-group"><label class="adm-label">Category</label><select id="ev-cat" class="adm-select"><option value="Feast">عشيات وأعياد</option><option value="Retreat">خلوات وتدريب روحي</option><option value="Youth">خدمة الشباب</option><option value="Liturgy">قداسات إلهية</option><option value="other">خدمات أخرى</option></select></div>
+                <div class="adm-form-group"><label class="adm-label">Event Date <span>(e.g. Jan 30, 2026)</span></label><input id="ev-date" class="adm-input" type="text" placeholder="e.g. Jan 30, 2026" style="direction:ltr;text-align:right"/></div>
+                <div class="adm-form-group"><label class="adm-label">Duration <span>(e.g. 2 hours)</span></label><input id="ev-dur" class="adm-input" type="text" placeholder="مثال: ٣ ساعات"/></div>
+                <div class="adm-form-group"><label class="adm-label">Image URL <span>(optional)</span></label><input id="ev-img" class="adm-input" type="url" placeholder="https://..." style="direction:ltr;text-align:right"/></div>
+                <div class="adm-form-group"><label class="adm-label">Booking</label><select id="ev-book" class="adm-select"><option value="1">Yes – Enable seat booking</option><option value="0">No – Open attendance</option></select></div>
+                <div class="adm-form-group full"><label class="adm-label">Description & Details</label><textarea id="ev-desc" class="adm-textarea" placeholder="اكتب تفاصيل ومكان وملاحظات الفعالية..."></textarea></div>
+              </div>
+              <div style="margin-top:1rem;display:flex;justify-content:flex-end">
+                <button class="adm-btn adm-btn-gold" onclick="addEvent()"><i class="ri-save-line"></i> Save Event</button>
+              </div>
+            </div>
+            <div class="adm-card">
+              <div class="adm-card-head"><div class="adm-card-title"><i class="ri-align-justify"></i> All Events</div></div>
+              <div class="adm-table-wrap">
+                <table class="adm-table">
+                  <thead><tr><th>Event Title</th><th>Date</th><th>Category</th><th>Bookable</th><th>Actions</th></tr></thead>
+                  <tbody id="events-table-body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
 
-  /* ---- ACTIVE NAV LINK ---- */
-  const sections = $$('section[id]');
-  window.addEventListener('scroll', () => {
-    const y = window.scrollY + 100;
-    sections.forEach(s => {
-      const link = $(`.nav-links a[href="#${s.id}"]`);
-      if (link) link.classList.toggle('active', y >= s.offsetTop && y < s.offsetTop + s.offsetHeight);
+          <!-- ADMIN TIMETABLES -->
+          <div class="adm-panel" id="adm-timetable">
+            <!-- Osra/Group Creation -->
+            <div class="adm-card">
+              <div class="adm-card-head"><div class="adm-card-title"><i class="ri-group-line"></i> Add New Group / Osra</div></div>
+              <div class="adm-form-grid">
+                <div class="adm-form-group"><label class="adm-label">Group Name <span>(required)</span></label><input id="os-name" class="adm-input" type="text" placeholder="مثال: أسرة الشباب"/></div>
+                <div class="adm-form-group"><label class="adm-label">Leader(s) Name <span>(optional)</span></label><input id="os-leader" class="adm-input" type="text" placeholder="مثال: مينا"/></div>
+                <div class="adm-form-group full"><label class="adm-label">Description <span>(optional)</span></label><input id="os-desc" class="adm-input" type="text" placeholder="نبذة مختصرة..."/></div>
+              </div>
+              <div style="margin-top:1rem;display:flex;justify-content:flex-end">
+                <button class="adm-btn adm-btn-gold" onclick="addOsra()"><i class="ri-add-line"></i> Add Group</button>
+              </div>
+            </div>
+            
+            <!-- Session Creation / Edit -->
+            <div class="adm-card" id="osra-sessions-card" style="display:none">
+              <div class="adm-card-head"><div class="adm-card-title" id="sessions-card-title"><i class="ri-calendar-todo-line"></i> Add Session to Group</div></div>
+              <div class="adm-form-grid">
+                <div class="adm-form-group"><label class="adm-label">Session Name <span>(e.g. Weekly Meeting)</span></label><input id="ss-name" class="adm-input" type="text" placeholder="مثال: الاجتماع الأسبوعي"/></div>
+                <div class="adm-form-group"><label class="adm-label">Day</label><select id="ss-day" class="adm-select"><option>الأحد</option><option>الإثنين</option><option>الثلاثاء</option><option>الأربعاء</option><option>الخميس</option><option>الجمعة</option><option>السبت</option></select></div>
+                <div class="adm-form-group"><label class="adm-label">Start Time</label><div class="time-row"><input id="ss-time" class="adm-input" type="time" style="direction:ltr;text-align:right" oninput="updateTimeAr('ss-time','ss-time-ar')"/><span class="time-ar-badge" id="ss-time-ar">--</span></div></div>
+                <div class="adm-form-group"><label class="adm-label">Duration (hours)</label><input id="ss-dur" class="adm-input" type="number" min="0.5" max="8" step="0.5" placeholder="e.g. 1.5" style="direction:ltr;"/></div>
+                <div class="adm-form-group"><label class="adm-label">Location / Hall</label><input id="ss-loc" class="adm-input" type="text" placeholder="مثال: القاعة الكبرى بالدور الثاني"/></div>
+                <div class="adm-form-group"><label class="adm-label">Notes <span>(optional)</span></label><input id="ss-notes" class="adm-input" type="text" placeholder="مثال: يرجي إحضار الأجبية"/></div>
+              </div>
+              <input type="hidden" id="ss-edit-id"/>
+              <div style="margin-top:1rem;display:flex;gap:.75rem;justify-content:flex-end">
+                <button class="adm-btn adm-btn-navy" id="ss-cancel-btn" onclick="cancelSessionEdit()" style="display:none"><i class="ri-close-line"></i> Cancel</button>
+                <button class="adm-btn adm-btn-gold" onclick="saveSession()"><i class="ri-save-line"></i> <span id="ss-btn-label">Add Session</span></button>
+              </div>
+            </div>
+
+            <!-- List Groups -->
+            <div class="adm-card">
+              <div class="adm-card-head"><div class="adm-card-title"><i class="ri-folders-line"></i> All Groups</div></div>
+              <div id="osras-table-body"></div>
+            </div>
+          </div>
+
+          <!-- ADMIN MEDIA -->
+          <div class="adm-panel" id="adm-media">
+            <div class="adm-card">
+              <div class="adm-card-head"><div class="adm-card-title"><i class="ri-file-upload-line"></i> Upload Media & Documents</div></div>
+              <div class="adm-upload-zone" onclick="document.getElementById('media-file-input').click()" id="adm-drop-zone">
+                <i class="ri-cloud-upload-line"></i>
+                <p><strong>Click to choose files</strong> or drag & drop them here</p>
+                <p style="font-size:0.75rem;margin-top:0.3rem">Supports images, videos, and PDF files</p>
+              </div>
+              <input type="file" id="media-file-input" multiple accept="image/*,video/*,application/pdf" style="display:none" onchange="handleMediaFiles(this.files)"/>
+              
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem">
+                <div class="adm-form-group"><label class="adm-label">File Caption / Title</label><input id="media-cap" class="adm-input" type="text" placeholder="مثال: صورة تذكارية لعيد القيامة"/></div>
+                <div class="adm-form-group"><label class="adm-label">Category</label><select id="media-cat-sel" class="adm-select"><option>قداسات</option><option>مناسبات</option><option>عظات</option><option>أناشيد</option><option>صور</option><option>أخرى</option></select></div>
+              </div>
+              <div class="adm-media-grid" id="adm-media-preview"></div>
+              <div style="margin-top:1rem;display:flex;justify-content:flex-end">
+                <button class="adm-btn adm-btn-gold" onclick="saveMedia()"><i class="ri-send-plane-2-line"></i> Save to Media Library</button>
+              </div>
+            </div>
+
+            <div class="adm-card">
+              <div class="adm-card-head"><div class="adm-card-title"><i class="ri-gallery-upload-line"></i> Uploaded Media</div></div>
+              <div class="adm-table-wrap">
+                <table class="adm-table">
+                  <thead><tr><th>Filename</th><th>Caption</th><th>Category</th><th>Type</th><th>Actions</th></tr></thead>
+                  <tbody id="media-table-body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ADMIN MESSAGES -->
+          <div class="adm-panel" id="adm-messages">
+            <div class="adm-card">
+              <div class="adm-card-head">
+                <div class="adm-card-title"><i class="ri-mail-open-line"></i> Contact Form Messages</div>
+                <button class="adm-btn adm-btn-danger adm-btn-sm" onclick="clearMessages()"><i class="ri-delete-bin-3-line"></i> Clear All Messages</button>
+              </div>
+              <div id="messages-list-adm"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BOOKING REQUEST MODAL ===== -->
+  <div class="modal-overlay" id="booking-modal">
+    <div class="modal-box">
+      <button class="modal-close" id="modal-close"><i class="ri-close-line"></i></button>
+      <div class="modal-icon"><i class="ri-shield-user-line"></i></div>
+      <h2>حجز مقعد لحضور الفعالية</h2>
+      <p class="modal-event-name" id="modal-event-name"></p>
+      
+      <form class="modal-form" id="booking-form">
+        <input type="hidden" id="booking-event-id"/>
+        <input type="text" id="bk-name" placeholder="الاسم الكامل للشخص" required/>
+        <input type="tel" id="bk-phone" placeholder="رقم الهاتف للتواصل" required/>
+        <input type="number" id="bk-persons" placeholder="عدد المقاعد المطلوبة" min="1" required/>
+        <button type="submit" class="modal-submit">
+          <i class="ri-check-double-line"></i>
+          تأكيد طلب الحجز
+        </button>
+      </form>
+      
+      <div class="modal-success" id="booking-success">
+        <i class="ri-checkbox-circle-fill"></i>
+        <strong>تم تسجيل طلب الحجز بنجاح!</strong>
+        <p>هنتواصل معاك قريباً جداً لتأكيد حجزك.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll to top button -->
+  <button class="scroll-top" id="scroll-top"><i class="ri-arrow-up-line"></i></button>
+  
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <i class="ri-notification-3-line"></i>
+    <span id="toast-msg"></span>
+  </div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    /* ===== DB / LOCALSTORAGE MOCK ===== */
+    const db = {
+      get: k => JSON.parse(localStorage.getItem(k) || 'null'),
+      set: (k, v) => localStorage.setItem(k, JSON.stringify(v))
+    };
+
+    // Initialize default tables if not exist
+    if (!db.get('church-events')) db.set('church-events', []);
+    if (!db.get('church-osras')) db.set('church-osras', []);
+    if (!db.get('church-media')) db.set('church-media', []);
+    if (!db.get('church-messages')) db.set('church-messages', []);
+    if (!db.get('church-bookings')) db.set('church-bookings', []);
+
+    let currentPage = 'home';
+    let currentMediaCat = 'الكل';
+    let selectedOsraId = null;
+    let pendingMediaFiles = [];
+
+    /* ===== NAVIGATION ===== */
+    function showPage(p) {
+      document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
+      const activePage = document.getElementById('page-' + p);
+      if (activePage) activePage.classList.add('active');
+      
+      currentPage = p;
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      const navEl = document.querySelector(`.nav-links a[data-nav="${p}"]`);
+      if (navEl) navEl.classList.add('active');
+      
+      // Hide the public header on admin page to prevent overlap
+      const hdr = document.getElementById('header');
+      if (p === 'admin') {
+        hdr.classList.add('header-hidden');
+      } else {
+        hdr.classList.remove('header-hidden');
+      }
+
+      window.scrollTo(0, 0);
+      document.getElementById('nav-links').classList.remove('open');
+      
+      if (p === 'timetable') { renderTimetableGridView(); renderTimetablePublic(); }
+      if (p === 'media') renderPublicMedia();
+      if (p === 'admin') checkAdminAuth();
+    }
+
+    function scrollTo(id) {
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+
+    document.getElementById('nav-toggle').onclick = () => document.getElementById('nav-links').classList.toggle('open');
+    document.getElementById('scroll-top').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    window.addEventListener('scroll', () => {
+      document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+      document.getElementById('scroll-top').classList.toggle('show', window.scrollY > 300);
     });
-  });
 
-  /* ---- REVEAL ---- */
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  $$('.reveal').forEach(el => io.observe(el));
-
-  /* ---- DEFAULT EVENTS: start empty, admin adds them ---- */
-  if (!store.get('church-events')) store.set('church-events', []);
-  /* ---- RENDER SCHEDULES (from localStorage) ---- */
-  const renderSchedules = () => {
-    const schedules = store.get('church-schedules') || [];
-    const container = document.getElementById('schedules-list');
-    if (!container) return;
-    if (!schedules.length) {
-      container.innerHTML = `<div class="no-events" style="color:rgba(255,255,255,.5)"><i class="ri-time-line"></i><p>لا توجد مواعيد حتى الآن. تابعونا قريباً.</p></div>`;
-      return;
+    /* ===== THEME (DARK / LIGHT) ===== */
+    let isDark = db.get('dark-theme') || false;
+    function applyTheme(d) {
+      document.body.classList.toggle('dark', d);
+      const icon = document.getElementById('theme-icon');
+      if (d) {
+        icon.className = 'ri-sun-line';
+      } else {
+        icon.className = 'ri-moon-line';
+      }
     }
-    container.innerHTML = schedules.map(s => `
-      <div class="schedule-card reveal">
-        <div class="schedule-icon"><i class="${s.icon || 'ri-calendar-line'}"></i></div>
-        <h3>${s.title}</h3>
-        <p class="schedule-time">${s.time}</p>
-        <p class="schedule-desc">${s.description}</p>
-      </div>`).join('');
-    container.querySelectorAll('.reveal').forEach(el => io.observe(el));
-  };
-  renderSchedules();
+    applyTheme(isDark);
+    document.getElementById('theme-btn').onclick = () => {
+      isDark = !isDark;
+      db.set('dark-theme', isDark);
+      applyTheme(isDark);
+    };
 
+    /* ===== ANIMATIONS ===== */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  const catEmoji = { Feast:'⛪', Retreat:'🏔', Youth:'👥', Liturgy:'☩', other:'📅' };
-  const renderEvents = () => {
-    const events = store.get('church-events') || [];
-    const container = $('#events-list');
-    if (!events.length) {
-      container.innerHTML = `<div class="no-events"><i class="ri-calendar-event-line"></i><p>مفيش فعاليات دلوقتي. ترقبونا قريباً!</p></div>`;
-      return;
+    /* ===== FORMATTERS & UTILS ===== */
+    function toAr(n) { return String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]); }
+    
+    function toArTime(t) {
+      if (!t) return '--';
+      const [h, m] = t.split(':').map(Number);
+      const am = h < 12;
+      const h12 = h % 12 || 12;
+      return `${toAr(h12)}:${toAr(String(m).padStart(2, '0'))} ${am ? 'ص' : 'م'}`;
     }
-    container.innerHTML = events.map(ev => `
-      <article class="event-card reveal">
-        <div class="event-card-img">
-          ${ev.img ? `<img src="${ev.img}" alt="${ev.title}"/>` : `<span>${catEmoji[ev.category]||'📅'}</span>`}
-        </div>
-        <div class="event-card-body">
-          <p class="event-card-tag">☩ ${ev.category}</p>
-          <h3>${ev.title}</h3>
-          <div class="event-card-meta">
-            <span class="event-meta-item"><i class="ri-calendar-line"></i>${ev.date}</span>
-            <span class="event-meta-item"><i class="ri-time-line"></i>${ev.duration}</span>
+
+    function updateTimeAr(inputId, labelId) {
+      document.getElementById(labelId).textContent = toArTime(document.getElementById(inputId).value);
+    }
+
+    function countdown(dateStr) {
+      const d = new Date(dateStr);
+      const now = new Date();
+      const diff = d - now;
+      if (diff < 0) return { text: 'انتهى', cls: 'tag-gold' };
+      const days = Math.floor(diff / 86400000);
+      const hrs = Math.floor((diff % 86400000) / 3600000);
+      const mins = Math.floor((diff % 3600000) / 60000);
+      if (days > 0) return { text: `${toAr(days)} يوم`, cls: 'tag-blue' };
+      if (hrs > 0) return { text: `${toAr(hrs)} ساعة`, cls: 'tag-green' };
+      return { text: `${toAr(mins)} دقيقة`, cls: 'tag-green' };
+    }
+
+    /* ===== HOME PAGE LOGIC ===== */
+    async function renderHomeCountdown() {
+      const events = await API.getEvents();
+      const upcoming = events.filter(e => new Date(e.date) > new Date()).sort((a, b) => new Date(a.date) - new Date(b.date)).slice(0, 3);
+      const c = document.getElementById('home-countdown');
+      if (!c) return;
+      if (!upcoming.length) { c.innerHTML = ''; return; }
+      
+      c.innerHTML = upcoming.map(ev => {
+        const cd = countdown(ev.date);
+        return `
+          <div class="cdown-card">
+            <div class="cdown-icon"><i class="ri-calendar-check-line"></i></div>
+            <div class="cdown-info">
+              <div class="cdown-title">${ev.title}</div>
+              <div class="cdown-date">${ev.date}</div>
+            </div>
+            <div>
+              <div class="cdown-num">${cd.text.split(' ')[0]}</div>
+              <div class="cdown-unit">${cd.text.split(' ')[1] || ''}</div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    async function renderEvents() {
+      const events = await API.getEvents();
+      const c = document.getElementById('events-list');
+      if (!c) return;
+      if (!events.length) {
+        c.innerHTML = `
+          <div class="no-events">
+            <i class="ri-calendar-event-line"></i>
+            <p>لا توجد فعاليات في الوقت الحالي. ترقبوا الإعلان عن فعاليات قريباً!</p>
+          </div>`;
+        return;
+      }
+      
+      c.innerHTML = events.map(ev => `
+        <article class="ev-card reveal">
+          <div class="ev-img">
+            ${ev.img ? `<img src="${ev.img}" alt="${ev.title}"/>` : `<i class="ri-image-line"></i>`}
           </div>
-          <p>${ev.description}</p>
-          ${ev.bookable ? `<button class="btn-book" onclick="openBooking(${ev.id}, '${ev.title.replace(/'/g, "\\'")}')">احجز مكانك</button>` : `<span style="font-size:.8rem;color:var(--gray)">☩ حضور مفتوح للجميع</span>`}
-        </div>
-      </article>
-    `).join('');
-    $$('#events-list .reveal').forEach(el => io.observe(el));
-  };
-  renderEvents();
+          <div class="ev-body">
+            <p class="ev-tag">${ev.category || 'عام'}</p>
+            <h3>${ev.title}</h3>
+            <div class="ev-meta">
+              <span class="ev-meta-item"><i class="ri-calendar-line"></i>${ev.date}</span>
+              ${ev.duration ? `<span class="ev-meta-item"><i class="ri-time-line"></i>${ev.duration}</span>` : ''}
+            </div>
+            <p>${ev.description || ''}</p>
+            ${ev.bookable ? `<button class="btn-book" onclick="openBooking(${ev.id},'${ev.title.replace(/'/g, "\\'")}')"><i class="ri-ticket-line"></i> احجز مكانك</button>` : `<span style="font-size:.8rem;color:var(--gray)"><i class="ri-group-line"></i> حضور عام مفتوح</span>`}
+          </div>
+        </article>`).join('');
+        
+      c.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    }
 
-  /* ---- BOOKING MODAL ---- */
-  const bookingModal = $('#booking-modal');
-  const openBooking = (id, name) => {
-    $('#modal-event-name').textContent = name;
-    $('#booking-event-id').value = id;
-    $('#booking-form').style.display = 'grid';
-    $('#booking-success').style.display = 'none';
-    $('#booking-form').reset();
-    bookingModal.classList.add('open');
-  };
-  $('#modal-close').onclick = () => bookingModal.classList.remove('open');
-  bookingModal.addEventListener('click', e => { if (e.target === bookingModal) bookingModal.classList.remove('open'); });
-
-  $('#booking-form').addEventListener('submit', e => {
-    e.preventDefault();
-    const eventId = parseInt($('#booking-event-id').value);
-    const events = store.get('church-events') || [];
-    const event = events.find(ev => ev.id === eventId);
-    const booking = {
-      id: Date.now(),
-      eventId, eventName: event?.title || '',
-      name: $('#bk-name').value,
-      phone: $('#bk-phone').value,
-      persons: $('#bk-persons').value,
-      date: new Date().toLocaleString()
+    function openBooking(id, name) {
+      document.getElementById('modal-event-name').textContent = name;
+      document.getElementById('booking-event-id').value = id;
+      document.getElementById('booking-form').style.display = 'grid';
+      document.getElementById('booking-success').style.display = 'none';
+      document.getElementById('booking-form').reset();
+      document.getElementById('booking-modal').classList.add('open');
+    }
+    
+    document.getElementById('modal-close').onclick = () => document.getElementById('booking-modal').classList.remove('open');
+    document.getElementById('booking-modal').onclick = e => { if (e.target === document.getElementById('booking-modal')) document.getElementById('booking-modal').classList.remove('open'); };
+    
+    document.getElementById('booking-form').onsubmit = async e => {
+      e.preventDefault();
+      const events = await API.getEvents();
+      const id = parseInt(document.getElementById('booking-event-id').value);
+      const ev = events.find(x => x.id === id);
+      
+      const b = {
+        id: Date.now(),
+        eventId: id,
+        eventName: ev ? ev.title : 'فعالية عامة',
+        name: document.getElementById('bk-name').value.trim(),
+        phone: document.getElementById('bk-phone').value.trim(),
+        persons: document.getElementById('bk-persons').value,
+        date: new Date().toLocaleString()
+      };
+      
+      await API.saveBooking(b);
+      document.getElementById('booking-form').style.display = 'none';
+      document.getElementById('booking-success').style.display = 'flex';
     };
-    const bookings = store.get('church-bookings') || [];
-    bookings.push(booking);
-    store.set('church-bookings', bookings);
-    $('#booking-form').style.display = 'none';
-    $('#booking-success').style.display = 'flex';
-  });
 
-  /* ---- CONTACT FORM ---- */
-  $('#contact-form').addEventListener('submit', e => {
-    e.preventDefault();
-    const msg = {
-      id: Date.now(),
-      name: $('#cf-name').value,
-      email: $('#cf-email').value,
-      subject: $('#cf-subject').value || '(بدون موضوع)',
-      message: $('#cf-message').value,
-      date: new Date().toLocaleString(),
-      read: false
+    document.getElementById('contact-form').onsubmit = async e => {
+      e.preventDefault();
+      const msg = {
+        id: Date.now(),
+        name: document.getElementById('cf-name').value.trim(),
+        email: document.getElementById('cf-email').value.trim(),
+        subject: document.getElementById('cf-subject').value.trim() || 'بدون موضوع',
+        message: document.getElementById('cf-message').value.trim(),
+        date: new Date().toLocaleString(),
+        read: false
+      };
+      
+      await API.saveMessage(msg);
+      document.getElementById('contact-form').querySelectorAll('input, textarea, button').forEach(el => el.style.display = 'none');
+      document.getElementById('form-success').style.display = 'block';
     };
-    const messages = store.get('church-messages') || [];
-    messages.push(msg);
-    store.set('church-messages', messages);
-    $('#contact-form').querySelectorAll('input, textarea, button[type=submit]').forEach(el => el.style.display = 'none');
-    const s = $('#form-success');
-    s.style.display = 'block';
-  });
-</script>
+
+    /* ===== UNIFIED WEEKLY TIMETABLE PAGE ===== */
+    async function renderTimetablePublic() {
+      const osras = await API.getOsras();
+      const container = document.getElementById('timetable-container');
+      if (!container) return;
+      
+      if (!osras.length) {
+        container.innerHTML = `
+          <div class="day-empty-msg" style="padding: 5rem 0;">
+            <i class="ri-calendar-2-line" style="font-size: 3rem; color: var(--gold); display:block; margin-bottom: 1rem;"></i>
+            <h3>لا توجد جداول أو خدمات أسبوعية مضافة حالياً.</h3>
+            <p>برجاء إضافة مجموعات وأسر أولاً من لوحة الإدارة.</p>
+          </div>`;
+        return;
+      }
+
+      // Group all sessions across all Osras by day of the week
+      const weekdays = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+      const daySessions = {};
+      weekdays.forEach(d => { daySessions[d] = []; });
+
+      osras.forEach(os => {
+        if (os.sessions && os.sessions.length) {
+          os.sessions.forEach(s => {
+            const day = s.day;
+            if (daySessions[day]) {
+              daySessions[day].push({
+                ...s,
+                osraName: os.name,
+                osraLeader: os.leader || 'غير محدد'
+              });
+            }
+          });
+        }
+      });
+
+      // Sort sessions for each day chronologically by time
+      weekdays.forEach(day => {
+        daySessions[day].sort((a, b) => {
+          return a.time.localeCompare(b.time);
+        });
+      });
+
+      // Render the timetable day cards
+      container.innerHTML = weekdays.map(day => {
+        const list = daySessions[day];
+        const hasServices = list.length > 0;
+        
+        let servicesHTML = '';
+        if (hasServices) {
+          servicesHTML = list.map(s => `
+            <div class="service-row">
+              <div class="service-time-meta">
+                <span class="service-time"><i class="ri-time-line"></i> ${toArTime(s.time)}</span>
+                <span class="service-day-desc">أسبوعياً</span>
+              </div>
+              <div class="service-content">
+                <h4 class="service-name-title"><i class="ri-focus-3-line" style="color:var(--gold)"></i> ${s.name}</h4>
+                <div class="service-meta-info">
+                  <span><i class="ri-group-line"></i> المجموعة: <strong>${s.osraName}</strong></span>
+                  <span><i class="ri-user-star-line"></i> المسؤول: <strong>${s.osraLeader}</strong></span>
+                  ${s.location ? `<span><i class="ri-map-pin-line"></i> المكان: <strong>${s.location}</strong></span>` : ''}
+                </div>
+                ${s.notes ? `<p class="service-notes-text">ملاحظة: ${s.notes}</p>` : ''}
+              </div>
+            </div>`).join('');
+        } else {
+          servicesHTML = `<div class="day-empty-msg"><i class="ri-calendar-event-line"></i> لا توجد خدمات مضافة ليوم ${day}</div>`;
+        }
+
+        return `
+          <div class="day-block reveal">
+            <div class="day-block-header">
+              <span class="day-name"><i class="ri-bookmark-3-line" style="color:var(--gold)"></i> يوم ${day}</span>
+              <span class="day-badge">${list.length} خدمات</span>
+            </div>
+            <div class="day-services-list">
+              ${servicesHTML}
+            </div>
+          </div>`;
+      }).join('');
+
+      container.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    }
+
+    /* ===== PUBLIC MEDIA LIBRARY LOGIC ===== */
+    async function renderPublicMedia() {
+      filterMedia();
+    }
+
+    async function filterMedia() {
+      const allMedia = await API.getMedia();
+      const searchInput = document.getElementById('media-search');
+      const q = searchInput ? searchInput.value.toLowerCase().trim() : '';
+      
+      let filtered = allMedia;
+      
+      // Category filter
+      if (currentMediaCat !== 'الكل') {
+        filtered = filtered.filter(m => m.category === currentMediaCat);
+      }
+      
+      // Search filter
+      if (q) {
+        filtered = filtered.filter(m => (m.caption || '').toLowerCase().includes(q) || (m.name || '').toLowerCase().includes(q));
+      }
+      
+      const c = document.getElementById('media-public-content');
+      if (!c) return;
+      
+      if (!filtered.length) {
+        c.innerHTML = `
+          <div class="media-empty">
+            <i class="ri-folder-open-line"></i>
+            <h3>لا توجد وسائط متوفرة حالياً</h3>
+            <p>قم برفع الصور، الفيديوهات أو ملفات الـ PDF من لوحة الإدارة.</p>
+          </div>`;
+        return;
+      }
+
+      // Group media by category
+      const categories = [...new Set(filtered.map(m => m.category))];
+      
+      c.innerHTML = categories.map(cat => {
+        const items = filtered.filter(m => m.category === cat);
+        return `
+          <div class="media-section-title reveal">
+            <i class="ri-folder-2-line"></i>
+            <span>قسم: ${cat}</span>
+          </div>
+          <div class="media-grid">
+            ${items.map(m => {
+              const fullIndex = allMedia.findIndex(item => item.id === m.id);
+              return mediaCardHTML(m, fullIndex);
+            }).join('')}
+          </div>`;
+      }).join('');
+      
+      c.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    }
+
+    function filterMediaCat(cat, btn) {
+      currentMediaCat = cat;
+      document.querySelectorAll('.mf-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterMedia();
+    }
+
+    function mediaCardHTML(m, idx) {
+      const isVid = m.type && m.type.startsWith('video');
+      const isImg = m.type && m.type.startsWith('image');
+      const isPdf = m.type === 'application/pdf';
+      let thumb = '';
+      
+      if (isImg && m.url) {
+        thumb = `<img src="${m.url}" alt="${m.caption}" loading="lazy"/>`;
+      } else if (isVid) {
+        thumb = `<div class="media-play"><i class="ri-play-circle-line"></i></div>`;
+      } else if (isPdf) {
+        thumb = `<i class="ri-file-pdf-line media-pdf-icon"></i>`;
+      } else {
+        thumb = `<i class="ri-file-line media-file-icon"></i>`;
+      }
+
+      return `
+        <div class="media-card reveal" onclick="openLightbox(${idx})">
+          <div class="media-thumb">${thumb}</div>
+          <div class="media-body">
+            <div class="media-cat">${m.category}</div>
+            <div class="media-title">${m.caption || m.name}</div>
+            <div class="media-type">
+              <i class="ri-attachment-line"></i>
+              <span>${isPdf ? 'ملف مستند PDF' : isVid ? 'ملف فيديو' : isImg ? 'ملف صورة' : 'ملف'}</span>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    async function openLightbox(idx) {
+      const allMedia = await API.getMedia();
+      const m = allMedia[idx];
+      if (!m) return;
+      
+      let lb = document.getElementById('main-lightbox');
+      if (!lb) {
+        lb = document.createElement('div');
+        lb.className = 'lightbox';
+        lb.id = 'main-lightbox';
+        lb.innerHTML = `
+          <button class="lb-close" onclick="closeLightbox()"><i class="ri-close-line"></i></button>
+          <div class="lb-inner">
+            <div id="lb-content"></div>
+            <div class="lb-title" id="lb-title"></div>
+            <div class="lb-cat" id="lb-cat"></div>
+          </div>`;
+        lb.onclick = e => { if (e.target === lb) closeLightbox(); };
+        document.body.appendChild(lb);
+      }
+      
+      const content = document.getElementById('lb-content');
+      const isVid = m.type && m.type.startsWith('video');
+      const isImg = m.type && m.type.startsWith('image');
+      const isPdf = m.type === 'application/pdf';
+      
+      if (isImg && m.url) {
+        content.innerHTML = `<img src="${m.url}" class="lb-media" alt="${m.caption}"/>`;
+      } else if (isVid && m.url) {
+        content.innerHTML = `<video src="${m.url}" class="lb-media" controls autoplay></video>`;
+      } else if (isPdf) {
+        content.innerHTML = `
+          <div class="lb-pdf-view">
+            <i class="ri-file-pdf-fill"></i>
+            <h3>ملف مستند: ${m.name}</h3>
+            <a href="${m.url || '#'}" download="${m.name}" class="btn-primary" style="margin-top:1rem; text-decoration:none;"><i class="ri-download-line"></i> تحميل المستند PDF</a>
+          </div>`;
+      } else {
+        content.innerHTML = `<i class="ri-file-line" style="font-size: 5rem; color: var(--gold); margin: 3rem auto; display:block;"></i>`;
+      }
+      
+      document.getElementById('lb-title').textContent = m.caption || m.name;
+      document.getElementById('lb-cat').textContent = m.category;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      const lb = document.getElementById('main-lightbox');
+      if (lb) {
+        lb.classList.remove('open');
+        const content = document.getElementById('lb-content');
+        if (content) content.innerHTML = ''; // Stop video playback
+      }
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    /* ===== ADMIN AUTHENTICATION ===== */
+    const ADMIN_USER = 'Antony';
+    const ADMIN_PASS = 'church';
+
+    function checkAdminAuth() {
+      if (sessionStorage.getItem('admin-auth') === '1') {
+        document.getElementById('login-screen').style.display = 'none';
+        refreshAdminStats();
+        admNav('dashboard');
+      } else {
+        document.getElementById('login-screen').style.display = 'flex';
+      }
+    }
+
+    function doLogin(e) {
+      e.preventDefault();
+      const u = document.getElementById('l-user').value.trim();
+      const p = document.getElementById('l-pass').value;
+      const err = document.getElementById('login-error');
+      
+      if (u === ADMIN_USER && p === ADMIN_PASS) {
+        sessionStorage.setItem('admin-auth', '1');
+        document.getElementById('login-screen').style.transition = 'opacity 0.4s ease';
+        document.getElementById('login-screen').style.opacity = '0';
+        setTimeout(() => {
+          document.getElementById('login-screen').style.display = 'none';
+          document.getElementById('login-screen').style.opacity = '1';
+        }, 400);
+        err.classList.remove('show');
+        refreshAdminStats();
+        admNav('dashboard');
+      } else {
+        err.classList.add('show');
+        document.getElementById('l-pass').value = '';
+        setTimeout(() => err.classList.remove('show'), 3000);
+      }
+    }
+
+    function logout() {
+      sessionStorage.removeItem('admin-auth');
+      document.getElementById('login-screen').style.display = 'flex';
+      document.getElementById('l-user').value = '';
+      document.getElementById('l-pass').value = '';
+      showPage('home'); // This will also restore the public header
+    }
+
+    /* ===== ADMIN PANEL PAGE ROUTING ===== */
+    const admPanels = ['dashboard', 'events', 'timetable', 'media', 'messages'];
+    const admTitles = {
+      dashboard: 'Dashboard',
+      events: 'Manage Events',
+      timetable: 'Groups & Timetable',
+      media: 'Media Library',
+      messages: 'Contact Messages'
+    };
+
+    function admNav(panel) {
+      admPanels.forEach(p => {
+        document.getElementById('adm-' + p).classList.toggle('active', p === panel);
+      });
+      
+      document.querySelectorAll('.adm-sidebar .adm-link').forEach(link => {
+        const onclickAttr = link.getAttribute('onclick');
+        link.classList.toggle('active', onclickAttr && onclickAttr.includes(`'${panel}'`));
+      });
+      
+      document.getElementById('adm-page-title').textContent = admTitles[panel] || panel;
+      
+      if (panel === 'dashboard') refreshAdminStats();
+      if (panel === 'events') renderAdminEventsTable();
+      if (panel === 'timetable') renderAdminOsras();
+      if (panel === 'media') renderAdminMedia();
+      if (panel === 'messages') renderAdminMessages();
+    }
+
+    /* ===== ADMIN DASHBOARD RENDERING ===== */
+    async function refreshAdminStats() {
+      const events = await API.getEvents();
+      const osras = await API.getOsras();
+      const media = await API.getMedia();
+      const messages = await API.getMessages();
+      
+      document.getElementById('ds-events').textContent = events.length;
+      document.getElementById('ds-osras').textContent = osras.length;
+      document.getElementById('ds-media').textContent = media.length;
+      document.getElementById('ds-msgs').textContent = messages.filter(m => !m.read).length;
+      
+      const tbody = document.getElementById('ds-events-table');
+      const upcoming = events.filter(e => new Date(e.date) > new Date()).sort((a, b) => new Date(a.date) - new Date(b.date)).slice(0, 5);
+      
+      if (upcoming.length) {
+        tbody.innerHTML = upcoming.map(e => {
+          const cd = countdown(e.date);
+          return `
+            <tr>
+              <td><strong>${e.title}</strong></td>
+              <td>${e.date}</td>
+              <td><span class="tag tag-gold">${e.category}</span></td>
+              <td><span class="tag ${cd.cls}">${cd.text}</span></td>
+            </tr>`;
+        }).join('');
+      } else {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:var(--gray);padding:1.5rem">لا توجد فعاليات قادمة. قم بإضافة بعضها!</td></tr>`;
+      }
+    }
+
+    /* ===== ADMIN EVENTS MANAGEMENT ===== */
+    async function addEvent() {
+      const title = document.getElementById('ev-title').value.trim();
+      const date = document.getElementById('ev-date').value.trim();
+      if (!title || !date) return toast('من فضلك أدخل اسم الفعالية وتاريخ إقامتها');
+      
+      const ev = {
+        id: Date.now(),
+        title: title,
+        category: document.getElementById('ev-cat').value,
+        date: date,
+        duration: document.getElementById('ev-dur').value.trim(),
+        img: document.getElementById('ev-img').value.trim(),
+        description: document.getElementById('ev-desc').value.trim(),
+        bookable: document.getElementById('ev-book').value === '1'
+      };
+      
+      const events = await API.getEvents();
+      events.push(ev);
+      await API.saveEvents(events);
+      
+      ['ev-title', 'ev-date', 'ev-dur', 'ev-img', 'ev-desc'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      
+      renderAdminEventsTable();
+      renderEvents();
+      renderHomeCountdown();
+      toast('تم إضافة الفعالية بنجاح');
+    }
+
+    async function renderAdminEventsTable() {
+      const events = await API.getEvents();
+      const tbody = document.getElementById('events-table-body');
+      
+      if (events.length) {
+        tbody.innerHTML = events.map(ev => `
+          <tr>
+            <td><strong>${ev.title}</strong></td>
+            <td>${ev.date}</td>
+            <td><span class="tag tag-gold">${ev.category}</span></td>
+            <td>${ev.bookable ? '<span class="tag tag-green">نعم - مفعل</span>' : '<span class="tag tag-red">لا</span>'}</td>
+            <td>
+              <button class="adm-btn adm-btn-danger adm-btn-sm" onclick="deleteEvent(${ev.id})">
+                <i class="ri-delete-bin-line"></i> حذف
+              </button>
+            </td>
+          </tr>`).join('');
+      } else {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--gray);padding:1.5rem">لم يتم إضافة أي فعالية بعد.</td></tr>`;
+      }
+    }
+
+    async function deleteEvent(id) {
+      if (!confirm('هل أنت متأكد من حذف هذه الفعالية؟')) return;
+      let events = await API.getEvents();
+      events = events.filter(e => e.id !== id);
+      await API.saveEvents(events);
+      
+      renderAdminEventsTable();
+      renderEvents();
+      renderHomeCountdown();
+      toast('تم حذف الفعالية');
+    }
+
+    /* ===== ADMIN TIMETABLES (OSRAS & SESSIONS) ===== */
+    /* ===== TIMETABLE VIEW SWITCHER ===== */
+    let currentTTView = 'grid';
+    function switchTTView(view) {
+      currentTTView = view;
+      document.getElementById('tt-grid-view').style.display = view === 'grid' ? 'block' : 'none';
+      document.getElementById('tt-list-view').style.display = view === 'list' ? 'block' : 'none';
+      document.getElementById('tt-btn-grid').classList.toggle('active', view === 'grid');
+      document.getElementById('tt-btn-list').classList.toggle('active', view === 'list');
+      if (view === 'list') renderTimetablePublic();
+      else renderTimetableGridView();
+    }
+
+    async function renderTimetableGridView() {
+      const osras = await API.getOsras();
+      const container = document.getElementById('tt-visual-container');
+      if (!container) return;
+
+      const weekdays = ['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+      const todayIdx = new Date().getDay();
+
+      const allSessions = [];
+      osras.forEach((os, oi) => {
+        (os.sessions || []).forEach(s => {
+          allSessions.push({ ...s, osraName: os.name, colorIdx: oi % 8 });
+        });
+      });
+
+      if (!allSessions.length) {
+        container.innerHTML = `
+          <div class="tt-empty-grid">
+            <i class="ri-calendar-2-line"></i>
+            <h3 style="color:var(--navy);margin-bottom:.5rem">لا توجد خدمات مضافة بعد</h3>
+            <p>قم بإضافة أسر ومواعيد من لوحة الإدارة</p>
+          </div>`;
+        return;
+      }
+
+      const START_HOUR = 6;
+      const END_HOUR = 23;
+      const HOUR_PX = 64;
+
+      // Build header row
+      const dayHeaders = weekdays.map((d, i) => {
+        const isToday = i === todayIdx;
+        return `<div class="tt-day-head${isToday ? ' today' : ''}" style="flex:1;min-width:0">${d}</div>`;
+      }).join('');
+
+      // Build time axis labels
+      let timeLabels = '';
+      for (let h = START_HOUR; h <= END_HOUR; h++) {
+        const label = h === 12 ? '12 PM' : h > 12 ? `${h-12}PM` : `${h}AM`;
+        timeLabels += `<div style="height:${HOUR_PX}px;display:flex;align-items:flex-start;padding-top:4px;color:rgba(255,255,255,0.55);font-size:0.65rem;font-weight:600;white-space:nowrap;justify-content:center">${label}</div>`;
+      }
+
+      // Build per-day columns with absolutely positioned session blocks
+      const totalH = (END_HOUR - START_HOUR) * HOUR_PX;
+      const dayCols = weekdays.map((day, di) => {
+        const daySessions = allSessions.filter(s => s.day === day);
+        const blocks = daySessions.map(s => {
+          const [hh, mm] = (s.time || '08:00').split(':').map(Number);
+          const durHrs = parseFloat(s.duration) || 1;
+          const top = ((hh - START_HOUR) + mm / 60) * HOUR_PX;
+          const h = Math.max(durHrs * HOUR_PX - 4, 36);
+          return `
+            <div class="tt-session-block sb-c${s.colorIdx}" style="top:${top}px;height:${h}px" 
+                 title="${s.name} — ${s.osraName}\n${toArTime(s.time)}${s.location ? '\n' + s.location : ''}">
+              <div class="sb-name">${s.name}</div>
+              <div class="sb-time">${toArTime(s.time)}${s.duration ? ` · ${s.duration}h` : ''}</div>
+              <div class="sb-group">${s.osraName}</div>
+            </div>`;
+        }).join('');
+        // Alternating hour lines background
+        let hrLines = '';
+        for (let h = 0; h <= END_HOUR - START_HOUR; h++) {
+          hrLines += `<div style="position:absolute;top:${h * HOUR_PX}px;left:0;right:0;height:1px;background:rgba(201,168,76,0.07)"></div>`;
+        }
+        return `<div style="flex:1;min-width:0;position:relative;height:${totalH}px;border-left:1px solid rgba(201,168,76,0.1)">${hrLines}${blocks}</div>`;
+      }).join('');
+
+      container.innerHTML = `
+        <div class="tt-visual-wrap">
+          <!-- Header -->
+          <div style="display:flex;background:var(--navy);border-radius:var(--radius) var(--radius) 0 0;">
+            <div style="width:64px;flex-shrink:0;background:var(--navy-deep);border-radius:var(--radius) 0 0 0"></div>
+            ${dayHeaders}
+          </div>
+          <!-- Body -->
+          <div style="display:flex;background:var(--white);border:1px solid rgba(201,168,76,0.15);border-top:none;border-radius:0 0 var(--radius) var(--radius);overflow:hidden" class="dark-bg-grid">
+            <!-- Time axis -->
+            <div style="width:64px;flex-shrink:0;background:var(--navy-deep);">${timeLabels}</div>
+            <!-- Day columns -->
+            <div style="flex:1;display:flex;overflow-x:auto;min-width:0">${dayCols}</div>
+          </div>
+        </div>`;
+    }
+
+    /* ===== ADMIN TIMETABLES (OSRAS & SESSIONS) - REWRITTEN ===== */
+    async function addOsra() {
+      const name = document.getElementById('os-name').value.trim();
+      if (!name) return toast('Please enter a group name');
+      
+      const os = {
+        id: Date.now(),
+        name: name,
+        leader: document.getElementById('os-leader').value.trim(),
+        description: document.getElementById('os-desc').value.trim(),
+        sessions: []
+      };
+      
+      const osras = await API.getOsras();
+      osras.push(os);
+      await API.saveOsras(osras);
+      
+      ['os-name', 'os-leader', 'os-desc'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      
+      selectedOsraId = os.id;
+      renderAdminOsras();
+      showSessionFormCard(os);
+      toast('Group added successfully');
+    }
+
+    function showSessionFormCard(os) {
+      document.getElementById('osra-sessions-card').style.display = 'block';
+      document.getElementById('sessions-card-title').innerHTML = `<i class="ri-calendar-event-line"></i> Add Session — <strong>${os.name}</strong>`;
+      document.getElementById('ss-btn-label').textContent = 'Add Session';
+      document.getElementById('ss-cancel-btn').style.display = 'none';
+      document.getElementById('ss-edit-id').value = '';
+    }
+
+    async function selectOsraForSessions(id) {
+      selectedOsraId = id;
+      const osras = await API.getOsras();
+      const o = osras.find(x => x.id === id);
+      if (o) {
+        showSessionFormCard(o);
+        document.getElementById('osra-sessions-card').scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    async function editSession(osraId, sessionId) {
+      selectedOsraId = osraId;
+      const osras = await API.getOsras();
+      const os = osras.find(x => x.id === osraId);
+      if (!os) return;
+      const ss = (os.sessions || []).find(s => s.id === sessionId);
+      if (!ss) return;
+
+      // Populate form
+      document.getElementById('ss-name').value = ss.name || '';
+      document.getElementById('ss-day').value = ss.day || 'الأحد';
+      document.getElementById('ss-time').value = ss.time || '';
+      document.getElementById('ss-dur').value = ss.duration || '';
+      document.getElementById('ss-loc').value = ss.location || '';
+      document.getElementById('ss-notes').value = ss.notes || '';
+      document.getElementById('ss-time-ar').textContent = toArTime(ss.time);
+      document.getElementById('ss-edit-id').value = sessionId;
+
+      document.getElementById('osra-sessions-card').style.display = 'block';
+      document.getElementById('sessions-card-title').innerHTML = `<i class="ri-edit-line"></i> Edit Session — <strong>${os.name}</strong>`;
+      document.getElementById('ss-btn-label').textContent = 'Update Session';
+      document.getElementById('ss-cancel-btn').style.display = 'flex';
+      document.getElementById('osra-sessions-card').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function cancelSessionEdit() {
+      ['ss-name','ss-time','ss-dur','ss-loc','ss-notes'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('ss-time-ar').textContent = '--';
+      document.getElementById('ss-edit-id').value = '';
+      document.getElementById('ss-btn-label').textContent = 'Add Session';
+      document.getElementById('ss-cancel-btn').style.display = 'none';
+    }
+
+    async function saveSession() {
+      if (!selectedOsraId) return toast('Please select a group first');
+      const name = document.getElementById('ss-name').value.trim();
+      const time = document.getElementById('ss-time').value;
+      if (!name || !time) return toast('Please enter session name and time');
+
+      const editId = parseInt(document.getElementById('ss-edit-id').value) || null;
+      const ss = {
+        id: editId || Date.now(),
+        name: name,
+        day: document.getElementById('ss-day').value,
+        time: time,
+        duration: parseFloat(document.getElementById('ss-dur').value) || 1,
+        location: document.getElementById('ss-loc').value.trim(),
+        notes: document.getElementById('ss-notes').value.trim()
+      };
+      
+      const osras = await API.getOsras();
+      const idx = osras.findIndex(x => x.id === selectedOsraId);
+      if (idx > -1) {
+        osras[idx].sessions = osras[idx].sessions || [];
+        if (editId) {
+          const si = osras[idx].sessions.findIndex(s => s.id === editId);
+          if (si > -1) osras[idx].sessions[si] = ss;
+        } else {
+          osras[idx].sessions.push(ss);
+        }
+        await API.saveOsras(osras);
+        cancelSessionEdit();
+        renderAdminOsras();
+        renderTimetablePublic();
+        renderTimetableGridView();
+        toast(editId ? 'Session updated!' : 'Session added!');
+      }
+    }
+
+    async function deleteSession(osraId, sessionId) {
+      if (!confirm('Delete this session?')) return;
+      const osras = await API.getOsras();
+      const idx = osras.findIndex(x => x.id === osraId);
+      if (idx > -1) {
+        osras[idx].sessions = (osras[idx].sessions || []).filter(s => s.id !== sessionId);
+        await API.saveOsras(osras);
+        if (selectedOsraId === osraId && document.getElementById('ss-edit-id').value == sessionId) {
+          cancelSessionEdit();
+        }
+        renderAdminOsras();
+        renderTimetablePublic();
+        renderTimetableGridView();
+        toast('Session deleted');
+      }
+    }
+
+    async function renderAdminOsras() {
+      const osras = await API.getOsras();
+      const container = document.getElementById('osras-table-body');
+      
+      if (!osras.length) {
+        container.innerHTML = `<p style="text-align:center;color:var(--gray);padding:2rem">No groups added yet. Add one above!</p>`;
+        return;
+      }
+
+      container.innerHTML = osras.map(o => {
+        const sessionsHTML = (o.sessions && o.sessions.length)
+          ? o.sessions.map(s => `
+            <div class="osra-session-row">
+              <span class="ss-day-badge">${s.day}</span>
+              <div class="ss-info">
+                <div class="ss-name">${s.name}</div>
+                <div class="ss-meta">${toArTime(s.time)}${s.duration ? ` · ${s.duration}h` : ''}${s.location ? ` · ${s.location}` : ''}</div>
+              </div>
+              <div class="ss-actions">
+                <button class="adm-btn adm-btn-navy adm-btn-sm" onclick="editSession(${o.id}, ${s.id})" title="Edit session">
+                  <i class="ri-edit-line"></i> Edit
+                </button>
+                <button class="adm-btn adm-btn-danger adm-btn-sm" onclick="deleteSession(${o.id}, ${s.id})" title="Delete session">
+                  <i class="ri-delete-bin-line"></i>
+                </button>
+              </div>
+            </div>`).join('')
+          : `<div class="osra-no-sessions"><i class="ri-calendar-event-line" style="color:var(--gold)"></i> No sessions yet — click "Add Session" to add one</div>`;
+
+        return `
+          <div class="osra-card-adm">
+            <div class="osra-card-head">
+              <div>
+                <div class="osra-card-name"><i class="ri-group-line" style="color:var(--gold)"></i> ${o.name}</div>
+                <div class="osra-card-meta">Leader: ${o.leader || '—'} &nbsp;|&nbsp; ${(o.sessions||[]).length} session(s)${o.description ? ' &nbsp;|&nbsp; ' + o.description : ''}</div>
+              </div>
+              <div class="osra-card-actions">
+                <button class="adm-btn adm-btn-navy adm-btn-sm" onclick="selectOsraForSessions(${o.id})">
+                  <i class="ri-add-line"></i> Add Session
+                </button>
+                <button class="adm-btn adm-btn-danger adm-btn-sm" onclick="deleteOsra(${o.id})">
+                  <i class="ri-delete-bin-line"></i> Delete Group
+                </button>
+              </div>
+            </div>
+            <div class="osra-sessions-list">${sessionsHTML}</div>
+          </div>`;
+      }).join('');
+    }
+
+    async function deleteOsra(id) {
+      if (!confirm('Delete this group and all its sessions?')) return;
+      let osras = await API.getOsras();
+      osras = osras.filter(o => o.id !== id);
+      await API.saveOsras(osras);
+      
+      if (selectedOsraId === id) {
+        selectedOsraId = null;
+        document.getElementById('osra-sessions-card').style.display = 'none';
+      }
+      
+      renderAdminOsras();
+      renderTimetablePublic();
+      renderTimetableGridView();
+      toast('Group deleted');
+    }
+
+    /* ===== ADMIN MEDIA MANAGEMENT ===== */
+    function handleMediaFiles(files) {
+      pendingMediaFiles = Array.from(files);
+      const preview = document.getElementById('adm-media-preview');
+      preview.innerHTML = '';
+      
+      pendingMediaFiles.forEach(f => {
+        const div = document.createElement('div');
+        div.className = 'adm-thumb';
+        
+        if (f.type.startsWith('image/')) {
+          const img = document.createElement('img');
+          img.src = URL.createObjectURL(f);
+          div.appendChild(img);
+        } else if (f.type.startsWith('video/')) {
+          div.innerHTML = `<i class="ri-video-chat-line"></i>`;
+        } else if (f.type === 'application/pdf') {
+          div.innerHTML = `<i class="ri-file-pdf-line"></i>`;
+        } else {
+          div.innerHTML = `<i class="ri-file-line"></i>`;
+        }
+        
+        preview.appendChild(div);
+      });
+      
+      if (files.length) toast(`تم اختيار عدد ${files.length} ملف للرفع`);
+    }
+
+    const dropZone = document.getElementById('adm-drop-zone');
+    if (dropZone) {
+      dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.style.borderColor = 'var(--gold)'; });
+      dropZone.addEventListener('dragleave', () => { dropZone.style.borderColor = ''; });
+      dropZone.addEventListener('drop', e => {
+        e.preventDefault();
+        dropZone.style.borderColor = '';
+        handleMediaFiles(e.dataTransfer.files);
+      });
+    }
+
+    function saveMedia() {
+      if (!pendingMediaFiles.length) return toast('برجاء اختيار ملف للرفع أولاً');
+      const caption = document.getElementById('media-cap').value.trim();
+      const category = document.getElementById('media-cat-sel').value;
+      
+      let processedCount = 0;
+      pendingMediaFiles.forEach(f => {
+        const reader = new FileReader();
+        reader.onload = async function(e) {
+          const fileData = {
+            id: Date.now() + Math.random(),
+            name: f.name,
+            caption: caption || f.name,
+            category: category,
+            type: f.type,
+            url: e.target.result // base64 string
+          };
+          
+          try {
+            await API.saveMedia(fileData);
+          } catch(err) {
+            // If localStorage runs out of space, fallback to temporary URL.createObjectURL
+            console.warn('LocalStorage Quota exceeded, using temporary object URL instead.');
+            fileData.url = URL.createObjectURL(f);
+            await API.saveMedia(fileData);
+          }
+          
+          processedCount++;
+          if (processedCount === pendingMediaFiles.length) {
+            pendingMediaFiles = [];
+            document.getElementById('adm-media-preview').innerHTML = '';
+            document.getElementById('media-cap').value = '';
+            renderAdminMedia();
+            renderPublicMedia();
+            toast('تم رفع وحفظ الميديا بنجاح');
+          }
+        };
+        reader.readAsDataURL(f);
+      });
+    }
+
+    async function renderAdminMedia() {
+      const media = await API.getMedia();
+      const tbody = document.getElementById('media-table-body');
+      
+      if (media.length) {
+        tbody.innerHTML = media.map(m => `
+          <tr>
+            <td>${m.name.length > 22 ? m.name.substring(0, 20) + '…' : m.name}</td>
+            <td>${m.caption}</td>
+            <td><span class="tag tag-gold">${m.category}</span></td>
+            <td><span class="tag tag-blue">${m.type ? m.type.split('/')[0] : 'file'}</span></td>
+            <td>
+              <button class="adm-btn adm-btn-danger adm-btn-sm" onclick="deleteMedia(${m.id})">
+                <i class="ri-delete-bin-line"></i> حذف
+              </button>
+            </td>
+          </tr>`).join('');
+      } else {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--gray);padding:1.5rem">لا توجد ملفات وسائط مرفوعة بعد.</td></tr>`;
+      }
+    }
+
+    async function deleteMedia(id) {
+      if (!confirm('هل أنت متأكد من حذف هذا الملف؟')) return;
+      await API.deleteMedia(id);
+      renderAdminMedia();
+      renderPublicMedia();
+      toast('تم حذف الملف');
+    }
+
+    /* ===== ADMIN MESSAGES LOG ===== */
+    async function renderAdminMessages() {
+      const messages = await API.getMessages();
+      const c = document.getElementById('messages-list-adm');
+      if (!c) return;
+      
+      if (!messages.length) {
+        c.innerHTML = `<p style="text-align:center;color:var(--gray);padding:2rem">لا توجد رسائل تواصل جديدة.</p>`;
+        return;
+      }
+      
+      c.innerHTML = [...messages].reverse().map((m, i) => `
+        <div style="background:var(--gray-light);border-radius:0.75rem;padding:1.25rem;margin-bottom:0.75rem;cursor:pointer;border-right:3px solid ${m.read ? 'transparent' : 'var(--gold)'}" onclick="toggleMsg(${messages.length - 1 - i})">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem">
+            <strong style="color:var(--navy)">${m.name}</strong>
+            <span style="font-size:0.75rem;color:var(--gray)">${m.date}</span>
+          </div>
+          <div style="font-size:0.85rem;font-weight:600;color:var(--gold);margin-bottom:0.3rem">الموضوع: ${m.subject}</div>
+          <div style="font-size:0.82rem;color:var(--gray)">الرسالة: ${m.message.substring(0, 100)}${m.message.length > 100 ? '…' : ''}</div>
+          <div style="font-size:0.75rem;color:var(--gray);margin-top:0.25rem;">البريد الإلكتروني: ${m.email}</div>
+          <div id="msg-full-${messages.length - 1 - i}" style="display:none;margin-top:0.75rem;font-size:0.875rem;color:var(--text);padding-top:0.75rem;border-top:1px solid rgba(201,168,76,0.15)">
+            ${m.message}
+          </div>
+        </div>`).join('');
+    }
+
+    async function toggleMsg(i) {
+      const messages = await API.getMessages();
+      messages[i].read = true;
+      db.set('church-messages', messages);
+      
+      const d = document.getElementById('msg-full-' + i);
+      if (d) d.style.display = d.style.display === 'block' ? 'none' : 'block';
+      refreshAdminStats();
+      renderAdminMessages();
+    }
+
+    async function clearMessages() {
+      if (!confirm('هل تريد مسح جميع الرسائل؟')) return;
+      await API.clearMessages();
+      renderAdminMessages();
+      refreshAdminStats();
+      toast('تم مسح الرسائل بنجاح');
+    }
+
+    /* ===== TOAST HELPER ===== */
+    function toast(msg) {
+      const t = document.getElementById('toast');
+      document.getElementById('toast-msg').textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    /* ===== INITIALIZATIONS ===== */
+    renderEvents();
+    renderHomeCountdown();
+    setInterval(renderHomeCountdown, 60000);
+
+
+    /* ============================================================= */
+    /* ===== API WRAPPER FOR EASY BACKEND INTEGRATION ===== */
+    /* ============================================================= */
+    // By default, this app runs entirely on client-side LocalStorage.
+    // To connect it to a real server (e.g. Node.js, PHP, Python), configure your API endpoints below
+    // and set API_CONFIG.enabled = true.
+    const API_CONFIG = {
+      enabled: false, 
+      baseUrl: 'https://api.yourchurchserver.com/api'
+    };
+
+    const API = {
+      async getEvents() {
+        if (API_CONFIG.enabled) {
+          try {
+            const res = await fetch(`${API_CONFIG.baseUrl}/events`);
+            return await res.json();
+          } catch(err) {
+            console.error('Error fetching events from backend:', err);
+            return db.get('church-events') || [];
+          }
+        }
+        return db.get('church-events') || [];
+      },
+      
+      async saveEvents(events) {
+        if (API_CONFIG.enabled) {
+          try {
+            await fetch(`${API_CONFIG.baseUrl}/events`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(events)
+            });
+          } catch(err) {
+            console.error('Error saving events to backend:', err);
+          }
+        }
+        db.set('church-events', events);
+      },
+      
+      async getOsras() {
+        if (API_CONFIG.enabled) {
+          try {
+            const res = await fetch(`${API_CONFIG.baseUrl}/osras`);
+            return await res.json();
+          } catch(err) {
+            console.error('Error fetching groups from backend:', err);
+            return db.get('church-osras') || [];
+          }
+        }
+        return db.get('church-osras') || [];
+      },
+      
+      async saveOsras(osras) {
+        if (API_CONFIG.enabled) {
+          try {
+            await fetch(`${API_CONFIG.baseUrl}/osras`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(osras)
+            });
+          } catch(err) {
+            console.error('Error saving groups to backend:', err);
+          }
+        }
+        db.set('church-osras', osras);
+      },
+      
+      async getMedia() {
+        if (API_CONFIG.enabled) {
+          try {
+            const res = await fetch(`${API_CONFIG.baseUrl}/media`);
+            return await res.json();
+          } catch(err) {
+            console.error('Error fetching media from backend:', err);
+            return db.get('church-media') || [];
+          }
+        }
+        return db.get('church-media') || [];
+      },
+      
+      async saveMedia(mediaItem) {
+        if (API_CONFIG.enabled) {
+          try {
+            // Structure to support multipart form uploads if backend requires it
+            const formData = new FormData();
+            formData.append('name', mediaItem.name);
+            formData.append('caption', mediaItem.caption);
+            formData.append('category', mediaItem.category);
+            formData.append('type', mediaItem.type);
+            formData.append('fileData', mediaItem.url); // base64 payload
+            
+            await fetch(`${API_CONFIG.baseUrl}/media/upload`, {
+              method: 'POST',
+              body: formData
+            });
+          } catch(err) {
+            console.error('Error saving media item to backend:', err);
+          }
+        }
+        
+        const md = db.get('church-media') || [];
+        md.push(mediaItem);
+        db.set('church-media', md);
+      },
+      
+      async deleteMedia(id) {
+        if (API_CONFIG.enabled) {
+          try {
+            await fetch(`${API_CONFIG.baseUrl}/media/${id}`, { method: 'DELETE' });
+          } catch(err) {
+            console.error('Error deleting media item from backend:', err);
+          }
+        }
+        
+        let md = db.get('church-media') || [];
+        md = md.filter(m => m.id !== id);
+        db.set('church-media', md);
+      },
+      
+      async getBookings() {
+        if (API_CONFIG.enabled) {
+          try {
+            const res = await fetch(`${API_CONFIG.baseUrl}/bookings`);
+            return await res.json();
+          } catch(err) {
+            console.error('Error fetching bookings from backend:', err);
+            return db.get('church-bookings') || [];
+          }
+        }
+        return db.get('church-bookings') || [];
+      },
+      
+      async saveBooking(booking) {
+        if (API_CONFIG.enabled) {
+          try {
+            await fetch(`${API_CONFIG.baseUrl}/bookings`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(booking)
+            });
+          } catch(err) {
+            console.error('Error saving booking to backend:', err);
+          }
+        }
+        
+        const bks = db.get('church-bookings') || [];
+        bks.push(booking);
+        db.set('church-bookings', bks);
+      },
+      
+      async clearBookings() {
+        if (API_CONFIG.enabled) {
+          try {
+            await fetch(`${API_CONFIG.baseUrl}/bookings/clear`, { method: 'POST' });
+          } catch(err) {
+            console.error('Error clearing bookings on backend:', err);
+          }
+        }
+        db.set('church-bookings', []);
+      },
+      
+      async getMessages() {
+        if (API_CONFIG.enabled) {
+          try {
+            const res = await fetch(`${API_CONFIG.baseUrl}/messages`);
+            return await res.json();
+          } catch(err) {
+            console.error('Error fetching messages from backend:', err);
+            return db.get('church-messages') || [];
+          }
+        }
+        return db.get('church-messages') || [];
+      },
+      
+      async saveMessage(msg) {
+        if (API_CONFIG.enabled) {
+          try {
+            await fetch(`${API_CONFIG.baseUrl}/messages`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(msg)
+            });
+          } catch(err) {
+            console.error('Error saving message to backend:', err);
+          }
+        }
+        
+        const msgs = db.get('church-messages') || [];
+        msgs.push(msg);
+        db.set('church-messages', msgs);
+      },
+      
+      async clearMessages() {
+        if (API_CONFIG.enabled) {
+          try {
+            await fetch(`${API_CONFIG.baseUrl}/messages/clear`, { method: 'POST' });
+          } catch(err) {
+            console.error('Error clearing messages on backend:', err);
+          }
+        }
+        db.set('church-messages', []);
+      }
+    };
+  </script>
 </body>
 </html>
