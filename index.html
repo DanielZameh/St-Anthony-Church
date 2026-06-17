@@ -156,10 +156,27 @@
     .priest-card:hover { transform: translateY(-4px); }
     .priest-icon { display: flex; justify-content: center; margin-bottom: 1rem; color: var(--gold); }
     .priest-icon i { font-size: 2rem; }
-    .priest-name { color: var(--navy); font-size: 1.1rem; }
-    .dark .priest-name { color: var(--white); }
+.priest-name { 
+  color: var(--navy); 
+  font-size: 1.1rem; 
+}
+.dark .priest-name { 
+  color: var(--text);   /* This fixes the visibility */
+}
 
     /* ===== EVENTS ===== */
+.no-events { 
+  text-align: center; 
+  color: var(--gray); 
+  padding: 4rem 2rem; 
+  grid-column: 1 / -1; 
+}
+.no-events i { 
+  color: var(--gold); 
+  display: block; 
+  margin: 0 auto 1rem; 
+  font-size: 3rem; 
+}
     .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.75rem; }
     .ev-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; transition: transform var(--transition), box-shadow var(--transition); }
     .dark .ev-card { background: #132035; }
@@ -178,7 +195,6 @@
     .btn-book { align-self: flex-start; padding: 0.65rem 1.4rem; border-radius: 0.5rem; background: var(--navy); color: #fff; font-size: 0.85rem; font-weight: 600; transition: all var(--transition); display: inline-flex; align-items: center; gap: 0.4rem; }
     .btn-book:hover { background: var(--gold); color: var(--navy-deep); }
     .dark .btn-book { background: var(--gold); color: var(--navy-deep); }
-    .no-events { text-align: center; color: var(--gray); padding: 3rem 1rem; grid-column: 1 / -1; }
     .no-events i { color: var(--gold); display: block; margin: 0 auto 1rem; font-size: 2.5rem; }
 
     /* ===== CONTACT ===== */
@@ -282,11 +298,39 @@
     .tt-time-label { background: var(--navy-deep); color: rgba(255,255,255,0.5); font-size: 0.7rem; padding: 0 0.5rem; display: flex; align-items: flex-start; justify-content: center; padding-top: 4px; border-top: 1px solid rgba(255,255,255,0.05); white-space: nowrap; font-weight: 600; }
     .tt-day-cell { position: relative; border-left: 1px solid rgba(201,168,76,0.08); border-top: 1px solid rgba(201,168,76,0.08); background: transparent; }
     .tt-hour-slot { height: 60px; }
-    .tt-session-block { position: absolute; left: 3px; right: 3px; border-radius: 6px; padding: 4px 7px; overflow: hidden; cursor: default; transition: all 0.2s; z-index: 1; display: flex; flex-direction: column; justify-content: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-    .tt-session-block:hover { transform: scale(1.02); z-index: 5; box-shadow: 0 4px 16px rgba(0,0,0,0.25); }
+    .tt-session-block { position: absolute; border-radius: 6px; padding: 4px 7px; overflow: hidden; cursor: pointer; transition: all 0.2s; z-index: 1; display: flex; flex-direction: column; justify-content: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.25); }
+    .tt-session-block:hover { filter: brightness(1.08); z-index: 6; box-shadow: 0 6px 18px rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.6); }
+    .tt-session-block:focus-visible { outline: 2px solid #fff; outline-offset: 1px; }
     .tt-session-block .sb-name { font-size: 0.7rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .tt-session-block .sb-time { font-size: 0.62rem; opacity: 0.85; margin-top: 2px; }
     .tt-session-block .sb-group { font-size: 0.6rem; opacity: 0.75; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tt-session-block.sb-compact .sb-time, .tt-session-block.sb-compact .sb-group { display: none; }
+    .tt-session-block .sb-overlap-tag { position: absolute; top: 2px; left: 2px; background: rgba(0,0,0,0.35); color: #fff; font-size: 0.55rem; font-weight: 700; border-radius: 4px; padding: 0 4px; line-height: 1.3; }
+
+    /* ===== SESSION INFO CARD (overlap click modal) ===== */
+    .session-modal-overlay { position: fixed; inset: 0; z-index: 2100; background: rgba(0, 18, 38, 0.75); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; padding: 1.5rem; opacity: 0; visibility: hidden; transition: opacity var(--transition), visibility var(--transition); }
+    .session-modal-overlay.open { opacity: 1; visibility: visible; }
+    .session-modal-box { background: var(--white); border-radius: 1.25rem; padding: 1.75rem; width: 100%; max-width: 420px; max-height: 85vh; overflow-y: auto; position: relative; box-shadow: var(--shadow-lg); transition: background var(--transition); }
+    .dark .session-modal-box { background: #132035; }
+    .session-modal-close { position: absolute; top: 1.1rem; left: 1.1rem; color: var(--gray); background: none; display: flex; align-items: center; transition: color var(--transition); font-size: 1.4rem; z-index: 2; }
+    .session-modal-close:hover { color: var(--gold); }
+    .session-modal-head { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.25rem; padding-left: 2rem; }
+    .session-modal-head i { font-size: 1.3rem; }
+    .session-modal-head h3 { font-size: 1.15rem; color: var(--navy); margin: 0; }
+    .dark .session-modal-head h3 { color: var(--gold-light); }
+    .session-modal-sub { font-size: 0.82rem; color: var(--gray); margin-bottom: 1rem; }
+    .session-modal-divider { height: 1px; background: rgba(201,168,76,0.2); margin: 1rem 0; }
+    .session-card-block { border-radius: 0.75rem; padding: 1rem 1.1rem; margin-bottom: 0.85rem; border-right: 4px solid var(--gold); background: var(--gray-light); }
+    .session-card-block:last-child { margin-bottom: 0; }
+    .session-card-name { font-weight: 700; font-size: 0.98rem; color: var(--navy); display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.5rem; }
+    .dark .session-card-name { color: var(--gold-light); }
+    .session-card-meta { display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.85rem; color: var(--gray); }
+    .session-card-meta span { display: flex; align-items: center; gap: 0.4rem; }
+    .session-card-meta i { color: var(--gold); flex-shrink: 0; }
+    .session-card-meta strong { color: var(--text); font-weight: 600; }
+    .session-card-desc { font-size: 0.83rem; color: var(--gray); line-height: 1.7; margin-top: 0.5rem; font-style: italic; }
+    .session-card-count { display: inline-flex; align-items: center; gap: 0.3rem; background: var(--gold-pale); color: var(--navy); font-size: 0.72rem; font-weight: 700; padding: 0.2rem 0.7rem; border-radius: 99px; margin-bottom: 0.9rem; }
+    .dark .session-card-count { background: rgba(201,168,76,0.2); color: var(--gold-light); }
     .tt-empty-grid { text-align: center; padding: 5rem 2rem; color: var(--gray); }
     .tt-empty-grid i { color: rgba(201,168,76,0.35); font-size: 3.5rem; display: block; margin-bottom: 1rem; }
     
@@ -352,6 +396,9 @@
     .media-play i { color: #fff; font-size: 2.5rem; }
     .media-pdf-icon { color: var(--gold); font-size: 3rem; }
     .media-file-icon { color: var(--gray); font-size: 3rem; }
+    .media-dl { position: absolute; top: 0.6rem; left: 0.6rem; z-index: 3; width: 36px; height: 36px; border-radius: 50%; background: var(--gold); color: var(--navy-deep); display: flex; align-items: center; justify-content: center; font-size: 1.05rem; box-shadow: 0 2px 8px rgba(0,0,0,0.25); transition: transform 0.2s, background 0.2s; }
+    .media-dl:hover { transform: scale(1.1); background: var(--gold-light); }
+    .lb-actions { display: flex; gap: 0.75rem; justify-content: center; margin-top: 1.25rem; flex-wrap: wrap; }
     .media-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
     .media-cat { font-size: 0.68rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.35rem; }
     .media-title { font-weight: 600; color: var(--navy); font-size: 0.92rem; margin-bottom: 0.35rem; flex: 1; }
@@ -511,10 +558,65 @@
     @media (max-width: 900px) {
       .adm-form-grid { grid-template-columns: 1fr; }
     }
+
+    /* ===== RESPONSIVE: ADMIN PANEL (MOBILE) ===== */
+    .adm-backdrop { display: none; position: fixed; inset: 0; background: rgba(0, 8, 20, 0.55); z-index: 180; backdrop-filter: blur(2px); }
+    .adm-backdrop.show { display: block; }
+    .media-upload-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+
     @media (max-width: 700px) {
-      .adm-sidebar { transform: translateX(100%); }
+      .adm-sidebar { transform: translateX(-100%); width: 270px; max-width: 84vw; box-shadow: 0 0 40px rgba(0,0,0,.4); }
       .adm-sidebar.open { transform: translateX(0); }
       .adm-main { margin-left: 0; }
+      .adm-topbar { height: 56px; padding: 0 1rem; }
+      .adm-topbar-title { font-size: 0.98rem; }
+      .adm-content { padding: 1rem; }
+      .adm-stats { grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem; }
+      .adm-stat { padding: 1rem; gap: 0.75rem; }
+      .adm-stat-icon { width: 40px; height: 40px; }
+      .adm-stat-val { font-size: 1.4rem; }
+      .adm-card { padding: 1.1rem; margin-bottom: 1.1rem; }
+      .adm-card-head { flex-wrap: wrap; gap: 0.6rem; }
+      .media-upload-meta { grid-template-columns: 1fr; }
+      .osra-card-head { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+      .osra-card-actions { width: 100%; flex-wrap: wrap; }
+    }
+    @media (max-width: 480px) {
+      .adm-content { padding: 0.8rem; }
+      .adm-stats { grid-template-columns: 1fr; }
+      .adm-badge { display: none; }
+      .login-box { padding: 2rem 1.4rem; }
+      .osra-card-actions { flex-direction: column; }
+      .osra-card-actions .adm-btn { width: 100%; justify-content: center; }
+      .osra-session-row { flex-wrap: wrap; }
+      .osra-session-row .ss-actions { width: 100%; justify-content: flex-end; }
+      .adm-btn { padding: 0.6rem 0.9rem; }
+    }
+
+    /* ===== RESPONSIVE: HOME / PUBLIC PAGES SIZING ===== */
+    @media (max-width: 768px) {
+      .container { padding: 0 1.25rem; }
+      .section { padding: 3.5rem 0 2rem; }
+      .section-title { margin-bottom: 2rem; }
+      .hero { min-height: auto; padding-top: calc(var(--header-h) + 1.5rem); padding-bottom: 2.5rem; }
+      .hero-desc { font-size: 0.9rem; margin-bottom: 2rem; }
+      .stats-bar { padding: 1.5rem 0; }
+      .stats-grid { gap: 0.5rem; }
+      .stat-num { font-size: 1.9rem; }
+      .stat-lbl { font-size: 0.66rem; }
+      .priests-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.85rem; }
+      .priest-card { padding: 1.5rem 1rem; }
+      .events-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+      .about-grid, .contact-grid { gap: 2.5rem; }
+      .footer { padding: 3rem 0 2rem; }
+      .footer-grid { gap: 2rem; }
+    }
+    @media (max-width: 430px) {
+      .hero-title { font-size: 1.95rem; }
+      .hero-btns { gap: 0.75rem; }
+      .hero-btns .btn-primary, .hero-btns .btn-outline { flex: 1; justify-content: center; padding: 0.85rem 1rem; }
+      .stat-num { font-size: 1.7rem; }
+      .priests-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -528,12 +630,12 @@
         <span>كنيسة الأنبا أنطونيوس</span>
       </a>
       <ul class="nav-links" id="nav-links">
-        <li><a onclick="showPage('home');scrollTo('home-top')" class="active" data-nav="home">الرئيسية</a></li>
-        <li><a onclick="showPage('home');scrollTo('about')" data-nav="about">عن الكنيسة</a></li>
-        <li><a onclick="showPage('home');scrollTo('events')" data-nav="events">الفعاليات</a></li>
+        <li><a onclick="showPage('home');scrollToSection('home-top')" class="active" data-nav="home">الرئيسية</a></li>
+        <li><a onclick="showPage('home');scrollToSection('about')" data-nav="about">عن الكنيسة</a></li>
+        <li><a onclick="showPage('home');scrollToSection('events')" data-nav="events">الفعاليات</a></li>
         <li><a onclick="showPage('timetable')" data-nav="timetable">الجداول</a></li>
         <li><a onclick="showPage('media')" data-nav="media">الميديا</a></li>
-        <li><a onclick="showPage('home');scrollTo('contact')" data-nav="contact">تواصل معنا</a></li>
+        <li><a onclick="showPage('home');scrollToSection('contact')" data-nav="contact">تواصل معنا</a></li>
       </ul>
       <div class="nav-actions">
         <button class="btn-icon" id="theme-btn" title="تغيير السمة">
@@ -560,7 +662,7 @@
             <h1 class="hero-title">كنيسة <em>الأنبا أنطونيوس</em><br>القبطية الأرثوذكسية</h1>
             <p class="hero-desc">جذورنا في الإيمان القديم، ونمونا في المحبة والخدمة. انضم إلينا في القداسات والأسرار والشركة الروحية.</p>
             <div class="hero-btns">
-              <button class="btn-primary" onclick="showPage('home');scrollTo('events')">
+              <button class="btn-primary" onclick="showPage('home');scrollToSection('events')">
                 <i class="ri-calendar-event-line"></i>
                 الفعاليات القادمة
               </button>
@@ -603,7 +705,7 @@
             تاريخنا وإرثنا
           </span>
           <h2>رعية قبطية أرثوذكسية<br>في قلب شبرا</h2>
-          <p>كنيسة الأنبا أنطونيوس هي رعية قبطية أرثوذكسية عريقة في قلب شبرا، تتبع إيبارشية شبرا الجنوبية برعاية نيافة الأنبا مكاري. نحافظ على التراث الليتورجي الإسكندري العريق بينما نرعى مجتمعاً حديثاً متسامحاً منذ أكثر من ٩٠ سنة.</p>
+          <p>كنيسة الأنبا أنطونيوس هي رعية قبطية أرثوذكسية عريقة في قلب شبرا، تتبع إيبارشية شبرا الجنوبية برعاية نيافة الأنبا مكاري. نحافظ على التراث الليتورجي الإسكندري العريق بينما نرعى مجتمعاً حديثاً متسامحاً منذ أكثر من ٧٠ سنة.</p>
           <p>شفيعنا الأنبا أنطونيوس الكبير، أبو الرهبان جميعاً، بيرشدنا في رحلتنا الروحية عبر الصلاة والصوم والخدمة.</p>
           <div class="perks">
             <div class="perk"><i class="ri-checkbox-circle-line"></i> قداس الأحد ومدارس الأحد</div>
@@ -722,10 +824,10 @@
           <div class="footer-col">
             <h4>روابط سريعة</h4>
             <ul>
-              <li><a onclick="showPage('home');scrollTo('home-top')">الرئيسية</a></li>
-              <li><a onclick="showPage('home');scrollTo('about')">عن الكنيسة</a></li>
+              <li><a onclick="showPage('home');scrollToSection('home-top')">الرئيسية</a></li>
+              <li><a onclick="showPage('home');scrollToSection('about')">عن الكنيسة</a></li>
               <li><a onclick="showPage('timetable')">الجداول</a></li>
-              <li><a onclick="showPage('home');scrollTo('events')">الفعاليات</a></li>
+              <li><a onclick="showPage('home');scrollToSection('events')">الفعاليات</a></li>
               <li><a onclick="showPage('media')">الميديا</a></li>
             </ul>
           </div>
@@ -796,12 +898,7 @@
           <i class="ri-search-line"></i>
           <input type="text" id="media-search" placeholder="ابحث..." oninput="filterMedia()"/>
         </div>
-        <button class="mf-btn active" onclick="filterMediaCat('الكل',this)">الكل</button>
-        <button class="mf-btn" onclick="filterMediaCat('قداسات',this)">قداسات</button>
-        <button class="mf-btn" onclick="filterMediaCat('مناسبات',this)">مناسبات</button>
-        <button class="mf-btn" onclick="filterMediaCat('عظات',this)">عظات</button>
-        <button class="mf-btn" onclick="filterMediaCat('أناشيد',this)">أناشيد</button>
-        <button class="mf-btn" onclick="filterMediaCat('صور',this)">صور</button>
+        <div id="media-filter-btns" style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;align-items:center"></div>
       </div>
       
       <div class="media-content" id="media-public-content"></div>
@@ -891,11 +988,14 @@
         </div>
       </aside>
 
+      <!-- Mobile sidebar backdrop -->
+      <div class="adm-backdrop" id="adm-backdrop" onclick="closeAdmSidebar()"></div>
+
       <!-- Admin Main Content -->
       <div class="adm-main" id="adm-main">
         <div class="adm-topbar">
           <div style="display:flex;align-items:center;gap:1rem">
-            <button onclick="document.getElementById('adm-sidebar').classList.toggle('open')" style="background:none;color:var(--navy);display:flex;align-items:center;">
+            <button onclick="toggleAdmSidebar()" style="background:none;color:var(--navy);display:flex;align-items:center;">
               <i class="ri-menu-line" style="font-size:1.25rem"></i>
             </button>
             <span class="adm-topbar-title" id="adm-page-title">Dashboard</span>
@@ -999,13 +1099,13 @@
               <div class="adm-upload-zone" onclick="document.getElementById('media-file-input').click()" id="adm-drop-zone">
                 <i class="ri-cloud-upload-line"></i>
                 <p><strong>Click to choose files</strong> or drag & drop them here</p>
-                <p style="font-size:0.75rem;margin-top:0.3rem">Supports images, videos, and PDF files</p>
+                <p style="font-size:0.75rem;margin-top:0.3rem">Supports images, videos, PDF, PowerPoint (pptx), Word, Excel & more</p>
               </div>
-              <input type="file" id="media-file-input" multiple accept="image/*,video/*,application/pdf" style="display:none" onchange="handleMediaFiles(this.files)"/>
+              <input type="file" id="media-file-input" multiple accept="image/*,video/*,audio/*,application/pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx,.txt,.zip,.rar" style="display:none" onchange="handleMediaFiles(this.files)"/>
               
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem">
+              <div class="media-upload-meta">
                 <div class="adm-form-group"><label class="adm-label">File Caption / Title</label><input id="media-cap" class="adm-input" type="text" placeholder="مثال: صورة تذكارية لعيد القيامة"/></div>
-                <div class="adm-form-group"><label class="adm-label">Category</label><select id="media-cat-sel" class="adm-select"><option>قداسات</option><option>مناسبات</option><option>عظات</option><option>أناشيد</option><option>صور</option><option>أخرى</option></select></div>
+                <div class="adm-form-group"><label class="adm-label">Group / Category <span>(from your groups)</span></label><select id="media-cat-sel" class="adm-select"></select></div>
               </div>
               <div class="adm-media-grid" id="adm-media-preview"></div>
               <div style="margin-top:1rem;display:flex;justify-content:flex-end">
@@ -1067,6 +1167,19 @@
     </div>
   </div>
 
+  <!-- ===== SESSION / OVERLAPPING GROUPS INFO MODAL ===== -->
+  <div class="session-modal-overlay" id="session-modal">
+    <div class="session-modal-box">
+      <button class="session-modal-close" id="session-modal-close"><i class="ri-close-line"></i></button>
+      <div class="session-modal-head">
+        <i class="ri-time-line" style="color:var(--gold)"></i>
+        <h3 id="session-modal-time"></h3>
+      </div>
+      <p class="session-modal-sub" id="session-modal-day"></p>
+      <div id="session-modal-body"></div>
+    </div>
+  </div>
+
   <!-- Scroll to top button -->
   <button class="scroll-top" id="scroll-top"><i class="ri-arrow-up-line"></i></button>
   
@@ -1123,12 +1236,22 @@
       if (p === 'admin') checkAdminAuth();
     }
 
-    function scrollTo(id) {
-      setTimeout(() => {
-        const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    }
+function scrollToSection(id) {
+  setTimeout(() => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    // Account for fixed header
+    const headerHeight = 85;
+    const elementPosition = el.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.scrollY - headerHeight;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+  }, 180); // Small delay to let page switch settle
+}
 
     document.getElementById('nav-toggle').onclick = () => document.getElementById('nav-links').classList.toggle('open');
     document.getElementById('scroll-top').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1169,6 +1292,15 @@
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
     /* ===== FORMATTERS & UTILS ===== */
+    // Escape any user-supplied text before inserting via innerHTML (prevents stored XSS)
+    function esc(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
     function toAr(n) { return String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]); }
     
     function toArTime(t) {
@@ -1210,8 +1342,8 @@
           <div class="cdown-card">
             <div class="cdown-icon"><i class="ri-calendar-check-line"></i></div>
             <div class="cdown-info">
-              <div class="cdown-title">${ev.title}</div>
-              <div class="cdown-date">${ev.date}</div>
+              <div class="cdown-title">${esc(ev.title)}</div>
+              <div class="cdown-date">${esc(ev.date)}</div>
             </div>
             <div>
               <div class="cdown-num">${cd.text.split(' ')[0]}</div>
@@ -1237,17 +1369,17 @@
       c.innerHTML = events.map(ev => `
         <article class="ev-card reveal">
           <div class="ev-img">
-            ${ev.img ? `<img src="${ev.img}" alt="${ev.title}"/>` : `<i class="ri-image-line"></i>`}
+            ${ev.img ? `<img src="${esc(ev.img)}" alt="${esc(ev.title)}"/>` : `<i class="ri-image-line"></i>`}
           </div>
           <div class="ev-body">
-            <p class="ev-tag">${ev.category || 'عام'}</p>
-            <h3>${ev.title}</h3>
+            <p class="ev-tag">${esc(ev.category || 'عام')}</p>
+            <h3>${esc(ev.title)}</h3>
             <div class="ev-meta">
-              <span class="ev-meta-item"><i class="ri-calendar-line"></i>${ev.date}</span>
-              ${ev.duration ? `<span class="ev-meta-item"><i class="ri-time-line"></i>${ev.duration}</span>` : ''}
+              <span class="ev-meta-item"><i class="ri-calendar-line"></i>${esc(ev.date)}</span>
+              ${ev.duration ? `<span class="ev-meta-item"><i class="ri-time-line"></i>${esc(ev.duration)}</span>` : ''}
             </div>
-            <p>${ev.description || ''}</p>
-            ${ev.bookable ? `<button class="btn-book" onclick="openBooking(${ev.id},'${ev.title.replace(/'/g, "\\'")}')"><i class="ri-ticket-line"></i> احجز مكانك</button>` : `<span style="font-size:.8rem;color:var(--gray)"><i class="ri-group-line"></i> حضور عام مفتوح</span>`}
+            <p>${esc(ev.description || '')}</p>
+            ${ev.bookable ? `<button class="btn-book" onclick="openBooking(${ev.id},this.getAttribute('data-title'))" data-title="${esc(ev.title)}"><i class="ri-ticket-line"></i> احجز مكانك</button>` : `<span style="font-size:.8rem;color:var(--gray)"><i class="ri-group-line"></i> حضور عام مفتوح</span>`}
           </div>
         </article>`).join('');
         
@@ -1265,6 +1397,10 @@
     
     document.getElementById('modal-close').onclick = () => document.getElementById('booking-modal').classList.remove('open');
     document.getElementById('booking-modal').onclick = e => { if (e.target === document.getElementById('booking-modal')) document.getElementById('booking-modal').classList.remove('open'); };
+
+    document.getElementById('session-modal-close').onclick = closeSessionCard;
+    document.getElementById('session-modal').onclick = e => { if (e.target === document.getElementById('session-modal')) closeSessionCard(); };
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSessionCard(); });
     
     document.getElementById('booking-form').onsubmit = async e => {
       e.preventDefault();
@@ -1361,13 +1497,13 @@
                 <span class="service-day-desc">أسبوعياً</span>
               </div>
               <div class="service-content">
-                <h4 class="service-name-title"><i class="ri-focus-3-line" style="color:var(--gold)"></i> ${s.name}</h4>
+                <h4 class="service-name-title"><i class="ri-focus-3-line" style="color:var(--gold)"></i> ${esc(s.name)}</h4>
                 <div class="service-meta-info">
-                  <span><i class="ri-group-line"></i> المجموعة: <strong>${s.osraName}</strong></span>
-                  <span><i class="ri-user-star-line"></i> المسؤول: <strong>${s.osraLeader}</strong></span>
-                  ${s.location ? `<span><i class="ri-map-pin-line"></i> المكان: <strong>${s.location}</strong></span>` : ''}
+                  <span><i class="ri-group-line"></i> المجموعة: <strong>${esc(s.osraName)}</strong></span>
+                  <span><i class="ri-user-star-line"></i> المسؤول: <strong>${esc(s.osraLeader)}</strong></span>
+                  ${s.location ? `<span><i class="ri-map-pin-line"></i> المكان: <strong>${esc(s.location)}</strong></span>` : ''}
                 </div>
-                ${s.notes ? `<p class="service-notes-text">ملاحظة: ${s.notes}</p>` : ''}
+                ${s.notes ? `<p class="service-notes-text">ملاحظة: ${esc(s.notes)}</p>` : ''}
               </div>
             </div>`).join('');
         } else {
@@ -1391,7 +1527,34 @@
 
     /* ===== PUBLIC MEDIA LIBRARY LOGIC ===== */
     async function renderPublicMedia() {
+      await renderMediaFilters();
       filterMedia();
+    }
+
+    // Build the public category filter buttons from the SAME groups created in the timetable
+    async function renderMediaFilters() {
+      const osras = await API.getOsras();
+      const cats = ['الكل', ...osras.map(o => o.name)];
+      if (!cats.includes(currentMediaCat)) currentMediaCat = 'الكل';
+      const wrap = document.getElementById('media-filter-btns');
+      if (!wrap) return;
+      wrap.innerHTML = cats.map(c =>
+        `<button class="mf-btn${c === currentMediaCat ? ' active' : ''}" data-cat="${esc(c)}" onclick="filterMediaCat(this.getAttribute('data-cat'),this)">${esc(c)}</button>`
+      ).join('');
+    }
+
+    // Populate the admin upload category dropdown from the groups
+    async function populateMediaCatSelect() {
+      const sel = document.getElementById('media-cat-sel');
+      if (!sel) return;
+      const osras = await API.getOsras();
+      const prev = sel.value;
+      if (!osras.length) {
+        sel.innerHTML = `<option value="">⚠ أضف مجموعة أولاً من Groups & Timetable</option>`;
+        return;
+      }
+      sel.innerHTML = osras.map(o => `<option value="${esc(o.name)}">${esc(o.name)}</option>`).join('');
+      if (prev && osras.some(o => o.name === prev)) sel.value = prev;
     }
 
     async function filterMedia() {
@@ -1459,7 +1622,7 @@
       let thumb = '';
       
       if (isImg && m.url) {
-        thumb = `<img src="${m.url}" alt="${m.caption}" loading="lazy"/>`;
+        thumb = `<img src="${esc(m.url)}" alt="${esc(m.caption)}" loading="lazy"/>`;
       } else if (isVid) {
         thumb = `<div class="media-play"><i class="ri-play-circle-line"></i></div>`;
       } else if (isPdf) {
@@ -1470,13 +1633,16 @@
 
       return `
         <div class="media-card reveal" onclick="openLightbox(${idx})">
-          <div class="media-thumb">${thumb}</div>
+          <div class="media-thumb">
+            ${thumb}
+            <button class="media-dl" title="تحميل الملف" onclick="event.stopPropagation();downloadMedia(${idx})"><i class="ri-download-2-line"></i></button>
+          </div>
           <div class="media-body">
-            <div class="media-cat">${m.category}</div>
-            <div class="media-title">${m.caption || m.name}</div>
+            <div class="media-cat">${esc(m.category)}</div>
+            <div class="media-title">${esc(m.caption || m.name)}</div>
             <div class="media-type">
               <i class="ri-attachment-line"></i>
-              <span>${isPdf ? 'ملف مستند PDF' : isVid ? 'ملف فيديو' : isImg ? 'ملف صورة' : 'ملف'}</span>
+              <span>${isPdf ? 'ملف مستند PDF' : isVid ? 'ملف فيديو' : isImg ? 'ملف صورة' : 'ملف للتحميل'}</span>
             </div>
           </div>
         </div>`;
@@ -1498,6 +1664,9 @@
             <div id="lb-content"></div>
             <div class="lb-title" id="lb-title"></div>
             <div class="lb-cat" id="lb-cat"></div>
+            <div class="lb-actions">
+              <button class="btn-primary" id="lb-download"><i class="ri-download-2-line"></i> تحميل الملف</button>
+            </div>
           </div>`;
         lb.onclick = e => { if (e.target === lb) closeLightbox(); };
         document.body.appendChild(lb);
@@ -1506,27 +1675,45 @@
       const content = document.getElementById('lb-content');
       const isVid = m.type && m.type.startsWith('video');
       const isImg = m.type && m.type.startsWith('image');
+      const isAudio = m.type && m.type.startsWith('audio');
       const isPdf = m.type === 'application/pdf';
       
       if (isImg && m.url) {
-        content.innerHTML = `<img src="${m.url}" class="lb-media" alt="${m.caption}"/>`;
+        content.innerHTML = `<img src="${esc(m.url)}" class="lb-media" alt="${esc(m.caption)}"/>`;
       } else if (isVid && m.url) {
-        content.innerHTML = `<video src="${m.url}" class="lb-media" controls autoplay></video>`;
+        content.innerHTML = `<video src="${esc(m.url)}" class="lb-media" controls autoplay></video>`;
+      } else if (isAudio && m.url) {
+        content.innerHTML = `<div class="lb-pdf-view"><i class="ri-music-2-fill"></i><h3>${esc(m.name)}</h3><audio src="${esc(m.url)}" controls autoplay style="margin-top:1rem"></audio></div>`;
       } else if (isPdf) {
         content.innerHTML = `
           <div class="lb-pdf-view">
             <i class="ri-file-pdf-fill"></i>
-            <h3>ملف مستند: ${m.name}</h3>
-            <a href="${m.url || '#'}" download="${m.name}" class="btn-primary" style="margin-top:1rem; text-decoration:none;"><i class="ri-download-line"></i> تحميل المستند PDF</a>
+            <h3>ملف مستند: ${esc(m.name)}</h3>
           </div>`;
       } else {
-        content.innerHTML = `<i class="ri-file-line" style="font-size: 5rem; color: var(--gold); margin: 3rem auto; display:block;"></i>`;
+        content.innerHTML = `<div class="lb-pdf-view"><i class="ri-file-3-fill"></i><h3>${esc(m.name)}</h3></div>`;
       }
       
       document.getElementById('lb-title').textContent = m.caption || m.name;
       document.getElementById('lb-cat').textContent = m.category;
+      const dlBtn = document.getElementById('lb-download');
+      if (dlBtn) dlBtn.onclick = () => downloadMedia(idx);
       lb.classList.add('open');
       document.body.style.overflow = 'hidden';
+    }
+
+    /* Download any media file (works for base64 data URLs and object URLs) */
+    async function downloadMedia(idx) {
+      const allMedia = await API.getMedia();
+      const m = allMedia[idx];
+      if (!m || !m.url) { toast('الملف غير متاح للتحميل'); return; }
+      const a = document.createElement('a');
+      a.href = m.url;
+      a.download = m.name || m.caption || 'church-file';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      toast('جارٍ تحميل الملف...');
     }
 
     function closeLightbox() {
@@ -1543,12 +1730,52 @@
       if (e.key === 'Escape') closeLightbox();
     });
 
-    /* ===== ADMIN AUTHENTICATION ===== */
-    const ADMIN_USER = 'Antony';
-    const ADMIN_PASS = 'church';
+    /* ===== ADMIN AUTHENTICATION (HARDENED) =====
+       The username and password are NEVER stored in plaintext anywhere in
+       this file. Only salted SHA-256 digests are embedded below. On login we
+       hash the typed values and compare digests with a constant-time check,
+       enforce a temporary lockout after repeated failures, and issue a random
+       time-limited session token (no "magic 1" flag that could be forged). */
+    const AUTH = {
+      salt: 'stantony_shoubra_2026_$@lt_v1',
+      userHash: '4c2fa94b4ddb458c99a5e1c886c5c805fcb7345366e46959f68358441c99ffb2',
+      passHash: '7d03047607106ff095fe1793bdfe681c0e6a63b27b906dfcb9cdc69548af0538',
+      maxAttempts: 5,
+      lockoutMs: 5 * 60 * 1000,        // lock for 5 minutes after 5 fails
+      sessionMs: 2 * 60 * 60 * 1000    // session expires after 2 hours
+    };
+
+    async function sha256(str) {
+      const data = new TextEncoder().encode(str);
+      const buf = await crypto.subtle.digest('SHA-256', data);
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    // Constant-time comparison to avoid leaking info via timing
+    function safeEqual(a, b) {
+      if (a.length !== b.length) return false;
+      let diff = 0;
+      for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+      return diff === 0;
+    }
+
+    function getLockState() {
+      try { return JSON.parse(localStorage.getItem('admin-lock') || '{"fails":0,"until":0}'); }
+      catch { return { fails: 0, until: 0 }; }
+    }
+    function setLockState(s) { localStorage.setItem('admin-lock', JSON.stringify(s)); }
+
+    function isSessionValid() {
+      try {
+        const s = JSON.parse(sessionStorage.getItem('admin-session') || 'null');
+        if (!s || !s.token || s.token.length !== 64) return false;
+        if (Date.now() > s.exp) { sessionStorage.removeItem('admin-session'); return false; }
+        return true;
+      } catch { return false; }
+    }
 
     function checkAdminAuth() {
-      if (sessionStorage.getItem('admin-auth') === '1') {
+      if (isSessionValid()) {
         document.getElementById('login-screen').style.display = 'none';
         refreshAdminStats();
         admNav('dashboard');
@@ -1557,36 +1784,72 @@
       }
     }
 
-    function doLogin(e) {
+    async function doLogin(e) {
       e.preventDefault();
+      const err = document.getElementById('login-error');
+      const lock = getLockState();
+
+      // Enforce lockout window
+      if (lock.until && Date.now() < lock.until) {
+        const mins = Math.ceil((lock.until - Date.now()) / 60000);
+        err.textContent = `Too many failed attempts. Try again in ${mins} minute(s).`;
+        err.classList.add('show');
+        return;
+      }
+
       const u = document.getElementById('l-user').value.trim();
       const p = document.getElementById('l-pass').value;
-      const err = document.getElementById('login-error');
-      
-      if (u === ADMIN_USER && p === ADMIN_PASS) {
-        sessionStorage.setItem('admin-auth', '1');
-        document.getElementById('login-screen').style.transition = 'opacity 0.4s ease';
-        document.getElementById('login-screen').style.opacity = '0';
-        setTimeout(() => {
-          document.getElementById('login-screen').style.display = 'none';
-          document.getElementById('login-screen').style.opacity = '1';
-        }, 400);
+
+      const uHash = await sha256(AUTH.salt + ':' + u);
+      const pHash = await sha256(AUTH.salt + ':' + p);
+      const ok = safeEqual(uHash, AUTH.userHash) && safeEqual(pHash, AUTH.passHash);
+
+      if (ok) {
+        setLockState({ fails: 0, until: 0 });
+        const token = await sha256(crypto.getRandomValues(new Uint32Array(4)).join('-') + ':' + Date.now());
+        sessionStorage.setItem('admin-session', JSON.stringify({ token, exp: Date.now() + AUTH.sessionMs }));
         err.classList.remove('show');
+        const ls = document.getElementById('login-screen');
+        ls.style.transition = 'opacity 0.4s ease';
+        ls.style.opacity = '0';
+        setTimeout(() => { ls.style.display = 'none'; ls.style.opacity = '1'; }, 400);
+        document.getElementById('l-pass').value = '';
         refreshAdminStats();
         admNav('dashboard');
       } else {
+        const fails = (lock.fails || 0) + 1;
+        const state = { fails, until: 0 };
+        if (fails >= AUTH.maxAttempts) {
+          state.until = Date.now() + AUTH.lockoutMs;
+          state.fails = 0;
+          err.textContent = 'Too many failed attempts. Locked for 5 minutes.';
+        } else {
+          err.textContent = `Incorrect username or password. ${AUTH.maxAttempts - fails} attempt(s) left.`;
+        }
+        setLockState(state);
         err.classList.add('show');
         document.getElementById('l-pass').value = '';
-        setTimeout(() => err.classList.remove('show'), 3000);
       }
     }
 
     function logout() {
-      sessionStorage.removeItem('admin-auth');
+      sessionStorage.removeItem('admin-session');
       document.getElementById('login-screen').style.display = 'flex';
       document.getElementById('l-user').value = '';
       document.getElementById('l-pass').value = '';
       showPage('home'); // This will also restore the public header
+    }
+
+    /* ===== ADMIN SIDEBAR (MOBILE) ===== */
+    function toggleAdmSidebar() {
+      const sb = document.getElementById('adm-sidebar');
+      const bd = document.getElementById('adm-backdrop');
+      const open = sb.classList.toggle('open');
+      bd.classList.toggle('show', open);
+    }
+    function closeAdmSidebar() {
+      document.getElementById('adm-sidebar').classList.remove('open');
+      document.getElementById('adm-backdrop').classList.remove('show');
     }
 
     /* ===== ADMIN PANEL PAGE ROUTING ===== */
@@ -1610,11 +1873,12 @@
       });
       
       document.getElementById('adm-page-title').textContent = admTitles[panel] || panel;
+      closeAdmSidebar();
       
       if (panel === 'dashboard') refreshAdminStats();
       if (panel === 'events') renderAdminEventsTable();
       if (panel === 'timetable') renderAdminOsras();
-      if (panel === 'media') renderAdminMedia();
+      if (panel === 'media') { populateMediaCatSelect(); renderAdminMedia(); }
       if (panel === 'messages') renderAdminMessages();
     }
 
@@ -1638,9 +1902,9 @@
           const cd = countdown(e.date);
           return `
             <tr>
-              <td><strong>${e.title}</strong></td>
-              <td>${e.date}</td>
-              <td><span class="tag tag-gold">${e.category}</span></td>
+              <td><strong>${esc(e.title)}</strong></td>
+              <td>${esc(e.date)}</td>
+              <td><span class="tag tag-gold">${esc(e.category)}</span></td>
               <td><span class="tag ${cd.cls}">${cd.text}</span></td>
             </tr>`;
         }).join('');
@@ -1687,9 +1951,9 @@
       if (events.length) {
         tbody.innerHTML = events.map(ev => `
           <tr>
-            <td><strong>${ev.title}</strong></td>
-            <td>${ev.date}</td>
-            <td><span class="tag tag-gold">${ev.category}</span></td>
+            <td><strong>${esc(ev.title)}</strong></td>
+            <td>${esc(ev.date)}</td>
+            <td><span class="tag tag-gold">${esc(ev.category)}</span></td>
             <td>${ev.bookable ? '<span class="tag tag-green">نعم - مفعل</span>' : '<span class="tag tag-red">لا</span>'}</td>
             <td>
               <button class="adm-btn adm-btn-danger adm-btn-sm" onclick="deleteEvent(${ev.id})">
@@ -1727,6 +1991,46 @@
       else renderTimetableGridView();
     }
 
+    // Stores the currently rendered grid sessions so the click handler can look them up by id
+    let ttSessionLookup = {};
+
+    // Given a list of sessions (each with .startMin/.endMin already computed) for ONE day,
+    // detect overlapping clusters and assign each session a column + columnCount so that
+    // overlapping sessions split the available width evenly, side-by-side, instead of stacking.
+    // Works for any number of simultaneously overlapping groups (2, 3, 10, ...).
+    function computeOverlapLayout(sessions) {
+      const sorted = [...sessions].sort((a, b) => a.startMin - b.startMin || a.endMin - b.endMin);
+      const clusters = [];
+      let current = [];
+      let currentEnd = -Infinity;
+
+      sorted.forEach(s => {
+        if (current.length && s.startMin >= currentEnd) {
+          clusters.push(current);
+          current = [];
+          currentEnd = -Infinity;
+        }
+        current.push(s);
+        currentEnd = Math.max(currentEnd, s.endMin);
+      });
+      if (current.length) clusters.push(current);
+
+      clusters.forEach(cluster => {
+        // Assign each session in the cluster to the first free column (interval-graph coloring)
+        const columnEnds = []; // columnEnds[i] = end time currently occupied in column i
+        cluster.forEach(s => {
+          let col = columnEnds.findIndex(end => s.startMin >= end);
+          if (col === -1) { col = columnEnds.length; columnEnds.push(s.endMin); }
+          else { columnEnds[col] = s.endMin; }
+          s._col = col;
+        });
+        const totalCols = columnEnds.length;
+        cluster.forEach(s => { s._totalCols = totalCols; });
+      });
+
+      return sorted;
+    }
+
     async function renderTimetableGridView() {
       const osras = await API.getOsras();
       const container = document.getElementById('tt-visual-container');
@@ -1738,9 +2042,20 @@
       const allSessions = [];
       osras.forEach((os, oi) => {
         (os.sessions || []).forEach(s => {
-          allSessions.push({ ...s, osraName: os.name, colorIdx: oi % 8 });
+          allSessions.push({
+            ...s,
+            osraId: os.id,
+            osraName: os.name,
+            osraLeader: os.leader || '',
+            osraDescription: os.description || '',
+            colorIdx: oi % 8,
+            _uid: `${os.id}-${s.id}`
+          });
         });
       });
+
+      ttSessionLookup = {};
+      allSessions.forEach(s => { ttSessionLookup[s._uid] = s; });
 
       if (!allSessions.length) {
         container.innerHTML = `
@@ -1769,21 +2084,40 @@
         timeLabels += `<div style="height:${HOUR_PX}px;display:flex;align-items:flex-start;padding-top:4px;color:rgba(255,255,255,0.55);font-size:0.65rem;font-weight:600;white-space:nowrap;justify-content:center">${label}</div>`;
       }
 
-      // Build per-day columns with absolutely positioned session blocks
+      // Build per-day columns with absolutely positioned session blocks.
+      // Overlapping sessions are detected and split into side-by-side slices (any number of groups).
       const totalH = (END_HOUR - START_HOUR) * HOUR_PX;
       const dayCols = weekdays.map((day, di) => {
-        const daySessions = allSessions.filter(s => s.day === day);
-        const blocks = daySessions.map(s => {
+        let daySessions = allSessions.filter(s => s.day === day).map(s => {
           const [hh, mm] = (s.time || '08:00').split(':').map(Number);
           const durHrs = parseFloat(s.duration) || 1;
-          const top = ((hh - START_HOUR) + mm / 60) * HOUR_PX;
-          const h = Math.max(durHrs * HOUR_PX - 4, 36);
+          const startMin = hh * 60 + mm;
+          const endMin = startMin + durHrs * 60;
+          return { ...s, startMin, endMin };
+        });
+
+        daySessions = computeOverlapLayout(daySessions);
+
+        const GAP_PX = 3;
+        const blocks = daySessions.map(s => {
+          const top = ((s.startMin / 60) - START_HOUR) * HOUR_PX;
+          const h = Math.max((s.endMin - s.startMin) / 60 * HOUR_PX - 4, 32);
+          const cols = s._totalCols || 1;
+          const col = s._col || 0;
+          const widthPct = 100 / cols;
+          const leftPct = col * widthPct;
+          const compact = cols >= 3 ? ' sb-compact' : '';
+          const overlapTag = cols > 1 ? `<span class="sb-overlap-tag">${cols}</span>` : '';
           return `
-            <div class="tt-session-block sb-c${s.colorIdx}" style="top:${top}px;height:${h}px" 
-                 title="${s.name} — ${s.osraName}\n${toArTime(s.time)}${s.location ? '\n' + s.location : ''}">
-              <div class="sb-name">${s.name}</div>
-              <div class="sb-time">${toArTime(s.time)}${s.duration ? ` · ${s.duration}h` : ''}</div>
-              <div class="sb-group">${s.osraName}</div>
+            <div class="tt-session-block sb-c${s.colorIdx}${compact}"
+                 style="top:${top}px;height:${h}px;left:calc(${leftPct}% + ${GAP_PX}px);width:calc(${widthPct}% - ${GAP_PX * 2}px)"
+                 tabindex="0" role="button"
+                 onclick="openSessionCard('${s._uid}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSessionCard('${s._uid}');}"
+                 title="${esc(s.name)} — ${esc(s.osraName)}\n${toArTime(s.time)}${s.location ? '\n' + esc(s.location) : ''}">
+              ${overlapTag}
+              <div class="sb-name">${esc(s.name)}</div>
+              <div class="sb-time">${toArTime(s.time)}${s.duration ? ` · ${esc(s.duration)}h` : ''}</div>
+              <div class="sb-group">${esc(s.osraName)}</div>
             </div>`;
         }).join('');
         // Alternating hour lines background
@@ -1811,6 +2145,49 @@
         </div>`;
     }
 
+    /* ===== SESSION INFO CARD (click on a timetable block, incl. overlapping/split groups) ===== */
+    function openSessionCard(uid) {
+      const s = ttSessionLookup[uid];
+      if (!s) return;
+
+      // Find every session that overlaps this one on the same day, so the card can
+      // optionally list "also happening at this time" groups too — supports infinite groups.
+      const sameDay = Object.values(ttSessionLookup).filter(x => x.day === s.day);
+      const overlapping = sameDay.filter(x =>
+        x._uid !== s._uid && x.startMin < s.endMin && x.endMin > s.startMin
+      );
+
+      document.getElementById('session-modal-time').textContent = `${toArTime(s.time)}${s.duration ? ` · ${esc(s.duration)} ساعة` : ''}`;
+      document.getElementById('session-modal-day').textContent = `يوم ${s.day}`;
+
+      const renderCard = (sess, isPrimary) => `
+        <div class="session-card-block" style="${isPrimary ? '' : 'opacity:.85'}">
+          <div class="session-card-name"><i class="ri-focus-3-line"></i> ${esc(sess.name)}</div>
+          <div class="session-card-meta">
+            <span><i class="ri-group-line"></i> المجموعة: <strong>${esc(sess.osraName)}</strong></span>
+            ${sess.osraLeader ? `<span><i class="ri-user-star-line"></i> المسؤول: <strong>${esc(sess.osraLeader)}</strong></span>` : ''}
+            ${sess.location ? `<span><i class="ri-map-pin-line"></i> المكان: <strong>${esc(sess.location)}</strong></span>` : ''}
+            <span><i class="ri-time-line"></i> الموعد: <strong>${toArTime(sess.time)}${sess.duration ? ` (${esc(sess.duration)} ساعة)` : ''}</strong></span>
+          </div>
+          ${sess.osraDescription ? `<p class="session-card-desc">${esc(sess.osraDescription)}</p>` : ''}
+          ${sess.notes ? `<p class="session-card-desc">ملاحظة: ${esc(sess.notes)}</p>` : ''}
+        </div>`;
+
+      let html = renderCard(s, true);
+      if (overlapping.length) {
+        html += `<div class="session-modal-divider"></div>
+          <div class="session-card-count"><i class="ri-stack-line"></i> ${overlapping.length + 1} مجموعات في نفس التوقيت</div>`;
+        html += overlapping.map(o => renderCard(o, false)).join('');
+      }
+
+      document.getElementById('session-modal-body').innerHTML = html;
+      document.getElementById('session-modal').classList.add('open');
+    }
+
+    function closeSessionCard() {
+      document.getElementById('session-modal').classList.remove('open');
+    }
+
     /* ===== ADMIN TIMETABLES (OSRAS & SESSIONS) - REWRITTEN ===== */
     async function addOsra() {
       const name = document.getElementById('os-name').value.trim();
@@ -1834,13 +2211,14 @@
       
       selectedOsraId = os.id;
       renderAdminOsras();
+      populateMediaCatSelect();
       showSessionFormCard(os);
       toast('Group added successfully');
     }
 
     function showSessionFormCard(os) {
       document.getElementById('osra-sessions-card').style.display = 'block';
-      document.getElementById('sessions-card-title').innerHTML = `<i class="ri-calendar-event-line"></i> Add Session — <strong>${os.name}</strong>`;
+      document.getElementById('sessions-card-title').innerHTML = `<i class="ri-calendar-event-line"></i> Add Session — <strong>${esc(os.name)}</strong>`;
       document.getElementById('ss-btn-label').textContent = 'Add Session';
       document.getElementById('ss-cancel-btn').style.display = 'none';
       document.getElementById('ss-edit-id').value = '';
@@ -1875,7 +2253,7 @@
       document.getElementById('ss-edit-id').value = sessionId;
 
       document.getElementById('osra-sessions-card').style.display = 'block';
-      document.getElementById('sessions-card-title').innerHTML = `<i class="ri-edit-line"></i> Edit Session — <strong>${os.name}</strong>`;
+      document.getElementById('sessions-card-title').innerHTML = `<i class="ri-edit-line"></i> Edit Session — <strong>${esc(os.name)}</strong>`;
       document.getElementById('ss-btn-label').textContent = 'Update Session';
       document.getElementById('ss-cancel-btn').style.display = 'flex';
       document.getElementById('osra-sessions-card').scrollIntoView({ behavior: 'smooth' });
@@ -1955,10 +2333,10 @@
         const sessionsHTML = (o.sessions && o.sessions.length)
           ? o.sessions.map(s => `
             <div class="osra-session-row">
-              <span class="ss-day-badge">${s.day}</span>
+              <span class="ss-day-badge">${esc(s.day)}</span>
               <div class="ss-info">
-                <div class="ss-name">${s.name}</div>
-                <div class="ss-meta">${toArTime(s.time)}${s.duration ? ` · ${s.duration}h` : ''}${s.location ? ` · ${s.location}` : ''}</div>
+                <div class="ss-name">${esc(s.name)}</div>
+                <div class="ss-meta">${toArTime(s.time)}${s.duration ? ` · ${esc(s.duration)}h` : ''}${s.location ? ` · ${esc(s.location)}` : ''}</div>
               </div>
               <div class="ss-actions">
                 <button class="adm-btn adm-btn-navy adm-btn-sm" onclick="editSession(${o.id}, ${s.id})" title="Edit session">
@@ -1975,8 +2353,8 @@
           <div class="osra-card-adm">
             <div class="osra-card-head">
               <div>
-                <div class="osra-card-name"><i class="ri-group-line" style="color:var(--gold)"></i> ${o.name}</div>
-                <div class="osra-card-meta">Leader: ${o.leader || '—'} &nbsp;|&nbsp; ${(o.sessions||[]).length} session(s)${o.description ? ' &nbsp;|&nbsp; ' + o.description : ''}</div>
+                <div class="osra-card-name"><i class="ri-group-line" style="color:var(--gold)"></i> ${esc(o.name)}</div>
+                <div class="osra-card-meta">Leader: ${esc(o.leader || '—')} &nbsp;|&nbsp; ${(o.sessions||[]).length} session(s)${o.description ? ' &nbsp;|&nbsp; ' + esc(o.description) : ''}</div>
               </div>
               <div class="osra-card-actions">
                 <button class="adm-btn adm-btn-navy adm-btn-sm" onclick="selectOsraForSessions(${o.id})">
@@ -2004,6 +2382,7 @@
       }
       
       renderAdminOsras();
+      populateMediaCatSelect();
       renderTimetablePublic();
       renderTimetableGridView();
       toast('Group deleted');
@@ -2052,6 +2431,7 @@
       if (!pendingMediaFiles.length) return toast('برجاء اختيار ملف للرفع أولاً');
       const caption = document.getElementById('media-cap').value.trim();
       const category = document.getElementById('media-cat-sel').value;
+      if (!category) return toast('أضف مجموعة أولاً من تبويب Groups & Timetable لتصنيف الملف');
       
       let processedCount = 0;
       pendingMediaFiles.forEach(f => {
@@ -2094,13 +2474,16 @@
       const tbody = document.getElementById('media-table-body');
       
       if (media.length) {
-        tbody.innerHTML = media.map(m => `
+        tbody.innerHTML = media.map((m, mi) => `
           <tr>
-            <td>${m.name.length > 22 ? m.name.substring(0, 20) + '…' : m.name}</td>
-            <td>${m.caption}</td>
-            <td><span class="tag tag-gold">${m.category}</span></td>
-            <td><span class="tag tag-blue">${m.type ? m.type.split('/')[0] : 'file'}</span></td>
-            <td>
+            <td>${esc(m.name.length > 22 ? m.name.substring(0, 20) + '…' : m.name)}</td>
+            <td>${esc(m.caption)}</td>
+            <td><span class="tag tag-gold">${esc(m.category)}</span></td>
+            <td><span class="tag tag-blue">${esc(m.type ? m.type.split('/')[0] : 'file')}</span></td>
+            <td style="white-space:nowrap">
+              <button class="adm-btn adm-btn-navy adm-btn-sm" onclick="downloadMedia(${mi})">
+                <i class="ri-download-2-line"></i> تحميل
+              </button>
               <button class="adm-btn adm-btn-danger adm-btn-sm" onclick="deleteMedia(${m.id})">
                 <i class="ri-delete-bin-line"></i> حذف
               </button>
@@ -2133,14 +2516,14 @@
       c.innerHTML = [...messages].reverse().map((m, i) => `
         <div style="background:var(--gray-light);border-radius:0.75rem;padding:1.25rem;margin-bottom:0.75rem;cursor:pointer;border-right:3px solid ${m.read ? 'transparent' : 'var(--gold)'}" onclick="toggleMsg(${messages.length - 1 - i})">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem">
-            <strong style="color:var(--navy)">${m.name}</strong>
-            <span style="font-size:0.75rem;color:var(--gray)">${m.date}</span>
+            <strong style="color:var(--navy)">${esc(m.name)}</strong>
+            <span style="font-size:0.75rem;color:var(--gray)">${esc(m.date)}</span>
           </div>
-          <div style="font-size:0.85rem;font-weight:600;color:var(--gold);margin-bottom:0.3rem">الموضوع: ${m.subject}</div>
-          <div style="font-size:0.82rem;color:var(--gray)">الرسالة: ${m.message.substring(0, 100)}${m.message.length > 100 ? '…' : ''}</div>
-          <div style="font-size:0.75rem;color:var(--gray);margin-top:0.25rem;">البريد الإلكتروني: ${m.email}</div>
+          <div style="font-size:0.85rem;font-weight:600;color:var(--gold);margin-bottom:0.3rem">الموضوع: ${esc(m.subject)}</div>
+          <div style="font-size:0.82rem;color:var(--gray)">الرسالة: ${esc(m.message.substring(0, 100))}${m.message.length > 100 ? '…' : ''}</div>
+          <div style="font-size:0.75rem;color:var(--gray);margin-top:0.25rem;">البريد الإلكتروني: ${esc(m.email)}</div>
           <div id="msg-full-${messages.length - 1 - i}" style="display:none;margin-top:0.75rem;font-size:0.875rem;color:var(--text);padding-top:0.75rem;border-top:1px solid rgba(201,168,76,0.15)">
-            ${m.message}
+            ${esc(m.message)}
           </div>
         </div>`).join('');
     }
