@@ -1094,6 +1094,7 @@
             <!-- List Groups -->
             <div class="adm-card">
               <div class="adm-card-head"><div class="adm-card-title"><i class="ri-folders-line"></i> All Groups</div></div>
+              <input id="osra-search" class="adm-input" type="text" placeholder="🔍 Search groups..." style="margin-bottom:1rem" oninput="renderAdminOsras()"/>
               <div id="osras-table-body"></div>
             </div>
           </div>
@@ -1238,7 +1239,7 @@
       window.scrollTo(0, 0);
       document.getElementById('nav-links').classList.remove('open');
       
-      if (p === 'timetable') { renderTimetableGridView(); renderTimetablePublic(); }
+      if (p === 'timetable') { if (currentTTView === 'list') renderTimetablePublic(); else renderTimetableGridView(); }
       if (p === 'media') renderPublicMedia();
       if (p === 'admin') checkAdminAuth();
     }
@@ -1518,7 +1519,7 @@ function scrollToSection(id) {
         }
 
         return `
-          <div class="day-block reveal">
+          <div class="day-block">
             <div class="day-block-header">
               <span class="day-name"><i class="ri-bookmark-3-line" style="color:var(--gold)"></i> يوم ${day}</span>
               <span class="day-badge">${list.length} خدمات</span>
@@ -1528,8 +1529,6 @@ function scrollToSection(id) {
             </div>
           </div>`;
       }).join('');
-
-      container.querySelectorAll('.reveal').forEach(el => io.observe(el));
     }
 
     /* ===== PUBLIC MEDIA LIBRARY LOGIC ===== */
@@ -1538,16 +1537,43 @@ function scrollToSection(id) {
       filterMedia();
     }
 
-    // Build the public category filter buttons from the SAME groups created in the timetable
+    // Build the public category filter buttons: show only the top 3 most-used
+    // categories as buttons (plus "الكل"), and put the rest in a searchable dropdown.
+    // Two categories are always pinned (Madares el Shamamsa, Madares el Kedis Boles);
+    // the 3rd slot goes to whichever remaining group has the most sessions.
+    const PINNED_MEDIA_CATS = ['مدرسة الشمامسة', 'مدرسة القديس بولس (مخدومين)'];
+
     async function renderMediaFilters() {
       const osras = await API.getOsras();
-      const cats = ['الكل', ...osras.map(o => o.name)];
-      if (!cats.includes(currentMediaCat)) currentMediaCat = 'الكل';
+      const allNames = osras.map(o => o.name);
+
+      // Pick the top-1 remaining group by session count (excluding the pinned two)
+      const remaining = osras.filter(o => !PINNED_MEDIA_CATS.includes(o.name));
+      const topRemaining = [...remaining].sort((a, b) => (b.sessions||[]).length - (a.sessions||[]).length)[0];
+
+      const featured = [...PINNED_MEDIA_CATS.filter(c => allNames.includes(c)), ...(topRemaining ? [topRemaining.name] : [])];
+      const rest = allNames.filter(c => !featured.includes(c));
+
+      if (!['الكل', ...allNames].includes(currentMediaCat)) currentMediaCat = 'الكل';
+
       const wrap = document.getElementById('media-filter-btns');
       if (!wrap) return;
-      wrap.innerHTML = cats.map(c =>
+
+      const btnHTML = ['الكل', ...featured].map(c =>
         `<button class="mf-btn${c === currentMediaCat ? ' active' : ''}" data-cat="${esc(c)}" onclick="filterMediaCat(this.getAttribute('data-cat'),this)">${esc(c)}</button>`
       ).join('');
+
+      const isMoreActive = rest.includes(currentMediaCat);
+      const moreOptions = rest.map(c =>
+        `<option value="${esc(c)}"${c === currentMediaCat ? ' selected' : ''}>${esc(c)}</option>`
+      ).join('');
+      const moreHTML = rest.length ? `
+        <select class="mf-btn mf-more-select${isMoreActive ? ' active' : ''}" onchange="filterMediaCat(this.value,null)">
+          <option value="" ${isMoreActive ? '' : 'selected'} disabled>${rest.length} أقسام أخرى...</option>
+          ${moreOptions}
+        </select>` : '';
+
+      wrap.innerHTML = btnHTML + moreHTML;
     }
 
     // Populate the admin upload category dropdown from the groups
@@ -1600,7 +1626,7 @@ function scrollToSection(id) {
       c.innerHTML = categories.map(cat => {
         const items = filtered.filter(m => m.category === cat);
         return `
-          <div class="media-section-title reveal">
+          <div class="media-section-title">
             <i class="ri-folder-2-line"></i>
             <span>قسم: ${cat}</span>
           </div>
@@ -1611,14 +1637,12 @@ function scrollToSection(id) {
             }).join('')}
           </div>`;
       }).join('');
-      
-      c.querySelectorAll('.reveal').forEach(el => io.observe(el));
     }
 
     function filterMediaCat(cat, btn) {
+      if (!cat) return;
       currentMediaCat = cat;
-      document.querySelectorAll('.mf-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      renderMediaFilters();
       filterMedia();
     }
 
@@ -2328,11 +2352,17 @@ function scrollToSection(id) {
     }
 
     async function renderAdminOsras() {
-      const osras = await API.getOsras();
+      let osras = await API.getOsras();
       const container = document.getElementById('osras-table-body');
-      
+      const searchEl = document.getElementById('osra-search');
+      const q = searchEl ? searchEl.value.toLowerCase().trim() : '';
+
+      // Most-used groups first
+      osras = [...osras].sort((a, b) => (b.sessions||[]).length - (a.sessions||[]).length);
+      if (q) osras = osras.filter(o => o.name.toLowerCase().includes(q));
+
       if (!osras.length) {
-        container.innerHTML = `<p style="text-align:center;color:var(--gray);padding:2rem">No groups added yet. Add one above!</p>`;
+        container.innerHTML = `<p style="text-align:center;color:var(--gray);padding:2rem">${q ? 'No groups match your search.' : 'No groups added yet. Add one above!'}</p>`;
         return;
       }
 
@@ -2562,12 +2592,6 @@ function scrollToSection(id) {
       setTimeout(() => t.classList.remove('show'), 3000);
     }
 
-    /* ===== INITIALIZATIONS ===== */
-    renderEvents();
-    renderHomeCountdown();
-    setInterval(renderHomeCountdown, 60000);
-
-
     /* ============================================================= */
     /* ===== API WRAPPER FOR EASY BACKEND INTEGRATION ===== */
     /* ============================================================= */
@@ -2772,6 +2796,13 @@ function scrollToSection(id) {
         db.set('church-messages', []);
       }
     };
+
+    /* ===== INITIALIZATIONS ===== */
+    renderEvents();
+    renderHomeCountdown();
+    setInterval(renderHomeCountdown, 60000);
+
+
   </script>
 </body>
 </html>
