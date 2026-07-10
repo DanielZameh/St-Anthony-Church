@@ -10,7 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"/>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet"/>
   <style>
-    /* ===== ROOT VARIABLES ===== */
     :root {
       --navy:#001a38;--navy-deep:#001226;--navy-mid:#0d2d55;
       --gold:#C9A84C;--gold-light:#e8c96e;--gold-pale:rgba(201,168,76,0.12);
@@ -42,7 +41,6 @@
     .section-title{font-size:clamp(1.75rem,4vw,2.5rem);text-align:center;color:var(--navy);margin-bottom:3rem}
     .dark .section-title{color:var(--gold-light)}
 
-    /* ===== HEADER ===== */
     .header{position:fixed;top:0;left:0;width:100%;height:var(--header-h);z-index:1000;transition:background var(--transition),box-shadow var(--transition),opacity var(--transition),visibility var(--transition)}
     .header.scrolled{background:var(--navy);box-shadow:var(--shadow)}
     .header.header-hidden{opacity:0;visibility:hidden;pointer-events:none}
@@ -69,7 +67,6 @@
       .btn-admin{display:inline-block;font-size:.75rem;padding:.35rem .8rem}
     }
 
-    /* ===== HERO ===== */
     .hero{min-height:100vh;display:flex;align-items:center;background:linear-gradient(135deg,var(--navy-deep) 0%,#0d2d55 60%,#1a4a7a 100%);position:relative;overflow:hidden;padding-top:var(--header-h)}
     .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(201,168,76,.08) 0%,transparent 60%);pointer-events:none}
     .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
@@ -88,7 +85,6 @@
     @keyframes morph{0%,100%{border-radius:65% 35% 50% 50%/40% 60% 40% 60%}50%{border-radius:35% 65% 40% 60%/60% 40% 60% 40%}}
     @media(max-width:768px){.hero-grid{grid-template-columns:1fr;text-align:center;gap:2.5rem}.hero-btns{justify-content:center}.hero-blob{width:260px;height:260px}}
 
-    /* ===== SYNAXARION WIDGET ===== */
     .synax-widget{background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.04));border:1px solid rgba(201,168,76,.35);border-radius:calc(var(--radius) + 4px);padding:1.35rem 1.5rem;margin-top:2rem;backdrop-filter:blur(8px);box-shadow:0 12px 40px rgba(0,0,0,.15);position:relative;overflow:hidden}
     .synax-widget::before{content:'';position:absolute;top:0;right:0;left:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.7}
     .synax-loading{display:flex;align-items:center;gap:.75rem;color:rgba(255,255,255,.7);font-size:.85rem}
@@ -116,7 +112,6 @@
     .synax-error{font-size:.8rem;color:rgba(255,255,255,.55);display:flex;align-items:flex-start;gap:.5rem;line-height:1.6;padding:.75rem;border-radius:.65rem;background:rgba(0,0,0,.15)}
     .synax-error i{color:var(--gold);flex-shrink:0;margin-top:2px}
 
-    /* ===== COUNTDOWN STRIP ===== */
     .countdown-strip{margin-top:1.5rem}
     .cdown-card{background:rgba(255,255,255,.07);border:1px solid rgba(201,168,76,.25);border-radius:.875rem;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;margin-bottom:.75rem;transition:border-color .2s}
     .cdown-card:hover{border-color:var(--gold)}
@@ -128,13 +123,11 @@
     .cdown-num{font-size:1.4rem;font-weight:700;color:var(--gold);line-height:1;text-align:center}
     .cdown-unit{font-size:.62rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;text-align:center}
 
-    /* ===== STATS BAR ===== */
     .stats-bar{background:var(--gold);padding:2rem 0}
     .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;text-align:center}
     .stat-num{font-family:'Playfair Display',serif;font-size:2.5rem;color:var(--navy-deep);font-weight:700}
     .stat-lbl{font-size:.8rem;font-weight:600;color:rgba(0,26,56,.7);text-transform:uppercase;letter-spacing:1px}
 
-    /* ===== ABOUT ===== */
     .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
     .about-img{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lg)}
     .about-img img{width:100%;height:400px;object-fit:cover}
@@ -148,7 +141,6 @@
     .perk i{color:var(--gold);flex-shrink:0}
     @media(max-width:768px){.about-grid{grid-template-columns:1fr}}
 
-    /* ===== PRIESTS ===== */
     .priests-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.25rem}
     .priest-card{background:var(--white);border:1px solid var(--gold-pale);border-radius:var(--radius);padding:2rem 1.5rem;text-align:center;box-shadow:var(--shadow);transition:transform var(--transition)}
     .priest-card:hover{transform:translateY(-4px)}
@@ -157,7 +149,6 @@
     .priest-name{color:var(--navy);font-size:1.1rem}
     .dark .priest-name{color:var(--text)}
 
-    /* ===== EVENTS ===== */
     .no-events{text-align:center;color:var(--gray);padding:4rem 2rem;grid-column:1/-1}
     .no-events i{color:var(--gold);display:block;margin:0 auto 1rem;font-size:3rem}
     .events-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.75rem}
@@ -178,11 +169,9 @@
     .btn-book{align-self:flex-start;padding:.65rem 1.4rem;border-radius:.5rem;background:var(--navy);color:#fff;font-size:.85rem;font-weight:600;transition:all var(--transition);display:inline-flex;align-items:center;gap:.4rem}
     .btn-book:hover{background:var(--gold);color:var(--navy-deep)}
     .dark .btn-book{background:var(--gold);color:var(--navy-deep)}
-    /* share button on event card */
     .btn-share-ev{background:none;border:1px solid rgba(201,168,76,.3);color:var(--gold);padding:.45rem .85rem;border-radius:.4rem;font-size:.75rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:.35rem;transition:all .2s;margin-top:.5rem}
     .btn-share-ev:hover{background:var(--gold-pale)}
 
-    /* ===== PHOTO GALLERY ===== */
     .gallery-section{background:var(--navy-deep);padding:5rem 0 3rem}
     .gallery-section .section-title{color:#fff}
     .gallery-grid{columns:3;gap:1rem}
@@ -197,7 +186,6 @@
     .gallery-empty{text-align:center;padding:3rem;color:rgba(255,255,255,.4)}
     .gallery-empty i{font-size:3rem;color:rgba(201,168,76,.2);display:block;margin-bottom:.75rem}
 
-    /* ===== CONTACT ===== */
     .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
     .contact-info h2{font-size:clamp(1.5rem,3vw,2rem);color:var(--navy);margin-bottom:1rem}
     .dark .contact-info h2{color:var(--gold-light)}
@@ -222,7 +210,6 @@
     .form-success i{color:var(--gold);display:block;margin:0 auto .75rem;font-size:2rem}
     @media(max-width:768px){.contact-grid{grid-template-columns:1fr}.form-row-2{grid-template-columns:1fr}}
 
-    /* ===== FOOTER ===== */
     .footer{background:var(--navy-deep);color:rgba(255,255,255,.6);padding:4rem 0 2rem}
     .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
     .footer-brand img{width:48px;height:48px;border-radius:50%;border:2px solid var(--gold);object-fit:cover;margin-bottom:1rem}
@@ -237,7 +224,66 @@
     .footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:1.5rem;text-align:center;font-size:.8rem}
     @media(max-width:768px){.footer-grid{grid-template-columns:1fr}}
 
-    /* ===== TIMETABLE PAGE ===== */
+    .priest-meta{margin-top:.5rem;font-size:.72rem;color:var(--gray);line-height:1.7}
+    .priest-meta span{display:block}
+
+    .history-summary{color:var(--gray);line-height:1.9;margin-bottom:1rem}
+    .history-toggle-btn{display:inline-flex;align-items:center;gap:.5rem;background:none;color:var(--navy);font-weight:600;font-size:.85rem;border:1.5px solid var(--gold);padding:.55rem 1.2rem;border-radius:99px;transition:all var(--transition)}
+    .dark .history-toggle-btn{color:var(--gold-light)}
+    .history-toggle-btn:hover{background:var(--gold);color:var(--navy-deep)}
+    .history-toggle-btn i{transition:transform .3s}
+    .history-toggle-btn.open i{transform:rotate(180deg)}
+    .history-full{display:none;margin-top:1.75rem;padding-top:1.75rem;border-top:1px solid var(--gold-pale)}
+    .history-full.open{display:block}
+    .history-full p{color:var(--gray);line-height:1.95;margin-bottom:1.1rem;font-size:.92rem}
+    .history-full h4{color:var(--navy);margin:1.5rem 0 .75rem;font-size:1.05rem}
+    .dark .history-full h4{color:var(--gold-light)}
+    .timeline{display:grid;gap:0;margin-top:1rem;position:relative;padding-right:1.75rem;border-right:2px solid var(--gold-pale)}
+    .timeline-item{position:relative;padding-bottom:1.5rem}
+    .timeline-item:last-child{padding-bottom:0}
+    .timeline-item::before{content:'';position:absolute;right:-2.32rem;top:.2rem;width:11px;height:11px;border-radius:50%;background:var(--gold);border:2px solid var(--cream)}
+    .dark .timeline-item::before{border-color:var(--white)}
+    .timeline-date{font-size:.78rem;font-weight:700;color:var(--gold);margin-bottom:.2rem}
+    .timeline-text{font-size:.86rem;color:var(--gray);line-height:1.75}
+
+    .annex-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+    .annex-card{background:var(--white);border:1px solid var(--gold-pale);border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow)}
+    .annex-card-head{display:flex;align-items:center;gap:.85rem;margin-bottom:1.25rem}
+    .annex-card-icon{width:48px;height:48px;border-radius:.65rem;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0}
+    .dark .annex-card-icon{background:rgba(201,168,76,.18)}
+    .annex-card-icon i{font-size:1.4rem}
+    .annex-card h3{font-size:1.1rem;color:var(--navy);line-height:1.5}
+    .dark .annex-card h3{color:var(--gold-light)}
+    .annex-list{display:grid;gap:.65rem}
+    .annex-list li{display:flex;align-items:flex-start;gap:.6rem;font-size:.87rem;color:var(--gray);line-height:1.6}
+    .annex-list i{color:var(--gold);flex-shrink:0;margin-top:3px;font-size:.95rem}
+    @media(max-width:768px){.annex-grid{grid-template-columns:1fr}}
+
+    .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+    .proj-card{background:var(--white);border:1px solid var(--gold-pale);border-radius:var(--radius);padding:2.25rem;color:var(--text);box-shadow:var(--shadow-lg);position:relative;overflow:hidden;transition:background var(--transition),border-color var(--transition)}
+    .proj-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 100% 0%,rgba(201,168,76,.15) 0%,transparent 60%);pointer-events:none}
+    .proj-icon{width:54px;height:54px;border-radius:.75rem;background:var(--gold);display:flex;align-items:center;justify-content:center;color:var(--navy-deep);margin-bottom:1.25rem;position:relative}
+    .proj-icon i{font-size:1.6rem}
+    .proj-card h3{font-size:1.25rem;margin-bottom:.75rem;position:relative;color:var(--navy)}
+    .dark .proj-card h3{color:var(--gold-light)}
+    .proj-card p{color:var(--gray);font-size:.88rem;line-height:1.8;margin-bottom:1.5rem;position:relative}
+    .proj-link{display:inline-flex;align-items:center;gap:.5rem;font-size:.85rem;font-weight:600;color:var(--navy-deep);background:var(--gold);padding:.65rem 1.3rem;border-radius:99px;transition:all var(--transition);position:relative}
+    .proj-link:hover{background:var(--gold-light);transform:translateY(-2px)}
+    @media(max-width:768px){.proj-grid{grid-template-columns:1fr}}
+
+    .social-section{background:var(--cream)}
+    .social-group{margin-bottom:2rem}
+    .social-group:last-child{margin-bottom:0}
+    .social-group h4{font-size:.95rem;color:var(--navy);margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem}
+    .dark .social-group h4{color:var(--gold-light)}
+    .social-group h4 i{color:var(--gold)}
+    .social-chip-row{display:flex;flex-wrap:wrap;gap:.75rem}
+    .social-chip{display:inline-flex;align-items:center;gap:.55rem;padding:.6rem 1.1rem;border-radius:99px;background:var(--white);color:var(--navy);font-size:.82rem;font-weight:600;transition:all var(--transition);border:1px solid var(--gold-pale);box-shadow:var(--shadow)}
+    .dark .social-chip{color:var(--text)}
+    .social-chip:hover{background:var(--gold);color:var(--navy-deep);transform:translateY(-2px)}
+    .social-chip i{font-size:1.05rem;color:var(--gold)}
+    .social-chip:hover i{color:var(--navy-deep)}
+
     .tt-page{background:var(--cream);min-height:100vh;padding-top:var(--header-h);transition:background var(--transition)}
     .tt-hero{background:linear-gradient(135deg,var(--navy-deep),#0d2d55);padding:4rem 0 3rem;text-align:center}
     .tt-hero h1{font-size:clamp(1.75rem,4vw,3rem);color:#fff;margin-bottom:.5rem}
@@ -249,7 +295,6 @@
     .tt-toggle-btn.active{background:var(--gold);color:var(--navy-deep)}
     .tt-toggle-btn:hover:not(.active){background:rgba(201,168,76,.12)}
 
-    /* ===== SCHEDULE FILTER (summer/regular) ===== */
     .schedule-filter-wrap{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-bottom:1.5rem;flex-wrap:wrap}
     .sch-filter-label{font-size:.8rem;font-weight:600;color:var(--gray)}
     .sch-filter-btn{padding:.45rem 1.1rem;border-radius:99px;border:1.5px solid rgba(201,168,76,.3);background:transparent;color:var(--gray);font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
@@ -257,13 +302,11 @@
     .dark .sch-filter-btn.active{background:var(--gold);border-color:var(--gold);color:var(--navy-deep)}
     .sch-filter-btn:hover:not(.active){border-color:var(--gold);color:var(--navy)}
 
-    /* ===== LOCATION FILTER ===== */
     .loc-filter-wrap{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:2rem;flex-wrap:wrap}
     .loc-filter-btn{padding:.35rem .85rem;border-radius:99px;border:1.5px solid rgba(201,168,76,.2);background:transparent;color:var(--gray);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
     .loc-filter-btn.active{background:var(--gold-pale);border-color:var(--gold);color:var(--navy)}
     .dark .loc-filter-btn.active{color:var(--gold-light)}
 
-    /* ===== DAY TABS GRID VIEW ===== */
     .day-tabs-bar{display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.75rem;scrollbar-width:none;-webkit-overflow-scrolling:touch}
     .day-tabs-bar::-webkit-scrollbar{display:none}
     .day-tab-btn{flex-shrink:0;padding:.5rem 1.1rem;border-radius:99px;border:1.5px solid rgba(201,168,76,.3);background:transparent;color:var(--gray);font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;white-space:nowrap}
@@ -273,7 +316,6 @@
     .day-tab-btn.today-day{border-color:var(--gold);color:var(--gold)}
     .day-tab-btn.today-day.active{background:var(--gold);border-color:var(--gold);color:var(--navy-deep)}
 
-    /* ===== TIMELINE VIEW ===== */
     .tt-day-header{display:flex;align-items:center;justify-content:space-between;margin:.75rem 0 1rem;flex-wrap:wrap;gap:.5rem}
     .tt-day-title{font-size:1.15rem;font-weight:700;color:var(--navy)}
     .dark .tt-day-title{color:var(--gold-light)}
@@ -298,7 +340,6 @@
     .pill-share{position:absolute;top:.5rem;left:.5rem;background:rgba(0,0,0,.12);border:none;color:inherit;border-radius:4px;padding:.2rem .4rem;font-size:.65rem;font-weight:700;cursor:pointer;opacity:0;transition:opacity .2s;display:flex;align-items:center;gap:.2rem}
     .session-pill:hover .pill-share{opacity:1}
 
-    /* Color palette for pills */
     .pc0{background:#dbeafe;border-right:3px solid #3b82f6;color:#1e3a8a}
     .pc1{background:#d1fae5;border-right:3px solid #10b981;color:#064e3b}
     .pc2{background:#fef3c7;border-right:3px solid #f59e0b;color:#78350f}
@@ -316,7 +357,6 @@
     .dark .pc6{background:#450a0a;color:#fecaca}
     .dark .pc7{background:#1e1b4b;color:#c7d2fe}
 
-    /* ===== LIST VIEW (fallback) ===== */
     .timetable-grid{display:grid;gap:2rem;margin-top:1rem}
     .day-block{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border-right:4px solid var(--gold);transition:background var(--transition)}
     .dark .day-block{background:#132035}
@@ -336,7 +376,6 @@
     .day-empty-msg{text-align:center;color:var(--gray);padding:2rem 0;font-size:.9rem}
     @media(max-width:640px){.service-row{grid-template-columns:1fr;gap:.5rem}}
 
-    /* ===== MEDIA PAGE ===== */
     .media-page{background:var(--cream);min-height:100vh;padding-top:var(--header-h);transition:background var(--transition)}
     .media-hero{background:linear-gradient(135deg,var(--navy-deep),#0d2d55);padding:4rem 0 3rem;text-align:center}
     .media-hero h1{font-size:clamp(1.75rem,4vw,3rem);color:#fff;margin-bottom:.5rem}
@@ -388,7 +427,6 @@
     .lb-pdf-view i{font-size:4rem;color:var(--gold)}
     .lb-actions{display:flex;gap:.75rem;justify-content:center;margin-top:1.25rem;flex-wrap:wrap}
 
-    /* ===== MODAL ===== */
     .modal-overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,18,38,.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;visibility:hidden;transition:opacity var(--transition),visibility var(--transition)}
     .modal-overlay.open{opacity:1;visibility:visible}
     .modal-box{background:var(--white);border-radius:1.25rem;padding:2.5rem 2rem;width:100%;max-width:480px;position:relative;box-shadow:var(--shadow-lg);text-align:center;transition:background var(--transition)}
@@ -410,7 +448,6 @@
     .modal-success i{color:var(--green);font-size:3rem}
     .modal-success p{color:var(--gray);font-size:.9rem}
 
-    /* ===== SESSION INFO MODAL ===== */
     .session-modal-overlay{position:fixed;inset:0;z-index:2100;background:rgba(0,18,38,.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;visibility:hidden;transition:opacity var(--transition),visibility var(--transition)}
     .session-modal-overlay.open{opacity:1;visibility:visible}
     .session-modal-box{background:var(--white);border-radius:1.25rem;padding:1.75rem;width:100%;max-width:420px;max-height:85vh;overflow-y:auto;position:relative;box-shadow:var(--shadow-lg);transition:background var(--transition)}
@@ -440,7 +477,6 @@
     .tt-empty-grid{text-align:center;padding:5rem 2rem;color:var(--gray)}
     .tt-empty-grid i{color:rgba(201,168,76,.35);font-size:3.5rem;display:block;margin-bottom:1rem}
 
-    /* ===== ADMIN PANEL ===== */
     .admin-page{min-height:100vh;background:#f4f6fb;display:flex;transition:background var(--transition)}
     .dark .admin-page{background:#0a1628}
     .login-screen{position:fixed;inset:0;z-index:99999;background:linear-gradient(135deg,#001226 0%,#0d2d55 60%,#1a4a7a 100%);display:flex;align-items:center;justify-content:center;padding:1.5rem}
@@ -580,7 +616,6 @@
       .login-box{padding:2rem 1.4rem}
     }
 
-    /* ===== MISC ===== */
     .scroll-top{position:fixed;bottom:2rem;right:2rem;z-index:900;width:44px;height:44px;border-radius:50%;background:var(--gold);color:var(--navy-deep);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);opacity:0;transform:translateY(20px);transition:all var(--transition)}
     .scroll-top.show{opacity:1;transform:translateY(0)}
     .scroll-top:hover{transform:translateY(-4px)}
@@ -609,7 +644,6 @@
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
 <header class="header" id="header">
   <div class="nav container">
     <a class="nav-logo" onclick="showPage('home')">
@@ -632,7 +666,6 @@
   </div>
 </header>
 
-<!-- ==================== HOME PAGE ==================== -->
 <div class="page-view active" id="page-home">
   <section class="hero" id="home-top">
     <div class="container">
@@ -645,7 +678,6 @@
             <button class="btn-primary" onclick="showPage('home');scrollToSection('events')"><i class="ri-calendar-event-line"></i> الفعاليات القادمة</button>
             <button class="btn-outline" onclick="showPage('timetable')"><i class="ri-time-line"></i> مواعيد الخدمات</button>
           </div>
-          <!-- SYNAXARION WIDGET -->
           <div class="synax-widget" id="synax-widget">
             <div class="synax-loading" id="synax-loading"><i class="ri-loader-4-line"></i><span>جارٍ تحميل سنكسار اليوم...</span></div>
             <div id="synax-content" style="display:none"></div>
@@ -661,18 +693,16 @@
     </div>
   </section>
 
-  <!-- Stats Bar -->
   <div class="stats-bar">
     <div class="container">
       <div class="stats-grid">
-        <div><div class="stat-num">+٩٠</div><div class="stat-lbl">سنة في الخدمة</div></div>
-        <div><div class="stat-num">+٣٠</div><div class="stat-lbl">أسرة</div></div>
+        <div><div class="stat-num">+٩١</div><div class="stat-lbl">سنة في الخدمة</div></div>
+        <div><div class="stat-num">+٤٣٠٠</div><div class="stat-lbl">عائلة</div></div>
         <div><div class="stat-num">١٠</div><div class="stat-lbl">قداسات أسبوعياً</div></div>
       </div>
     </div>
   </div>
 
-  <!-- About Section -->
   <section class="about section container" id="about">
     <div class="about-grid reveal">
       <div class="about-img"><img src="https://i0.wp.com/andrewshenouda.com/wp-content/uploads/2018/07/AS-SAINTANTONY-CHURCH-2.jpg?w=1500&ssl=1" alt="مذبح الكنيسة"/></div>
@@ -687,34 +717,99 @@
           <div class="perk"><i class="ri-checkbox-circle-line"></i> الأعياد والرحلات الروحية</div>
           <div class="perk"><i class="ri-checkbox-circle-line"></i> الخدمة الاجتماعية والأعمال الخيرية</div>
         </div>
+        <button class="history-toggle-btn" id="history-toggle" onclick="toggleHistory()"><i class="ri-arrow-down-s-line"></i> <span>اقرأ قصة تأسيس الكنيسة كاملة</span></button>
+        <div class="history-full" id="history-full">
+          <p>نشأت فكرة إنشاء الكنيسة حين اجتمعت جماعة من موظفي حي شيكولاني بشبرا حول رغبة في مكان للاجتماعات الدينية، فبدأوا بغرفتين بسيطتين باسم "الجمعية القبطية الأرثوذكسية"، معتمدين فقط على نعمة الله واشتراك شهري متواضع من أعضائها.</p>
+          <p>في مارس ١٩٣٥ تمكنت الجمعية من شراء قطعة أرض أمام مستشفى كتشنر، وبمشاركة القمص بطرس عطا الله الجوهري الذي دعا كل عائلة في الحي للتبرع الشهري، بدأ العمل الفعلي. وبمعجزة واضحة، وُجدت كل مواد البناء اللازمة أمام الموقع في صباح يوم واحد دون أن يعرف أحد من أحضرها.</p>
+          <p>اكتمل البناء المؤقت للكنيسة خلال أيام قليلة، وفي "أحد الشعانين" ٢١ إبريل ١٩٣٥ افتتح نيافة الأنبا إبرام مطران الجيزة الكنيسة وصلى أول قداس بحضور آلاف المصلين. واختير لها اسم القديس العظيم الأنبا أنطونيوس، أب الرهبنة، بتوجيه من الأنبا كيرلس مطران قنا والأنبا ثاؤفيلس مطران قوص، تمييزاً لها كثالث كنيسة في حي شبرا.</p>
+          <p>صدر الأمر الملكي رقم ٦٤ لسنة ١٩٣٨ من الملك فاروق بالترخيص بإنشاء الكنيسة الدائمة، وتم بناؤها بإشراف المهندس باسيلي سوريال، حتى أُقيم حفل رفع الصليب في ٨ ديسمبر ١٩٥٠ في عهد البابا يوساب الثاني، لتكتمل بذلك رحلة بيت قامه شعب بسيط بإيمان كبير.</p>
+          <h4><i class="ri-time-line"></i> محطات في تاريخ الكنيسة</h4>
+          <div class="timeline">
+            <div class="timeline-item"><div class="timeline-date">مارس ١٩٣٥</div><div class="timeline-text">شراء أرض الكنيسة باسم الجمعية القبطية الأرثوذكسية بشيكولاني شبرا</div></div>
+            <div class="timeline-item"><div class="timeline-date">١٥ إبريل ١٩٣٥</div><div class="timeline-text">بدء بناء الكنيسة المؤقتة بمعجزة توفر مواد البناء بين ليلة وضحاها</div></div>
+            <div class="timeline-item"><div class="timeline-date">٢١ إبريل ١٩٣٥ (أحد الشعانين)</div><div class="timeline-text">افتتاح الكنيسة المؤقتة وأول قداس إلهي بحضور آلاف المصلين</div></div>
+            <div class="timeline-item"><div class="timeline-date">١٨ أكتوبر ١٩٣٨</div><div class="timeline-text">صدور الأمر الملكي رقم ٦٤ لسنة ١٩٣٨ بالترخيص بإنشاء الكنيسة الدائمة</div></div>
+            <div class="timeline-item"><div class="timeline-date">٨ ديسمبر ١٩٥٠</div><div class="timeline-text">حفل رفع الصليب بعد إتمام بناء الكنيسة ومناراتها في عهد البابا يوساب الثاني</div></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Priests Section -->
   <section class="section container" id="priests">
     <span class="section-label">خدام الشعب</span>
     <h2 class="section-title">آباؤنا الكهنة</h2>
     <div class="priests-grid reveal">
-      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القس بيشوي حلمي</h3></div>
-      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القس مينا مكرم</h3></div>
-      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القمص أنطونيوس يونان</h3></div>
-      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القس هيمانوت شوقي</h3></div>
-      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القس بولا رسمي</h3></div>
-      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القس يوحنا ميلاد</h3></div>
-      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القمص باخوم حبيب</h3></div>
-      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القس يوسف ناظر</h3></div>
+      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القمص باخوم حبيب</h3><div class="priest-meta"><span>رُسم كاهناً عام ١٩٧٠</span></div></div>
+      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القمص أنطونيوس يونان</h3><div class="priest-meta"><span>رُسم كاهناً عام ١٩٨٥</span></div></div>
+      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القمص يوسف نظير</h3><div class="priest-meta"><span>رُسم كاهناً عام ١٩٩٨</span></div></div>
+      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القس هيمانوت شوقي</h3><div class="priest-meta"><span>رُسم كاهناً عام ٢٠٠٠</span></div></div>
+      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القس بيشوي حلمي</h3><div class="priest-meta"><span>رُسم كاهناً عام ٢٠٠٦</span></div></div>
+      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القس يوحنا ميلاد</h3><div class="priest-meta"><span>رُسم كاهناً عام ٢٠٠٦</span></div></div>
+      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القس بولا رسمي</h3><div class="priest-meta"><span>رُسم كاهناً عام ٢٠١٧</span></div></div>
+      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القس مينا مكرم</h3><div class="priest-meta"><span>رُسم كاهناً عام ٢٠٢٢</span></div></div>
     </div>
   </section>
 
-  <!-- Events Section -->
+  <section class="section container" id="annexes">
+    <span class="section-label">مبانينا</span>
+    <h2 class="section-title">ملحقات الكنيسة</h2>
+    <div class="annex-grid reveal">
+      <div class="annex-card">
+        <div class="annex-card-head"><div class="annex-card-icon"><i class="ri-building-2-line"></i></div><h3>مبنى خدمات شارع ترعة الجلاد<br>(كنيسة السمائيين)</h3></div>
+        <ul class="annex-list">
+          <li><i class="ri-checkbox-blank-circle-fill"></i> قاعة عزاء تتسع لأكثر من ٢٠٠ فرد</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> مكتبان: مكتب القمص يوسف نظير ومكتب إداري</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> مسرح يتسع لـ٢٠٠ فرد</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> نادي الطفل (حضانة صغيرة)</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> كنيسة السمائيين بالدور الثالث، تتسع لـ٢٠٠ فرد</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> مشغل</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> المكتبة الاستعارية</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> مركز القديس يوسف الصديق لوسائل الإيضاح</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> مجلة براعم أنطونيوس</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> بيت للمغتربات</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> نادي التربية الكنسية (٣ أدوار)</li>
+        </ul>
+      </div>
+      <div class="annex-card">
+        <div class="annex-card-head"><div class="annex-card-icon"><i class="ri-building-4-line"></i></div><h3>مبنى خدمات شارع دانيال ميخائيل</h3></div>
+        <ul class="annex-list">
+          <li><i class="ri-checkbox-blank-circle-fill"></i> قاعة عزاء تتسع لـ١٢٠ فرد</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> قاعة اجتماعات تتسع لـ١٥٠ فرد</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> مكتب القس مينا مكرم</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> مكتبة الطفل</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> مركز الحبيب للكمبيوتر والكورسات</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> برجولة (نادي للعائلات)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container" id="projects">
+    <span class="section-label">خدمة ممتدة</span>
+    <h2 class="section-title">أبرز المشاريع الخدمية</h2>
+    <div class="proj-grid reveal">
+      <div class="proj-card">
+        <div class="proj-icon"><i class="ri-home-heart-line"></i></div>
+        <h3>بيت الأنبا أنطونيوس للمؤتمرات والخلوات</h3>
+        <p>بمنطقة أبو يوسف بالعجمي، مخصص لاستضافة المؤتمرات والخلوات الروحية لأسر وخدام الكنيسة.</p>
+        <a class="proj-link" href="https://www.facebook.com/abou.yossef" target="_blank"><i class="ri-facebook-fill"></i> صفحة البيت على فيسبوك</a>
+      </div>
+      <div class="proj-card">
+        <div class="proj-icon"><i class="ri-tree-line"></i></div>
+        <h3>بيت كوكب البرية</h3>
+        <p>بيت الكنيسة بمنطقة الريف الأوروبي، يستضيف الرحلات والخلوات الروحية على مدار العام.</p>
+        <a class="proj-link" href="https://www.facebook.com/kawkbelbaria" target="_blank"><i class="ri-facebook-fill"></i> صفحة البيت على فيسبوك</a>
+      </div>
+    </div>
+  </section>
+
   <section class="section container" id="events">
     <span class="section-label">الفعاليات القادمة</span>
     <h2 class="section-title">فعاليات الكنيسة</h2>
     <div class="events-grid" id="events-list"></div>
   </section>
 
-  <!-- Contact Section -->
   <section class="section container" id="contact">
     <span class="section-label">تواصل معنا</span>
     <h2 class="section-title">ابعت لنا رسالة</h2>
@@ -725,7 +820,7 @@
         <div class="contact-items">
           <div class="contact-item"><div class="contact-icon"><i class="ri-map-pin-line"></i></div><div class="contact-item-text"><h4>العنوان</h4><p>٢٣ شارع ترعة الجلاد، شبرا، القاهرة</p></div></div>
           <div class="contact-item"><div class="contact-icon"><i class="ri-phone-line"></i></div><div class="contact-item-text"><h4>التليفون</h4><p>٠٢٢٣٥٠٦٩٣</p></div></div>
-          <div class="contact-item"><div class="contact-icon"><i class="ri-facebook-box-line"></i></div><div class="contact-item-text"><h4>فيسبوك</h4><p><a href="https://www.facebook.com/St.Antony.Shoubra" target="_blank" style="color:var(--gold)">St.Antony.Shoubra</a></p></div></div>
+          <div class="contact-item"><div class="contact-icon"><i class="ri-facebook-box-line"></i></div><div class="contact-item-text"><h4>فيسبوك</h4><p><a href="https://www.facebook.com/St.Antony.Church" target="_blank" style="color:var(--gold)">St.Antony.Church</a></p></div></div>
         </div>
       </div>
       <form class="contact-form" id="contact-form">
@@ -741,7 +836,76 @@
     </div>
   </section>
 
-  <!-- Footer -->
+  <section class="section social-section container" id="social">
+    <span class="section-label">ابقَ على تواصل</span>
+    <h2 class="section-title">تابعونا على السوشيال ميديا</h2>
+    <div class="reveal">
+      <div class="social-group">
+        <h4><i class="ri-church-line"></i> صفحات وقنوات الكنيسة الرئيسية</h4>
+        <div class="social-chip-row">
+          <a class="social-chip" href="https://www.facebook.com/St.Antony.Church" target="_blank"><i class="ri-facebook-fill"></i> صفحة الكنيسة الرئيسية</a>
+          <a class="social-chip" href="https://www.facebook.com/st.antony.church.site" target="_blank"><i class="ri-facebook-fill"></i> صفحة الكنيسة الإضافية</a>
+          <a class="social-chip" href="https://www.facebook.com/stantony.church.9" target="_blank"><i class="ri-facebook-fill"></i> حساب الكنيسة</a>
+          <a class="social-chip" href="https://www.youtube.com/@stantonychurch" target="_blank"><i class="ri-youtube-fill"></i> القناة الرئيسية</a>
+          <a class="social-chip" href="https://www.youtube.com/@stantonychurch1" target="_blank"><i class="ri-youtube-fill"></i> القناة الاحتياطية</a>
+          <a class="social-chip" href="https://www.youtube.com/@user-gn1qr6dp4h" target="_blank"><i class="ri-youtube-fill"></i> أرشيف الكنيسة</a>
+          <a class="social-chip" href="https://whatsapp.com/channel/0029VaDDS3aJpe8ZmL7Wyw3B" target="_blank"><i class="ri-whatsapp-line"></i> قناة الواتساب</a>
+          <a class="social-chip" href="https://www.facebook.com/profile.php?id=100010971060831" target="_blank"><i class="ri-facebook-fill"></i> الأمانة العامة للخدمة</a>
+        </div>
+      </div>
+      <div class="social-group">
+        <h4><i class="ri-parent-line"></i> خدمة الطفل والحضانة</h4>
+        <div class="social-chip-row">
+          <a class="social-chip" href="https://www.facebook.com/Mktabet.ElTefl" target="_blank"><i class="ri-facebook-fill"></i> مكتبة الطفل</a>
+          <a class="social-chip" href="https://www.facebook.com/bara3em.antonios" target="_blank"><i class="ri-facebook-fill"></i> مجلة براعم أنطونيوس</a>
+          <a class="social-chip" href="https://www.youtube.com/@user-hy4kf7sj4b" target="_blank"><i class="ri-youtube-fill"></i> براعم أنطونيوس - يوتيوب</a>
+          <a class="social-chip" href="https://www.facebook.com/profile.php?id=100064011099446" target="_blank"><i class="ri-facebook-fill"></i> حضانة أبناء الكنيسة</a>
+        </div>
+      </div>
+      <div class="social-group">
+        <h4><i class="ri-group-line"></i> خدمة الشباب والإعداديات والثانوي</h4>
+        <div class="social-chip-row">
+          <a class="social-chip" href="https://www.youtube.com/@el3azim/videos" target="_blank"><i class="ri-youtube-fill"></i> مجلة العظيم في القديسين</a>
+          <a class="social-chip" href="https://www.facebook.com/el3azim.account" target="_blank"><i class="ri-facebook-fill"></i> حساب العظيم</a>
+          <a class="social-chip" href="https://www.facebook.com/el3azim" target="_blank"><i class="ri-facebook-fill"></i> صفحة العظيم</a>
+          <a class="social-chip" href="https://www.instagram.com/el3azim" target="_blank"><i class="ri-instagram-line"></i> العظيم على انستجرام</a>
+        </div>
+      </div>
+      <div class="social-group">
+        <h4><i class="ri-graduation-cap-line"></i> مدارس ومراكز الكنيسة</h4>
+        <div class="social-chip-row">
+          <a class="social-chip" href="https://www.facebook.com/st.AntonyDeaconsSchool" target="_blank"><i class="ri-facebook-fill"></i> مدرسة الشمامسة</a>
+          <a class="social-chip" href="https://www.youtube.com/@user-hj1gw6df3u" target="_blank"><i class="ri-youtube-fill"></i> مدرسة الشمامسة - يوتيوب</a>
+          <a class="social-chip" href="https://www.youtube.com/@user-mx2fg6kn4x/videos" target="_blank"><i class="ri-youtube-fill"></i> مدرسة القديس بولس للكتاب المقدس</a>
+          <a class="social-chip" href="https://www.facebook.com/profile.php?id=100063616881639" target="_blank"><i class="ri-facebook-fill"></i> مدرسة القديس بولس - فيسبوك</a>
+          <a class="social-chip" href="https://www.facebook.com/st.Joseph.family" target="_blank"><i class="ri-facebook-fill"></i> مركز القديس يوسف الصديق</a>
+          <a class="social-chip" href="https://www.facebook.com/stjoseph.leledah.5" target="_blank"><i class="ri-facebook-fill"></i> حساب مركز القديس يوسف</a>
+          <a class="social-chip" href="https://www.youtube.com/@user-bk1dh5pv3x" target="_blank"><i class="ri-youtube-fill"></i> قناة مركز القديس يوسف</a>
+          <a class="social-chip" href="https://www.facebook.com/joy.store.team" target="_blank"><i class="ri-facebook-fill"></i> فريق الألعاب</a>
+          <a class="social-chip" href="https://www.tiktok.com/@stjoseph_leledah" target="_blank"><i class="ri-tiktok-line"></i> تيك توك مركز القديس يوسف</a>
+        </div>
+      </div>
+      <div class="social-group">
+        <h4><i class="ri-clapperboard-line"></i> المسرح والميديا والمشاريع الخدمية</h4>
+        <div class="social-chip-row">
+          <a class="social-chip" href="https://www.facebook.com/Theater.St.Antony" target="_blank"><i class="ri-facebook-fill"></i> مسرح الكنيسة</a>
+          <a class="social-chip" href="https://www.facebook.com/st.antony.studios" target="_blank"><i class="ri-facebook-fill"></i> أسرة القديس لوقا للميديا</a>
+          <a class="social-chip" href="https://www.instagram.com/stantonystudios" target="_blank"><i class="ri-instagram-line"></i> استوديوهات القديس أنطونيوس</a>
+          <a class="social-chip" href="https://www.facebook.com/Ser.3azim" target="_blank"><i class="ri-facebook-fill"></i> سر عظيم</a>
+          <a class="social-chip" href="https://www.instagram.com/ser.3azim" target="_blank"><i class="ri-instagram-line"></i> سر عظيم - انستجرام</a>
+          <a class="social-chip" href="https://www.tiktok.com/@ser.3azim" target="_blank"><i class="ri-tiktok-line"></i> سر عظيم - تيك توك</a>
+          <a class="social-chip" href="https://www.youtube.com/@ser.3azim" target="_blank"><i class="ri-youtube-fill"></i> سر عظيم - يوتيوب</a>
+          <a class="social-chip" href="https://www.facebook.com/profile.php?id=61585018294905" target="_blank"><i class="ri-facebook-fill"></i> فَتِّش</a>
+          <a class="social-chip" href="https://www.instagram.com/fatteshh" target="_blank"><i class="ri-instagram-line"></i> فَتِّش - انستجرام</a>
+          <a class="social-chip" href="https://www.tiktok.com/@fatteshh" target="_blank"><i class="ri-tiktok-line"></i> فَتِّش - تيك توك</a>
+          <a class="social-chip" href="https://www.youtube.com/@Fattesh" target="_blank"><i class="ri-youtube-fill"></i> فَتِّش - يوتيوب</a>
+          <a class="social-chip" href="https://www.facebook.com/abou.yossef" target="_blank"><i class="ri-facebook-fill"></i> بيت الأنبا أنطونيوس بالعجمي</a>
+          <a class="social-chip" href="https://www.facebook.com/kawkbelbaria" target="_blank"><i class="ri-facebook-fill"></i> بيت كوكب البرية</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -749,9 +913,10 @@
           <img src="https://yt3.googleusercontent.com/fDYMuJkul64KgPbt9c-u9v6JfRH1Kdz-1ugEk1uwnlohvQJUP56XnqV4f25HqqHtQSpeahv7MQ=s160-c-k-c0x00ffffff-no-rj" alt="logo"/>
           <p>كنيسة الأنبا أنطونيوس القبطية الأرثوذكسية، شبرا، القاهرة.</p>
           <div class="footer-socials">
-            <a href="https://www.facebook.com/St.Antony.Shoubra" target="_blank"><i class="ri-facebook-fill"></i></a>
-            <a href="#"><i class="ri-instagram-line"></i></a>
-            <a href="#"><i class="ri-youtube-fill"></i></a>
+            <a href="https://www.facebook.com/St.Antony.Church" target="_blank"><i class="ri-facebook-fill"></i></a>
+            <a href="https://www.youtube.com/@stantonychurch" target="_blank"><i class="ri-youtube-fill"></i></a>
+            <a href="https://whatsapp.com/channel/0029VaDDS3aJpe8ZmL7Wyw3B" target="_blank"><i class="ri-whatsapp-line"></i></a>
+            <a href="https://www.instagram.com/el3azim" target="_blank"><i class="ri-instagram-line"></i></a>
           </div>
         </div>
         <div class="footer-col">
@@ -759,9 +924,12 @@
           <ul>
             <li><a onclick="showPage('home');scrollToSection('home-top')">الرئيسية</a></li>
             <li><a onclick="showPage('home');scrollToSection('about')">عن الكنيسة</a></li>
+            <li><a onclick="showPage('home');scrollToSection('annexes')">ملحقات الكنيسة</a></li>
+            <li><a onclick="showPage('home');scrollToSection('projects')">مشاريع خدمية</a></li>
             <li><a onclick="showPage('timetable')">الجداول</a></li>
             <li><a onclick="showPage('home');scrollToSection('events')">الفعاليات</a></li>
             <li><a onclick="showPage('media')">الميديا</a></li>
+            <li><a onclick="showPage('home');scrollToSection('social')">تابعنا</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -778,7 +946,6 @@
   </footer>
 </div>
 
-<!-- ==================== TIMETABLE PAGE ==================== -->
 <div class="page-view" id="page-timetable">
   <div class="tt-page">
     <div class="tt-hero">
@@ -790,13 +957,11 @@
       <span class="section-label">مواعيد الأسبوع</span>
       <h2 class="section-title">الأسر والخدمات اليومية</h2>
 
-      <!-- View toggle -->
       <div class="tt-view-toggle">
         <button class="tt-toggle-btn active" id="tt-btn-grid" onclick="switchTTView('grid')"><i class="ri-layout-grid-line"></i> عرض اليوم</button>
         <button class="tt-toggle-btn" id="tt-btn-list" onclick="switchTTView('list')"><i class="ri-list-check-2"></i> قائمة أسبوعية</button>
       </div>
 
-      <!-- Schedule type filter (summer / regular) -->
       <div class="schedule-filter-wrap">
         <span class="sch-filter-label">نوع الجدول:</span>
         <button class="sch-filter-btn active" id="sf-all" onclick="setScheduleFilter('all',this)">الكل</button>
@@ -804,10 +969,8 @@
         <button class="sch-filter-btn" id="sf-summer" onclick="setScheduleFilter('جدول صيفي',this)">جدول صيفي</button>
       </div>
 
-      <!-- Location filter -->
       <div class="loc-filter-wrap" id="loc-filter-wrap"></div>
 
-      <!-- Grid view (day tabs) -->
       <div id="tt-grid-view">
         <div class="day-tabs-bar" id="tt-day-tabs"></div>
         <div class="tt-day-header">
@@ -817,7 +980,6 @@
         <div class="timeline-wrap" id="tt-timeline"></div>
       </div>
 
-      <!-- List view -->
       <div id="tt-list-view" style="display:none">
         <div class="timetable-grid" id="timetable-container"></div>
       </div>
@@ -825,7 +987,6 @@
   </div>
 </div>
 
-<!-- ==================== MEDIA PAGE ==================== -->
 <div class="page-view" id="page-media">
   <div class="media-page">
     <div class="media-hero">
@@ -841,7 +1002,6 @@
   </div>
 </div>
 
-<!-- ==================== ADMIN PANEL PAGE ==================== -->
 <div class="page-view" id="page-admin">
   <div class="admin-page" id="admin-wrap">
     <div class="login-screen" id="login-screen">
@@ -894,7 +1054,6 @@
       </div>
       <div class="adm-content">
 
-        <!-- DASHBOARD -->
         <div class="adm-panel active" id="adm-dashboard">
           <div class="adm-stats">
             <div class="adm-stat"><div class="adm-stat-icon"><i class="ri-calendar-event-line"></i></div><div><div class="adm-stat-val" id="ds-events">0</div><div class="adm-stat-label">Total Events</div></div></div>
@@ -908,7 +1067,6 @@
           </div>
         </div>
 
-        <!-- EVENTS -->
         <div class="adm-panel" id="adm-events">
           <div class="adm-card">
             <div class="adm-card-head"><div class="adm-card-title"><i class="ri-add-circle-line"></i> Add New Event</div></div>
@@ -929,7 +1087,6 @@
           </div>
         </div>
 
-        <!-- TIMETABLE -->
         <div class="adm-panel" id="adm-timetable">
           <div class="adm-card">
             <div class="adm-card-head"><div class="adm-card-title"><i class="ri-group-line"></i> Add New Group / Osra</div></div>
@@ -964,7 +1121,6 @@
           </div>
         </div>
 
-        <!-- MEDIA -->
         <div class="adm-panel" id="adm-media">
           <div class="adm-card">
             <div class="adm-card-head"><div class="adm-card-title"><i class="ri-file-upload-line"></i> Upload Media &amp; Documents</div></div>
@@ -987,7 +1143,6 @@
           </div>
         </div>
 
-        <!-- MESSAGES -->
         <div class="adm-panel" id="adm-messages">
           <div class="adm-card">
             <div class="adm-card-head">
@@ -1003,7 +1158,6 @@
   </div>
 </div>
 
-<!-- ===== BOOKING MODAL ===== -->
 <div class="modal-overlay" id="booking-modal">
   <div class="modal-box">
     <button class="modal-close" id="modal-close"><i class="ri-close-line"></i></button>
@@ -1021,7 +1175,6 @@
   </div>
 </div>
 
-<!-- ===== SESSION INFO MODAL ===== -->
 <div class="session-modal-overlay" id="session-modal">
   <div class="session-modal-box">
     <button class="session-modal-close" id="session-modal-close"><i class="ri-close-line"></i></button>
@@ -1034,9 +1187,7 @@
 <button class="scroll-top" id="scroll-top"><i class="ri-arrow-up-line"></i></button>
 <div class="toast" id="toast"><i class="ri-notification-3-line"></i><span id="toast-msg"></span></div>
 
-<!-- ==================== SCRIPTS ==================== -->
 <script>
-/* ===== DB / LOCALSTORAGE ===== */
 const db={get:k=>JSON.parse(localStorage.getItem(k)||'null'),set:(k,v)=>localStorage.setItem(k,JSON.stringify(v))};
 if(!db.get('church-events'))db.set('church-events',[]);
 const SEED_OSRAS=[{"id":1782050781905,"name":"شاروبيم بنات كى جى","leader":"","description":"","sessions":[{"id":1782050781906,"name":"شاروبيم بنات كى جى","day":"الجمعة","time":"10:30","duration":1.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781907,"name":"اجتماع خادمات اسرة ابتدائى صغير بنات","leader":"","description":"","sessions":[{"id":1782050781908,"name":"اجتماع خادمات اسرة ابتدائى صغير بنات","day":"الجمعة","time":"11:30","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781909,"name":"سيرافيم بنات","leader":"","description":"","sessions":[{"id":1782050781910,"name":"سيرافيم بنات","day":"الجمعة","time":"13:00","duration":1.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781911,"name":"اسرة العذارى","leader":"","description":"","sessions":[{"id":1782050781912,"name":"اسرة العذارى","day":"الجمعة","time":"14:00","duration":1.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781913,"name":"اجتماع خادمات اسرة ابتدائى كبير بنات","leader":"","description":"","sessions":[{"id":1782050781914,"name":"اجتماع خادمات اسرة ابتدائى كبير بنات","day":"الجمعة","time":"15:00","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781915,"name":"القديسات","leader":"","description":"","sessions":[{"id":1782050781916,"name":"القديسات","day":"الجمعة","time":"16:30","duration":1.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781917,"name":"تلاميذ المسيح","leader":"","description":"","sessions":[{"id":1782050781918,"name":"تلاميذ المسيح","day":"الجمعة","time":"17:30","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"},{"id":1782050782133,"name":"تلاميذ المسيح","day":"الثلاثاء","time":"20:00","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول صيفي"}]},{"id":1782050781919,"name":"العائلة المقدسة","leader":"","description":"","sessions":[{"id":1782050781920,"name":"العائلة المقدسة","day":"الجمعة","time":"19:30","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781921,"name":"مدرسة القديس بولس (مخدومين)","leader":"","description":"","sessions":[{"id":1782050781922,"name":"مدرسة القديس بولس (مخدومين)","day":"السبت","time":"17:00","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"},{"id":1782050781951,"name":"مدرسة القديس بولس (مخدومين)","day":"السبت","time":"17:00","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"},{"id":1782050781980,"name":"مدرسة القديس بولس (مخدومين)","day":"السبت","time":"17:00","duration":2.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"},{"id":1782050782010,"name":"مدرسة القديس بولس (مخدومين)","day":"السبت","time":"17:00","duration":3.5,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة الدور الثانى","notes":"جدول عام"},{"id":1782050782117,"name":"مدرسة القديس بولس (مخدومين)","day":"السبت","time":"16:00","duration":3.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول صيفي"}]},{"id":1782050781923,"name":"تسبحه","leader":"","description":"","sessions":[{"id":1782050781924,"name":"تسبحه","day":"السبت","time":"19:00","duration":3.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781925,"name":"اسرة ليديا (مخدومين)","leader":"","description":"","sessions":[{"id":1782050781926,"name":"اسرة ليديا (مخدومين)","day":"الأحد","time":"15:30","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781927,"name":"اسرة ليديا (خدام )","leader":"","description":"","sessions":[{"id":1782050781928,"name":"اسرة ليديا (خدام )","day":"الأحد","time":"17:00","duration":1.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781929,"name":"اسرة الصليب ( مخدومين )","leader":"","description":"","sessions":[{"id":1782050781930,"name":"اسرة الصليب ( مخدومين )","day":"الأحد","time":"18:00","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781931,"name":"اسرة مكسيموس ودوماديوس","leader":"","description":"","sessions":[{"id":1782050781932,"name":"اسرة مكسيموس ودوماديوس","day":"الأحد","time":"20:00","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781933,"name":"خدام الكرمة","leader":"","description":"","sessions":[{"id":1782050781934,"name":"خدام الكرمة","day":"الأربعاء","time":"18:30","duration":1.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781935,"name":"مدرسة الشمامسة","leader":"","description":"","sessions":[{"id":1782050781936,"name":"مدرسة الشمامسة","day":"الخميس","time":"18:30","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"},{"id":1782050781961,"name":"مدرسة الشمامسة","day":"الخميس","time":"18:00","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"},{"id":1782050782037,"name":"مدرسة الشمامسة","day":"الخميس","time":"18:30","duration":1.5,"location":"الدور الثالث بالكنيسة - قبلى","notes":"جدول عام"},{"id":1782050782055,"name":"مدرسة الشمامسة","day":"الجمعة","time":"19:30","duration":2.0,"location":"الدور الثالث بالكنيسة - الحجرة الزجاجية","notes":"جدول عام"},{"id":1782050782138,"name":"مدرسة الشمامسة","day":"الخميس","time":"18:30","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول صيفي"}]},{"id":1782050781937,"name":"ابائيات","leader":"","description":"","sessions":[{"id":1782050781938,"name":"ابائيات","day":"الخميس","time":"20:00","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"},{"id":1782050782139,"name":"ابائيات","day":"الخميس","time":"20:00","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول صيفي"}]},{"id":1782050781939,"name":"استير ( محبة ابتدئى )","leader":"","description":"","sessions":[{"id":1782050781940,"name":"استير ( محبة ابتدئى )","day":"الجمعة","time":"11:00","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781941,"name":"خدام اسرة الرسل","leader":"","description":"","sessions":[{"id":1782050781942,"name":"خدام اسرة الرسل","day":"الجمعة","time":"12:30","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781943,"name":"الشماسة فيبى ( خادمات )","leader":"","description":"","sessions":[{"id":1782050781944,"name":"الشماسة فيبى ( خادمات )","day":"الجمعة","time":"14:00","duration":1.0,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781945,"name":"حقق حلمك","leader":"","description":"","sessions":[{"id":1782050781946,"name":"حقق حلمك","day":"الجمعة","time":"15:00","duration":3.0,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"},{"id":1782050781956,"name":"حقق حلمك","day":"الثلاثاء","time":"17:00","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781947,"name":"خدام العائلة المقدسه","leader":"","description":"","sessions":[{"id":1782050781948,"name":"خدام العائلة المقدسه","day":"الجمعة","time":"18:00","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781949,"name":"مجلة العظيم","leader":"","description":"","sessions":[{"id":1782050781950,"name":"مجلة العظيم","day":"الجمعة","time":"19:30","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781952,"name":"اسرة الصليب ( خدام )","leader":"","description":"","sessions":[{"id":1782050781953,"name":"اسرة الصليب ( خدام )","day":"الأحد","time":"20:00","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781954,"name":"قلب يسوع (الحياه الكنسية)","leader":"","description":"","sessions":[{"id":1782050781955,"name":"قلب يسوع (الحياه الكنسية)","day":"الإثنين","time":"19:00","duration":2.5,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781957,"name":"اسرة الفادى","leader":"","description":"","sessions":[{"id":1782050781958,"name":"اسرة الفادى","day":"الثلاثاء","time":"19:30","duration":2.5,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"},{"id":1782050782155,"name":"اسرة الفادى","day":"الثلاثاء","time":"19:30","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول صيفي"}]},{"id":1782050781959,"name":"كورال سانت انتونى","leader":"","description":"","sessions":[{"id":1782050781960,"name":"كورال سانت انتونى","day":"الأربعاء","time":"19:00","duration":3.0,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781962,"name":"كورال مكسيموس ودوماديوس","leader":"","description":"","sessions":[{"id":1782050781963,"name":"كورال مكسيموس ودوماديوس","day":"الخميس","time":"19:30","duration":2.5,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781964,"name":"شاروبيم بنين ( مخدومين )","leader":"","description":"","sessions":[{"id":1782050781965,"name":"شاروبيم بنين ( مخدومين )","day":"الجمعة","time":"11:00","duration":1.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"}]},{"id":1782050781976,"name":"مكسيموس ودوماديوس","leader":"","description":"","sessions":[{"id":1782050781977,"name":"مكسيموس ودوماديوس","day":"الجمعة","time":"09:00","duration":1.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"}]},{"id":1782050781978,"name":"مركز الحبيب","leader":"","description":"","sessions":[{"id":1782050781979,"name":"مركز الحبيب","day":"السبت","time":"10:00","duration":7.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"},{"id":1782050781987,"name":"مركز الحبيب","day":"الإثنين","time":"13:00","duration":5.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"},{"id":1782050781992,"name":"مركز الحبيب","day":"الأربعاء","time":"14:00","duration":4.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"},{"id":1782050781995,"name":"مركز الحبيب","day":"الخميس","time":"14:00","duration":4.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"}]},{"id":1782050781983,"name":"القديس بولس للتجار ( مخدومين )","leader":"","description":"","sessions":[{"id":1782050781984,"name":"القديس بولس للتجار ( مخدومين )","day":"الأحد","time":"16:30","duration":1.5,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"}]},{"id":1782050781988,"name":"الانبا باخوميوس للخريجين ( خدام )","leader":"","description":"","sessions":[{"id":1782050781989,"name":"الانبا باخوميوس للخريجين ( خدام )","day":"الإثنين","time":"18:00","duration":2.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"}]},{"id":1782050781990,"name":"اجتماع السيدات ( خادمات )","leader":"","description":"","sessions":[{"id":1782050781991,"name":"اجتماع السيدات ( خادمات )","day":"الثلاثاء","time":"18:30","duration":2.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"}]},{"id":1782050781993,"name":"السامرى الصالح ( خدام )","leader":"","description":"","sessions":[{"id":1782050781994,"name":"السامرى الصالح ( خدام )","day":"الأربعاء","time":"19:00","duration":2.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"}]},{"id":1782050781996,"name":"اسرة الشهداء ( خدام )","leader":"","description":"","sessions":[{"id":1782050781997,"name":"اسرة الشهداء ( خدام )","day":"الخميس","time":"18:30","duration":1.5,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"}]},{"id":1782050782035,"name":"محو امية","leader":"","description":"","sessions":[{"id":1782050782036,"name":"محو امية","day":"الأربعاء","time":"17:00","duration":4.0,"location":"الدور الثالث بالكنيسة - قبلى","notes":"جدول عام"}]},{"id":1782050782056,"name":"ام النور","leader":"","description":"","sessions":[{"id":1782050782057,"name":"ام النور","day":"الأحد","time":"11:30","duration":2.0,"location":"الدور الثالث بالكنيسة - الحجرة الزجاجية","notes":"جدول عام"}]},{"id":1782050782074,"name":"الكرمه","leader":"","description":"","sessions":[{"id":1782050782075,"name":"الكرمه","day":"الأربعاء","time":"19:00","duration":2.5,"location":"الدور الثالث بالكنيسة - صحن الكنيسة","notes":"جدول عام"}]},{"id":1782050782107,"name":"الصليب","leader":"","description":"","sessions":[{"id":1782050782108,"name":"الصليب","day":"الأحد","time":"18:30","duration":1.0,"location":"النادي - الملعب","notes":"جدول عام"}]}];
@@ -1054,7 +1205,6 @@ let currentLocFilter='الكل';
 let ttActiveDayIdx=new Date().getDay();
 let ttSessionLookup={};
 
-/* ===== NAVIGATION ===== */
 function showPage(p){
   document.querySelectorAll('.page-view').forEach(el=>el.classList.remove('active'));
   const ap=document.getElementById('page-'+p);
@@ -1071,6 +1221,13 @@ function showPage(p){
   if(p==='media'){renderPublicMedia()}
   if(p==='admin'){checkAdminAuth()}
 }
+function toggleHistory(){
+  const box=document.getElementById('history-full');
+  const btn=document.getElementById('history-toggle');
+  const open=box.classList.toggle('open');
+  btn.classList.toggle('open',open);
+  btn.querySelector('span').textContent=open?'إخفاء القصة':'اقرأ قصة تأسيس الكنيسة كاملة';
+}
 function scrollToSection(id){
   setTimeout(()=>{
     const el=document.getElementById(id);if(!el)return;
@@ -1085,7 +1242,6 @@ window.addEventListener('scroll',()=>{
   document.getElementById('scroll-top').classList.toggle('show',window.scrollY>300);
 });
 
-/* ===== THEME ===== */
 let isDark=db.get('dark-theme')||false;
 function applyTheme(d){
   document.body.classList.toggle('dark',d);
@@ -1094,11 +1250,9 @@ function applyTheme(d){
 applyTheme(isDark);
 document.getElementById('theme-btn').onclick=()=>{isDark=!isDark;db.set('dark-theme',isDark);applyTheme(isDark)};
 
-/* ===== ANIMATIONS ===== */
 const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-/* ===== UTILS ===== */
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
 function toAr(n){return String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d])}
 function toArTime(t){
@@ -1117,14 +1271,12 @@ function countdown(dateStr){
   return{text:`${toAr(mins)} دقيقة`,cls:'tag-green'};
 }
 
-/* ===== COPY TO CLIPBOARD ===== */
 function copyText(text){
   navigator.clipboard.writeText(text).then(()=>toast('تم النسخ للحافظة ✓')).catch(()=>{
     const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();toast('تم النسخ للحافظة ✓');
   });
 }
 
-/* ===== SYNAXARION WIDGET (Coptic.IO API) ===== */
 const COPTIC_API='https://api.coptic.io/api';
 async function loadSynaxarion(){
   const loadEl=document.getElementById('synax-loading');
@@ -1176,7 +1328,6 @@ async function loadSynaxarion(){
   }
 }
 
-/* ===== HOME EVENTS ===== */
 async function renderHomeCountdown(){
   const events=await API.getEvents();
   const upcoming=events.filter(e=>new Date(e.date)>new Date()).sort((a,b)=>new Date(a.date)-new Date(b.date)).slice(0,3);
@@ -1209,7 +1360,6 @@ async function renderEvents(){
   c.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 }
 
-/* ===== GALLERY (from media images only) ===== */
 async function renderGallery(){
   const allMedia=await API.getMedia();
   const images=allMedia.filter(m=>m.type&&m.type.startsWith('image')&&m.url);
@@ -1259,7 +1409,6 @@ document.getElementById('contact-form').onsubmit=async e=>{
   document.getElementById('form-success').style.display='block';
 };
 
-/* ===== TIMETABLE - SCHEDULE FILTER ===== */
 function setScheduleFilter(val,btn){
   currentScheduleFilter=val;
   document.querySelectorAll('.sch-filter-btn').forEach(b=>b.classList.remove('active'));
@@ -1267,7 +1416,6 @@ function setScheduleFilter(val,btn){
   buildTimetablePage();
 }
 
-/* ===== TIMETABLE - LOCATION FILTER ===== */
 async function buildLocFilter(){
   const osras=await API.getOsras();
   const locs=new Set(['الكل']);
@@ -1288,7 +1436,6 @@ function setLocFilter(val,btn){
   else renderTimetablePublic();
 }
 
-/* ===== TIMETABLE PAGE BUILD ===== */
 let currentTTView='grid';
 function buildTimetablePage(){
   buildLocFilter();
@@ -1305,7 +1452,6 @@ function switchTTView(view){
   else renderTimetableGridView();
 }
 
-/* ===== FILTER SESSIONS by schedule + location ===== */
 function filterSession(s){
   if(currentScheduleFilter!=='all'&&s.notes!==currentScheduleFilter)return false;
   if(currentLocFilter!=='الكل'){
@@ -1315,7 +1461,6 @@ function filterSession(s){
   return true;
 }
 
-/* ===== GRID VIEW ===== */
 async function renderTimetableGridView(){
   const osras=await API.getOsras();
   const COLORS=['pc0','pc1','pc2','pc3','pc4','pc5','pc6','pc7'];
@@ -1331,7 +1476,6 @@ async function renderTimetableGridView(){
   ttSessionLookup={};
   allSessions.forEach(s=>{ttSessionLookup[s._uid]=s});
 
-  /* build day tabs */
   const tabsEl=document.getElementById('tt-day-tabs');
   if(tabsEl){
     tabsEl.innerHTML=WEEKDAYS.map((d,i)=>{
@@ -1403,7 +1547,6 @@ function renderDayTimeline(allSessions){
   timelineEl.innerHTML=`<div class="timeline-wrap">${html}</div>`;
 }
 
-/* ===== LIST VIEW ===== */
 async function renderTimetablePublic(){
   const osras=await API.getOsras();
   const container=document.getElementById('timetable-container');if(!container)return;
@@ -1438,7 +1581,6 @@ async function renderTimetablePublic(){
   }).join('');
 }
 
-/* ===== SESSION CARD MODAL ===== */
 function openSessionCard(uid){
   const s=ttSessionLookup[uid];if(!s)return;
   const sameDay=Object.values(ttSessionLookup).filter(x=>x.day===s.day);
@@ -1467,7 +1609,6 @@ function openSessionCard(uid){
 }
 function closeSessionCard(){document.getElementById('session-modal').classList.remove('open')}
 
-/* ===== MEDIA ===== */
 const PINNED_MEDIA_CATS=['مدرسة الشمامسة','مدرسة القديس بولس (مخدومين)'];
 async function renderPublicMedia(){await renderMediaFilters();filterMedia()}
 async function renderMediaFilters(){
@@ -1532,7 +1673,6 @@ function openLightboxFromMedia(m,idx){
 async function downloadMediaIdx(idx){const allMedia=await API.getMedia();const m=allMedia[idx];if(!m||!m.url){toast('الملف غير متاح');return}const a=document.createElement('a');a.href=m.url;a.download=m.name||m.caption||'church-file';document.body.appendChild(a);a.click();a.remove();toast('جارٍ تحميل الملف...')}
 function closeLightbox(){const lb=document.getElementById('main-lightbox');if(lb){lb.classList.remove('open');const c=document.getElementById('lb-content');if(c)c.innerHTML='';}document.body.style.overflow=''}
 
-/* ===== AUTH (hardened SHA-256) ===== */
 const AUTH={salt:'stantony_shoubra_2026_$@lt_v1',userHash:'4c2fa94b4ddb458c99a5e1c886c5c805fcb7345366e46959f68358441c99ffb2',passHash:'7d03047607106ff095fe1793bdfe681c0e6a63b27b906dfcb9cdc69548af0538',maxAttempts:5,lockoutMs:5*60*1000,sessionMs:2*60*60*1000};
 async function sha256(str){const d=new TextEncoder().encode(str);const b=await crypto.subtle.digest('SHA-256',d);return Array.from(new Uint8Array(b)).map(b=>b.toString(16).padStart(2,'0')).join('')}
 function safeEqual(a,b){if(a.length!==b.length)return false;let d=0;for(let i=0;i<a.length;i++)d|=a.charCodeAt(i)^b.charCodeAt(i);return d===0}
@@ -1553,7 +1693,6 @@ async function doLogin(e){
 }
 function logout(){sessionStorage.removeItem('admin-session');document.getElementById('login-screen').style.display='flex';document.getElementById('l-user').value='';document.getElementById('l-pass').value='';showPage('home')}
 
-/* ===== ADMIN SIDEBAR ===== */
 function toggleAdmSidebar(){const sb=document.getElementById('adm-sidebar'),bd=document.getElementById('adm-backdrop');const open=sb.classList.toggle('open');bd.classList.toggle('show',open)}
 function closeAdmSidebar(){document.getElementById('adm-sidebar').classList.remove('open');document.getElementById('adm-backdrop').classList.remove('show')}
 const admPanels=['dashboard','events','timetable','media','messages'];
@@ -1570,7 +1709,6 @@ function admNav(panel){
   if(panel==='messages')renderAdminMessages();
 }
 
-/* ===== ADMIN DASHBOARD ===== */
 async function refreshAdminStats(){
   const[events,osras,media,messages]=await Promise.all([API.getEvents(),API.getOsras(),API.getMedia(),API.getMessages()]);
   document.getElementById('ds-events').textContent=events.length;
@@ -1582,7 +1720,6 @@ async function refreshAdminStats(){
   tbody.innerHTML=upcoming.length?upcoming.map(e=>{const cd=countdown(e.date);return`<tr><td><strong>${esc(e.title)}</strong></td><td>${esc(e.date)}</td><td><span class="tag tag-gold">${esc(e.category)}</span></td><td><span class="tag ${cd.cls}">${cd.text}</span></td></tr>`}).join(''):`<tr><td colspan="4" style="text-align:center;color:var(--gray);padding:1.5rem">لا توجد فعاليات قادمة</td></tr>`;
 }
 
-/* ===== ADMIN EVENTS ===== */
 async function addEvent(){
   const title=document.getElementById('ev-title').value.trim(),date=document.getElementById('ev-date').value.trim();
   if(!title||!date)return toast('أدخل اسم الفعالية وتاريخها');
@@ -1597,7 +1734,6 @@ async function renderAdminEventsTable(){
 }
 async function deleteEvent(id){if(!confirm('حذف هذه الفعالية؟'))return;let events=await API.getEvents();events=events.filter(e=>e.id!==id);await API.saveEvents(events);renderAdminEventsTable();renderEvents();renderHomeCountdown();toast('تم حذف الفعالية')}
 
-/* ===== ADMIN OSRAS ===== */
 async function addOsra(){
   const name=document.getElementById('os-name').value.trim();if(!name)return toast('أدخل اسم المجموعة');
   const os={id:Date.now(),name,leader:document.getElementById('os-leader').value.trim(),description:document.getElementById('os-desc').value.trim(),sessions:[]};
@@ -1658,7 +1794,6 @@ async function renderAdminOsras(){
 }
 async function deleteOsra(id){if(!confirm('حذف هذه المجموعة وكل جلساتها؟'))return;let osras=await API.getOsras();osras=osras.filter(o=>o.id!==id);await API.saveOsras(osras);if(selectedOsraId===id){selectedOsraId=null;document.getElementById('osra-sessions-card').style.display='none'}renderAdminOsras();populateMediaCatSelect();buildTimetablePage();toast('تم حذف المجموعة')}
 
-/* ===== ADMIN MEDIA ===== */
 function handleMediaFiles(files){
   pendingMediaFiles=Array.from(files);const preview=document.getElementById('adm-media-preview');preview.innerHTML='';
   pendingMediaFiles.forEach(f=>{const div=document.createElement('div');div.className='adm-thumb';if(f.type.startsWith('image/')){const img=document.createElement('img');img.src=URL.createObjectURL(f);div.appendChild(img)}else if(f.type.startsWith('video/')){div.innerHTML=`<i class="ri-video-chat-line"></i>`}else if(f.type==='application/pdf'){div.innerHTML=`<i class="ri-file-pdf-line"></i>`}else{div.innerHTML=`<i class="ri-file-line"></i>`}preview.appendChild(div)});
@@ -1687,7 +1822,6 @@ async function renderAdminMedia(){
 }
 async function deleteMedia(id){if(!confirm('حذف هذا الملف؟'))return;await API.deleteMedia(id);renderAdminMedia();renderPublicMedia();renderGallery();toast('تم حذف الملف')}
 
-/* ===== ADMIN MESSAGES ===== */
 async function renderAdminMessages(){
   const messages=await API.getMessages();const c=document.getElementById('messages-list-adm');if(!c)return;
   if(!messages.length){c.innerHTML=`<p style="text-align:center;color:var(--gray);padding:2rem">لا توجد رسائل.</p>`;return}
@@ -1696,10 +1830,9 @@ async function renderAdminMessages(){
 async function toggleMsg(i){const messages=await API.getMessages();messages[i].read=true;db.set('church-messages',messages);const d=document.getElementById('msg-full-'+i);if(d)d.style.display=d.style.display==='block'?'none':'block';refreshAdminStats();renderAdminMessages()}
 async function clearMessages(){if(!confirm('مسح جميع الرسائل؟'))return;await API.clearMessages();renderAdminMessages();refreshAdminStats();toast('تم مسح الرسائل')}
 
-/* ===== TOAST ===== */
 function toast(msg){const t=document.getElementById('toast');document.getElementById('toast-msg').textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000)}
 
-/* ===== API WRAPPER ===== */
+// To connect a real backend: put your server URL in baseUrl below and set enabled:true
 const API_CONFIG={enabled:false,baseUrl:'https://api.yourchurchserver.com/api'};
 const API={
   async getEvents(){if(API_CONFIG.enabled){try{return await(await fetch(`${API_CONFIG.baseUrl}/events`)).json()}catch{}}return db.get('church-events')||[]},
@@ -1716,7 +1849,6 @@ const API={
   async clearMessages(){db.set('church-messages',[])}
 };
 
-/* ===== INIT ===== */
 renderEvents();
 renderHomeCountdown();
 loadSynaxarion();
