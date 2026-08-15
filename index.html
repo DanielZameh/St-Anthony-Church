@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
   <title>كنيسة الأنبا أنطونيوس القبطية الأرثوذكسية | الموقع الرسمي</title>
-  <meta name="description" content="الموقع الرسمي لكنيسة الأنبا أنطونيوس القبطية الأرثوذكسية في شبرا، القاهرة. اعرف مواعيد القداسات والفعاليات والأخبار."/>
+  <meta name="description" content="الموقع الرسمي لكنيسة الأنبا أنطونيوس القبطية الأرثوذكسية في شبرا، القاهرة. اعرف مواعيد القداسات، الفعاليات القادمة، واحجز مكانك."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"/>
@@ -27,7 +27,7 @@
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     h1,h2,h3,h4,p,a,span,li,button,label{overflow-wrap:break-word;word-break:break-word}
     html{scroll-behavior:smooth;overflow-x:hidden;width:100%}
-    body{font-family:'Cairo',sans-serif;background:var(--cream);color:var(--text);transition:background var(--transition),color var(--transition);direction:rtl;min-height:100vh;overflow-x:hidden}
+    body{font-family:'Cairo',sans-serif;background:var(--cream);color:var(--text);transition:background var(--transition),color var(--transition);direction:rtl;min-height:100vh;overflow-x:hidden;width:100%}
     h1,h2,h3,h4{font-family:'Cairo',sans-serif;font-weight:700}
     a{text-decoration:none;color:inherit}
     ul{list-style:none}
@@ -41,6 +41,7 @@
     .section-label{display:block;font-size:.75rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;text-align:center}
     .section-title{font-size:clamp(1.75rem,4vw,2.5rem);text-align:center;color:var(--navy);margin-bottom:3rem}
     .dark .section-title{color:var(--gold-light)}
+
     .header{position:fixed;top:0;left:0;width:100%;height:var(--header-h);z-index:1000;transition:background var(--transition),box-shadow var(--transition),opacity var(--transition),visibility var(--transition)}
     .header.scrolled{background:var(--navy);box-shadow:var(--shadow)}
     .header.header-hidden{opacity:0;visibility:hidden;pointer-events:none}
@@ -56,7 +57,7 @@
     .nav-actions{display:flex;align-items:center;gap:.75rem}
     .btn-icon{background:none;color:rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center;transition:color var(--transition);font-size:1.2rem}
     .btn-icon:hover{color:var(--gold)}
-    .btn-admin{font-size:.8rem;font-weight:600;padding:.45rem 1rem;border-radius:99px;background:var(--gold);color:var(--navy-deep);transition:transform var(--transition),background var(--transition)}
+    .btn-admin{font-size:.8rem;font-weight:600;padding:.45rem 1rem;border-radius:99px;background:var(--gold);color:var(--navy-deep);transition:transform var(--transition),background var(--transition);cursor:pointer}
     .btn-admin:hover{background:var(--gold-light);transform:translateY(-1px)}
     .nav-toggle{display:none;font-size:1.5rem;color:#fff;background:none}
     @media(max-width:768px){
@@ -73,10 +74,438 @@
     @media(max-width:400px){
       .nav-logo span{display:none}
     }
+
+    .hero{min-height:100vh;display:flex;align-items:center;background:linear-gradient(135deg,var(--navy-deep) 0%,#0d2d55 60%,#1a4a7a 100%);position:relative;overflow:hidden;padding-top:var(--header-h)}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(201,168,76,.08) 0%,transparent 60%);pointer-events:none}
+    .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+    .hero-label{font-size:.75rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+    .hero-title{font-size:clamp(2.2rem,5vw,4rem);color:#fff;line-height:1.15;margin-bottom:1.5rem}
+    .hero-title em{font-style:normal;color:var(--gold)}
+    .hero-desc{color:rgba(255,255,255,.7);line-height:1.8;font-size:.95rem;margin-bottom:2.5rem}
+    .hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+    .btn-primary{padding:.9rem 2rem;border-radius:.5rem;background:var(--gold);color:var(--navy-deep);font-weight:600;transition:all var(--transition);display:inline-flex;align-items:center;gap:.5rem;cursor:pointer}
+    .btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,.35)}
+    .btn-outline{padding:.9rem 2rem;border-radius:.5rem;border:2px solid rgba(255,255,255,.4);color:#fff;font-weight:500;transition:all var(--transition);display:inline-flex;align-items:center;gap:.5rem;cursor:pointer}
+    .btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+    .hero-visual{display:flex;justify-content:center}
+    .hero-blob{width:380px;height:380px;border-radius:65% 35% 50% 50%/40% 60% 40% 60%;background:linear-gradient(135deg,rgba(201,168,76,.3),rgba(201,168,76,.05));border:1px solid rgba(201,168,76,.25);overflow:hidden;display:flex;justify-content:center;align-items:center;animation:morph 8s ease-in-out infinite}
+    .hero-blob img{width:100%;height:100%;object-fit:cover;opacity:.85}
+    @keyframes morph{0%,100%{border-radius:65% 35% 50% 50%/40% 60% 40% 60%}50%{border-radius:35% 65% 40% 60%/60% 40% 60% 40%}}
+    @media(max-width:768px){.hero-grid{grid-template-columns:1fr;text-align:center;gap:2.5rem}.hero-btns{justify-content:center}.hero-blob{width:260px;height:260px}}
+
+    .synax-widget{background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.04));border:1px solid rgba(201,168,76,.35);border-radius:calc(var(--radius) + 4px);padding:1.35rem 1.5rem;margin-top:2rem;backdrop-filter:blur(8px);box-shadow:0 12px 40px rgba(0,0,0,.15);position:relative;overflow:hidden}
+    .synax-widget::before{content:'';position:absolute;top:0;right:0;left:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.7}
+    .synax-loading{display:flex;align-items:center;gap:.75rem;color:rgba(255,255,255,.7);font-size:.85rem}
+    .synax-loading i{color:var(--gold);animation:spin 1s linear infinite;font-size:1.1rem}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .synax-header{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:1rem;flex-wrap:wrap}
+    .synax-header-title{display:inline-flex;align-items:center;gap:.45rem;font-size:.78rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold)}
+    .synax-badges{display:flex;gap:.45rem;flex-wrap:wrap}
+    .synax-badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.68rem;font-weight:600;padding:.25rem .65rem;border-radius:99px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.1)}
+    .synax-badge i{font-size:.85rem;color:var(--gold-light)}
+    .synax-badge-fast{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.25);color:#fecaca}
+    .synax-date-row{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;flex-wrap:wrap;padding-bottom:.85rem;border-bottom:1px solid rgba(201,168,76,.15)}
+    .synax-cross{color:var(--gold);font-size:1.15rem;opacity:.85}
+    .synax-coptic-date{font-size:1rem;font-weight:700;color:var(--gold-light)}
+    .synax-greg-date{font-size:.78rem;color:rgba(255,255,255,.5)}
+    .synax-saints{display:flex;flex-direction:column;gap:.55rem}
+    .synax-saint-row{display:flex;align-items:flex-start;gap:.65rem;font-size:.84rem;color:rgba(255,255,255,.88);line-height:1.55;padding:.65rem .75rem;border-radius:.65rem;background:rgba(0,0,0,.12);border:1px solid rgba(201,168,76,.12);transition:background .2s,border-color .2s,transform .2s;text-decoration:none}
+    .synax-saint-row:hover{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.35);transform:translateX(-3px)}
+    .synax-saint-row i{color:var(--gold);flex-shrink:0;margin-top:2px;font-size:.95rem}
+    .synax-saint-name{font-weight:600;color:#fff}
+    .synax-empty{font-size:.82rem;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:.5rem;padding:.5rem 0}
+    .synax-more{font-size:.72rem;color:rgba(255,255,255,.4);margin-top:.85rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap}
+    .synax-more a{color:var(--gold-light);transition:color .2s}
+    .synax-more a:hover{color:#fff}
+    .synax-error{font-size:.8rem;color:rgba(255,255,255,.55);display:flex;align-items:flex-start;gap:.5rem;line-height:1.6;padding:.75rem;border-radius:.65rem;background:rgba(0,0,0,.15)}
+    .synax-error i{color:var(--gold);flex-shrink:0;margin-top:2px}
+
+    .countdown-strip{margin-top:1.5rem}
+    .cdown-card{background:rgba(255,255,255,.07);border:1px solid rgba(201,168,76,.25);border-radius:.875rem;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;margin-bottom:.75rem;transition:border-color .2s}
+    .cdown-card:hover{border-color:var(--gold)}
+    .cdown-icon{width:42px;height:42px;background:var(--gold);border-radius:.625rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .cdown-icon i{color:var(--navy-deep);font-size:1.2rem}
+    .cdown-info{flex:1;min-width:0}
+    .cdown-title{font-weight:600;color:#fff;font-size:.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .cdown-date{font-size:.72rem;color:rgba(255,255,255,.5);margin-top:.1rem}
+    .cdown-num{font-size:1.4rem;font-weight:700;color:var(--gold);line-height:1;text-align:center}
+    .cdown-unit{font-size:.62rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;text-align:center}
+
+    .stats-bar{background:var(--gold);padding:2rem 0}
+    .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;text-align:center}
+    .stat-num{font-family:'Playfair Display',serif;font-size:2.5rem;color:var(--navy-deep);font-weight:700}
+    .stat-lbl{font-size:.8rem;font-weight:600;color:rgba(0,26,56,.7);text-transform:uppercase;letter-spacing:1px}
+
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+    .about-img{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lg)}
+    .about-img img{width:100%;height:400px;object-fit:cover}
+    .about-tag{display:inline-flex;align-items:center;gap:.4rem;background:var(--gold-pale);color:var(--navy);font-size:.75rem;font-weight:600;padding:.3rem .9rem;border-radius:99px;margin-bottom:1.25rem}
+    .dark .about-tag{background:rgba(201,168,76,.2);color:var(--gold-light)}
+    .about-text h2{font-size:clamp(1.5rem,3vw,2.25rem);color:var(--navy);margin-bottom:1.25rem;line-height:1.3}
+    .dark .about-text h2{color:var(--gold-light)}
+    .about-text p{color:var(--gray);line-height:1.9;margin-bottom:1.5rem}
+    .perks{display:grid;gap:.75rem}
+    .perk{display:flex;align-items:center;gap:.75rem;font-size:.9rem}
+    .perk i{color:var(--gold);flex-shrink:0}
+    @media(max-width:768px){.about-grid{grid-template-columns:1fr}}
+
+    .priests-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.25rem}
+    .priest-card{background:var(--white);border:1px solid var(--gold-pale);border-radius:var(--radius);padding:2rem 1.5rem;text-align:center;box-shadow:var(--shadow);transition:transform var(--transition)}
+    .priest-card:hover{transform:translateY(-4px)}
+    .priest-icon{display:flex;justify-content:center;margin-bottom:1rem;color:var(--gold)}
+    .priest-icon i{font-size:2rem}
+    .priest-name{color:var(--navy);font-size:1.1rem}
+    .dark .priest-name{color:var(--text)}
+
+    .no-events{text-align:center;color:var(--gray);padding:4rem 2rem;grid-column:1/-1}
+    .no-events i{color:var(--gold);display:block;margin:0 auto 1rem;font-size:3rem}
+    .events-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.75rem}
+    .ev-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform var(--transition),box-shadow var(--transition)}
+    .dark .ev-card{background:#132035}
+    .ev-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg)}
+    .ev-img{height:200px;width:100%;object-fit:cover;background:var(--navy-mid);display:flex;align-items:center;justify-content:center}
+    .ev-img img{width:100%;height:100%;object-fit:cover}
+    .ev-img i{font-size:3rem;color:var(--gold-light)}
+    .ev-body{padding:1.5rem;flex:1;display:flex;flex-direction:column}
+    .ev-tag{font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+    .ev-card h3{font-size:1.1rem;color:var(--navy);margin-bottom:.75rem}
+    .dark .ev-card h3{color:#e5e7eb}
+    .ev-meta{display:flex;flex-wrap:wrap;gap:.75rem;margin-bottom:1rem}
+    .ev-meta-item{display:flex;align-items:center;gap:.4rem;font-size:.8rem;color:var(--gray)}
+    .ev-meta-item i{color:var(--gold)}
+    .ev-card p{font-size:.875rem;color:var(--gray);line-height:1.7;flex:1;margin-bottom:1.25rem}
+    .btn-book{align-self:flex-start;padding:.65rem 1.4rem;border-radius:.5rem;background:var(--navy);color:#fff;font-size:.85rem;font-weight:600;transition:all var(--transition);display:inline-flex;align-items:center;gap:.4rem}
+    .btn-book:hover{background:var(--gold);color:var(--navy-deep)}
+    .dark .btn-book{background:var(--gold);color:var(--navy-deep)}
+    .btn-share-ev{background:none;border:1px solid rgba(201,168,76,.3);color:var(--gold);padding:.45rem .85rem;border-radius:.4rem;font-size:.75rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:.35rem;transition:all .2s;margin-top:.5rem}
+    .btn-share-ev:hover{background:var(--gold-pale)}
+
+    .gallery-section{background:var(--navy-deep);padding:5rem 0 3rem}
+    .gallery-section .section-title{color:#fff}
+    .gallery-grid{columns:3;gap:1rem}
+    @media(max-width:768px){.gallery-grid{columns:2}}
+    @media(max-width:480px){.gallery-grid{columns:1}}
+    .gallery-item{break-inside:avoid;margin-bottom:1rem;border-radius:.75rem;overflow:hidden;cursor:pointer;position:relative}
+    .gallery-item img{width:100%;display:block;transition:transform .3s}
+    .gallery-item:hover img{transform:scale(1.04)}
+    .gallery-item-overlay{position:absolute;inset:0;background:rgba(0,26,56,.4);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:1rem}
+    .gallery-item:hover .gallery-item-overlay{opacity:1}
+    .gallery-item-label{color:#fff;font-size:.8rem;font-weight:600;background:rgba(0,0,0,.4);padding:.3rem .7rem;border-radius:99px}
+    .gallery-empty{text-align:center;padding:3rem;color:rgba(255,255,255,.4)}
+    .gallery-empty i{font-size:3rem;color:rgba(201,168,76,.2);display:block;margin-bottom:.75rem}
+
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+    .contact-info h2{font-size:clamp(1.5rem,3vw,2rem);color:var(--navy);margin-bottom:1rem}
+    .dark .contact-info h2{color:var(--gold-light)}
+    .contact-info p{color:var(--gray);line-height:1.8;margin-bottom:2rem}
+    .contact-items{display:grid;gap:1.25rem}
+    .contact-item{display:flex;align-items:flex-start;gap:1rem}
+    .contact-icon{width:44px;height:44px;border-radius:.5rem;background:var(--gold);display:flex;align-items:center;justify-content:center;color:var(--navy-deep);flex-shrink:0}
+    .contact-icon i{font-size:1.2rem}
+    .contact-item-text h4{font-weight:600;color:var(--navy);font-size:.9rem}
+    .dark .contact-item-text h4{color:#e5e7eb}
+    .contact-item-text p{font-size:.85rem;color:var(--gray);margin:0}
+    .contact-form{display:grid;gap:1rem}
+    .form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .contact-form input,.contact-form textarea{width:100%;padding:.9rem 1.1rem;border-radius:.6rem;font-family:inherit;font-size:.9rem;border:1.5px solid #e5e7eb;background:var(--white);color:var(--text);transition:border-color var(--transition);outline:none}
+    .dark .contact-form input,.dark .contact-form textarea{background:#132035;border-color:#1e3a5f;color:#e5e7eb}
+    .contact-form input:focus,.contact-form textarea:focus{border-color:var(--gold)}
+    .contact-form textarea{height:130px;resize:vertical}
+    .form-submit{padding:.9rem;border-radius:.6rem;background:var(--navy);color:#fff;font-size:.9rem;font-weight:600;transition:all var(--transition);display:flex;align-items:center;justify-content:center;gap:.5rem}
+    .dark .form-submit{background:var(--gold);color:var(--navy-deep)}
+    .form-submit:hover{background:var(--gold);color:var(--navy-deep);transform:translateY(-2px)}
+    .form-success{display:none;text-align:center;padding:2rem;border-radius:var(--radius);background:rgba(201,168,76,.1);border:1px solid var(--gold)}
+    .form-success i{color:var(--gold);display:block;margin:0 auto .75rem;font-size:2rem}
+    @media(max-width:768px){.contact-grid{grid-template-columns:1fr}.form-row-2{grid-template-columns:1fr}}
+
+    .footer{background:var(--navy-deep);color:rgba(255,255,255,.6);padding:4rem 0 2rem}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+    .footer-brand img{width:48px;height:48px;border-radius:50%;border:2px solid var(--gold);object-fit:cover;margin-bottom:1rem}
+    .footer-brand p{font-size:.875rem;line-height:1.8;max-width:280px}
+    .footer-col h4{color:#fff;font-weight:600;font-size:.95rem;margin-bottom:1.25rem}
+    .footer-col ul{display:grid;gap:.75rem}
+    .footer-col a{font-size:.875rem;transition:color var(--transition);cursor:pointer}
+    .footer-col a:hover{color:var(--gold)}
+    .footer-socials{display:flex;gap:1rem;margin-top:1.25rem}
+    .footer-socials a{width:38px;height:38px;border-radius:.5rem;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;transition:background var(--transition),color var(--transition)}
+    .footer-socials a:hover{background:var(--gold);color:var(--navy-deep)}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:1.5rem;text-align:center;font-size:.8rem}
+    @media(max-width:768px){.footer-grid{grid-template-columns:1fr}}
+
+    .priest-meta{margin-top:.5rem;font-size:.72rem;color:var(--gray);line-height:1.7}
+    .priest-meta span{display:block}
+
+    .history-summary{color:var(--gray);line-height:1.9;margin-bottom:1rem}
+    .history-toggle-btn{display:inline-flex;align-items:center;gap:.5rem;background:none;color:var(--navy);font-weight:600;font-size:.85rem;border:1.5px solid var(--gold);padding:.55rem 1.2rem;border-radius:99px;transition:all var(--transition)}
+    .dark .history-toggle-btn{color:var(--gold-light)}
+    .history-toggle-btn:hover{background:var(--gold);color:var(--navy-deep)}
+    .history-toggle-btn i{transition:transform .3s}
+    .history-toggle-btn.open i{transform:rotate(180deg)}
+    .history-full{display:none;margin-top:1.75rem;padding-top:1.75rem;border-top:1px solid var(--gold-pale)}
+    .history-full.open{display:block}
+    .history-full p{color:var(--gray);line-height:1.95;margin-bottom:1.1rem;font-size:.92rem}
+    .history-full h4{color:var(--navy);margin:1.5rem 0 .75rem;font-size:1.05rem}
+    .dark .history-full h4{color:var(--gold-light)}
+    .timeline{display:grid;gap:0;margin-top:1rem;position:relative;padding-right:1.75rem;border-right:2px solid var(--gold-pale)}
+    .timeline-item{position:relative;padding-bottom:1.5rem}
+    .timeline-item:last-child{padding-bottom:0}
+    .timeline-item::before{content:'';position:absolute;right:-2.32rem;top:.2rem;width:11px;height:11px;border-radius:50%;background:var(--gold);border:2px solid var(--cream)}
+    .dark .timeline-item::before{border-color:var(--white)}
+    .timeline-date{font-size:.78rem;font-weight:700;color:var(--gold);margin-bottom:.2rem}
+    .timeline-text{font-size:.86rem;color:var(--gray);line-height:1.75}
+
+    .annex-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+    .annex-card{background:var(--white);border:1px solid var(--gold-pale);border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow)}
+    .annex-card-head{display:flex;align-items:center;gap:.85rem;margin-bottom:1.25rem}
+    .annex-card-icon{width:48px;height:48px;border-radius:.65rem;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0}
+    .dark .annex-card-icon{background:rgba(201,168,76,.18)}
+    .annex-card-icon i{font-size:1.4rem}
+    .annex-card h3{font-size:1.1rem;color:var(--navy);line-height:1.5}
+    .dark .annex-card h3{color:var(--gold-light)}
+    .annex-list{display:grid;gap:.65rem}
+    .annex-list li{display:flex;align-items:flex-start;gap:.6rem;font-size:.87rem;color:var(--gray);line-height:1.6}
+    .annex-list i{color:var(--gold);flex-shrink:0;margin-top:3px;font-size:.95rem}
+    @media(max-width:768px){.annex-grid{grid-template-columns:1fr}}
+
+    .mass-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    .mass-card{background:var(--white);border:1px solid var(--gold-pale);border-radius:var(--radius);padding:1.75rem;box-shadow:var(--shadow);transition:transform var(--transition),background var(--transition)}
+    .mass-card:hover{transform:translateY(-4px)}
+    .mass-card.featured{border-color:var(--gold);position:relative}
+    .mass-card.featured::before{content:'الأكثر ازدحاماً';position:absolute;top:-.7rem;right:1.5rem;background:var(--gold);color:var(--navy-deep);font-size:.65rem;font-weight:700;padding:.2rem .7rem;border-radius:99px}
+    .mass-card-head{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid var(--gold-pale)}
+    .mass-card-icon{width:44px;height:44px;min-width:44px;border-radius:50%;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.2rem}
+    .mass-card-head h3{color:var(--navy);font-size:1.05rem}
+    .dark .mass-card-head h3{color:var(--gold-light)}
+    .mass-row{display:flex;justify-content:space-between;align-items:center;gap:.75rem;padding:.65rem 0;font-size:.85rem}
+    .mass-row+.mass-row{border-top:1px dashed rgba(201,168,76,.3)}
+    .mass-row-label{color:var(--gray);font-weight:600;display:flex;align-items:center;gap:.4rem;min-width:0}
+    .mass-row-time{color:var(--navy);font-weight:700;white-space:nowrap}
+    .dark .mass-row-time{color:var(--gold-light)}
+    @media(max-width:900px){.mass-grid{grid-template-columns:1fr}}
+
+    .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+    .proj-card{background:var(--white);border:1px solid var(--gold-pale);border-radius:var(--radius);padding:2.25rem;color:var(--text);box-shadow:var(--shadow-lg);position:relative;overflow:hidden;transition:background var(--transition),border-color var(--transition)}
+    .proj-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 100% 0%,rgba(201,168,76,.15) 0%,transparent 60%);pointer-events:none}
+    .proj-icon{width:54px;height:54px;border-radius:.75rem;background:var(--gold);display:flex;align-items:center;justify-content:center;color:var(--navy-deep);margin-bottom:1.25rem;position:relative}
+    .proj-icon i{font-size:1.6rem}
+    .proj-card h3{font-size:1.25rem;margin-bottom:.75rem;position:relative;color:var(--navy)}
+    .dark .proj-card h3{color:var(--gold-light)}
+    .proj-card p{color:var(--gray);font-size:.88rem;line-height:1.8;margin-bottom:1.5rem;position:relative}
+    .proj-link{display:inline-flex;align-items:center;gap:.5rem;font-size:.85rem;font-weight:600;color:var(--navy-deep);background:var(--gold);padding:.65rem 1.3rem;border-radius:99px;transition:all var(--transition);position:relative}
+    .proj-link:hover{background:var(--gold-light);transform:translateY(-2px)}
+    @media(max-width:768px){.proj-grid{grid-template-columns:1fr}}
+
+    .social-section{background:var(--cream)}
+    .social-group{margin-bottom:2rem}
+    .social-group:last-child{margin-bottom:0}
+    .social-group h4{font-size:.95rem;color:var(--navy);margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem}
+    .dark .social-group h4{color:var(--gold-light)}
+    .social-group h4 i{color:var(--gold)}
+    .social-chip-row{display:flex;flex-wrap:wrap;gap:.75rem}
+    .social-chip{display:inline-flex;align-items:center;gap:.55rem;padding:.6rem 1.1rem;border-radius:99px;background:var(--white);color:var(--navy);font-size:.82rem;font-weight:600;transition:all var(--transition);border:1px solid var(--gold-pale);box-shadow:var(--shadow)}
+    .dark .social-chip{color:var(--text)}
+    .social-chip:hover{background:var(--gold);color:var(--navy-deep);transform:translateY(-2px)}
+    .social-chip i{font-size:1.05rem;color:var(--gold)}
+    .social-chip:hover i{color:var(--navy-deep)}
+
+    .tt-page{background:var(--cream);min-height:100vh;padding-top:var(--header-h);transition:background var(--transition)}
+    .tt-hero{background:linear-gradient(135deg,var(--navy-deep),#0d2d55);padding:4rem 1.5rem 3rem;text-align:center}
+    .tt-hero h1{font-size:clamp(1.75rem,4vw,3rem);color:#fff;margin-bottom:.5rem}
+    .tt-hero p{color:rgba(255,255,255,.65);font-size:.95rem}
+    .tt-hero-icon{display:flex;justify-content:center;color:var(--gold);margin-bottom:1rem}
+    .tt-hero-icon i{font-size:2.5rem}
+    .tt-view-toggle{display:flex;gap:.75rem;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap}
+    .tt-toggle-btn{padding:.6rem 1.5rem;border-radius:99px;border:2px solid var(--gold);background:transparent;color:var(--gold);font-family:inherit;font-size:.875rem;font-weight:600;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:.5rem}
+    .tt-toggle-btn.active{background:var(--gold);color:var(--navy-deep)}
+    .tt-toggle-btn:hover:not(.active){background:rgba(201,168,76,.12)}
+
+    .schedule-filter-wrap{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-bottom:1.5rem;flex-wrap:wrap}
+    .sch-filter-label{font-size:.8rem;font-weight:600;color:var(--gray)}
+    .sch-filter-btn{padding:.45rem 1.1rem;border-radius:99px;border:1.5px solid rgba(201,168,76,.3);background:transparent;color:var(--gray);font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+    .sch-filter-btn.active{background:var(--navy);border-color:var(--navy);color:#fff}
+    .dark .sch-filter-btn.active{background:var(--gold);border-color:var(--gold);color:var(--navy-deep)}
+    .sch-filter-btn:hover:not(.active){border-color:var(--gold);color:var(--navy)}
+
+    .loc-filter-wrap{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:2rem;flex-wrap:wrap}
+    .loc-filter-btn{padding:.35rem .85rem;border-radius:99px;border:1.5px solid rgba(201,168,76,.2);background:transparent;color:var(--gray);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+    .loc-filter-btn.active{background:var(--gold-pale);border-color:var(--gold);color:var(--navy)}
+    .dark .loc-filter-btn.active{color:var(--gold-light)}
+
+    .day-tabs-bar{display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.75rem;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+    .day-tabs-bar::-webkit-scrollbar{display:none}
+    .day-tab-btn{flex-shrink:0;padding:.5rem 1.1rem;border-radius:99px;border:1.5px solid rgba(201,168,76,.3);background:transparent;color:var(--gray);font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;white-space:nowrap}
+    .day-tab-btn:hover{border-color:var(--gold);color:var(--navy)}
+    .dark .day-tab-btn:hover{color:var(--gold-light)}
+    .day-tab-btn.active{background:var(--navy);border-color:var(--navy);color:#fff}
+    .day-tab-btn.today-day{border-color:var(--gold);color:var(--gold)}
+    .day-tab-btn.today-day.active{background:var(--gold);border-color:var(--gold);color:var(--navy-deep)}
+
+    .tt-day-header{display:flex;align-items:center;justify-content:space-between;margin:.75rem 0 1rem;flex-wrap:wrap;gap:.5rem}
+    .tt-day-title{font-size:1.15rem;font-weight:700;color:var(--navy)}
+    .dark .tt-day-title{color:var(--gold-light)}
+    .tt-session-count{background:var(--gold-pale);color:var(--navy);font-size:.75rem;font-weight:700;padding:.3rem .8rem;border-radius:99px;border:1px solid rgba(201,168,76,.25)}
+    .dark .tt-session-count{color:var(--gold-light)}
+    .timeline-wrap{border-radius:var(--radius);overflow:hidden;background:var(--white);box-shadow:var(--shadow)}
+    .dark .timeline-wrap{background:#112240}
+    .time-slot-row{display:grid;grid-template-columns:60px 1fr;border-top:1px solid rgba(201,168,76,.1)}
+    .time-slot-row:last-child{border-bottom:1px solid rgba(201,168,76,.1)}
+    .time-slot-label{padding:.5rem .6rem 0;font-size:.7rem;font-weight:700;color:var(--gray);direction:ltr;text-align:right;border-right:2px solid rgba(201,168,76,.18)}
+    .time-slot-content{padding:.4rem .5rem}
+    .session-pill{border-radius:.6rem;padding:.55rem .85rem;cursor:pointer;transition:all .2s;margin-bottom:.3rem;position:relative}
+    .session-pill:hover{filter:brightness(.96);transform:translateX(2px)}
+    .session-pill:last-child{margin-bottom:0}
+    .pill-top{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+    .pill-name{font-size:.88rem;font-weight:700;flex:1;min-width:0}
+    .pill-time{font-size:.72rem;font-weight:600;opacity:.8;white-space:nowrap}
+    .pill-overlap{font-size:.62rem;font-weight:700;padding:.1rem .4rem;border-radius:99px;background:rgba(0,0,0,.12);white-space:nowrap}
+    .pill-bottom{font-size:.75rem;margin-top:.2rem;opacity:.75;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+    .pill-bottom i{font-size:.85rem}
+    .pill-note{font-size:.7rem;background:rgba(0,0,0,.08);padding:.1rem .45rem;border-radius:4px}
+    .pill-share{position:absolute;top:.5rem;left:.5rem;background:rgba(0,0,0,.12);border:none;color:inherit;border-radius:4px;padding:.2rem .4rem;font-size:.65rem;font-weight:700;cursor:pointer;opacity:0;transition:opacity .2s;display:flex;align-items:center;gap:.2rem}
+    .session-pill:hover .pill-share{opacity:1}
+
+    .pc0{background:#dbeafe;border-right:3px solid #3b82f6;color:#1e3a8a}
+    .pc1{background:#d1fae5;border-right:3px solid #10b981;color:#064e3b}
+    .pc2{background:#fef3c7;border-right:3px solid #f59e0b;color:#78350f}
+    .pc3{background:#ede9fe;border-right:3px solid #8b5cf6;color:#4c1d95}
+    .pc4{background:#fce7f3;border-right:3px solid #ec4899;color:#831843}
+    .pc5{background:#ccfbf1;border-right:3px solid #14b8a6;color:#134e4a}
+    .pc6{background:#fde8e8;border-right:3px solid #ef4444;color:#7f1d1d}
+    .pc7{background:#e0e7ff;border-right:3px solid #6366f1;color:#1e1b4b}
+    .dark .pc0{background:#1e3a5f;color:#bfdbfe}
+    .dark .pc1{background:#064e3b;color:#a7f3d0}
+    .dark .pc2{background:#451a03;color:#fde68a}
+    .dark .pc3{background:#2e1065;color:#ddd6fe}
+    .dark .pc4{background:#500724;color:#fbcfe8}
+    .dark .pc5{background:#042f2e;color:#99f6e4}
+    .dark .pc6{background:#450a0a;color:#fecaca}
+    .dark .pc7{background:#1e1b4b;color:#c7d2fe}
+
+    .timetable-grid{display:grid;gap:2rem;margin-top:1rem}
+    .day-block{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border-right:4px solid var(--gold);transition:background var(--transition)}
+    .dark .day-block{background:#132035}
+    .day-block-header{background:var(--navy);padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;color:#fff}
+    .day-name{font-size:1.25rem;font-weight:700;color:var(--gold-light);display:flex;align-items:center;gap:.5rem}
+    .day-badge{background:var(--gold-pale);color:var(--gold-light);font-size:.75rem;padding:.25rem .75rem;border-radius:99px;font-weight:600}
+    .day-services-list{padding:1rem 1.5rem;display:grid;gap:1rem}
+    .service-row{display:grid;grid-template-columns:160px 1fr;gap:1.5rem;padding:1rem 0;border-bottom:1px solid rgba(201,168,76,.1);align-items:start}
+    .service-row:last-child{border-bottom:none}
+    .service-time{font-size:.95rem;font-weight:700;color:var(--gold);display:flex;align-items:center;gap:.4rem}
+    .service-name-title{font-size:1.05rem;color:var(--navy);font-weight:700}
+    .dark .service-name-title{color:#fff}
+    .service-meta-info{display:flex;flex-wrap:wrap;gap:1rem;font-size:.82rem;color:var(--gray);margin-top:.15rem}
+    .service-meta-info span{display:flex;align-items:center;gap:.3rem}
+    .service-meta-info i{color:var(--gold)}
+    .service-notes-text{font-size:.85rem;color:var(--gray);line-height:1.6;margin-top:.25rem;font-style:italic}
+    .day-empty-msg{text-align:center;color:var(--gray);padding:2rem 0;font-size:.9rem}
+    @media(max-width:640px){.service-row{grid-template-columns:1fr;gap:.5rem}}
+
+    .media-page{background:var(--cream);min-height:100vh;padding-top:var(--header-h);transition:background var(--transition)}
+    .media-hero{background:linear-gradient(135deg,var(--navy-deep),#0d2d55);padding:4rem 1.5rem 3rem;text-align:center}
+    .media-hero h1{font-size:clamp(1.75rem,4vw,3rem);color:#fff;margin-bottom:.5rem}
+    .media-hero p{color:rgba(255,255,255,.65);font-size:.95rem}
+    .media-hero-icon{display:flex;justify-content:center;color:var(--gold);margin-bottom:1rem}
+    .media-hero-icon i{font-size:2.5rem}
+    .media-filters{background:var(--white);border-bottom:1px solid rgba(201,168,76,.2);padding:1rem 1.5rem;display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;justify-content:center;position:sticky;top:var(--header-h);z-index:50;transition:background var(--transition)}
+    .dark .media-filters{background:#1a2740}
+    .mf-btn{padding:.5rem 1.25rem;border-radius:20px;border:1.5px solid rgba(201,168,76,.25);background:transparent;color:var(--gray);font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s;font-family:inherit}
+    .mf-btn:hover,.mf-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+    .dark .mf-btn:hover,.dark .mf-btn.active{background:var(--gold);color:var(--navy-deep);border-color:var(--gold)}
+    .mf-search{display:flex;align-items:center;gap:.5rem;background:var(--gray-light);border-radius:20px;padding:.45rem 1rem;margin-right:auto}
+    .dark .mf-search{background:#132035}
+    .mf-search i{color:var(--gray)}
+    .mf-search input{border:none;background:transparent;font-family:inherit;font-size:.82rem;color:var(--text);outline:none;width:150px;direction:rtl}
+    .media-content{max-width:1200px;margin:0 auto;padding:2.5rem 1.5rem}
+    .media-section-title{font-size:1.25rem;color:var(--navy);margin-bottom:1.25rem;display:flex;align-items:center;gap:.5rem;padding-bottom:.75rem;border-bottom:1px solid rgba(201,168,76,.2);font-weight:700}
+    .dark .media-section-title{color:var(--gold-light)}
+    .media-section-title i{color:var(--gold)}
+    .media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;margin-bottom:3rem}
+    .media-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);cursor:pointer;transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column}
+    .dark .media-card{background:#132035}
+    .media-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+    .media-thumb{height:180px;background:var(--navy);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .media-thumb img{width:100%;height:100%;object-fit:cover}
+    .media-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35)}
+    .media-play i{color:#fff;font-size:2.5rem}
+    .media-pdf-icon{color:var(--gold);font-size:3rem}
+    .media-file-icon{color:var(--gray);font-size:3rem}
+    .media-dl{position:absolute;top:.6rem;left:.6rem;z-index:3;width:36px;height:36px;border-radius:50%;background:var(--gold);color:var(--navy-deep);display:flex;align-items:center;justify-content:center;font-size:1.05rem;box-shadow:0 2px 8px rgba(0,0,0,.25);transition:transform .2s,background .2s}
+    .media-dl:hover{transform:scale(1.1);background:var(--gold-light)}
+    .media-body{padding:1.25rem;flex:1;display:flex;flex-direction:column}
+    .media-cat{font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:.35rem}
+    .media-title{font-weight:600;color:var(--navy);font-size:.92rem;margin-bottom:.35rem;flex:1}
+    .dark .media-title{color:#e5e7eb}
+    .media-type{display:inline-flex;align-items:center;gap:.3rem;font-size:.72rem;color:var(--gray)}
+    .media-empty{text-align:center;padding:5rem 2rem;color:var(--gray)}
+    .media-empty i{color:rgba(201,168,76,.3);display:block;margin:0 auto 1rem;font-size:3.5rem}
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;z-index:9999;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;padding:1.5rem;backdrop-filter:blur(4px)}
+    .lightbox.open{opacity:1;visibility:visible}
+    .lb-inner{position:relative;max-width:900px;width:100%;text-align:center}
+    .lb-close{position:fixed;top:1.5rem;right:1.5rem;color:#fff;background:rgba(255,255,255,.1);border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;transition:background .2s;cursor:pointer;font-size:1.5rem}
+    .lb-close:hover{background:rgba(255,255,255,.2);color:var(--gold)}
+    .lb-media{max-width:100%;max-height:70vh;border-radius:.75rem}
+    .lb-title{color:#fff;margin-top:1rem;font-size:1.1rem;font-weight:600}
+    .lb-cat{color:var(--gold);font-size:.8rem;margin-top:.25rem}
+    video.lb-media{width:100%;background:#000}
+    .lb-pdf-view{color:#fff;display:flex;flex-direction:column;align-items:center;gap:1rem;padding:3rem 0}
+    .lb-pdf-view i{font-size:4rem;color:var(--gold)}
+    .lb-actions{display:flex;gap:.75rem;justify-content:center;margin-top:1.25rem;flex-wrap:wrap}
+
+    .modal-overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,18,38,.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;visibility:hidden;transition:opacity var(--transition),visibility var(--transition)}
+    .modal-overlay.open{opacity:1;visibility:visible}
+    .modal-box{background:var(--white);border-radius:1.25rem;padding:2.5rem 2rem;width:100%;max-width:480px;position:relative;box-shadow:var(--shadow-lg);text-align:center;transition:background var(--transition)}
+    .dark .modal-box{background:#132035}
+    .modal-close{position:absolute;top:1.25rem;right:1.25rem;color:var(--gray);background:none;display:flex;align-items:center;transition:color var(--transition);font-size:1.4rem}
+    .modal-close:hover{color:var(--gold)}
+    .modal-icon{display:flex;justify-content:center;color:var(--gold);margin-bottom:1rem;font-size:2.2rem}
+    .modal-box h2{font-size:1.5rem;color:var(--navy);margin-bottom:.25rem}
+    .dark .modal-box h2{color:#e5e7eb}
+    .modal-event-name{color:var(--gold);font-weight:600;font-size:.95rem;margin-bottom:1.75rem}
+    .modal-form{display:grid;gap:.9rem;text-align:right}
+    .modal-form input{width:100%;padding:.9rem 1rem;border-radius:.6rem;font-family:inherit;font-size:.9rem;border:1.5px solid #e5e7eb;background:var(--cream);color:var(--text);outline:none;transition:border-color var(--transition)}
+    .dark .modal-form input{background:#0f1c30;border-color:#1e3a5f;color:#e5e7eb}
+    .modal-form input:focus{border-color:var(--gold)}
+    .modal-submit{padding:.9rem;border-radius:.6rem;background:var(--navy);color:#fff;font-weight:600;transition:all var(--transition);display:flex;align-items:center;justify-content:center;gap:.5rem;font-size:.95rem}
+    .dark .modal-submit{background:var(--gold);color:var(--navy-deep)}
+    .modal-submit:hover{background:var(--gold);color:var(--navy-deep)}
+    .modal-success{display:none;flex-direction:column;align-items:center;gap:.75rem}
+    .modal-success i{color:var(--green);font-size:3rem}
+    .modal-success p{color:var(--gray);font-size:.9rem}
+
+    .session-modal-overlay{position:fixed;inset:0;z-index:2100;background:rgba(0,18,38,.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;visibility:hidden;transition:opacity var(--transition),visibility var(--transition)}
+    .session-modal-overlay.open{opacity:1;visibility:visible}
+    .session-modal-box{background:var(--white);border-radius:1.25rem;padding:1.75rem;width:100%;max-width:420px;max-height:85vh;overflow-y:auto;position:relative;box-shadow:var(--shadow-lg);transition:background var(--transition)}
+    .dark .session-modal-box{background:#132035}
+    .session-modal-close{position:absolute;top:1.1rem;left:1.1rem;color:var(--gray);background:none;display:flex;align-items:center;transition:color var(--transition);font-size:1.4rem;z-index:2}
+    .session-modal-close:hover{color:var(--gold)}
+    .session-modal-head{display:flex;align-items:center;gap:.6rem;margin-bottom:.25rem;padding-left:2rem}
+    .session-modal-head h3{font-size:1.15rem;color:var(--navy);margin:0}
+    .dark .session-modal-head h3{color:var(--gold-light)}
+    .session-modal-sub{font-size:.82rem;color:var(--gray);margin-bottom:1rem}
+    .session-modal-divider{height:1px;background:rgba(201,168,76,.2);margin:1rem 0}
+    .session-card-block{border-radius:.75rem;padding:1rem 1.1rem;margin-bottom:.85rem;border-right:4px solid var(--gold);background:var(--gray-light)}
+    .dark .session-card-block{background:#1a3358}
+    .session-card-block:last-child{margin-bottom:0}
+    .session-card-name{font-weight:700;font-size:.98rem;color:var(--navy);display:flex;align-items:center;gap:.4rem;margin-bottom:.5rem}
+    .dark .session-card-name{color:var(--gold-light)}
+    .session-card-meta{display:flex;flex-direction:column;gap:.4rem;font-size:.85rem;color:var(--gray)}
+    .session-card-meta span{display:flex;align-items:center;gap:.4rem}
+    .session-card-meta i{color:var(--gold);flex-shrink:0}
+    .session-card-meta strong{color:var(--text);font-weight:600}
+    .session-card-desc{font-size:.83rem;color:var(--gray);line-height:1.7;margin-top:.5rem;font-style:italic}
+    .session-card-count{display:inline-flex;align-items:center;gap:.3rem;background:var(--gold-pale);color:var(--navy);font-size:.72rem;font-weight:700;padding:.2rem .7rem;border-radius:99px;margin-bottom:.9rem}
+    .dark .session-card-count{background:rgba(201,168,76,.2);color:var(--gold-light)}
+    .session-share-btn{display:flex;align-items:center;gap:.4rem;background:var(--gold-pale);border:1px solid rgba(201,168,76,.3);color:var(--navy);font-size:.75rem;font-weight:600;padding:.4rem .9rem;border-radius:.4rem;cursor:pointer;margin-top:.75rem;transition:background .2s;font-family:inherit}
+    .dark .session-share-btn{color:var(--gold-light)}
+    .session-share-btn:hover{background:rgba(201,168,76,.25)}
+    .tt-empty-grid{text-align:center;padding:5rem 2rem;color:var(--gray)}
+    .tt-empty-grid i{color:rgba(201,168,76,.35);font-size:3.5rem;display:block;margin-bottom:1rem}
+
+    .admin-page{min-height:100vh;background:#f4f6fb;display:flex;transition:background var(--transition)}
+    .dark .admin-page{background:#0a1628}
     .login-screen{position:fixed;inset:0;z-index:99999;background:linear-gradient(135deg,#001226 0%,#0d2d55 60%,#1a4a7a 100%);display:flex;align-items:center;justify-content:center;padding:1.5rem}
     .login-screen::before{content:'☩';position:absolute;font-size:30rem;color:rgba(201,168,76,.04);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;line-height:1}
-    .login-box{background:var(--white);border-radius:1.25rem;padding:3rem 2.5rem;width:100%;max-width:420px;text-align:center;box-shadow:0 16px 48px rgba(0,26,56,0.15);position:relative;transition:background var(--transition)}
-    .dark .login-box{background:#132035}
+    .login-box{background:var(--white);border-radius:1.25rem;padding:3rem 2.5rem;width:100%;max-width:420px;text-align:center;box-shadow:var(--shadow-lg);position:relative;transition:background var(--transition)}
     .login-logo{width:72px;height:72px;border-radius:50%;border:3px solid var(--gold);margin:0 auto 1.25rem;display:block;object-fit:cover}
     .login-title{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--navy);margin-bottom:.25rem}
     .dark .login-title{color:var(--gold-light)}
@@ -85,70 +514,1394 @@
     .login-label{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--gray);display:block;margin-bottom:.35rem}
     .login-input-wrap{position:relative}
     .login-input-wrap i{position:absolute;right:.9rem;top:50%;transform:translateY(-50%);color:var(--gold);font-size:1.1rem}
-    .login-input{width:100%;padding:.85rem 2.75rem .85rem 1rem;border-radius:.6rem;background:var(--gray-light);border:1.5px solid #e2e8f0;color:var(--text);font-size:.9rem;outline:none;font-family:inherit;transition:border-color .2s}
+    .login-input{width:100%;padding:.85rem 2.75rem .85rem 1rem;border-radius:.6rem;background:var(--gray-light);border:1.5px solid #e2e8f0;color:var(--text);font-size:.9rem;outline:none;font-family:inherit;transition:border-color .25s,background var(--transition)}
     .dark .login-input{border-color:rgba(201,168,76,.25)}
     .login-input:focus{border-color:var(--gold)}
-    .login-btn{padding:.9rem;border-radius:.6rem;background:var(--navy);color:#fff;font-weight:700;font-size:.95rem;font-family:inherit;cursor:pointer;border:none;transition:all .25s;margin-top:.5rem}
+    .login-btn{padding:.9rem;border-radius:.6rem;background:var(--navy);color:#fff;font-weight:700;font-size:.95rem;font-family:inherit;cursor:pointer;border:none;transition:all .25s;margin-top:.5rem;display:flex;align-items:center;justify-content:center;gap:.5rem}
     .login-btn:hover{background:var(--navy-deep);transform:translateY(-2px)}
     .login-error{color:var(--red);font-size:.82rem;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:.4rem;padding:.6rem .9rem;display:none;margin-top:.25rem}
     .login-error.show{display:block}
+    .adm-sidebar{width:250px;background:var(--navy-deep);min-height:100vh;position:fixed;top:0;left:0;z-index:200;display:flex;flex-direction:column;transition:transform .3s;border-right:1px solid rgba(201,168,76,.15)}
+    .adm-logo{padding:1.5rem 1.25rem;border-bottom:1px solid rgba(201,168,76,.15);display:flex;align-items:center;gap:.75rem}
+    .adm-logo img{width:38px;height:38px;border-radius:50%;border:2px solid var(--gold)}
+    .adm-logo-text strong{display:block;font-family:'Playfair Display',serif;font-size:.95rem;color:var(--gold)}
+    .adm-logo-text span{font-size:.7rem;color:rgba(255,255,255,.4)}
+    .adm-nav{flex:1;padding:1.25rem .75rem;display:flex;flex-direction:column;gap:.2rem}
+    .adm-nav-label{font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);padding:.5rem .75rem .25rem}
+    .adm-link{display:flex;align-items:center;gap:.8rem;padding:.75rem 1rem;border-radius:.5rem;cursor:pointer;font-size:.875rem;color:rgba(255,255,255,.6);transition:all .2s;border:none;background:none;font-family:inherit;width:100%;text-align:right}
+    .adm-link:hover{background:rgba(255,255,255,.06);color:#fff}
+    .adm-link.active{background:var(--gold-pale);color:var(--gold)}
+    .adm-link i{font-size:1.1rem;flex-shrink:0}
+    .adm-footer{padding:1rem .75rem;border-top:1px solid rgba(201,168,76,.1)}
+    .adm-avatar{width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;color:var(--navy-deep);font-weight:700;font-size:.9rem;flex-shrink:0}
+    .adm-main{margin-left:250px;flex:1;min-height:100vh;display:flex;flex-direction:column}
+    .adm-topbar{height:60px;background:#fff;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;padding:0 1.75rem;position:sticky;top:0;z-index:100;transition:background var(--transition),border-color var(--transition)}
+    .dark .adm-topbar{background:#112240;border-color:rgba(201,168,76,.15)}
+    .adm-topbar-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--navy)}
+    .dark .adm-topbar-title{color:var(--gold-light)}
+    .adm-badge{background:var(--gold);color:var(--navy-deep);font-size:.7rem;font-weight:700;padding:.25rem .75rem;border-radius:20px}
+    .adm-content{padding:1.75rem;flex:1}
+    .adm-panel{display:none}
+    .adm-panel.active{display:block}
+    .adm-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.25rem;margin-bottom:2rem}
+    .adm-stat{background:#fff;border-radius:.875rem;padding:1.4rem;display:flex;align-items:center;gap:1rem;box-shadow:0 2px 12px rgba(0,30,60,.06);transition:background var(--transition)}
+    .dark .adm-stat{background:#112240}
+    .adm-stat-icon{width:48px;height:48px;border-radius:.625rem;display:flex;align-items:center;justify-content:center;background:var(--gold-pale);color:var(--gold);flex-shrink:0}
+    .adm-stat-icon i{font-size:1.3rem}
+    .adm-stat-val{font-size:1.75rem;font-weight:700;color:var(--navy);line-height:1}
+    .dark .adm-stat-val{color:#e5e7eb}
+    .adm-stat-label{font-size:.72rem;color:var(--gray);margin-top:.2rem}
+    .adm-card{background:#fff;border-radius:.875rem;box-shadow:0 2px 12px rgba(0,30,60,.06);padding:1.5rem;margin-bottom:1.5rem;transition:background var(--transition)}
+    .dark .adm-card{background:#112240}
+    .adm-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid #e2e8f0}
+    .dark .adm-card-head{border-bottom-color:rgba(201,168,76,.15)}
+    .adm-card-title{font-weight:700;color:var(--navy);display:flex;align-items:center;gap:.5rem;font-size:.95rem}
+    .dark .adm-card-title{color:#e5e7eb}
+    .adm-card-title i{color:var(--gold)}
+    .adm-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .adm-form-group{display:flex;flex-direction:column;gap:.35rem}
+    .adm-form-group.full{grid-column:1/-1}
+    .adm-label{font-size:.75rem;font-weight:600;color:var(--gray)}
+    .adm-label span{color:var(--gray);font-weight:400;font-size:.7rem}
+    .adm-input,.adm-select,.adm-textarea{width:100%;padding:.7rem 1rem;border:1.5px solid #e2e8f0;border-radius:.5rem;font-family:inherit;font-size:.875rem;color:var(--text);background:#f8fafc;transition:border-color .2s,background var(--transition),border var(--transition);direction:rtl;text-align:right;outline:none}
+    .adm-input:focus,.adm-select:focus,.adm-textarea:focus{border-color:var(--gold)}
+    .adm-textarea{height:100px;resize:vertical}
+    .dark .adm-input,.dark .adm-select,.dark .adm-textarea{background:#1a3358;border-color:rgba(201,168,76,.15);color:#e5e7eb}
+    .time-row{display:flex;gap:.5rem;align-items:center}
+    .time-ar-badge{background:var(--navy);color:var(--gold);font-size:.78rem;font-weight:600;padding:.35rem .7rem;border-radius:.375rem;white-space:nowrap}
+    .adm-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.65rem 1.25rem;border-radius:.5rem;font-weight:600;font-size:.82rem;cursor:pointer;transition:all .2s;border:none;font-family:inherit}
+    .adm-btn-gold{background:var(--gold);color:var(--navy-deep)}
+    .adm-btn-gold:hover{background:var(--gold-light)}
+    .adm-btn-navy{background:var(--navy);color:#fff}
+    .adm-btn-navy:hover{background:var(--navy-deep)}
+    .adm-btn-danger{background:rgba(239,68,68,.1);color:#dc2626}
+    .adm-btn-danger:hover{background:rgba(239,68,68,.2)}
+    .adm-btn-sm{padding:.35rem .75rem;font-size:.75rem}
+    .adm-table-wrap{overflow-x:auto}
+    .adm-table{width:100%;border-collapse:collapse;font-size:.85rem}
+    .adm-table th{background:#f8fafc;padding:.7rem 1rem;text-align:right;font-weight:600;color:var(--gray);font-size:.72rem;letter-spacing:.5px;text-transform:uppercase;border-bottom:2px solid #e2e8f0}
+    .dark .adm-table th{background:#1a3358;border-color:rgba(201,168,76,.15)}
+    .adm-table td{padding:.85rem 1rem;border-bottom:1px solid #e2e8f0;color:var(--text)}
+    .dark .adm-table td{border-bottom-color:rgba(255,255,255,.04)}
+    .adm-table tr:last-child td{border-bottom:none}
+    .adm-table tr:hover td{background:#f8fafc}
+    .dark .adm-table tr:hover td{background:rgba(255,255,255,.02)}
+    .tag{display:inline-block;padding:.2rem .6rem;border-radius:99px;font-size:.7rem;font-weight:600}
+    .tag-green{background:rgba(34,197,94,.1);color:#16a34a}
+    .tag-gold{background:var(--gold-pale);color:#92700a}
+    .dark .tag-gold{color:var(--gold-light)}
+    .tag-blue{background:rgba(96,165,250,.1);color:#3b7aff}
+    .tag-red{background:rgba(239,68,68,.1);color:#dc2626}
+    .adm-upload-zone{border:2px dashed #e2e8f0;border-radius:.875rem;padding:2.5rem 2rem;text-align:center;cursor:pointer;transition:border-color .2s,background .2s}
+    .adm-upload-zone:hover{border-color:var(--gold);background:rgba(201,168,76,.04)}
+    .adm-upload-zone i{color:var(--gold);display:block;margin:0 auto .75rem;font-size:2.5rem}
+    .adm-upload-zone p{font-size:.875rem;color:var(--gray)}
+    .adm-upload-zone strong{color:var(--navy)}
+    .dark .adm-upload-zone strong{color:#e5e7eb}
+    .adm-media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.75rem;margin-top:1.25rem}
+    .adm-thumb{border-radius:.625rem;overflow:hidden;aspect-ratio:1;background:#f0f4f8;display:flex;align-items:center;justify-content:center;border:1px solid #e2e8f0;position:relative}
+    .adm-thumb img{width:100%;height:100%;object-fit:cover}
+    .adm-thumb i{font-size:2rem;color:var(--gold)}
+    .osra-card-adm{background:var(--white);border:1px solid #e2e8f0;border-radius:.75rem;margin-bottom:.75rem;overflow:hidden;transition:background var(--transition)}
+    .dark .osra-card-adm{background:#1a3358;border-color:rgba(201,168,76,.15)}
+    .osra-card-head{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;cursor:pointer;background:#f8fafc;border-bottom:1px solid #e2e8f0}
+    .dark .osra-card-head{background:#1e3a5f;border-color:rgba(201,168,76,.1)}
+    .osra-card-name{font-weight:700;color:var(--navy);font-size:.9rem;display:flex;align-items:center;gap:.5rem}
+    .dark .osra-card-name{color:#e5e7eb}
+    .osra-card-meta{font-size:.75rem;color:var(--gray);margin-top:.2rem}
+    .osra-card-actions{display:flex;gap:.4rem;align-items:center;flex-shrink:0}
+    .osra-sessions-list{padding:.75rem 1.25rem;display:grid;gap:.4rem}
+    .osra-session-row{display:flex;align-items:center;gap:.75rem;padding:.6rem .75rem;background:#f0f4f8;border-radius:.5rem;font-size:.8rem}
+    .dark .osra-session-row{background:#132035}
+    .osra-session-row .ss-day-badge{background:var(--navy);color:var(--gold);font-size:.7rem;font-weight:700;padding:.2rem .5rem;border-radius:99px;white-space:nowrap}
+    .osra-session-row .ss-info{flex:1;min-width:0}
+    .osra-session-row .ss-name{font-weight:600;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .dark .osra-session-row .ss-name{color:#e5e7eb}
+    .osra-session-row .ss-meta{color:var(--gray);font-size:.72rem}
+    .osra-session-row .ss-actions{display:flex;gap:.3rem;flex-shrink:0}
+    .osra-no-sessions{padding:.75rem 1.25rem;text-align:center;color:var(--gray);font-size:.82rem}
+    .media-upload-meta{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+    .adm-backdrop{display:none;position:fixed;inset:0;background:rgba(0,8,20,.55);z-index:180;backdrop-filter:blur(2px)}
+    .adm-backdrop.show{display:block}
+    @media(max-width:900px){.adm-form-grid{grid-template-columns:1fr}}
+    @media(max-width:700px){
+      .adm-sidebar{transform:translateX(-100%);width:270px;max-width:84vw;box-shadow:0 0 40px rgba(0,0,0,.4)}
+      .adm-sidebar.open{transform:translateX(0)}
+      .adm-main{margin-left:0}
+      .adm-topbar{height:56px;padding:0 1rem}
+      .adm-content{padding:1rem}
+      .adm-stats{grid-template-columns:1fr 1fr;gap:.75rem}
+      .adm-card{padding:1.1rem;margin-bottom:1.1rem}
+      .media-upload-meta{grid-template-columns:1fr}
+      .osra-card-head{flex-direction:column;align-items:flex-start;gap:.75rem}
+      .osra-card-actions{width:100%;flex-wrap:wrap}
+    }
+    @media(max-width:480px){
+      .adm-stats{grid-template-columns:1fr}
+      .adm-badge{display:none}
+      .login-box{padding:2rem 1.4rem}
+    }
+
+    .scroll-top{position:fixed;bottom:2rem;right:2rem;z-index:900;width:44px;height:44px;border-radius:50%;background:var(--gold);color:var(--navy-deep);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);opacity:0;transform:translateY(20px);transition:all var(--transition)}
+    .scroll-top.show{opacity:1;transform:translateY(0)}
+    .scroll-top:hover{transform:translateY(-4px)}
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .toast{position:fixed;bottom:2rem;left:2rem;background:var(--navy);color:#fff;padding:.9rem 1.4rem;border-radius:.75rem;box-shadow:0 8px 32px rgba(0,0,0,.2);display:flex;align-items:center;gap:.65rem;transform:translateY(5rem);opacity:0;transition:all .4s;z-index:9999;font-size:.875rem;direction:rtl}
+    .toast i{color:var(--gold)}
+    .toast.show{transform:translateY(0);opacity:1}
+    @media(max-width:768px){
+      .container{padding:0 1.5rem}
+      .section{padding-top:3.5rem;padding-bottom:2rem}
+      .section-title{margin-bottom:2rem}
+      .hero{min-height:auto;padding-top:calc(var(--header-h) + 1.5rem);padding-bottom:2.5rem}
+      .stats-grid{gap:.5rem}
+      .stat-num{font-size:1.9rem}
+      .priests-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+      .events-grid{grid-template-columns:1fr;gap:1.25rem}
+      .timeline{padding-right:1.5rem}
+      .timeline-item::before{right:-2.05rem}
+    }
+    @media(max-width:430px){
+      .hero-title{font-size:1.95rem}
+      .hero-btns{gap:.75rem}
+      .hero-btns .btn-primary,.hero-btns .btn-outline{flex:1;justify-content:center;padding:.85rem 1rem}
+      .priests-grid{grid-template-columns:1fr 1fr}
+    }
   </style>
 </head>
 <body>
 
-<div class="login-screen" id="login-screen">
-  <div class="login-box">
-    <img class="login-logo" src="https://yt3.googleusercontent.com/fDYMuJkul64KgPbt9c-u9v6JfRH1Kdz-1ugEk1uwnlohvQJUP56XnqV4f25HqqHtQSpeahv7MQ=s160-c-k-c0x00ffffff-no-rj" alt="logo"/>
-    <h2 class="login-title">مرحباً بك</h2>
-    <p class="login-sub">الإدارة - كنيسة الأنبا أنطونيوس</p>
-    <form class="login-form" id="login-form">
-      <div class="login-input-wrap">
-        <label class="login-label">اسم المستخدم</label>
-        <input type="text" id="login-user" class="login-input" placeholder="أدخل اسم المستخدم" required/>
-        <i class="ri-user-line"></i>
+<header class="header" id="header">
+  <div class="nav container">
+    <a class="nav-logo" onclick="showPage('home')">
+      <img src="https://yt3.googleusercontent.com/fDYMuJkul64KgPbt9c-u9v6JfRH1Kdz-1ugEk1uwnlohvQJUP56XnqV4f25HqqHtQSpeahv7MQ=s160-c-k-c0x00ffffff-no-rj" alt="logo"/>
+      <span>كنيسة الأنبا أنطونيوس</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a onclick="showPage('home');scrollToSection('home-top')" class="active" data-nav="home">الرئيسية</a></li>
+      <li><a onclick="showPage('home');scrollToSection('about')" data-nav="about">عن الكنيسة</a></li>
+      <li><a onclick="showPage('home');scrollToSection('events')" data-nav="events">الفعاليات</a></li>
+      <li><a onclick="showPage('timetable')" data-nav="timetable">الجداول</a></li>
+      <li><a onclick="showPage('media')" data-nav="media">الميديا</a></li>
+      <li><a onclick="showPage('home');scrollToSection('contact')" data-nav="contact">تواصل معنا</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-icon" id="theme-btn" title="تغيير السمة"><i class="ri-moon-line" id="theme-icon"></i></button>
+      <button class="btn-admin" onclick="showPage('admin')">الإدارة</button>
+      <button class="nav-toggle btn-icon" id="nav-toggle"><i class="ri-menu-line"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="page-view active" id="page-home">
+  <section class="hero" id="home-top">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <p class="hero-label"><i class="ri-cross-line"></i> كنيسة قبطية أرثوذكسية · شبرا، القاهرة</p>
+          <h1 class="hero-title">كنيسة <em>الأنبا أنطونيوس</em><br>القبطية الأرثوذكسية</h1>
+          <p class="hero-desc">جذورنا في الإيمان القديم، ونمونا في المحبة والخدمة. انضم إلينا في القداسات والأسرار والشركة الروحية.</p>
+          <div class="hero-btns">
+            <button class="btn-primary" onclick="showPage('home');scrollToSection('masses')"><i class="ri-time-line"></i> مواعيد القداسات</button>
+            <button class="btn-outline" onclick="showPage('timetable')"><i class="ri-time-line"></i> مواعيد الخدمات</button>
+          </div>
+          <div class="synax-widget" id="synax-widget">
+            <div class="synax-loading" id="synax-loading"><i class="ri-loader-4-line"></i><span>جارٍ تحميل سنكسار اليوم...</span></div>
+            <div id="synax-content" style="display:none"></div>
+          </div>
+          <div class="countdown-strip" id="home-countdown"></div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-blob">
+            <img src="https://i0.wp.com/andrewshenouda.com/wp-content/uploads/2018/07/AS-SAINTANTONY-CHURCH-2.jpg?w=1500&ssl=1" alt="الكنيسة"/>
+          </div>
+        </div>
       </div>
-      <div class="login-input-wrap">
-        <label class="login-label">كلمة المرور</label>
-        <input type="password" id="login-pass" class="login-input" placeholder="أدخل كلمة المرور" required/>
-        <i class="ri-lock-line"></i>
+    </div>
+  </section>
+
+  <div class="stats-bar">
+    <div class="container">
+      <div class="stats-grid">
+        <div><div class="stat-num">+٩١</div><div class="stat-lbl">سنة في الخدمة</div></div>
+        <div><div class="stat-num">+٤٣٠٠</div><div class="stat-lbl">عائلة</div></div>
+        <div><div class="stat-num">١٠</div><div class="stat-lbl">قداسات أسبوعياً</div></div>
       </div>
-      <button type="submit" class="login-btn">دخول</button>
-      <div class="login-error" id="login-error">بيانات دخول غير صحيحة</div>
-    </form>
+    </div>
+  </div>
+
+  <section class="section container" id="masses">
+    <span class="section-label">أوقات العبادة</span>
+    <h2 class="section-title">مواعيد القداسات</h2>
+    <div class="mass-grid reveal">
+      <div class="mass-card featured">
+        <div class="mass-card-head"><div class="mass-card-icon"><i class="ri-star-line"></i></div><h3>الجمعة والسبت</h3></div>
+        <div class="mass-row"><span class="mass-row-label"><i class="ri-sun-line"></i> القداس الأول</span><span class="mass-row-time">٦:٠٠ – ٨:٠٠ ص</span></div>
+        <div class="mass-row"><span class="mass-row-label"><i class="ri-sun-line"></i> القداس الثاني</span><span class="mass-row-time">٨:٠٠ – ١٠:٣٠ ص</span></div>
+      </div>
+      <div class="mass-card">
+        <div class="mass-card-head"><div class="mass-card-icon"><i class="ri-calendar-check-line"></i></div><h3>الأحد</h3></div>
+        <div class="mass-row"><span class="mass-row-label"><i class="ri-sun-line"></i> القداس الأول</span><span class="mass-row-time">٧:٠٠ – ٩:٠٠ ص</span></div>
+        <div class="mass-row"><span class="mass-row-label"><i class="ri-sun-line"></i> القداس الثاني</span><span class="mass-row-time">٩:٠٠ – ١١:٠٠ ص</span></div>
+      </div>
+      <div class="mass-card">
+        <div class="mass-card-head"><div class="mass-card-icon"><i class="ri-calendar-2-line"></i></div><h3>الاثنين – الخميس</h3></div>
+        <div class="mass-row"><span class="mass-row-label"><i class="ri-sun-line"></i> قداس واحد</span><span class="mass-row-time">٧:٠٠ – ٩:٠٠ ص</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about section container" id="about">
+    <div class="about-grid reveal">
+      <div class="about-img"><img src="https://i0.wp.com/andrewshenouda.com/wp-content/uploads/2018/07/AS-SAINTANTONY-CHURCH-2.jpg?w=1500&ssl=1" alt="مذبح الكنيسة"/></div>
+      <div class="about-text">
+        <span class="about-tag"><i class="ri-history-line"></i> تاريخنا وإرثنا</span>
+        <h2>رعية قبطية أرثوذكسية<br>في قلب شبرا</h2>
+        <p>كنيسة الأنبا أنطونيوس هي رعية قبطية أرثوذكسية عريقة في قلب شبرا، تتبع إيبارشية شبرا الجنوبية برعاية نيافة الأنبا مكاري. نحافظ على التراث الليتورجي الإسكندري العريق بينما نرعى مجتمعاً حديثاً متسامحاً منذ أكثر من ٧٠ سنة.</p>
+        <p>شفيعنا الأنبا أنطونيوس الكبير، أبو الرهبان جميعاً، يرشدنا في رحلتنا الروحية عبر الصلاة والصوم والخدمة.</p>
+        <div class="perks">
+          <div class="perk"><i class="ri-checkbox-circle-line"></i> قداس الأحد ومدارس الأحد</div>
+          <div class="perk"><i class="ri-checkbox-circle-line"></i> اجتماعات الشباب والشمامسة</div>
+          <div class="perk"><i class="ri-checkbox-circle-line"></i> الأعياد والرحلات الروحية</div>
+          <div class="perk"><i class="ri-checkbox-circle-line"></i> الخدمة الاجتماعية والأعمال الخيرية</div>
+        </div>
+        <button class="history-toggle-btn" id="history-toggle" onclick="toggleHistory()"><i class="ri-arrow-down-s-line"></i> <span>اقرأ قصة تأسيس الكنيسة كاملة</span></button>
+        <div class="history-full" id="history-full">
+          <p>نشأت فكرة إنشاء الكنيسة حين اجتمعت جماعة من موظفي حي شيكولاني بشبرا حول رغبة في مكان للاجتماعات الدينية، فبدأوا بغرفتين بسيطتين باسم "الجمعية القبطية الأرثوذكسية"، معتمدين فقط على نعمة الله واشتراك شهري متواضع من أعضائها.</p>
+          <p>في مارس ١٩٣٥ تمكنت الجمعية من شراء قطعة أرض أمام مستشفى كتشنر، وبمشاركة القمص بطرس عطا الله الجوهري الذي دعا كل عائلة في الحي للتبرع الشهري، بدأ العمل الفعلي. وبمعجزة واضحة، وُجدت كل مواد البناء اللازمة أمام الموقع في صباح يوم واحد دون أن يعرف أحد من أحضرها.</p>
+          <p>اكتمل البناء المؤقت للكنيسة خلال أيام قليلة، وفي "أحد الشعانين" ٢١ إبريل ١٩٣٥ افتتح نيافة الأنبا إبرام مطران الجيزة الكنيسة وصلى أول قداس بحضور آلاف المصلين. واختير لها اسم القديس العظيم الأنبا أنطونيوس، أب الرهبنة، بتوجيه من الأنبا كيرلس مطران قنا والأنبا ثاؤفيلس مطران قوص، تمييزاً لها كثالث كنيسة في حي شبرا.</p>
+          <p>صدر الأمر الملكي رقم ٦٤ لسنة ١٩٣٨ من الملك فاروق بالترخيص بإنشاء الكنيسة الدائمة، وتم بناؤها بإشراف المهندس باسيلي سوريال، حتى أُقيم حفل رفع الصليب في ٨ ديسمبر ١٩٥٠ في عهد البابا يوساب الثاني، لتكتمل بذلك رحلة بيت قامه شعب بسيط بإيمان كبير.</p>
+          <h4><i class="ri-time-line"></i> محطات في تاريخ الكنيسة</h4>
+          <div class="timeline">
+            <div class="timeline-item"><div class="timeline-date">مارس ١٩٣٥</div><div class="timeline-text">شراء أرض الكنيسة باسم الجمعية القبطية الأرثوذكسية بشيكولاني شبرا</div></div>
+            <div class="timeline-item"><div class="timeline-date">١٥ إبريل ١٩٣٥</div><div class="timeline-text">بدء بناء الكنيسة المؤقتة بمعجزة توفر مواد البناء بين ليلة وضحاها</div></div>
+            <div class="timeline-item"><div class="timeline-date">٢١ إبريل ١٩٣٥ (أحد الشعانين)</div><div class="timeline-text">افتتاح الكنيسة المؤقتة وأول قداس إلهي بحضور آلاف المصلين</div></div>
+            <div class="timeline-item"><div class="timeline-date">١٨ أكتوبر ١٩٣٨</div><div class="timeline-text">صدور الأمر الملكي رقم ٦٤ لسنة ١٩٣٨ بالترخيص بإنشاء الكنيسة الدائمة</div></div>
+            <div class="timeline-item"><div class="timeline-date">٨ ديسمبر ١٩٥٠</div><div class="timeline-text">حفل رفع الصليب بعد إتمام بناء الكنيسة ومناراتها في عهد البابا يوساب الثاني</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container" id="priests">
+    <span class="section-label">خدام الشعب</span>
+    <h2 class="section-title">آباؤنا الكهنة</h2>
+    <div class="priests-grid reveal">
+      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القمص باخوم حبيب</h3><div class="priest-meta"><span>رُسم كاهناً عام ١٩٧٠</span></div></div>
+      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القمص أنطونيوس يونان</h3><div class="priest-meta"><span>رُسم كاهناً عام ١٩٨٥</span></div></div>
+      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القمص يوسف نظير</h3><div class="priest-meta"><span>رُسم كاهناً عام ١٩٩٨</span></div></div>
+      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القس هيمانوت شوقي</h3><div class="priest-meta"><span>رُسم كاهناً عام ٢٠٠٠</span></div></div>
+      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القس بيشوي حلمي</h3><div class="priest-meta"><span>رُسم كاهناً عام ٢٠٠٦</span></div></div>
+      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القس يوحنا ميلاد</h3><div class="priest-meta"><span>رُسم كاهناً عام ٢٠٠٦</span></div></div>
+      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القس بولا رسمي</h3><div class="priest-meta"><span>رُسم كاهناً عام ٢٠١٧</span></div></div>
+      <div class="priest-card"><div class="priest-icon"><i class="ri-user-star-line"></i></div><h3 class="priest-name">القس مينا مكرم</h3><div class="priest-meta"><span>رُسم كاهناً عام ٢٠٢٢</span></div></div>
+    </div>
+  </section>
+
+  <section class="section container" id="annexes">
+    <span class="section-label">مبانينا</span>
+    <h2 class="section-title">ملحقات الكنيسة</h2>
+    <div class="annex-grid reveal">
+      <div class="annex-card">
+        <div class="annex-card-head"><div class="annex-card-icon"><i class="ri-building-2-line"></i></div><h3>مبنى خدمات شارع ترعة الجلاد<br>(كنيسة السمائيين)</h3></div>
+        <ul class="annex-list">
+          <li><i class="ri-checkbox-blank-circle-fill"></i> قاعة عزاء تتسع لأكثر من ٢٠٠ فرد</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> مكتبان: مكتب القمص يوسف نظير ومكتب إداري</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> مسرح يتسع لـ٢٠٠ فرد</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> نادي الطفل (حضانة صغيرة)</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> كنيسة السمائيين بالدور الثالث، تتسع لـ٢٠٠ فرد</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> مشغل</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> المكتبة الاستعارية</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> مركز القديس يوسف الصديق لوسائل الإيضاح</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> مجلة براعم أنطونيوس</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> بيت للمغتربات</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> نادي التربية الكنسية (٣ أدوار)</li>
+        </ul>
+      </div>
+      <div class="annex-card">
+        <div class="annex-card-head"><div class="annex-card-icon"><i class="ri-building-4-line"></i></div><h3>مبنى خدمات شارع دانيال ميخائيل</h3></div>
+        <ul class="annex-list">
+          <li><i class="ri-checkbox-blank-circle-fill"></i> قاعة عزاء تتسع لـ١٢٠ فرد</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> قاعة اجتماعات تتسع لـ١٥٠ فرد</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> مكتب القس مينا مكرم</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> مكتبة الطفل</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> مركز الحبيب للكمبيوتر والكورسات</li>
+          <li><i class="ri-checkbox-blank-circle-fill"></i> برجولة (نادي للعائلات)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container" id="projects">
+    <span class="section-label">خدمة ممتدة</span>
+    <h2 class="section-title">أبرز المشاريع الخدمية</h2>
+    <div class="proj-grid reveal">
+      <div class="proj-card">
+        <div class="proj-icon"><i class="ri-home-heart-line"></i></div>
+        <h3>بيت الأنبا أنطونيوس للمؤتمرات والخلوات</h3>
+        <p>بمنطقة أبو يوسف بالعجمي، مخصص لاستضافة المؤتمرات والخلوات الروحية لأسر وخدام الكنيسة.</p>
+        <a class="proj-link" href="https://www.facebook.com/abou.yossef" target="_blank"><i class="ri-facebook-fill"></i> صفحة البيت على فيسبوك</a>
+      </div>
+      <div class="proj-card">
+        <div class="proj-icon"><i class="ri-tree-line"></i></div>
+        <h3>بيت كوكب البرية</h3>
+        <p>بيت الكنيسة بمنطقة الريف الأوروبي، يستضيف الرحلات والخلوات الروحية على مدار العام.</p>
+        <a class="proj-link" href="https://www.facebook.com/kawkbelbaria" target="_blank"><i class="ri-facebook-fill"></i> صفحة البيت على فيسبوك</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container" id="events">
+    <span class="section-label">الفعاليات القادمة</span>
+    <h2 class="section-title">فعاليات الكنيسة</h2>
+    <div class="events-grid" id="events-list"></div>
+  </section>
+
+  <section class="section container" id="contact">
+    <span class="section-label">تواصل معنا</span>
+    <h2 class="section-title">ابعت لنا رسالة</h2>
+    <div class="contact-grid reveal">
+      <div class="contact-info">
+        <h2>يسعدنا نسمع منك</h2>
+        <p>سواء كان عندك سؤال، أو محتاج صلاة، أو عايز تنضم لمجتمعنا — احنا هنا معاك.</p>
+        <div class="contact-items">
+          <div class="contact-item"><div class="contact-icon"><i class="ri-map-pin-line"></i></div><div class="contact-item-text"><h4>العنوان</h4><p>٢٣ شارع ترعة الجلاد، شبرا، القاهرة</p></div></div>
+          <div class="contact-item"><div class="contact-icon"><i class="ri-phone-line"></i></div><div class="contact-item-text"><h4>التليفون</h4><p>0222366900</p></div></div>
+          <div class="contact-item"><div class="contact-icon"><i class="ri-facebook-box-line"></i></div><div class="contact-item-text"><h4>فيسبوك</h4><p><a href="https://www.facebook.com/St.Antony.Church" target="_blank" style="color:var(--gold)">St.Antony.Church</a></p></div></div>
+        </div>
+      </div>
+      <form class="contact-form" id="contact-form">
+        <div class="form-row-2">
+          <input type="text" id="cf-name" placeholder="الاسم الكامل" required/>
+          <input type="email" id="cf-email" placeholder="البريد الإلكتروني" required/>
+        </div>
+        <input type="text" id="cf-subject" placeholder="الموضوع"/>
+        <textarea id="cf-message" placeholder="رسالتك…" required></textarea>
+        <button type="submit" class="form-submit"><i class="ri-send-plane-line"></i> ابعت الرسالة</button>
+        <div class="form-success" id="form-success"><i class="ri-checkbox-circle-line"></i><strong>تم الإرسال!</strong><p>شكراً ليك. هنرد عليك في أقرب وقت.</p></div>
+      </form>
+    </div>
+  </section>
+
+  <section class="section social-section container" id="social">
+    <span class="section-label">ابقَ على تواصل</span>
+    <h2 class="section-title">تابعونا على السوشيال ميديا</h2>
+    <div class="reveal">
+      <div class="social-group">
+        <h4><i class="ri-church-line"></i> صفحات وقنوات الكنيسة الرئيسية</h4>
+        <div class="social-chip-row">
+          <a class="social-chip" href="https://www.facebook.com/St.Antony.Church" target="_blank"><i class="ri-facebook-fill"></i> صفحة الكنيسة الرئيسية</a>
+          <a class="social-chip" href="https://www.facebook.com/st.antony.church.site" target="_blank"><i class="ri-facebook-fill"></i> صفحة الكنيسة الإضافية</a>
+          <a class="social-chip" href="https://www.facebook.com/stantony.church.9" target="_blank"><i class="ri-facebook-fill"></i> حساب الكنيسة</a>
+          <a class="social-chip" href="https://www.youtube.com/@stantonychurch" target="_blank"><i class="ri-youtube-fill"></i> القناة الرئيسية</a>
+          <a class="social-chip" href="https://www.youtube.com/@stantonychurch1" target="_blank"><i class="ri-youtube-fill"></i> القناة الاحتياطية</a>
+          <a class="social-chip" href="https://www.youtube.com/@user-gn1qr6dp4h" target="_blank"><i class="ri-youtube-fill"></i> أرشيف الكنيسة</a>
+          <a class="social-chip" href="https://whatsapp.com/channel/0029VaDDS3aJpe8ZmL7Wyw3B" target="_blank"><i class="ri-whatsapp-line"></i> قناة الواتساب</a>
+          <a class="social-chip" href="https://www.facebook.com/profile.php?id=100010971060831" target="_blank"><i class="ri-facebook-fill"></i> الأمانة العامة للخدمة</a>
+        </div>
+      </div>
+      <div class="social-group">
+        <h4><i class="ri-parent-line"></i> خدمة الطفل والحضانة</h4>
+        <div class="social-chip-row">
+          <a class="social-chip" href="https://www.facebook.com/Mktabet.ElTefl" target="_blank"><i class="ri-facebook-fill"></i> مكتبة الطفل</a>
+          <a class="social-chip" href="https://www.facebook.com/bara3em.antonios" target="_blank"><i class="ri-facebook-fill"></i> مجلة براعم أنطونيوس</a>
+          <a class="social-chip" href="https://www.youtube.com/@user-hy4kf7sj4b" target="_blank"><i class="ri-youtube-fill"></i> براعم أنطونيوس - يوتيوب</a>
+          <a class="social-chip" href="https://www.facebook.com/profile.php?id=100064011099446" target="_blank"><i class="ri-facebook-fill"></i> حضانة أبناء الكنيسة</a>
+        </div>
+      </div>
+      <div class="social-group">
+        <h4><i class="ri-group-line"></i> خدمة الشباب والإعداديات والثانوي</h4>
+        <div class="social-chip-row">
+          <a class="social-chip" href="https://www.youtube.com/@el3azim/videos" target="_blank"><i class="ri-youtube-fill"></i> مجلة العظيم في القديسين</a>
+          <a class="social-chip" href="https://www.facebook.com/el3azim.account" target="_blank"><i class="ri-facebook-fill"></i> حساب العظيم</a>
+          <a class="social-chip" href="https://www.facebook.com/el3azim" target="_blank"><i class="ri-facebook-fill"></i> صفحة العظيم</a>
+          <a class="social-chip" href="https://www.instagram.com/el3azim" target="_blank"><i class="ri-instagram-line"></i> العظيم على انستجرام</a>
+        </div>
+      </div>
+      <div class="social-group">
+        <h4><i class="ri-graduation-cap-line"></i> مدارس ومراكز الكنيسة</h4>
+        <div class="social-chip-row">
+          <a class="social-chip" href="https://www.facebook.com/st.AntonyDeaconsSchool" target="_blank"><i class="ri-facebook-fill"></i> مدرسة الشمامسة</a>
+          <a class="social-chip" href="https://www.youtube.com/@user-hj1gw6df3u" target="_blank"><i class="ri-youtube-fill"></i> مدرسة الشمامسة - يوتيوب</a>
+          <a class="social-chip" href="https://www.youtube.com/@user-mx2fg6kn4x/videos" target="_blank"><i class="ri-youtube-fill"></i> مدرسة القديس بولس للكتاب المقدس</a>
+          <a class="social-chip" href="https://www.facebook.com/profile.php?id=100063616881639" target="_blank"><i class="ri-facebook-fill"></i> مدرسة القديس بولس - فيسبوك</a>
+          <a class="social-chip" href="https://www.facebook.com/st.Joseph.family" target="_blank"><i class="ri-facebook-fill"></i> مركز القديس يوسف الصديق</a>
+          <a class="social-chip" href="https://www.facebook.com/stjoseph.leledah.5" target="_blank"><i class="ri-facebook-fill"></i> حساب مركز القديس يوسف</a>
+          <a class="social-chip" href="https://www.youtube.com/@user-bk1dh5pv3x" target="_blank"><i class="ri-youtube-fill"></i> قناة مركز القديس يوسف</a>
+          <a class="social-chip" href="https://www.facebook.com/joy.store.team" target="_blank"><i class="ri-facebook-fill"></i> فريق الألعاب</a>
+          <a class="social-chip" href="https://www.tiktok.com/@stjoseph_leledah" target="_blank"><i class="ri-tiktok-line"></i> تيك توك مركز القديس يوسف</a>
+        </div>
+      </div>
+      <div class="social-group">
+        <h4><i class="ri-clapperboard-line"></i> المسرح والميديا والمشاريع الخدمية</h4>
+        <div class="social-chip-row">
+          <a class="social-chip" href="https://www.facebook.com/Theater.St.Antony" target="_blank"><i class="ri-facebook-fill"></i> مسرح الكنيسة</a>
+          <a class="social-chip" href="https://www.facebook.com/st.antony.studios" target="_blank"><i class="ri-facebook-fill"></i> أسرة القديس لوقا للميديا</a>
+          <a class="social-chip" href="https://www.instagram.com/stantonystudios" target="_blank"><i class="ri-instagram-line"></i> استوديوهات القديس أنطونيوس</a>
+          <a class="social-chip" href="https://www.facebook.com/Ser.3azim" target="_blank"><i class="ri-facebook-fill"></i> سر عظيم</a>
+          <a class="social-chip" href="https://www.instagram.com/ser.3azim" target="_blank"><i class="ri-instagram-line"></i> سر عظيم - انستجرام</a>
+          <a class="social-chip" href="https://www.tiktok.com/@ser.3azim" target="_blank"><i class="ri-tiktok-line"></i> سر عظيم - تيك توك</a>
+          <a class="social-chip" href="https://www.youtube.com/@ser.3azim" target="_blank"><i class="ri-youtube-fill"></i> سر عظيم - يوتيوب</a>
+          <a class="social-chip" href="https://www.facebook.com/profile.php?id=61585018294905" target="_blank"><i class="ri-facebook-fill"></i> فَتِّش</a>
+          <a class="social-chip" href="https://www.instagram.com/fatteshh" target="_blank"><i class="ri-instagram-line"></i> فَتِّش - انستجرام</a>
+          <a class="social-chip" href="https://www.tiktok.com/@fatteshh" target="_blank"><i class="ri-tiktok-line"></i> فَتِّش - تيك توك</a>
+          <a class="social-chip" href="https://www.youtube.com/@Fattesh" target="_blank"><i class="ri-youtube-fill"></i> فَتِّش - يوتيوب</a>
+          <a class="social-chip" href="https://www.facebook.com/abou.yossef" target="_blank"><i class="ri-facebook-fill"></i> بيت الأنبا أنطونيوس بالعجمي</a>
+          <a class="social-chip" href="https://www.facebook.com/kawkbelbaria" target="_blank"><i class="ri-facebook-fill"></i> بيت كوكب البرية</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="https://yt3.googleusercontent.com/fDYMuJkul64KgPbt9c-u9v6JfRH1Kdz-1ugEk1uwnlohvQJUP56XnqV4f25HqqHtQSpeahv7MQ=s160-c-k-c0x00ffffff-no-rj" alt="logo"/>
+          <p>كنيسة الأنبا أنطونيوس القبطية الأرثوذكسية، شبرا، القاهرة.</p>
+          <div class="footer-socials">
+            <a href="https://www.facebook.com/St.Antony.Church" target="_blank"><i class="ri-facebook-fill"></i></a>
+            <a href="https://www.youtube.com/@stantonychurch" target="_blank"><i class="ri-youtube-fill"></i></a>
+            <a href="https://whatsapp.com/channel/0029VaDDS3aJpe8ZmL7Wyw3B" target="_blank"><i class="ri-whatsapp-line"></i></a>
+            <a href="https://www.instagram.com/el3azim" target="_blank"><i class="ri-instagram-line"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>روابط سريعة</h4>
+          <ul>
+            <li><a onclick="showPage('home');scrollToSection('home-top')">الرئيسية</a></li>
+            <li><a onclick="showPage('home');scrollToSection('about')">عن الكنيسة</a></li>
+            <li><a onclick="showPage('home');scrollToSection('annexes')">ملحقات الكنيسة</a></li>
+            <li><a onclick="showPage('home');scrollToSection('projects')">مشاريع خدمية</a></li>
+            <li><a onclick="showPage('timetable')">الجداول</a></li>
+            <li><a onclick="showPage('home');scrollToSection('events')">الفعاليات</a></li>
+            <li><a onclick="showPage('media')">الميديا</a></li>
+            <li><a onclick="showPage('home');scrollToSection('social')">تابعنا</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>الإيبارشية</h4>
+          <ul>
+            <li><a href="#">شبرا الجنوبية</a></li>
+            <li><a href="#">نيافة الأنبا مكاريوس</a></li>
+            <li><a href="#">الكنيسة القبطية الأرثوذكسية</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">© ٢٠٢٦ كنيسة الأنبا أنطونيوس القبطية الأرثوذكسية، شبرا. جميع الحقوق محفوظة.</div>
+    </div>
+  </footer>
+</div>
+
+<div class="page-view" id="page-timetable">
+  <div class="tt-page">
+    <div class="tt-hero">
+      <div class="tt-hero-icon"><i class="ri-time-line"></i></div>
+      <h1>جدول الخدمات الأسبوعي</h1>
+      <p>مواعيد الأسر والخدمات والقداسات مرتبة على مدار أيام الأسبوع</p>
+    </div>
+    <div class="container" style="padding:2rem 1.5rem 3rem">
+      <span class="section-label">مواعيد الأسبوع</span>
+      <h2 class="section-title">الأسر والخدمات اليومية</h2>
+
+      <div class="tt-view-toggle">
+        <button class="tt-toggle-btn active" id="tt-btn-grid" onclick="switchTTView('grid')"><i class="ri-layout-grid-line"></i> عرض اليوم</button>
+        <button class="tt-toggle-btn" id="tt-btn-list" onclick="switchTTView('list')"><i class="ri-list-check-2"></i> قائمة أسبوعية</button>
+      </div>
+
+      <div class="schedule-filter-wrap">
+        <span class="sch-filter-label">نوع الجدول:</span>
+        <button class="sch-filter-btn active" id="sf-all" onclick="setScheduleFilter('all',this)">الكل</button>
+        <button class="sch-filter-btn" id="sf-general" onclick="setScheduleFilter('جدول عام',this)">جدول عام</button>
+        <button class="sch-filter-btn" id="sf-summer" onclick="setScheduleFilter('جدول صيفي',this)">جدول صيفي</button>
+      </div>
+
+      <div class="loc-filter-wrap" id="loc-filter-wrap"></div>
+
+      <div id="tt-grid-view">
+        <div class="day-tabs-bar" id="tt-day-tabs"></div>
+        <div class="tt-day-header">
+          <div class="tt-day-title" id="tt-day-title">يوم الجمعة</div>
+          <span class="tt-session-count" id="tt-session-count">0 خدمة</span>
+        </div>
+        <div class="timeline-wrap" id="tt-timeline"></div>
+      </div>
+
+      <div id="tt-list-view" style="display:none">
+        <div class="timetable-grid" id="timetable-container"></div>
+      </div>
+    </div>
   </div>
 </div>
 
+<div class="page-view" id="page-media">
+  <div class="media-page">
+    <div class="media-hero">
+      <div class="media-hero-icon"><i class="ri-gallery-line"></i></div>
+      <h1>مكتبة الميديا والملفات</h1>
+      <p>فيديوهات، صور، وعروض وملفات PDF الخاصة بمجموعات الكنيسة</p>
+    </div>
+    <div class="media-filters">
+      <div class="mf-search"><i class="ri-search-line"></i><input type="text" id="media-search" placeholder="ابحث..." oninput="filterMedia()"/></div>
+      <div id="media-filter-btns" style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;align-items:center"></div>
+    </div>
+    <div class="media-content" id="media-public-content"></div>
+  </div>
+</div>
+
+<div class="page-view" id="page-admin">
+  <div class="admin-page" id="admin-wrap">
+    <div class="login-screen" id="login-screen">
+      <div class="login-box">
+        <img class="login-logo" src="https://yt3.googleusercontent.com/fDYMuJkul64KgPbt9c-u9v6JfRH1Kdz-1ugEk1uwnlohvQJUP56XnqV4f25HqqHtQSpeahv7MQ=s160-c-k-c0x00ffffff-no-rj" alt="logo"/>
+        <h1 class="login-title">Admin Panel</h1>
+        <p class="login-sub">St. Antony Coptic Church · Shoubra</p>
+        <form class="login-form" id="login-form" onsubmit="doLogin(event)">
+          <div><label class="login-label">Username</label><div class="login-input-wrap"><i class="ri-user-line"></i><input class="login-input" type="text" id="l-user" placeholder="Enter username" autocomplete="username" required/></div></div>
+          <div><label class="login-label">Password</label><div class="login-input-wrap"><i class="ri-lock-line"></i><input class="login-input" type="password" id="l-pass" placeholder="Enter password" autocomplete="current-password" required/></div></div>
+          <div class="login-error" id="login-error">Incorrect username or password.</div>
+          <button class="login-btn" type="submit"><i class="ri-shield-keyhole-line"></i> Sign In</button>
+        </form>
+      </div>
+    </div>
+
+    <aside class="adm-sidebar" id="adm-sidebar">
+      <div class="adm-logo">
+        <img src="https://yt3.googleusercontent.com/fDYMuJkul64KgPbt9c-u9v6JfRH1Kdz-1ugEk1uwnlohvQJUP56XnqV4f25HqqHtQSpeahv7MQ=s160-c-k-c0x00ffffff-no-rj" alt="logo"/>
+        <div class="adm-logo-text"><strong>كنيسة الأنبا أنطونيوس</strong><span>Admin Panel</span></div>
+      </div>
+      <nav class="adm-nav">
+        <div class="adm-nav-label">MAIN</div>
+        <button class="adm-link active" onclick="admNav('dashboard')"><i class="ri-dashboard-line"></i> Dashboard</button>
+        <button class="adm-link" onclick="admNav('events')"><i class="ri-calendar-line"></i> Events</button>
+        <button class="adm-link" onclick="admNav('timetable')"><i class="ri-time-line"></i> Groups &amp; Timetable</button>
+        <div class="adm-nav-label" style="margin-top:.5rem">CONTENT</div>
+        <button class="adm-link" onclick="admNav('media')"><i class="ri-folder-image-line"></i> Media Library</button>
+        <button class="adm-link" onclick="admNav('messages')"><i class="ri-mail-line"></i> Messages</button>
+        <div class="adm-nav-label" style="margin-top:.5rem">LINKS</div>
+        <button class="adm-link" onclick="showPage('home')"><i class="ri-global-line"></i> View Public Site</button>
+      </nav>
+      <div class="adm-footer">
+        <div style="display:flex;align-items:center;gap:.75rem">
+          <div class="adm-avatar">A</div>
+          <div><div style="color:#fff;font-size:.8rem;font-weight:600">Anthony</div><div style="color:rgba(255,255,255,.4);font-size:.7rem">Administrator</div></div>
+          <button onclick="logout()" style="margin-right:auto;background:none;color:rgba(255,255,255,.4);display:flex;align-items:center;" title="Logout"><i class="ri-logout-box-r-line" style="font-size:1.15rem"></i></button>
+        </div>
+      </div>
+    </aside>
+    <div class="adm-backdrop" id="adm-backdrop" onclick="closeAdmSidebar()"></div>
+
+    <div class="adm-main" id="adm-main">
+      <div class="adm-topbar">
+        <div style="display:flex;align-items:center;gap:1rem">
+          <button onclick="toggleAdmSidebar()" style="background:none;color:var(--navy);display:flex;align-items:center;"><i class="ri-menu-line" style="font-size:1.25rem"></i></button>
+          <span class="adm-topbar-title" id="adm-page-title">Dashboard</span>
+        </div>
+        <span class="adm-badge">Control Panel</span>
+      </div>
+      <div class="adm-content">
+
+        <div class="adm-panel active" id="adm-dashboard">
+          <div class="adm-stats">
+            <div class="adm-stat"><div class="adm-stat-icon"><i class="ri-calendar-event-line"></i></div><div><div class="adm-stat-val" id="ds-events">0</div><div class="adm-stat-label">Total Events</div></div></div>
+            <div class="adm-stat"><div class="adm-stat-icon"><i class="ri-group-line"></i></div><div><div class="adm-stat-val" id="ds-osras">0</div><div class="adm-stat-label">Groups</div></div></div>
+            <div class="adm-stat"><div class="adm-stat-icon"><i class="ri-image-line"></i></div><div><div class="adm-stat-val" id="ds-media">0</div><div class="adm-stat-label">Media Files</div></div></div>
+            <div class="adm-stat"><div class="adm-stat-icon"><i class="ri-mail-unread-line"></i></div><div><div class="adm-stat-val" id="ds-msgs">0</div><div class="adm-stat-label">New Messages</div></div></div>
+          </div>
+          <div class="adm-card">
+            <div class="adm-card-head"><div class="adm-card-title"><i class="ri-calendar-line"></i> Upcoming Events</div></div>
+            <div class="adm-table-wrap"><table class="adm-table"><thead><tr><th>Event Name</th><th>Date</th><th>Category</th><th>Time Left</th></tr></thead><tbody id="ds-events-table"></tbody></table></div>
+          </div>
+        </div>
+
+        <div class="adm-panel" id="adm-events">
+          <div class="adm-card">
+            <div class="adm-card-head"><div class="adm-card-title"><i class="ri-add-circle-line"></i> Add New Event</div></div>
+            <div class="adm-form-grid">
+              <div class="adm-form-group"><label class="adm-label">Event Title <span>(required)</span></label><input id="ev-title" class="adm-input" type="text" placeholder="مثال: اجتماع درس الكتاب العام"/></div>
+              <div class="adm-form-group"><label class="adm-label">Category</label><select id="ev-cat" class="adm-select"><option value="Feast">عشيات وأعياد</option><option value="Retreat">خلوات وتدريب روحي</option><option value="Youth">خدمة الشباب</option><option value="Liturgy">قداسات إلهية</option><option value="other">خدمات أخرى</option></select></div>
+              <div class="adm-form-group"><label class="adm-label">Event Date</label><input id="ev-date" class="adm-input" type="text" placeholder="e.g. Jan 30, 2026" style="direction:ltr;text-align:right"/></div>
+              <div class="adm-form-group"><label class="adm-label">Duration</label><input id="ev-dur" class="adm-input" type="text" placeholder="مثال: ٣ ساعات"/></div>
+              <div class="adm-form-group"><label class="adm-label">Image URL <span>(optional)</span></label><input id="ev-img" class="adm-input" type="url" placeholder="https://..." style="direction:ltr;text-align:right"/></div>
+              <div class="adm-form-group"><label class="adm-label">Booking</label><select id="ev-book" class="adm-select"><option value="1">Yes – Enable seat booking</option><option value="0">No – Open attendance</option></select></div>
+              <div class="adm-form-group full"><label class="adm-label">Description &amp; Details</label><textarea id="ev-desc" class="adm-textarea" placeholder="اكتب تفاصيل ومكان وملاحظات الفعالية..."></textarea></div>
+            </div>
+            <div style="margin-top:1rem;display:flex;justify-content:flex-end"><button class="adm-btn adm-btn-gold" onclick="addEvent()"><i class="ri-save-line"></i> Save Event</button></div>
+          </div>
+          <div class="adm-card">
+            <div class="adm-card-head"><div class="adm-card-title"><i class="ri-align-justify"></i> All Events</div></div>
+            <div class="adm-table-wrap"><table class="adm-table"><thead><tr><th>Event Title</th><th>Date</th><th>Category</th><th>Bookable</th><th>Actions</th></tr></thead><tbody id="events-table-body"></tbody></table></div>
+          </div>
+        </div>
+
+        <div class="adm-panel" id="adm-timetable">
+          <div class="adm-card">
+            <div class="adm-card-head"><div class="adm-card-title"><i class="ri-group-line"></i> Add New Group / Osra</div></div>
+            <div class="adm-form-grid">
+              <div class="adm-form-group"><label class="adm-label">Group Name <span>(required)</span></label><input id="os-name" class="adm-input" type="text" placeholder="مثال: أسرة الشباب"/></div>
+              <div class="adm-form-group"><label class="adm-label">Leader(s) Name</label><input id="os-leader" class="adm-input" type="text" placeholder="مثال: مينا"/></div>
+              <div class="adm-form-group full"><label class="adm-label">Description</label><input id="os-desc" class="adm-input" type="text" placeholder="نبذة مختصرة..."/></div>
+            </div>
+            <div style="margin-top:1rem;display:flex;justify-content:flex-end"><button class="adm-btn adm-btn-gold" onclick="addOsra()"><i class="ri-add-line"></i> Add Group</button></div>
+          </div>
+          <div class="adm-card" id="osra-sessions-card" style="display:none">
+            <div class="adm-card-head"><div class="adm-card-title" id="sessions-card-title"><i class="ri-calendar-todo-line"></i> Add Session to Group</div></div>
+            <div class="adm-form-grid">
+              <div class="adm-form-group"><label class="adm-label">Session Name</label><input id="ss-name" class="adm-input" type="text" placeholder="مثال: الاجتماع الأسبوعي"/></div>
+              <div class="adm-form-group"><label class="adm-label">Day</label><select id="ss-day" class="adm-select"><option>الأحد</option><option>الإثنين</option><option>الثلاثاء</option><option>الأربعاء</option><option>الخميس</option><option>الجمعة</option><option>السبت</option></select></div>
+              <div class="adm-form-group"><label class="adm-label">Start Time</label><div class="time-row"><input id="ss-time" class="adm-input" type="time" style="direction:ltr;text-align:right" oninput="updateTimeAr('ss-time','ss-time-ar')"/><span class="time-ar-badge" id="ss-time-ar">--</span></div></div>
+              <div class="adm-form-group"><label class="adm-label">Duration (hours)</label><input id="ss-dur" class="adm-input" type="number" min="0.5" max="8" step="0.5" placeholder="e.g. 1.5" style="direction:ltr"/></div>
+              <div class="adm-form-group"><label class="adm-label">Location / Hall</label><input id="ss-loc" class="adm-input" type="text" placeholder="مثال: القاعة الكبرى بالدور الثاني"/></div>
+              <div class="adm-form-group"><label class="adm-label">Notes <span>(optional)</span></label><input id="ss-notes" class="adm-input" type="text" placeholder="مثال: يرجى إحضار الأجبية"/></div>
+              <div class="adm-form-group"><label class="adm-label">Schedule Type</label><select id="ss-schedule" class="adm-select"><option value="جدول عام">جدول عام</option><option value="جدول صيفي">جدول صيفي</option></select></div>
+            </div>
+            <input type="hidden" id="ss-edit-id"/>
+            <div style="margin-top:1rem;display:flex;gap:.75rem;justify-content:flex-end">
+              <button class="adm-btn adm-btn-navy" id="ss-cancel-btn" onclick="cancelSessionEdit()" style="display:none"><i class="ri-close-line"></i> Cancel</button>
+              <button class="adm-btn adm-btn-gold" onclick="saveSession()"><i class="ri-save-line"></i> <span id="ss-btn-label">Add Session</span></button>
+            </div>
+          </div>
+          <div class="adm-card">
+            <div class="adm-card-head"><div class="adm-card-title"><i class="ri-folders-line"></i> All Groups</div></div>
+            <input id="osra-search" class="adm-input" type="text" placeholder="🔍 Search groups..." style="margin-bottom:1rem" oninput="renderAdminOsras()"/>
+            <div id="osras-table-body"></div>
+          </div>
+        </div>
+
+        <div class="adm-panel" id="adm-media">
+          <div class="adm-card">
+            <div class="adm-card-head"><div class="adm-card-title"><i class="ri-file-upload-line"></i> Upload Media &amp; Documents</div></div>
+            <div class="adm-upload-zone" onclick="document.getElementById('media-file-input').click()" id="adm-drop-zone">
+              <i class="ri-cloud-upload-line"></i>
+              <p><strong>Click to choose files</strong> or drag &amp; drop them here</p>
+              <p style="font-size:.75rem;margin-top:.3rem">Supports images, videos, PDF, PowerPoint, Word, Excel &amp; more</p>
+            </div>
+            <input type="file" id="media-file-input" multiple accept="image/*,video/*,audio/*,application/pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx,.txt,.zip,.rar" style="display:none" onchange="handleMediaFiles(this.files)"/>
+            <div class="media-upload-meta">
+              <div class="adm-form-group"><label class="adm-label">File Caption / Title</label><input id="media-cap" class="adm-input" type="text" placeholder="مثال: صورة تذكارية لعيد القيامة"/></div>
+              <div class="adm-form-group"><label class="adm-label">Group / Category</label><select id="media-cat-sel" class="adm-select"></select></div>
+            </div>
+            <div class="adm-media-grid" id="adm-media-preview"></div>
+            <div style="margin-top:1rem;display:flex;justify-content:flex-end"><button class="adm-btn adm-btn-gold" onclick="saveMedia()"><i class="ri-send-plane-2-line"></i> Save to Media Library</button></div>
+          </div>
+          <div class="adm-card">
+            <div class="adm-card-head"><div class="adm-card-title"><i class="ri-gallery-upload-line"></i> Uploaded Media</div></div>
+            <div class="adm-table-wrap"><table class="adm-table"><thead><tr><th>Filename</th><th>Caption</th><th>Category</th><th>Type</th><th>Actions</th></tr></thead><tbody id="media-table-body"></tbody></table></div>
+          </div>
+        </div>
+
+        <div class="adm-panel" id="adm-messages">
+          <div class="adm-card">
+            <div class="adm-card-head">
+              <div class="adm-card-title"><i class="ri-mail-open-line"></i> Contact Form Messages</div>
+              <button class="adm-btn adm-btn-danger adm-btn-sm" onclick="clearMessages()"><i class="ri-delete-bin-3-line"></i> Clear All</button>
+            </div>
+            <div id="messages-list-adm"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="booking-modal">
+  <div class="modal-box">
+    <button class="modal-close" id="modal-close"><i class="ri-close-line"></i></button>
+    <div class="modal-icon"><i class="ri-shield-user-line"></i></div>
+    <h2>حجز مقعد لحضور الفعالية</h2>
+    <p class="modal-event-name" id="modal-event-name"></p>
+    <form class="modal-form" id="booking-form">
+      <input type="hidden" id="booking-event-id"/>
+      <input type="text" id="bk-name" placeholder="الاسم الكامل للشخص" required/>
+      <input type="tel" id="bk-phone" placeholder="رقم الهاتف للتواصل" required/>
+      <input type="number" id="bk-persons" placeholder="عدد المقاعد المطلوبة" min="1" required/>
+      <button type="submit" class="modal-submit"><i class="ri-check-double-line"></i> تأكيد طلب الحجز</button>
+    </form>
+    <div class="modal-success" id="booking-success"><i class="ri-checkbox-circle-fill"></i><strong>تم تسجيل طلب الحجز بنجاح!</strong><p>هنتواصل معاك قريباً لتأكيد حجزك.</p></div>
+  </div>
+</div>
+
+<div class="session-modal-overlay" id="session-modal">
+  <div class="session-modal-box">
+    <button class="session-modal-close" id="session-modal-close"><i class="ri-close-line"></i></button>
+    <div class="session-modal-head"><i class="ri-time-line" style="color:var(--gold)"></i><h3 id="session-modal-time"></h3></div>
+    <p class="session-modal-sub" id="session-modal-day"></p>
+    <div id="session-modal-body"></div>
+  </div>
+</div>
+
+<button class="scroll-top" id="scroll-top"><i class="ri-arrow-up-line"></i></button>
+<div class="toast" id="toast"><i class="ri-notification-3-line"></i><span id="toast-msg"></span></div>
+
 <script>
-  // Admin credentials
-  const ADMIN_USER = 'Media';
-  const ADMIN_PASS = 'Media';
+const db={get:k=>JSON.parse(localStorage.getItem(k)||'null'),set:(k,v)=>localStorage.setItem(k,JSON.stringify(v))};
+if(!db.get('church-events'))db.set('church-events',[]);
+const SEED_OSRAS=[{"id":1782050781905,"name":"شاروبيم بنات كى جى","leader":"","description":"","sessions":[{"id":1782050781906,"name":"شاروبيم بنات كى جى","day":"الجمعة","time":"10:30","duration":1.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781907,"name":"اجتماع خادمات اسرة ابتدائى صغير بنات","leader":"","description":"","sessions":[{"id":1782050781908,"name":"اجتماع خادمات اسرة ابتدائى صغير بنات","day":"الجمعة","time":"11:30","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781909,"name":"سيرافيم بنات","leader":"","description":"","sessions":[{"id":1782050781910,"name":"سيرافيم بنات","day":"الجمعة","time":"13:00","duration":1.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781911,"name":"اسرة العذارى","leader":"","description":"","sessions":[{"id":1782050781912,"name":"اسرة العذارى","day":"الجمعة","time":"14:00","duration":1.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781913,"name":"اجتماع خادمات اسرة ابتدائى كبير بنات","leader":"","description":"","sessions":[{"id":1782050781914,"name":"اجتماع خادمات اسرة ابتدائى كبير بنات","day":"الجمعة","time":"15:00","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781915,"name":"القديسات","leader":"","description":"","sessions":[{"id":1782050781916,"name":"القديسات","day":"الجمعة","time":"16:30","duration":1.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781917,"name":"تلاميذ المسيح","leader":"","description":"","sessions":[{"id":1782050781918,"name":"تلاميذ المسيح","day":"الجمعة","time":"17:30","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"},{"id":1782050782133,"name":"تلاميذ المسيح","day":"الثلاثاء","time":"20:00","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول صيفي"}]},{"id":1782050781919,"name":"العائلة المقدسة","leader":"","description":"","sessions":[{"id":1782050781920,"name":"العائلة المقدسة","day":"الجمعة","time":"19:30","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781921,"name":"مدرسة القديس بولس (مخدومين)","leader":"","description":"","sessions":[{"id":1782050781922,"name":"مدرسة القديس بولس (مخدومين)","day":"السبت","time":"17:00","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"},{"id":1782050781951,"name":"مدرسة القديس بولس (مخدومين)","day":"السبت","time":"17:00","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"},{"id":1782050781980,"name":"مدرسة القديس بولس (مخدومين)","day":"السبت","time":"17:00","duration":2.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"},{"id":1782050782010,"name":"مدرسة القديس بولس (مخدومين)","day":"السبت","time":"17:00","duration":3.5,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة الدور الثانى","notes":"جدول عام"},{"id":1782050782117,"name":"مدرسة القديس بولس (مخدومين)","day":"السبت","time":"16:00","duration":3.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول صيفي"}]},{"id":1782050781923,"name":"تسبحه","leader":"","description":"","sessions":[{"id":1782050781924,"name":"تسبحه","day":"السبت","time":"19:00","duration":3.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781925,"name":"اسرة ليديا (مخدومين)","leader":"","description":"","sessions":[{"id":1782050781926,"name":"اسرة ليديا (مخدومين)","day":"الأحد","time":"15:30","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781927,"name":"اسرة ليديا (خدام )","leader":"","description":"","sessions":[{"id":1782050781928,"name":"اسرة ليديا (خدام )","day":"الأحد","time":"17:00","duration":1.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781929,"name":"اسرة الصليب ( مخدومين )","leader":"","description":"","sessions":[{"id":1782050781930,"name":"اسرة الصليب ( مخدومين )","day":"الأحد","time":"18:00","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781931,"name":"اسرة مكسيموس ودوماديوس","leader":"","description":"","sessions":[{"id":1782050781932,"name":"اسرة مكسيموس ودوماديوس","day":"الأحد","time":"20:00","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781933,"name":"خدام الكرمة","leader":"","description":"","sessions":[{"id":1782050781934,"name":"خدام الكرمة","day":"الأربعاء","time":"18:30","duration":1.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"}]},{"id":1782050781935,"name":"مدرسة الشمامسة","leader":"","description":"","sessions":[{"id":1782050781936,"name":"مدرسة الشمامسة","day":"الخميس","time":"18:30","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"},{"id":1782050781961,"name":"مدرسة الشمامسة","day":"الخميس","time":"18:00","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"},{"id":1782050782037,"name":"مدرسة الشمامسة","day":"الخميس","time":"18:30","duration":1.5,"location":"الدور الثالث بالكنيسة - قبلى","notes":"جدول عام"},{"id":1782050782055,"name":"مدرسة الشمامسة","day":"الجمعة","time":"19:30","duration":2.0,"location":"الدور الثالث بالكنيسة - الحجرة الزجاجية","notes":"جدول عام"},{"id":1782050782138,"name":"مدرسة الشمامسة","day":"الخميس","time":"18:30","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول صيفي"}]},{"id":1782050781937,"name":"ابائيات","leader":"","description":"","sessions":[{"id":1782050781938,"name":"ابائيات","day":"الخميس","time":"20:00","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول عام"},{"id":1782050782139,"name":"ابائيات","day":"الخميس","time":"20:00","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - كنيسة السمائيين","notes":"جدول صيفي"}]},{"id":1782050781939,"name":"استير ( محبة ابتدئى )","leader":"","description":"","sessions":[{"id":1782050781940,"name":"استير ( محبة ابتدئى )","day":"الجمعة","time":"11:00","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781941,"name":"خدام اسرة الرسل","leader":"","description":"","sessions":[{"id":1782050781942,"name":"خدام اسرة الرسل","day":"الجمعة","time":"12:30","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781943,"name":"الشماسة فيبى ( خادمات )","leader":"","description":"","sessions":[{"id":1782050781944,"name":"الشماسة فيبى ( خادمات )","day":"الجمعة","time":"14:00","duration":1.0,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781945,"name":"حقق حلمك","leader":"","description":"","sessions":[{"id":1782050781946,"name":"حقق حلمك","day":"الجمعة","time":"15:00","duration":3.0,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"},{"id":1782050781956,"name":"حقق حلمك","day":"الثلاثاء","time":"17:00","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781947,"name":"خدام العائلة المقدسه","leader":"","description":"","sessions":[{"id":1782050781948,"name":"خدام العائلة المقدسه","day":"الجمعة","time":"18:00","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781949,"name":"مجلة العظيم","leader":"","description":"","sessions":[{"id":1782050781950,"name":"مجلة العظيم","day":"الجمعة","time":"19:30","duration":2.0,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781952,"name":"اسرة الصليب ( خدام )","leader":"","description":"","sessions":[{"id":1782050781953,"name":"اسرة الصليب ( خدام )","day":"الأحد","time":"20:00","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781954,"name":"قلب يسوع (الحياه الكنسية)","leader":"","description":"","sessions":[{"id":1782050781955,"name":"قلب يسوع (الحياه الكنسية)","day":"الإثنين","time":"19:00","duration":2.5,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781957,"name":"اسرة الفادى","leader":"","description":"","sessions":[{"id":1782050781958,"name":"اسرة الفادى","day":"الثلاثاء","time":"19:30","duration":2.5,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"},{"id":1782050782155,"name":"اسرة الفادى","day":"الثلاثاء","time":"19:30","duration":1.5,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول صيفي"}]},{"id":1782050781959,"name":"كورال سانت انتونى","leader":"","description":"","sessions":[{"id":1782050781960,"name":"كورال سانت انتونى","day":"الأربعاء","time":"19:00","duration":3.0,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781962,"name":"كورال مكسيموس ودوماديوس","leader":"","description":"","sessions":[{"id":1782050781963,"name":"كورال مكسيموس ودوماديوس","day":"الخميس","time":"19:30","duration":2.5,"location":"مبنى ترعة الجلاد (القديم) - المدرج","notes":"جدول عام"}]},{"id":1782050781964,"name":"شاروبيم بنين ( مخدومين )","leader":"","description":"","sessions":[{"id":1782050781965,"name":"شاروبيم بنين ( مخدومين )","day":"الجمعة","time":"11:00","duration":1.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"}]},{"id":1782050781976,"name":"مكسيموس ودوماديوس","leader":"","description":"","sessions":[{"id":1782050781977,"name":"مكسيموس ودوماديوس","day":"الجمعة","time":"09:00","duration":1.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"}]},{"id":1782050781978,"name":"مركز الحبيب","leader":"","description":"","sessions":[{"id":1782050781979,"name":"مركز الحبيب","day":"السبت","time":"10:00","duration":7.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"},{"id":1782050781987,"name":"مركز الحبيب","day":"الإثنين","time":"13:00","duration":5.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"},{"id":1782050781992,"name":"مركز الحبيب","day":"الأربعاء","time":"14:00","duration":4.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"},{"id":1782050781995,"name":"مركز الحبيب","day":"الخميس","time":"14:00","duration":4.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"}]},{"id":1782050781983,"name":"القديس بولس للتجار ( مخدومين )","leader":"","description":"","sessions":[{"id":1782050781984,"name":"القديس بولس للتجار ( مخدومين )","day":"الأحد","time":"16:30","duration":1.5,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"}]},{"id":1782050781988,"name":"الانبا باخوميوس للخريجين ( خدام )","leader":"","description":"","sessions":[{"id":1782050781989,"name":"الانبا باخوميوس للخريجين ( خدام )","day":"الإثنين","time":"18:00","duration":2.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"}]},{"id":1782050781990,"name":"اجتماع السيدات ( خادمات )","leader":"","description":"","sessions":[{"id":1782050781991,"name":"اجتماع السيدات ( خادمات )","day":"الثلاثاء","time":"18:30","duration":2.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"}]},{"id":1782050781993,"name":"السامرى الصالح ( خدام )","leader":"","description":"","sessions":[{"id":1782050781994,"name":"السامرى الصالح ( خدام )","day":"الأربعاء","time":"19:00","duration":2.0,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"}]},{"id":1782050781996,"name":"اسرة الشهداء ( خدام )","leader":"","description":"","sessions":[{"id":1782050781997,"name":"اسرة الشهداء ( خدام )","day":"الخميس","time":"18:30","duration":1.5,"location":"مبنى دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)","notes":"جدول عام"}]},{"id":1782050782035,"name":"محو امية","leader":"","description":"","sessions":[{"id":1782050782036,"name":"محو امية","day":"الأربعاء","time":"17:00","duration":4.0,"location":"الدور الثالث بالكنيسة - قبلى","notes":"جدول عام"}]},{"id":1782050782056,"name":"ام النور","leader":"","description":"","sessions":[{"id":1782050782057,"name":"ام النور","day":"الأحد","time":"11:30","duration":2.0,"location":"الدور الثالث بالكنيسة - الحجرة الزجاجية","notes":"جدول عام"}]},{"id":1782050782074,"name":"الكرمه","leader":"","description":"","sessions":[{"id":1782050782075,"name":"الكرمه","day":"الأربعاء","time":"19:00","duration":2.5,"location":"الدور الثالث بالكنيسة - صحن الكنيسة","notes":"جدول عام"}]},{"id":1782050782107,"name":"الصليب","leader":"","description":"","sessions":[{"id":1782050782108,"name":"الصليب","day":"الأحد","time":"18:30","duration":1.0,"location":"النادي - الملعب","notes":"جدول عام"}]}];
+if(!db.get('church-osras')||!db.get('church-osras').length)db.set('church-osras',SEED_OSRAS);
+if(!db.get('church-media'))db.set('church-media',[]);
+if(!db.get('church-messages'))db.set('church-messages',[]);
+if(!db.get('church-bookings'))db.set('church-bookings',[]);
 
-  function initializeLogin() {
-    const loginForm = document.getElementById('login-form');
-    loginForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const username = document.getElementById('login-user').value;
-      const password = document.getElementById('login-pass').value;
-      const errorDiv = document.getElementById('login-error');
+let currentPage='home';
+let currentMediaCat='الكل';
+let selectedOsraId=null;
+let pendingMediaFiles=[];
+let currentScheduleFilter='all';
+let currentLocFilter='الكل';
+let ttActiveDayIdx=new Date().getDay();
+let ttSessionLookup={};
 
-      if (username === ADMIN_USER && password === ADMIN_PASS) {
-        errorDiv.classList.remove('show');
-        sessionStorage.setItem('adminLoggedIn', 'true');
-        localStorage.setItem('adminLoggedIn', 'true');
-        window.location.reload();
-      } else {
-        errorDiv.classList.add('show');
-      }
-    });
+function showPage(p){
+  document.querySelectorAll('.page-view').forEach(el=>el.classList.remove('active'));
+  const ap=document.getElementById('page-'+p);
+  if(ap)ap.classList.add('active');
+  currentPage=p;
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  const ne=document.querySelector('.nav-links a[data-nav="'+p+'"]');
+  if(ne)ne.classList.add('active');
+  const hdr=document.getElementById('header');
+  if(p==='admin'){hdr.classList.add('header-hidden')}else{hdr.classList.remove('header-hidden')}
+  window.scrollTo(0,0);
+  document.getElementById('nav-links').classList.remove('open');
+  if(p==='timetable'){buildTimetablePage()}
+  if(p==='media'){renderPublicMedia()}
+  if(p==='admin'){checkAdminAuth()}
+}
+function toggleHistory(){
+  const box=document.getElementById('history-full');
+  const btn=document.getElementById('history-toggle');
+  const open=box.classList.toggle('open');
+  btn.classList.toggle('open',open);
+  btn.querySelector('span').textContent=open?'إخفاء القصة':'اقرأ قصة تأسيس الكنيسة كاملة';
+}
+function scrollToSection(id){
+  setTimeout(()=>{
+    const el=document.getElementById(id);if(!el)return;
+    const off=el.getBoundingClientRect().top+window.scrollY-85;
+    window.scrollTo({top:off,behavior:'smooth'});
+  },180);
+}
+document.getElementById('nav-toggle').onclick=()=>document.getElementById('nav-links').classList.toggle('open');
+document.getElementById('scroll-top').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+window.addEventListener('scroll',()=>{
+  document.getElementById('header').classList.toggle('scrolled',window.scrollY>50);
+  document.getElementById('scroll-top').classList.toggle('show',window.scrollY>300);
+});
 
-    // Check if already logged in
-    if (sessionStorage.getItem('adminLoggedIn') || localStorage.getItem('adminLoggedIn')) {
-      document.getElementById('login-screen').style.display = 'none';
+let isDark=db.get('dark-theme')||false;
+function applyTheme(d){
+  document.body.classList.toggle('dark',d);
+  document.getElementById('theme-icon').className=d?'ri-sun-line':'ri-moon-line';
+}
+applyTheme(isDark);
+document.getElementById('theme-btn').onclick=()=>{isDark=!isDark;db.set('dark-theme',isDark);applyTheme(isDark)};
+
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+function toAr(n){return String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d])}
+function toArTime(t){
+  if(!t)return'--';
+  const[h,m]=t.split(':').map(Number);
+  const am=h<12,h12=h%12||12;
+  return`${toAr(h12)}:${toAr(String(m).padStart(2,'0'))} ${am?'ص':'م'}`;
+}
+function updateTimeAr(iid,lid){document.getElementById(lid).textContent=toArTime(document.getElementById(iid).value)}
+function countdown(dateStr){
+  const d=new Date(dateStr),now=new Date(),diff=d-now;
+  if(diff<0)return{text:'انتهى',cls:'tag-gold'};
+  const days=Math.floor(diff/86400000),hrs=Math.floor((diff%86400000)/3600000),mins=Math.floor((diff%3600000)/60000);
+  if(days>0)return{text:`${toAr(days)} يوم`,cls:'tag-blue'};
+  if(hrs>0)return{text:`${toAr(hrs)} ساعة`,cls:'tag-green'};
+  return{text:`${toAr(mins)} دقيقة`,cls:'tag-green'};
+}
+
+function copyText(text){
+  navigator.clipboard.writeText(text).then(()=>toast('تم النسخ للحافظة ✓')).catch(()=>{
+    const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();toast('تم النسخ للحافظة ✓');
+  });
+}
+
+const COPTIC_API='https://api.coptic.io/api';
+async function loadSynaxarion(){
+  const loadEl=document.getElementById('synax-loading');
+  const contentEl=document.getElementById('synax-content');
+  if(!loadEl||!contentEl)return;
+
+  try{
+    const today=new Date();
+    const dateStr=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+    const [calRes,synRes,seasonRes]=await Promise.all([
+      fetch(`${COPTIC_API}/calendar/${dateStr}?lang=ar`),
+      fetch(`${COPTIC_API}/synaxarium/${dateStr}?lang=ar`),
+      fetch(`${COPTIC_API}/season/${dateStr}?lang=ar`)
+    ]);
+    if(!calRes.ok||!synRes.ok)throw new Error('Synaxarium API unavailable');
+    const calendar=await calRes.json();
+    const saints=await synRes.json();
+    const season=seasonRes.ok?await seasonRes.json():null;
+    const gregDate=today.toLocaleDateString('ar-EG',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+    const badges=season?`<div class="synax-badges">${season.isFasting?`<span class="synax-badge synax-badge-fast"><i class="ri-heart-pulse-line"></i>${esc(season.season||season.description||'صوم')}</span>`:(season.season?`<span class="synax-badge"><i class="ri-calendar-event-line"></i>${esc(season.season)}</span>`:'')}</div>`:'';
+
+    loadEl.style.display='none';
+    contentEl.style.display='block';
+    contentEl.innerHTML=`
+      <div class="synax-header">
+        <span class="synax-header-title"><i class="ri-book-open-line"></i> سنكسار اليوم</span>
+        ${badges}
+      </div>
+      <div class="synax-date-row">
+        <span class="synax-cross">☩</span>
+        <span class="synax-coptic-date">${esc(calendar.dateString||`${calendar.day} ${calendar.monthString} ${calendar.year}`)}</span>
+        <span class="synax-greg-date">${gregDate}</span>
+      </div>
+      <div class="synax-saints">
+        ${Array.isArray(saints)&&saints.length?saints.map(s=>`
+          <a class="synax-saint-row" href="${esc(s.url||'https://coptic.io')}" target="_blank" rel="noopener noreferrer">
+            <i class="ri-star-line"></i>
+            <span class="synax-saint-name">${esc(s.name)}</span>
+          </a>`).join(''):`<div class="synax-empty"><i class="ri-information-line"></i><span>لا توجد أعياد مسجّلة لهذا اليوم.</span></div>`}
+      </div>
+      <div class="synax-more">
+        <span>المصدر: Coptic.IO</span>
+        <a href="https://coptic.io" target="_blank" rel="noopener noreferrer">عرض المزيد <i class="ri-external-link-line"></i></a>
+      </div>`;
+  }catch(err){
+    loadEl.style.display='none';
+    contentEl.style.display='block';
+    contentEl.innerHTML=`<div class="synax-error"><i class="ri-information-line"></i><span>تعذّر تحميل سنكسار اليوم. <a href="https://coptic.io" target="_blank" rel="noopener noreferrer" style="color:var(--gold-light)">جرّب coptic.io</a></span></div>`;
+  }
+}
+
+async function renderHomeCountdown(){
+  const events=await API.getEvents();
+  const upcoming=events.filter(e=>new Date(e.date)>new Date()).sort((a,b)=>new Date(a.date)-new Date(b.date)).slice(0,3);
+  const c=document.getElementById('home-countdown');if(!c)return;
+  if(!upcoming.length){c.innerHTML='';return}
+  c.innerHTML=upcoming.map(ev=>{
+    const cd=countdown(ev.date);
+    return`<div class="cdown-card"><div class="cdown-icon"><i class="ri-calendar-check-line"></i></div><div class="cdown-info"><div class="cdown-title">${esc(ev.title)}</div><div class="cdown-date">${esc(ev.date)}</div></div><div><div class="cdown-num">${cd.text.split(' ')[0]}</div><div class="cdown-unit">${cd.text.split(' ')[1]||''}</div></div></div>`;
+  }).join('');
+}
+async function renderEvents(){
+  const events=await API.getEvents();
+  const c=document.getElementById('events-list');if(!c)return;
+  if(!events.length){c.innerHTML=`<div class="no-events"><i class="ri-calendar-event-line"></i><p>لا توجد فعاليات في الوقت الحالي. ترقبوا الإعلان عن فعاليات قريباً!</p></div>`;return}
+  c.innerHTML=events.map(ev=>`
+    <article class="ev-card reveal">
+      <div class="ev-img">${ev.img?`<img src="${esc(ev.img)}" alt="${esc(ev.title)}"/>`:`<i class="ri-image-line"></i>`}</div>
+      <div class="ev-body">
+        <p class="ev-tag">${esc(ev.category||'عام')}</p>
+        <h3>${esc(ev.title)}</h3>
+        <div class="ev-meta">
+          <span class="ev-meta-item"><i class="ri-calendar-line"></i>${esc(ev.date)}</span>
+          ${ev.duration?`<span class="ev-meta-item"><i class="ri-time-line"></i>${esc(ev.duration)}</span>`:''}
+        </div>
+        <p>${esc(ev.description||'')}</p>
+        ${ev.bookable?`<button class="btn-book" onclick="openBooking(${ev.id},'${esc(ev.title)}')" ><i class="ri-ticket-line"></i> احجز مكانك</button>`:`<span style="font-size:.8rem;color:var(--gray)"><i class="ri-group-line"></i> حضور عام مفتوح</span>`}
+        <button class="btn-share-ev" onclick="copyText('${esc(ev.title)} — ${esc(ev.date)}${ev.duration?' · '+esc(ev.duration):''}')"><i class="ri-share-line"></i> مشاركة</button>
+      </div>
+    </article>`).join('');
+  c.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+}
+
+async function renderGallery(){
+  const allMedia=await API.getMedia();
+  const images=allMedia.filter(m=>m.type&&m.type.startsWith('image')&&m.url);
+  const g=document.getElementById('gallery-grid');if(!g)return;
+  if(!images.length){g.innerHTML=`<div class="gallery-empty"><i class="ri-image-2-line"></i><p>لا توجد صور مرفوعة بعد. ارفع صوراً من لوحة الإدارة.</p></div>`;return}
+  g.innerHTML=images.map((m,i)=>`
+    <div class="gallery-item" onclick="openGalleryLb(${i})">
+      <img src="${esc(m.url)}" alt="${esc(m.caption)}" loading="lazy"/>
+      <div class="gallery-item-overlay"><span class="gallery-item-label">${esc(m.caption||m.name)}</span></div>
+    </div>`).join('');
+}
+async function openGalleryLb(i){
+  const allMedia=await API.getMedia();
+  const images=allMedia.filter(m=>m.type&&m.type.startsWith('image')&&m.url);
+  if(!images[i])return;
+  openLightboxFromMedia(images[i],i);
+}
+
+function openBooking(id,name){
+  document.getElementById('modal-event-name').textContent=name;
+  document.getElementById('booking-event-id').value=id;
+  document.getElementById('booking-form').style.display='grid';
+  document.getElementById('booking-success').style.display='none';
+  document.getElementById('booking-form').reset();
+  document.getElementById('booking-modal').classList.add('open');
+}
+document.getElementById('modal-close').onclick=()=>document.getElementById('booking-modal').classList.remove('open');
+document.getElementById('booking-modal').onclick=e=>{if(e.target===document.getElementById('booking-modal'))document.getElementById('booking-modal').classList.remove('open')};
+document.getElementById('session-modal-close').onclick=closeSessionCard;
+document.getElementById('session-modal').onclick=e=>{if(e.target===document.getElementById('session-modal'))closeSessionCard()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSessionCard();closeLightbox()}});
+document.getElementById('booking-form').onsubmit=async e=>{
+  e.preventDefault();
+  const events=await API.getEvents();
+  const id=parseInt(document.getElementById('booking-event-id').value);
+  const ev=events.find(x=>x.id===id);
+  const b={id:Date.now(),eventId:id,eventName:ev?ev.title:'فعالية عامة',name:document.getElementById('bk-name').value.trim(),phone:document.getElementById('bk-phone').value.trim(),persons:document.getElementById('bk-persons').value,date:new Date().toLocaleString()};
+  await API.saveBooking(b);
+  document.getElementById('booking-form').style.display='none';
+  document.getElementById('booking-success').style.display='flex';
+};
+document.getElementById('contact-form').onsubmit=async e=>{
+  e.preventDefault();
+  const msg={id:Date.now(),name:document.getElementById('cf-name').value.trim(),email:document.getElementById('cf-email').value.trim(),subject:document.getElementById('cf-subject').value.trim()||'بدون موضوع',message:document.getElementById('cf-message').value.trim(),date:new Date().toLocaleString(),read:false};
+  await API.saveMessage(msg);
+  document.getElementById('contact-form').querySelectorAll('input,textarea,button').forEach(el=>el.style.display='none');
+  document.getElementById('form-success').style.display='block';
+};
+
+function setScheduleFilter(val,btn){
+  currentScheduleFilter=val;
+  document.querySelectorAll('.sch-filter-btn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  buildTimetablePage();
+}
+
+async function buildLocFilter(){
+  const osras=await API.getOsras();
+  const locs=new Set(['الكل']);
+  osras.forEach(o=>(o.sessions||[]).forEach(s=>{
+    if(s.location){
+      const building=s.location.split('-')[0].trim();
+      if(building)locs.add(building);
     }
+  }));
+  const wrap=document.getElementById('loc-filter-wrap');if(!wrap)return;
+  wrap.innerHTML=[...locs].map(l=>`<button class="loc-filter-btn${l===currentLocFilter?' active':''}" onclick="setLocFilter('${esc(l)}',this)">${esc(l)}</button>`).join('');
+}
+function setLocFilter(val,btn){
+  currentLocFilter=val;
+  document.querySelectorAll('.loc-filter-btn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  if(currentTTView==='grid')renderTimetableGridView();
+  else renderTimetablePublic();
+}
+
+let currentTTView='grid';
+function buildTimetablePage(){
+  buildLocFilter();
+  if(currentTTView==='grid')renderTimetableGridView();
+  else renderTimetablePublic();
+}
+function switchTTView(view){
+  currentTTView=view;
+  document.getElementById('tt-grid-view').style.display=view==='grid'?'block':'none';
+  document.getElementById('tt-list-view').style.display=view==='list'?'block':'none';
+  document.getElementById('tt-btn-grid').classList.toggle('active',view==='grid');
+  document.getElementById('tt-btn-list').classList.toggle('active',view==='list');
+  if(view==='list')renderTimetablePublic();
+  else renderTimetableGridView();
+}
+
+function filterSession(s){
+  if(currentScheduleFilter!=='all'&&s.notes!==currentScheduleFilter)return false;
+  if(currentLocFilter!=='الكل'){
+    const building=(s.location||'').split('-')[0].trim();
+    if(building!==currentLocFilter)return false;
+  }
+  return true;
+}
+
+async function renderTimetableGridView(){
+  const osras=await API.getOsras();
+  const COLORS=['pc0','pc1','pc2','pc3','pc4','pc5','pc6','pc7'];
+  const WEEKDAYS=['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  const todayIdx=new Date().getDay();
+
+  const allSessions=[];
+  osras.forEach((os,oi)=>{
+    (os.sessions||[]).filter(filterSession).forEach(s=>{
+      allSessions.push({...s,osraId:os.id,osraName:os.name,osraLeader:os.leader||'',colorClass:COLORS[oi%8],_uid:`${os.id}-${s.id}`});
+    });
+  });
+  ttSessionLookup={};
+  allSessions.forEach(s=>{ttSessionLookup[s._uid]=s});
+
+  const tabsEl=document.getElementById('tt-day-tabs');
+  if(tabsEl){
+    tabsEl.innerHTML=WEEKDAYS.map((d,i)=>{
+      const count=allSessions.filter(s=>s.day===d).length;
+      const isToday=i===todayIdx,isActive=i===ttActiveDayIdx;
+      return`<button onclick="ttSetDay(${i})" class="day-tab-btn${isActive?' active':''}${isToday?' today-day':''}">${d}${count?` (${count})`:''}</button>`;
+    }).join('');
+  }
+  window.ttSetDay=function(i){ttActiveDayIdx=i;renderTimetableGridView()};
+  renderDayTimeline(allSessions);
+}
+
+function renderDayTimeline(allSessions){
+  const WEEKDAYS=['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  const day=WEEKDAYS[ttActiveDayIdx];
+  const titleEl=document.getElementById('tt-day-title');
+  const countEl=document.getElementById('tt-session-count');
+  const timelineEl=document.getElementById('tt-timeline');
+  if(!timelineEl)return;
+
+  if(titleEl)titleEl.textContent=`يوم ${day}`;
+
+  const sessions=allSessions.filter(s=>s.day===day).map(s=>{
+    const[h,m]=(s.time||'09:00').split(':').map(Number);
+    const dur=parseFloat(s.duration)||1;
+    return{...s,startMin:h*60+m,endMin:h*60+m+dur*60};
+  }).sort((a,b)=>a.startMin-b.startMin);
+
+  if(countEl)countEl.textContent=`${sessions.length} خدمة`;
+
+  if(!sessions.length){
+    timelineEl.innerHTML=`<div style="text-align:center;padding:3rem 1rem;color:var(--gray)"><i class="ri-calendar-event-line" style="font-size:2.5rem;color:rgba(201,168,76,.3);display:block;margin-bottom:.75rem"></i><p>لا توجد خدمات مجدولة ليوم ${day} بهذا الفلتر</p></div>`;
+    return;
   }
 
-  document.addEventListener('DOMContentLoaded', initializeLogin);
-</script>
+  const minH=Math.floor(Math.min(...sessions.map(s=>s.startMin))/60);
+  const maxH=Math.ceil(Math.max(...sessions.map(s=>s.endMin))/60);
 
+  let html='';
+  for(let h=minH;h<maxH;h++){
+    const startsHere=sessions.filter(s=>Math.floor(s.startMin/60)===h);
+    if(!startsHere.length)continue;
+    const byTime={};
+    startsHere.forEach(s=>{(byTime[s.startMin]=byTime[s.startMin]||[]).push(s)});
+    let slotHTML='';
+    Object.values(byTime).forEach(group=>{
+      group.forEach(s=>{
+        const overlap=group.length>1;
+        const dur=s.duration||1;
+        const shareText=`${s.name} — يوم ${s.day} ${toArTime(s.time)} · ${dur}h${s.location?' · '+s.location:''}`;
+        slotHTML+=`
+          <div class="session-pill ${s.colorClass}" onclick="openSessionCard('${s._uid}')">
+            <div class="pill-top">
+              <div class="pill-name">${esc(s.name)}</div>
+              <div class="pill-time">${toArTime(s.time)} · ${dur}h</div>
+              ${overlap?`<span class="pill-overlap">+${group.length-1} أخرى</span>`:''}
+            </div>
+            <div class="pill-bottom">
+              <i class="ri-map-pin-line"></i>${esc((s.location||'').split('-').pop().trim()||s.location||'')}
+              ${s.notes?`<span class="pill-note">${esc(s.notes)}</span>`:''}
+            </div>
+            <button class="pill-share" onclick="event.stopPropagation();copyText('${esc(shareText).replace(/'/g,"\\'")}')"><i class="ri-share-line"></i> نسخ</button>
+          </div>`;
+      });
+    });
+    const label=h===12?'12 ظ':h>12?`${h-12} م`:`${h} ص`;
+    html+=`<div class="time-slot-row"><div class="time-slot-label">${label}</div><div class="time-slot-content">${slotHTML}</div></div>`;
+  }
+  timelineEl.innerHTML=`<div class="timeline-wrap">${html}</div>`;
+}
+
+async function renderTimetablePublic(){
+  const osras=await API.getOsras();
+  const container=document.getElementById('timetable-container');if(!container)return;
+  const WEEKDAYS=['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  const daySessions={};
+  WEEKDAYS.forEach(d=>{daySessions[d]=[]});
+  osras.forEach(os=>{
+    (os.sessions||[]).filter(filterSession).forEach(s=>{
+      if(daySessions[s.day])daySessions[s.day].push({...s,osraName:os.name,osraLeader:os.leader||''});
+    });
+  });
+  WEEKDAYS.forEach(d=>{daySessions[d].sort((a,b)=>a.time.localeCompare(b.time))});
+  if(!osras.length){container.innerHTML=`<div class="tt-empty-grid"><i class="ri-calendar-2-line"></i><h3 style="color:var(--navy)">لا توجد جداول مضافة</h3><p>أضف مجموعات من لوحة الإدارة</p></div>`;return}
+  container.innerHTML=WEEKDAYS.map(day=>{
+    const list=daySessions[day];
+    const svcs=list.length?list.map(s=>{
+      const shareText=`${s.name} — يوم ${day} ${toArTime(s.time)}${s.location?' · '+s.location:''}`;
+      return`<div class="service-row">
+        <div><span class="service-time"><i class="ri-time-line"></i>${toArTime(s.time)}</span></div>
+        <div>
+          <h4 class="service-name-title">${esc(s.name)}</h4>
+          <div class="service-meta-info">
+            <span><i class="ri-group-line"></i><strong>${esc(s.osraName)}</strong></span>
+            ${s.location?`<span><i class="ri-map-pin-line"></i><strong>${esc(s.location)}</strong></span>`:''}
+          </div>
+          ${s.notes?`<p class="service-notes-text">${esc(s.notes)}</p>`:''}
+          <button class="pill-share" style="opacity:1;margin-top:.5rem;position:relative" onclick="copyText('${esc(shareText).replace(/'/g,"\\'")}')"><i class="ri-share-line"></i> نسخ للمشاركة</button>
+        </div>
+      </div>`;
+    }).join(''):`<div class="day-empty-msg">لا توجد خدمات بهذا الفلتر</div>`;
+    return`<div class="day-block"><div class="day-block-header"><span class="day-name"><i class="ri-bookmark-3-line" style="color:var(--gold)"></i> يوم ${day}</span><span class="day-badge">${list.length} خدمة</span></div><div class="day-services-list">${svcs}</div></div>`;
+  }).join('');
+}
+
+function openSessionCard(uid){
+  const s=ttSessionLookup[uid];if(!s)return;
+  const sameDay=Object.values(ttSessionLookup).filter(x=>x.day===s.day);
+  const sM=s.startMin||(()=>{const[h,m]=(s.time||'0:0').split(':').map(Number);return h*60+m})();
+  const eM=s.endMin||(sM+(parseFloat(s.duration)||1)*60);
+  const overlapping=sameDay.filter(x=>x._uid!==s._uid&&(x.startMin||0)<eM&&(x.endMin||0)>sM);
+  document.getElementById('session-modal-time').textContent=`${toArTime(s.time)}${s.duration?' · '+s.duration+' ساعة':''}`;
+  document.getElementById('session-modal-day').textContent=`يوم ${s.day}`;
+  const shareText=`${s.name} — يوم ${s.day} ${toArTime(s.time)}${s.duration?' · '+s.duration+'h':''}${s.location?' · '+s.location:''}`;
+  const renderCard=(sess,isPrimary)=>`
+    <div class="session-card-block" style="${isPrimary?'':'opacity:.85'}">
+      <div class="session-card-name"><i class="ri-focus-3-line"></i>${esc(sess.name)}</div>
+      <div class="session-card-meta">
+        <span><i class="ri-group-line"></i> المجموعة: <strong>${esc(sess.osraName)}</strong></span>
+        ${sess.osraLeader?`<span><i class="ri-user-star-line"></i> المسؤول: <strong>${esc(sess.osraLeader)}</strong></span>`:''}
+        ${sess.location?`<span><i class="ri-map-pin-line"></i> المكان: <strong>${esc(sess.location)}</strong></span>`:''}
+        <span><i class="ri-time-line"></i> الموعد: <strong>${toArTime(sess.time)}${sess.duration?' ('+esc(String(sess.duration))+' ساعة)':''}</strong></span>
+        ${sess.notes?`<span><i class="ri-sticky-note-line"></i> ${esc(sess.notes)}</span>`:''}
+      </div>
+    </div>`;
+  let html=renderCard(s,true);
+  html+=`<button class="session-share-btn" onclick="copyText('${esc(shareText).replace(/'/g,"\\'")}')"><i class="ri-share-line"></i> نسخ للمشاركة عبر واتساب</button>`;
+  if(overlapping.length){html+=`<div class="session-modal-divider"></div><div class="session-card-count"><i class="ri-stack-line"></i>${overlapping.length+1} مجموعات في نفس التوقيت</div>`;html+=overlapping.map(o=>renderCard(o,false)).join('')}
+  document.getElementById('session-modal-body').innerHTML=html;
+  document.getElementById('session-modal').classList.add('open');
+}
+function closeSessionCard(){document.getElementById('session-modal').classList.remove('open')}
+
+const PINNED_MEDIA_CATS=['مدرسة الشمامسة','مدرسة القديس بولس (مخدومين)'];
+async function renderPublicMedia(){await renderMediaFilters();filterMedia()}
+async function renderMediaFilters(){
+  const osras=await API.getOsras();
+  const allNames=osras.map(o=>o.name);
+  const remaining=osras.filter(o=>!PINNED_MEDIA_CATS.includes(o.name));
+  const topR=[...remaining].sort((a,b)=>(b.sessions||[]).length-(a.sessions||[]).length)[0];
+  const featured=[...PINNED_MEDIA_CATS.filter(c=>allNames.includes(c)),...(topR?[topR.name]:[])];
+  const rest=allNames.filter(c=>!featured.includes(c));
+  if(!['الكل',...allNames].includes(currentMediaCat))currentMediaCat='الكل';
+  const wrap=document.getElementById('media-filter-btns');if(!wrap)return;
+  const btnHTML=['الكل',...featured].map(c=>`<button class="mf-btn${c===currentMediaCat?' active':''}" data-cat="${esc(c)}" onclick="filterMediaCat('${esc(c)}')">${esc(c)}</button>`).join('');
+  const isMoreActive=rest.includes(currentMediaCat);
+  const moreHTML=rest.length?`<select class="mf-btn mf-more-select${isMoreActive?' active':''}" onchange="filterMediaCat(this.value)"><option value="" ${isMoreActive?'':'selected'} disabled>${rest.length} أقسام أخرى...</option>${rest.map(c=>`<option value="${esc(c)}"${c===currentMediaCat?' selected':''}>${esc(c)}</option>`).join('')}</select>`:'';
+  wrap.innerHTML=btnHTML+moreHTML;
+}
+async function populateMediaCatSelect(){
+  const sel=document.getElementById('media-cat-sel');if(!sel)return;
+  const osras=await API.getOsras();
+  if(!osras.length){sel.innerHTML=`<option value="">أضف مجموعة أولاً</option>`;return}
+  const prev=sel.value;
+  sel.innerHTML=osras.map(o=>`<option value="${esc(o.name)}">${esc(o.name)}</option>`).join('');
+  if(prev&&osras.some(o=>o.name===prev))sel.value=prev;
+}
+async function filterMedia(){
+  const allMedia=await API.getMedia();
+  const q=(document.getElementById('media-search')||{value:''}).value.toLowerCase().trim();
+  let filtered=allMedia;
+  if(currentMediaCat!=='الكل')filtered=filtered.filter(m=>m.category===currentMediaCat);
+  if(q)filtered=filtered.filter(m=>(m.caption||'').toLowerCase().includes(q)||(m.name||'').toLowerCase().includes(q));
+  const c=document.getElementById('media-public-content');if(!c)return;
+  if(!filtered.length){c.innerHTML=`<div class="media-empty"><i class="ri-folder-open-line"></i><h3>لا توجد وسائط متوفرة حالياً</h3><p>قم برفع الصور أو الملفات من لوحة الإدارة.</p></div>`;return}
+  const cats=[...new Set(filtered.map(m=>m.category))];
+  c.innerHTML=cats.map(cat=>{
+    const items=filtered.filter(m=>m.category===cat);
+    return`<div class="media-section-title"><i class="ri-folder-2-line"></i><span>قسم: ${esc(cat)}</span></div><div class="media-grid">${items.map(m=>{const idx=allMedia.findIndex(x=>x.id===m.id);return mediaCardHTML(m,idx)}).join('')}</div>`;
+  }).join('');
+}
+function filterMediaCat(cat){if(!cat)return;currentMediaCat=cat;renderMediaFilters();filterMedia()}
+function mediaCardHTML(m,idx){
+  const isVid=m.type&&m.type.startsWith('video'),isImg=m.type&&m.type.startsWith('image'),isPdf=m.type==='application/pdf';
+  let thumb=isImg&&m.url?`<img src="${esc(m.url)}" alt="${esc(m.caption)}" loading="lazy"/>`:isVid?`<div class="media-play"><i class="ri-play-circle-line"></i></div>`:isPdf?`<i class="ri-file-pdf-line media-pdf-icon"></i>`:`<i class="ri-file-line media-file-icon"></i>`;
+  return`<div class="media-card reveal" onclick="openLightboxFromIdx(${idx})"><div class="media-thumb">${thumb}<button class="media-dl" title="تحميل" onclick="event.stopPropagation();downloadMediaIdx(${idx})"><i class="ri-download-2-line"></i></button></div><div class="media-body"><div class="media-cat">${esc(m.category)}</div><div class="media-title">${esc(m.caption||m.name)}</div><div class="media-type"><i class="ri-attachment-line"></i><span>${isPdf?'PDF':isVid?'فيديو':isImg?'صورة':'ملف'}</span></div></div></div>`;
+}
+async function openLightboxFromIdx(idx){const allMedia=await API.getMedia();openLightboxFromMedia(allMedia[idx],idx)}
+function openLightboxFromMedia(m,idx){
+  if(!m)return;
+  let lb=document.getElementById('main-lightbox');
+  if(!lb){lb=document.createElement('div');lb.className='lightbox';lb.id='main-lightbox';lb.innerHTML=`<button class="lb-close" onclick="closeLightbox()"><i class="ri-close-line"></i></button><div class="lb-inner"><div id="lb-content"></div><div class="lb-title" id="lb-title"></div><div class="lb-cat" id="lb-cat"></div><div class="lb-actions"><button class="btn-primary" id="lb-download"><i class="ri-download-2-line"></i> تحميل</button></div></div>`;lb.onclick=e=>{if(e.target===lb)closeLightbox()};document.body.appendChild(lb)}
+  const content=document.getElementById('lb-content');
+  const isVid=m.type&&m.type.startsWith('video'),isImg=m.type&&m.type.startsWith('image'),isAudio=m.type&&m.type.startsWith('audio'),isPdf=m.type==='application/pdf';
+  if(isImg&&m.url)content.innerHTML=`<img src="${esc(m.url)}" class="lb-media" alt="${esc(m.caption)}"/>`;
+  else if(isVid&&m.url)content.innerHTML=`<video src="${esc(m.url)}" class="lb-media" controls autoplay></video>`;
+  else if(isAudio&&m.url)content.innerHTML=`<div class="lb-pdf-view"><i class="ri-music-2-fill"></i><h3>${esc(m.name)}</h3><audio src="${esc(m.url)}" controls autoplay style="margin-top:1rem"></audio></div>`;
+  else if(isPdf)content.innerHTML=`<div class="lb-pdf-view"><i class="ri-file-pdf-fill"></i><h3>${esc(m.name)}</h3></div>`;
+  else content.innerHTML=`<div class="lb-pdf-view"><i class="ri-file-3-fill"></i><h3>${esc(m.name)}</h3></div>`;
+  document.getElementById('lb-title').textContent=m.caption||m.name;
+  document.getElementById('lb-cat').textContent=m.category||'';
+  const dlBtn=document.getElementById('lb-download');if(dlBtn)dlBtn.onclick=()=>downloadMediaIdx(idx);
+  lb.classList.add('open');document.body.style.overflow='hidden';
+}
+async function downloadMediaIdx(idx){const allMedia=await API.getMedia();const m=allMedia[idx];if(!m||!m.url){toast('الملف غير متاح');return}const a=document.createElement('a');a.href=m.url;a.download=m.name||m.caption||'church-file';document.body.appendChild(a);a.click();a.remove();toast('جارٍ تحميل الملف...')}
+function closeLightbox(){const lb=document.getElementById('main-lightbox');if(lb){lb.classList.remove('open');const c=document.getElementById('lb-content');if(c)c.innerHTML='';}document.body.style.overflow=''}
+
+const AUTH={salt:'stantony_shoubra_2026_$@lt_v1',userHash:'2aa1c13037e834a52c1dca7e3f83bad4f13f49759ea1abef743cc9055e8280f1',passHash:'353010326df4a07204b5e10e79924c147262aa65b8011f403c9298b75d97608c',maxAttempts:5,lockoutMs:5*60*1000,sessionMs:2*60*60*1000};
+async function sha256(str){const d=new TextEncoder().encode(str);const b=await crypto.subtle.digest('SHA-256',d);return Array.from(new Uint8Array(b)).map(b=>b.toString(16).padStart(2,'0')).join('')}
+function safeEqual(a,b){if(a.length!==b.length)return false;let d=0;for(let i=0;i<a.length;i++)d|=a.charCodeAt(i)^b.charCodeAt(i);return d===0}
+function getLockState(){try{return JSON.parse(localStorage.getItem('admin-lock')||'{"fails":0,"until":0}')}catch{return{fails:0,until:0}}}
+function setLockState(s){localStorage.setItem('admin-lock',JSON.stringify(s))}
+function isSessionValid(){try{const s=JSON.parse(sessionStorage.getItem('admin-session')||'null');if(!s||!s.token||s.token.length!==64)return false;if(Date.now()>s.exp){sessionStorage.removeItem('admin-session');return false}return true}catch{return false}}
+function checkAdminAuth(){if(isSessionValid()){document.getElementById('login-screen').style.display='none';refreshAdminStats();admNav('dashboard')}else{document.getElementById('login-screen').style.display='flex'}}
+async function doLogin(e){
+  e.preventDefault();
+  const err=document.getElementById('login-error');
+  const lock=getLockState();
+  if(lock.until&&Date.now()<lock.until){err.textContent=`Too many attempts. Try again in ${Math.ceil((lock.until-Date.now())/60000)} min.`;err.classList.add('show');return}
+  const u=document.getElementById('l-user').value.trim(),p=document.getElementById('l-pass').value;
+  const uH=await sha256(AUTH.salt+':'+u),pH=await sha256(AUTH.salt+':'+p);
+  const ok=safeEqual(uH,AUTH.userHash)&&safeEqual(pH,AUTH.passHash);
+  if(ok){setLockState({fails:0,until:0});const token=await sha256(crypto.getRandomValues(new Uint32Array(4)).join('-')+':'+Date.now());sessionStorage.setItem('admin-session',JSON.stringify({token,exp:Date.now()+AUTH.sessionMs}));err.classList.remove('show');const ls=document.getElementById('login-screen');ls.style.transition='opacity .4s';ls.style.opacity='0';setTimeout(()=>{ls.style.display='none';ls.style.opacity='1'},400);document.getElementById('l-pass').value='';refreshAdminStats();admNav('dashboard')}
+  else{const fails=(lock.fails||0)+1;const state={fails,until:0};if(fails>=AUTH.maxAttempts){state.until=Date.now()+AUTH.lockoutMs;state.fails=0;err.textContent='Too many failed attempts. Locked for 5 minutes.'}else{err.textContent=`Incorrect. ${AUTH.maxAttempts-fails} attempt(s) left.`}setLockState(state);err.classList.add('show');document.getElementById('l-pass').value=''}
+}
+function logout(){sessionStorage.removeItem('admin-session');document.getElementById('login-screen').style.display='flex';document.getElementById('l-user').value='';document.getElementById('l-pass').value='';showPage('home')}
+
+function toggleAdmSidebar(){const sb=document.getElementById('adm-sidebar'),bd=document.getElementById('adm-backdrop');const open=sb.classList.toggle('open');bd.classList.toggle('show',open)}
+function closeAdmSidebar(){document.getElementById('adm-sidebar').classList.remove('open');document.getElementById('adm-backdrop').classList.remove('show')}
+const admPanels=['dashboard','events','timetable','media','messages'];
+const admTitles={dashboard:'Dashboard',events:'Manage Events',timetable:'Groups & Timetable',media:'Media Library',messages:'Contact Messages'};
+function admNav(panel){
+  admPanels.forEach(p=>{document.getElementById('adm-'+p).classList.toggle('active',p===panel)});
+  document.querySelectorAll('.adm-sidebar .adm-link').forEach(link=>{const o=link.getAttribute('onclick')||'';link.classList.toggle('active',o.includes(`'${panel}'`))});
+  document.getElementById('adm-page-title').textContent=admTitles[panel]||panel;
+  closeAdmSidebar();
+  if(panel==='dashboard')refreshAdminStats();
+  if(panel==='events')renderAdminEventsTable();
+  if(panel==='timetable')renderAdminOsras();
+  if(panel==='media'){populateMediaCatSelect();renderAdminMedia()}
+  if(panel==='messages')renderAdminMessages();
+}
+
+async function refreshAdminStats(){
+  const[events,osras,media,messages]=await Promise.all([API.getEvents(),API.getOsras(),API.getMedia(),API.getMessages()]);
+  document.getElementById('ds-events').textContent=events.length;
+  document.getElementById('ds-osras').textContent=osras.length;
+  document.getElementById('ds-media').textContent=media.length;
+  document.getElementById('ds-msgs').textContent=messages.filter(m=>!m.read).length;
+  const tbody=document.getElementById('ds-events-table');
+  const upcoming=events.filter(e=>new Date(e.date)>new Date()).sort((a,b)=>new Date(a.date)-new Date(b.date)).slice(0,5);
+  tbody.innerHTML=upcoming.length?upcoming.map(e=>{const cd=countdown(e.date);return`<tr><td><strong>${esc(e.title)}</strong></td><td>${esc(e.date)}</td><td><span class="tag tag-gold">${esc(e.category)}</span></td><td><span class="tag ${cd.cls}">${cd.text}</span></td></tr>`}).join(''):`<tr><td colspan="4" style="text-align:center;color:var(--gray);padding:1.5rem">لا توجد فعاليات قادمة</td></tr>`;
+}
+
+async function addEvent(){
+  const title=document.getElementById('ev-title').value.trim(),date=document.getElementById('ev-date').value.trim();
+  if(!title||!date)return toast('أدخل اسم الفعالية وتاريخها');
+  const ev={id:Date.now(),title,category:document.getElementById('ev-cat').value,date,duration:document.getElementById('ev-dur').value.trim(),img:document.getElementById('ev-img').value.trim(),description:document.getElementById('ev-desc').value.trim(),bookable:document.getElementById('ev-book').value==='1'};
+  const events=await API.getEvents();events.push(ev);await API.saveEvents(events);
+  ['ev-title','ev-date','ev-dur','ev-img','ev-desc'].forEach(id=>{document.getElementById(id).value=''});
+  renderAdminEventsTable();renderEvents();renderHomeCountdown();toast('تم إضافة الفعالية');
+}
+async function renderAdminEventsTable(){
+  const events=await API.getEvents();const tbody=document.getElementById('events-table-body');
+  tbody.innerHTML=events.length?events.map(ev=>`<tr><td><strong>${esc(ev.title)}</strong></td><td>${esc(ev.date)}</td><td><span class="tag tag-gold">${esc(ev.category)}</span></td><td>${ev.bookable?'<span class="tag tag-green">نعم</span>':'<span class="tag tag-red">لا</span>'}</td><td><button class="adm-btn adm-btn-danger adm-btn-sm" onclick="deleteEvent(${ev.id})"><i class="ri-delete-bin-line"></i> حذف</button></td></tr>`).join(''):`<tr><td colspan="5" style="text-align:center;color:var(--gray);padding:1.5rem">لم تضف فعاليات بعد</td></tr>`;
+}
+async function deleteEvent(id){if(!confirm('حذف هذه الفعالية؟'))return;let events=await API.getEvents();events=events.filter(e=>e.id!==id);await API.saveEvents(events);renderAdminEventsTable();renderEvents();renderHomeCountdown();toast('تم حذف الفعالية')}
+
+async function addOsra(){
+  const name=document.getElementById('os-name').value.trim();if(!name)return toast('أدخل اسم المجموعة');
+  const os={id:Date.now(),name,leader:document.getElementById('os-leader').value.trim(),description:document.getElementById('os-desc').value.trim(),sessions:[]};
+  const osras=await API.getOsras();osras.push(os);await API.saveOsras(osras);
+  ['os-name','os-leader','os-desc'].forEach(id=>{document.getElementById(id).value=''});
+  selectedOsraId=os.id;renderAdminOsras();populateMediaCatSelect();showSessionFormCard(os);toast('تم إضافة المجموعة');
+}
+function showSessionFormCard(os){
+  document.getElementById('osra-sessions-card').style.display='block';
+  document.getElementById('sessions-card-title').innerHTML=`<i class="ri-calendar-event-line"></i> Add Session — <strong>${esc(os.name)}</strong>`;
+  document.getElementById('ss-btn-label').textContent='Add Session';
+  document.getElementById('ss-cancel-btn').style.display='none';
+  document.getElementById('ss-edit-id').value='';
+}
+async function selectOsraForSessions(id){
+  selectedOsraId=id;const osras=await API.getOsras();const o=osras.find(x=>x.id===id);
+  if(o){showSessionFormCard(o);document.getElementById('osra-sessions-card').scrollIntoView({behavior:'smooth'})}
+}
+async function editSession(osraId,sessionId){
+  selectedOsraId=osraId;const osras=await API.getOsras();const os=osras.find(x=>x.id===osraId);if(!os)return;
+  const ss=(os.sessions||[]).find(s=>s.id===sessionId);if(!ss)return;
+  document.getElementById('ss-name').value=ss.name||'';
+  document.getElementById('ss-day').value=ss.day||'الأحد';
+  document.getElementById('ss-time').value=ss.time||'';
+  document.getElementById('ss-dur').value=ss.duration||'';
+  document.getElementById('ss-loc').value=ss.location||'';
+  document.getElementById('ss-notes').value=ss.notes||'';
+  document.getElementById('ss-schedule').value=ss.notes||'جدول عام';
+  document.getElementById('ss-time-ar').textContent=toArTime(ss.time);
+  document.getElementById('ss-edit-id').value=sessionId;
+  document.getElementById('osra-sessions-card').style.display='block';
+  document.getElementById('sessions-card-title').innerHTML=`<i class="ri-edit-line"></i> Edit Session — <strong>${esc(os.name)}</strong>`;
+  document.getElementById('ss-btn-label').textContent='Update Session';
+  document.getElementById('ss-cancel-btn').style.display='flex';
+  document.getElementById('osra-sessions-card').scrollIntoView({behavior:'smooth'});
+}
+function cancelSessionEdit(){['ss-name','ss-time','ss-dur','ss-loc','ss-notes'].forEach(id=>document.getElementById(id).value='');document.getElementById('ss-time-ar').textContent='--';document.getElementById('ss-edit-id').value='';document.getElementById('ss-btn-label').textContent='Add Session';document.getElementById('ss-cancel-btn').style.display='none'}
+async function saveSession(){
+  if(!selectedOsraId)return toast('اختر مجموعة أولاً');
+  const name=document.getElementById('ss-name').value.trim(),time=document.getElementById('ss-time').value;
+  if(!name||!time)return toast('أدخل اسم الجلسة والوقت');
+  const editId=parseInt(document.getElementById('ss-edit-id').value)||null;
+  const ss={id:editId||Date.now(),name,day:document.getElementById('ss-day').value,time,duration:parseFloat(document.getElementById('ss-dur').value)||1,location:document.getElementById('ss-loc').value.trim(),notes:document.getElementById('ss-schedule').value};
+  const osras=await API.getOsras();const idx=osras.findIndex(x=>x.id===selectedOsraId);
+  if(idx>-1){osras[idx].sessions=osras[idx].sessions||[];if(editId){const si=osras[idx].sessions.findIndex(s=>s.id===editId);if(si>-1)osras[idx].sessions[si]=ss}else{osras[idx].sessions.push(ss)}await API.saveOsras(osras);cancelSessionEdit();renderAdminOsras();buildTimetablePage();toast(editId?'تم تحديث الجلسة':'تم إضافة الجلسة')}
+}
+async function deleteSession(osraId,sessionId){if(!confirm('حذف هذه الجلسة؟'))return;const osras=await API.getOsras();const idx=osras.findIndex(x=>x.id===osraId);if(idx>-1){osras[idx].sessions=(osras[idx].sessions||[]).filter(s=>s.id!==sessionId);await API.saveOsras(osras);if(selectedOsraId===osraId&&document.getElementById('ss-edit-id').value==sessionId)cancelSessionEdit();renderAdminOsras();buildTimetablePage();toast('تم حذف الجلسة')}}
+async function renderAdminOsras(){
+  let osras=await API.getOsras();const q=(document.getElementById('osra-search')||{value:''}).value.toLowerCase().trim();
+  osras=[...osras].sort((a,b)=>(b.sessions||[]).length-(a.sessions||[]).length);
+  if(q)osras=osras.filter(o=>o.name.toLowerCase().includes(q));
+  const container=document.getElementById('osras-table-body');
+  if(!osras.length){container.innerHTML=`<p style="text-align:center;color:var(--gray);padding:2rem">${q?'No matches.':'No groups yet.'}</p>`;return}
+  container.innerHTML=osras.map(o=>{
+    const sessHTML=(o.sessions&&o.sessions.length)?o.sessions.map(s=>`<div class="osra-session-row"><span class="ss-day-badge">${esc(s.day)}</span><div class="ss-info"><div class="ss-name">${esc(s.name)}</div><div class="ss-meta">${toArTime(s.time)}${s.duration?' · '+esc(String(s.duration))+'h':''}${s.location?' · '+esc(s.location):''} | ${esc(s.notes||'')}</div></div><div class="ss-actions"><button class="adm-btn adm-btn-navy adm-btn-sm" onclick="editSession(${o.id},${s.id})"><i class="ri-edit-line"></i></button><button class="adm-btn adm-btn-danger adm-btn-sm" onclick="deleteSession(${o.id},${s.id})"><i class="ri-delete-bin-line"></i></button></div></div>`).join(''):`<div class="osra-no-sessions">لا توجد جلسات — انقر "Add Session"</div>`;
+    return`<div class="osra-card-adm"><div class="osra-card-head"><div><div class="osra-card-name"><i class="ri-group-line" style="color:var(--gold)"></i>${esc(o.name)}</div><div class="osra-card-meta">Leader: ${esc(o.leader||'—')} | ${(o.sessions||[]).length} session(s)</div></div><div class="osra-card-actions"><button class="adm-btn adm-btn-navy adm-btn-sm" onclick="selectOsraForSessions(${o.id})"><i class="ri-add-line"></i> Add Session</button><button class="adm-btn adm-btn-danger adm-btn-sm" onclick="deleteOsra(${o.id})"><i class="ri-delete-bin-line"></i> Delete</button></div></div><div class="osra-sessions-list">${sessHTML}</div></div>`;
+  }).join('');
+}
+async function deleteOsra(id){if(!confirm('حذف هذه المجموعة وكل جلساتها؟'))return;let osras=await API.getOsras();osras=osras.filter(o=>o.id!==id);await API.saveOsras(osras);if(selectedOsraId===id){selectedOsraId=null;document.getElementById('osra-sessions-card').style.display='none'}renderAdminOsras();populateMediaCatSelect();buildTimetablePage();toast('تم حذف المجموعة')}
+
+function handleMediaFiles(files){
+  pendingMediaFiles=Array.from(files);const preview=document.getElementById('adm-media-preview');preview.innerHTML='';
+  pendingMediaFiles.forEach(f=>{const div=document.createElement('div');div.className='adm-thumb';if(f.type.startsWith('image/')){const img=document.createElement('img');img.src=URL.createObjectURL(f);div.appendChild(img)}else if(f.type.startsWith('video/')){div.innerHTML=`<i class="ri-video-chat-line"></i>`}else if(f.type==='application/pdf'){div.innerHTML=`<i class="ri-file-pdf-line"></i>`}else{div.innerHTML=`<i class="ri-file-line"></i>`}preview.appendChild(div)});
+  if(files.length)toast(`تم اختيار ${files.length} ملف`);
+}
+const dropZone=document.getElementById('adm-drop-zone');
+if(dropZone){dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.style.borderColor='var(--gold)'});dropZone.addEventListener('dragleave',()=>{dropZone.style.borderColor=''});dropZone.addEventListener('drop',e=>{e.preventDefault();dropZone.style.borderColor='';handleMediaFiles(e.dataTransfer.files)})}
+function saveMedia(){
+  if(!pendingMediaFiles.length)return toast('اختر ملفاً للرفع');
+  const caption=document.getElementById('media-cap').value.trim(),category=document.getElementById('media-cat-sel').value;
+  if(!category)return toast('أضف مجموعة أولاً');
+  let processed=0;
+  pendingMediaFiles.forEach(f=>{
+    const reader=new FileReader();
+    reader.onload=async function(e){
+      const fd={id:Date.now()+Math.random(),name:f.name,caption:caption||f.name,category,type:f.type,url:e.target.result};
+      try{await API.saveMedia(fd)}catch(err){fd.url=URL.createObjectURL(f);await API.saveMedia(fd)}
+      processed++;
+      if(processed===pendingMediaFiles.length){pendingMediaFiles=[];document.getElementById('adm-media-preview').innerHTML='';document.getElementById('media-cap').value='';renderAdminMedia();renderPublicMedia();renderGallery();toast('تم حفظ الميديا')}
+    };reader.readAsDataURL(f);
+  });
+}
+async function renderAdminMedia(){
+  const media=await API.getMedia();const tbody=document.getElementById('media-table-body');
+  tbody.innerHTML=media.length?media.map((m,mi)=>`<tr><td>${esc(m.name.length>22?m.name.substring(0,20)+'…':m.name)}</td><td>${esc(m.caption)}</td><td><span class="tag tag-gold">${esc(m.category)}</span></td><td><span class="tag tag-blue">${esc(m.type?m.type.split('/')[0]:'file')}</span></td><td style="white-space:nowrap"><button class="adm-btn adm-btn-navy adm-btn-sm" onclick="downloadMediaIdx(${mi})"><i class="ri-download-2-line"></i></button><button class="adm-btn adm-btn-danger adm-btn-sm" onclick="deleteMedia(${m.id})"><i class="ri-delete-bin-line"></i></button></td></tr>`).join(''):`<tr><td colspan="5" style="text-align:center;color:var(--gray);padding:1.5rem">لا توجد ملفات</td></tr>`;
+}
+async function deleteMedia(id){if(!confirm('حذف هذا الملف؟'))return;await API.deleteMedia(id);renderAdminMedia();renderPublicMedia();renderGallery();toast('تم حذف الملف')}
+
+async function renderAdminMessages(){
+  const messages=await API.getMessages();const c=document.getElementById('messages-list-adm');if(!c)return;
+  if(!messages.length){c.innerHTML=`<p style="text-align:center;color:var(--gray);padding:2rem">لا توجد رسائل.</p>`;return}
+  c.innerHTML=[...messages].reverse().map((m,i)=>`<div style="background:var(--gray-light);border-radius:.75rem;padding:1.25rem;margin-bottom:.75rem;cursor:pointer;border-right:3px solid ${m.read?'transparent':'var(--gold)'}" onclick="toggleMsg(${messages.length-1-i})"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem"><strong style="color:var(--navy)">${esc(m.name)}</strong><span style="font-size:.75rem;color:var(--gray)">${esc(m.date)}</span></div><div style="font-size:.85rem;font-weight:600;color:var(--gold);margin-bottom:.3rem">${esc(m.subject)}</div><div style="font-size:.82rem;color:var(--gray)">${esc(m.message.substring(0,100))}${m.message.length>100?'…':''}</div><div style="font-size:.75rem;color:var(--gray);margin-top:.25rem">${esc(m.email)}</div><div id="msg-full-${messages.length-1-i}" style="display:none;margin-top:.75rem;font-size:.875rem;padding-top:.75rem;border-top:1px solid rgba(201,168,76,.15)">${esc(m.message)}</div></div>`).join('');
+}
+async function toggleMsg(i){const messages=await API.getMessages();messages[i].read=true;db.set('church-messages',messages);const d=document.getElementById('msg-full-'+i);if(d)d.style.display=d.style.display==='block'?'none':'block';refreshAdminStats();renderAdminMessages()}
+async function clearMessages(){if(!confirm('مسح جميع الرسائل؟'))return;await API.clearMessages();renderAdminMessages();refreshAdminStats();toast('تم مسح الرسائل')}
+
+function toast(msg){const t=document.getElementById('toast');document.getElementById('toast-msg').textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000)}
+
+// To connect a real backend: put your server URL in baseUrl below and set enabled:true
+const API_CONFIG={enabled:false,baseUrl:'https://api.yourchurchserver.com/api'};
+const API={
+  async getEvents(){if(API_CONFIG.enabled){try{return await(await fetch(`${API_CONFIG.baseUrl}/events`)).json()}catch{}}return db.get('church-events')||[]},
+  async saveEvents(ev){if(API_CONFIG.enabled){try{await fetch(`${API_CONFIG.baseUrl}/events`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(ev)})}catch{}}db.set('church-events',ev)},
+  async getOsras(){if(API_CONFIG.enabled){try{return await(await fetch(`${API_CONFIG.baseUrl}/osras`)).json()}catch{}}return db.get('church-osras')||[]},
+  async saveOsras(o){if(API_CONFIG.enabled){try{await fetch(`${API_CONFIG.baseUrl}/osras`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(o)})}catch{}}db.set('church-osras',o)},
+  async getMedia(){if(API_CONFIG.enabled){try{return await(await fetch(`${API_CONFIG.baseUrl}/media`)).json()}catch{}}return db.get('church-media')||[]},
+  async saveMedia(m){if(API_CONFIG.enabled){try{const fd=new FormData();Object.entries(m).forEach(([k,v])=>fd.append(k,v));await fetch(`${API_CONFIG.baseUrl}/media/upload`,{method:'POST',body:fd})}catch{}}const md=db.get('church-media')||[];md.push(m);db.set('church-media',md)},
+  async deleteMedia(id){if(API_CONFIG.enabled){try{await fetch(`${API_CONFIG.baseUrl}/media/${id}`,{method:'DELETE'})}catch{}}let md=db.get('church-media')||[];md=md.filter(m=>m.id!==id);db.set('church-media',md)},
+  async getBookings(){return db.get('church-bookings')||[]},
+  async saveBooking(b){const bks=db.get('church-bookings')||[];bks.push(b);db.set('church-bookings',bks)},
+  async getMessages(){return db.get('church-messages')||[]},
+  async saveMessage(m){const msgs=db.get('church-messages')||[];msgs.push(m);db.set('church-messages',msgs)},
+  async clearMessages(){db.set('church-messages',[])}
+};
+
+renderEvents();
+renderHomeCountdown();
+loadSynaxarion();
+setInterval(renderHomeCountdown,60000);
+</script>
 </body>
 </html>
