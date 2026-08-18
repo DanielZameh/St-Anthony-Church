@@ -5653,14 +5653,18 @@
 
         var API = {
             async getEvents() {
+                var local = db.get('church-events') || [];
                 if (API_CONFIG.enabled && supabaseClient) {
                     try {
                         var res = await supabaseClient.from('events').select('*').order('id');
                         if (res.error) throw res.error;
-                        return res.data || [];
+                        if (res.data && res.data.length) {
+                            db.set('church-events', res.data);
+                            return res.data;
+                        }
                     } catch (e) { console.warn('events fetch', e); }
                 }
-                return db.get('church-events') || [];
+                return local;
             },
             async saveEvents(ev) {
                 if (API_CONFIG.enabled && supabaseClient) {
@@ -5674,14 +5678,23 @@
                 db.set('church-events', ev);
             },
             async getOsras() {
+                var local = db.get('church-osras') || correctedSchedule || [];
                 if (API_CONFIG.enabled && supabaseClient) {
                     try {
                         var res = await supabaseClient.from('osras').select('*').order('id');
                         if (res.error) throw res.error;
-                        return res.data || [];
+                        if (res.data && res.data.length) {
+                            db.set('church-osras', res.data);
+                            return res.data;
+                        }
+                        // Supabase empty → seed with full schedule once
+                        if (local && local.length) {
+                            await supabaseClient.from('osras').upsert(local);
+                            return local;
+                        }
                     } catch (e) { console.warn('osras fetch', e); }
                 }
-                return db.get('church-osras') || [];
+                return local;
             },
             async saveOsras(o) {
                 if (API_CONFIG.enabled && supabaseClient) {
@@ -5695,14 +5708,18 @@
                 db.set('church-osras', o);
             },
             async getMedia() {
+                var local = db.get('church-media') || [];
                 if (API_CONFIG.enabled && supabaseClient) {
                     try {
                         var res = await supabaseClient.from('media').select('*').order('id');
                         if (res.error) throw res.error;
-                        return res.data || [];
+                        if (res.data && res.data.length) {
+                            db.set('church-media', res.data);
+                            return res.data;
+                        }
                     } catch (e) { console.warn('media fetch', e); }
                 }
-                return db.get('church-media') || [];
+                return local;
             },
             async saveMedia(m, file) {
                 if (API_CONFIG.enabled && supabaseClient) {
