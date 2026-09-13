@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+    <link rel="icon" href="favicon.ico">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover" />
     <title>كنيسة الأنبا أنطونيوس القبطية الأرثوذكسية | الموقع الرسمي</title>
@@ -4763,8 +4764,8 @@
 
         var currentTTView = 'grid';
 
-        function buildTimetablePage() {
-            var summerActive = isSummerScheduleActive();
+        async function buildTimetablePage() {
+            var summerActive = await API.getSummerSettings();
             var summerBtn = document.getElementById('sf-summer');
             if (summerBtn) {
                 summerBtn.style.display = summerActive ? '' : 'none';
@@ -5498,8 +5499,8 @@
             }
         }
 
-        function toggleSummerSchedule(enabled) {
-            db.set('church-summer-enabled', !!enabled);
+        async function toggleSummerSchedule(enabled) {
+            await API.saveSummerSettings(!!enabled);
             var statusEl = document.getElementById('summer-toggle-status');
             if (statusEl) {
                 statusEl.textContent = enabled ? 'مفعل (ظاهر للزوار)' : 'معطل (مخفي عن الزوار)';
@@ -5513,7 +5514,7 @@
             var summerTgl = document.getElementById('summer-schedule-toggle');
             var summerStatus = document.getElementById('summer-toggle-status');
             if (summerTgl) {
-                var isAct = isSummerScheduleActive();
+                var isAct = await API.getSummerSettings();
                 summerTgl.checked = isAct;
                 if (summerStatus) {
                     summerStatus.textContent = isAct ? 'مفعل (ظاهر للزوار)' : 'معطل (مخفي عن الزوار)';
@@ -5715,6 +5716,29 @@
         }
 
         var API = {
+            async getSummerSettings() {
+                var local = db.get('church-summer-enabled');
+                if (local === null) local = true;
+                if (API_CONFIG.enabled && supabaseClient) {
+                    try {
+                        var res = await supabaseClient.from('settings').select('*').eq('key', 'summer_enabled').maybeSingle();
+                        if (res.data) {
+                            var enabled = res.data.value === true || res.data.value === 'true';
+                            db.set('church-summer-enabled', enabled);
+                            return enabled;
+                        }
+                    } catch (e) { console.warn('settings fetch', e); }
+                }
+                return local !== false && local !== 'false';
+            },
+            async saveSummerSettings(enabled) {
+                db.set('church-summer-enabled', !!enabled);
+                if (API_CONFIG.enabled && supabaseClient) {
+                    try {
+                        await supabaseClient.from('settings').upsert({ key: 'summer_enabled', value: !!enabled });
+                    } catch (e) { console.warn('settings save', e); }
+                }
+            },
             async getEvents() {
                 var local = db.get('church-events') || [];
                 if (API_CONFIG.enabled && supabaseClient) {
