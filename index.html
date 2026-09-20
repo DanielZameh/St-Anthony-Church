@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8" />
@@ -336,7 +336,7 @@
             .nav-logo-text {
                 font-size: .78rem;
                 letter-spacing: 0;
-                
+                /* full name, smaller — no ellipsis mid-word */
                 overflow: visible;
                 text-overflow: clip;
                 max-width: none;
@@ -1779,7 +1779,7 @@
             box-shadow: 0 2px 10px rgba(201, 168, 76, .35);
         }
         .day-tab-btn.today-day:not(.active) {
-            
+            /* subtle today marker only when not selected — no gold border stuck on Sunday */
             border-color: rgba(201, 168, 76, .45);
             color: var(--gray);
         }
@@ -3942,7 +3942,7 @@
         }
 
 
-        
+        /* ===== Admin Messages cards ===== */
         .adm-msg-list {
             display: flex;
             flex-direction: column;
@@ -4027,7 +4027,7 @@
             flex-wrap: wrap;
         }
 
-        
+        /* ===== Admin Media library responsive ===== */
         .media-upload-meta {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -4069,7 +4069,7 @@
             word-break: break-word;
         }
 
-        
+        /* Media list as cards (mobile-friendly) */
         .adm-media-list {
             display: flex;
             flex-direction: column;
@@ -4127,7 +4127,7 @@
         .adm-table {
             min-width: 0;
         }
-        
+        /* Hide wide tables on small screens — cards used instead */
         @media (max-width: 700px) {
             .adm-media .adm-table-wrap,
             #adm-media .adm-table-wrap {
@@ -4928,7 +4928,7 @@
                 html += '<div class="synax-saints">';
                 if (Array.isArray(saints) && saints.length) {
                     saints.forEach(function(s) {
-                        html += '<a class="synax-saint-row" href="' + esc(s.url || 'https:
+                        html += '<a class="synax-saint-row" href="' + esc(s.url || 'https://coptic.io') + '" target="_blank" rel="noopener noreferrer"><i class="ri-star-line"></i><span class="synax-saint-name">' + esc(s.name) + '</span></a>';
                     });
                 } else {
                     html += '<div class="synax-empty"><i class="ri-information-line"></i><span>لا توجد أعياد مسجّلة لهذا اليوم.</span></div>';
@@ -6084,7 +6084,7 @@
                 c.innerHTML = '<p style="text-align:center;color:var(--gray);padding:2rem">لا توجد رسائل.</p>';
                 return;
             }
-            var html = '<div class="adm-msg-list">';
+                        var html = '<div class="adm-msg-list">';
             messages.forEach(function(m) {
                 html += '<div class="adm-msg-card' + (m.read ? '' : ' unread') + '" data-id="' + m.id + '" onclick="toggleMsgById(' + m.id + ')">'
                     + '<div class="adm-msg-top"><div class="adm-msg-name">' + esc(m.name || '') + '</div>'
@@ -6108,8 +6108,8 @@
             }
             var d = document.getElementById('msg-full-' + id);
             if (d) d.classList.toggle('open');
-            refreshAdminStats();
-            var card = document.querySelector('.adm-msg-card[data-id="' + id + '"]');
+                        refreshAdminStats();
+                        var card = document.querySelector('.adm-msg-card[data-id="' + id + '"]');
             if (card) card.classList.remove('unread');
         }
 
@@ -6132,7 +6132,7 @@
 
         var API_CONFIG = {
             enabled: true,
-            url: 'https:
+            url: 'https://lrbilmexmxtarlhycuwh.supabase.co',
             key: 'sb_publishable_kq7K-_OQF7YDnOYwfuagGA_C8buz7np'
         };
 
@@ -6150,11 +6150,10 @@
 
         var API = {
             async getSummerSettings() {
-                
-                return false;
+                               return false;
             },
             async saveSummerSettings(enabled) {
-                
+                // Summer schedule permanently off
                 db.set('church-summer-enabled', false);
             },
             async getEvents() {
@@ -6183,8 +6182,7 @@
                 db.set('church-events', ev);
             },
             async getOsras() {
-                
-                var local = db.get('church-osras');
+                               var local = db.get('church-osras');
                 if (!local || !local.length) {
                     local = correctedSchedule || [];
                     db.set('church-osras', local);
@@ -6350,7 +6348,7 @@
         };
 
         (async function init() {
-            
+           
             try {
                 db.set('church-osras', correctedSchedule || []);
                 db.set('church-summer-enabled', false);
