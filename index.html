@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover" />
-    <title>كنيسة الأنبا أنطونيوس القبطية الأرثوذكسية | الموقع الرسمي</title>
+    <title>كنيسة الأنبا أنطونيوس القبطية الأرثوذكسية</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
@@ -4624,9 +4625,9 @@
                             <div class="adm-card-head"><div class="adm-card-title"><i class="ri-add-circle-line"></i> Add New Event</div></div>
                             <div class="adm-form-grid">
                                 <div class="adm-form-group"><label class="adm-label">Event Title <span>(required)</span></label><input id="ev-title" class="adm-input" type="text" placeholder="مثال: اجتماع درس الكتاب العام" /></div>
-                                <div class="adm-form-group"><label class="adm-label">Category</label><select id="ev-cat" class="adm-select"><option value="Feast">عشيات وأعياد</option><option value="Retreat">خلوات وتدريب روحي</option><option value="Youth">خدمة الشباب</option><option value="Liturgy">قداسات إلهية</option><option value="other">خدمات أخرى</option></select></div>
-                                <div class="adm-form-group"><label class="adm-label">Event Date</label><input id="ev-date" class="adm-input" type="text" placeholder="e.g. Jan 30, 2026" style="direction:ltr;text-align:right" /></div>
-                                <div class="adm-form-group"><label class="adm-label">Duration</label><input id="ev-dur" class="adm-input" type="text" placeholder="مثال: ٣ ساعات" /></div>
+                                <div class="adm-form-group"><label class="adm-label">Category</label><input id="ev-cat" class="adm-input" type="text" placeholder="اكتب التصنيف… مثال: قداسات / خلوات / شباب" list="ev-cat-suggestions" /><datalist id="ev-cat-suggestions"><option value="عشيات وأعياد"></option><option value="خلوات وتدريب روحي"></option><option value="خدمة الشباب"></option><option value="قداسات إلهية"></option><option value="خدمات أخرى"></option></datalist></div>
+                                <div class="adm-form-group"><label class="adm-label">Event Date &amp; Time</label><input id="ev-date" class="adm-input" type="datetime-local" style="direction:ltr;text-align:right" /></div>
+                                <div class="adm-form-group"><label class="adm-label">Duration</label><select id="ev-dur" class="adm-select"><option value="">اختر المدة</option><option value="30 دقيقة">30 دقيقة</option><option value="1 ساعة">1 ساعة</option><option value="1.5 ساعة">1.5 ساعة</option><option value="2 ساعة">2 ساعة</option><option value="2.5 ساعة">2.5 ساعة</option><option value="3 ساعات">3 ساعات</option><option value="4 ساعات">4 ساعات</option><option value="5 ساعات">5 ساعات</option><option value="يوم كامل">يوم كامل</option></select></div>
                                 <div class="adm-form-group"><label class="adm-label">Image URL <span>(optional)</span></label><input id="ev-img" class="adm-input" type="url" placeholder="https://..." style="direction:ltr;text-align:right" /></div>
                                 <div class="adm-form-group"><label class="adm-label">Booking</label><select id="ev-book" class="adm-select"><option value="1">Yes – Enable seat booking</option><option value="0">No – Open attendance</option></select></div>
                                 <div class="adm-form-group full"><label class="adm-label">Description &amp; Details</label><textarea id="ev-desc" class="adm-textarea" placeholder="اكتب تفاصيل ومكان وملاحظات الفعالية..."></textarea></div>
@@ -5727,10 +5728,11 @@
             var title = document.getElementById('ev-title').value.trim();
             var date = document.getElementById('ev-date').value.trim();
             if (!title || !date) return toast('أدخل اسم الفعالية وتاريخها');
+            var cat = document.getElementById('ev-cat').value.trim() || 'خدمات أخرى';
             var ev = {
                 id: Date.now(),
                 title: title,
-                category: document.getElementById('ev-cat').value,
+                category: cat,
                 date: date,
                 duration: document.getElementById('ev-dur').value.trim(),
                 img: document.getElementById('ev-img').value.trim(),
@@ -5740,7 +5742,7 @@
             var events = await API.getEvents();
             events.push(ev);
             await API.saveEvents(events);
-            ['ev-title', 'ev-date', 'ev-dur', 'ev-img', 'ev-desc'].forEach(function(id) {
+            ['ev-title', 'ev-cat', 'ev-date', 'ev-dur', 'ev-img', 'ev-desc'].forEach(function(id) {
                 document.getElementById(id).value = '';
             });
             renderAdminEventsTable();
@@ -6002,38 +6004,40 @@
             var caption = document.getElementById('media-cap').value.trim();
             var category = document.getElementById('media-cat-sel').value;
             if (!category) return toast('أضف مجموعة أولاً');
+            if (!API_CONFIG.enabled || !supabaseClient) {
+                return toast('Supabase غير متصل — لا يمكن رفع الملفات للجميع');
+            }
             var files = pendingMediaFiles.slice();
             toast('جارٍ رفع الملفات...');
+            var okCount = 0;
+            var failCount = 0;
             for (var i = 0; i < files.length; i++) {
                 var f = files[i];
                 var fd = {
-                    id: Date.now() + Math.random() + i,
+                    id: Date.now() + i,
                     name: f.name,
                     caption: caption || f.name,
                     category: category,
-                    type: f.type,
+                    type: f.type || 'application/octet-stream',
                     url: ''
                 };
-                if (API_CONFIG.enabled && supabaseClient) {
-                    await API.saveMedia(fd, f);
-                } else {
-                    await new Promise(function(resolve) {
-                        var reader = new FileReader();
-                        reader.onload = async function(e) {
-                            fd.url = e.target.result;
-                            await API.saveMedia(fd);
-                            resolve();
-                        };
-                        reader.readAsDataURL(f);
-                    });
+                try {
+                    var row = await API.saveMedia(fd, f);
+                    if (row && row.url) okCount++;
+                    else failCount++;
+                } catch (err) {
+                    console.warn('upload failed', err);
+                    failCount++;
                 }
             }
             pendingMediaFiles = [];
             document.getElementById('adm-media-preview').innerHTML = '';
             document.getElementById('media-cap').value = '';
-            renderAdminMedia();
-            renderPublicMedia();
-            toast('تم حفظ الميديا');
+            await renderAdminMedia();
+            await renderPublicMedia();
+            if (okCount && !failCount) toast('تم رفع ' + okCount + ' ملف للجميع');
+            else if (okCount && failCount) toast('تم رفع ' + okCount + ' — فشل ' + failCount);
+            else toast('فشل رفع الملفات — راجع صلاحيات Supabase Storage');
         }
 
         async function renderAdminMedia() {
@@ -6212,7 +6216,7 @@
                     try {
                         var res = await supabaseClient.from('media').select('*').order('id');
                         if (res.error) throw res.error;
-                        if (res.data && res.data.length) {
+                        if (res.data) {
                             db.set('church-media', res.data);
                             return res.data;
                         }
@@ -6230,14 +6234,16 @@
                             storagePath = 'uploads/' + safeName;
                             var up = await supabaseClient.storage.from('media').upload(storagePath, file, {
                                 cacheControl: '3600',
-                                upsert: false
+                                upsert: true,
+                                contentType: file.type || 'application/octet-stream'
                             });
                             if (up.error) throw up.error;
                             var pub = supabaseClient.storage.from('media').getPublicUrl(storagePath);
-                            publicUrl = pub.data.publicUrl;
+                            publicUrl = pub.data && pub.data.publicUrl ? pub.data.publicUrl : '';
+                            if (!publicUrl) throw new Error('no public url');
                         }
                         var row = {
-                            id: m.id,
+                            id: Math.floor(Number(m.id)) || Date.now(),
                             name: m.name,
                             caption: m.caption,
                             category: m.category,
@@ -6248,18 +6254,17 @@
                         var ins = await supabaseClient.from('media').upsert(row);
                         if (ins.error) throw ins.error;
                         var md = db.get('church-media') || [];
+                        md = md.filter(function(x) { return x.id !== row.id; });
                         md.push(row);
                         db.set('church-media', md);
                         return row;
                     } catch (e) {
                         console.warn('media save', e);
                         toast('خطأ في رفع الملف إلى السحابة');
+                        throw e;
                     }
                 }
-                var md2 = db.get('church-media') || [];
-                md2.push(m);
-                db.set('church-media', md2);
-                return m;
+                throw new Error('supabase offline');
             },
             async deleteMedia(id) {
                 if (API_CONFIG.enabled && supabaseClient) {
