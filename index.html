@@ -1,7 +1,6 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <link rel="icon" href="favicon.ico">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover" />
     <title>كنيسة الأنبا أنطونيوس القبطية الأرثوذكسية | الموقع الرسمي</title>
@@ -177,13 +176,12 @@
             border: 2px solid var(--gold);
             object-fit: cover;
         }
-        .nav-logo span {
-            font-size: 1.1rem;
+        .nav-logo-text {
             color: #fff;
             font-weight: 700;
+            font-size: 1.05rem;
             white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            line-height: 1.2;
         }
         .nav-links {
             display: flex;
@@ -255,24 +253,64 @@
         }
         @media(max-width:768px) {
             .nav-links {
-                display: none;
+                display: flex;
                 position: fixed;
-                top: var(--header-h);
-                right: 0;
-                width: 100%;
-                background: var(--navy-deep);
+                top: calc(var(--header-h) + 10px);
+                right: 14px;
+                left: 14px;
+                width: auto;
+                max-height: calc(100dvh - var(--header-h) - 28px);
+                overflow-y: auto;
+                background: linear-gradient(145deg, rgba(12, 28, 54, .98), rgba(7, 19, 39, .98));
+                border: 1px solid rgba(201, 164, 92, .28);
+                border-radius: 18px;
+                box-shadow: 0 18px 48px rgba(0, 0, 0, .32);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
                 flex-direction: column;
-                align-items: center;
-                gap: 0;
-                padding: 1.5rem 0;
+                align-items: stretch;
+                gap: 5px;
+                padding: 12px;
+                visibility: hidden;
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-8px) scale(.985);
+                transform-origin: top center;
+                transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+                z-index: 1001;
             }
             .nav-links.open {
-                display: flex;
+                visibility: visible;
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateY(0) scale(1);
+            }
+            .nav-links li {
+                width: 100%;
+                list-style: none;
             }
             .nav-links a {
-                padding: .75rem 2rem;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                min-height: 48px;
+                padding: .8rem 1rem;
                 width: 100%;
-                text-align: center;
+                text-align: right;
+                border-radius: 11px;
+                color: rgba(255,255,255,.88);
+                font-size: .98rem;
+                font-weight: 600;
+                transition: background .18s ease, color .18s ease, padding .18s ease;
+            }
+            .nav-links a::after {
+                display: none;
+            }
+            .nav-links a:hover,
+            .nav-links a.active {
+                color: var(--gold);
+                background: rgba(201, 164, 92, .12);
+                padding-right: 1.2rem;
             }
             .nav-toggle {
                 display: flex;
@@ -289,18 +327,40 @@
             .nav-logo {
                 flex-shrink: 1;
                 min-width: 0;
+                gap: .5rem;
             }
-            .nav-logo span {
-                max-width: 130px;
+            .nav-logo img {
+                width: 36px;
+                height: 36px;
+            }
+            .nav-logo-text {
+                font-size: .78rem;
+                letter-spacing: 0;
+                
+                overflow: visible;
+                text-overflow: clip;
+                max-width: none;
             }
             .nav-actions {
                 flex-shrink: 0;
-                gap: .5rem;
+                gap: .4rem;
+            }
+            .btn-admin {
+                font-size: .7rem;
+                padding: .3rem .65rem;
             }
         }
-        @media(max-width:400px) {
-            .nav-logo span {
-                display: none;
+        @media(max-width:380px) {
+            .nav-logo img {
+                width: 32px;
+                height: 32px;
+            }
+            .nav-logo-text {
+                font-size: .7rem;
+            }
+            .btn-admin {
+                font-size: .65rem;
+                padding: .28rem .55rem;
             }
         }
         .hero {
@@ -1713,18 +1773,25 @@
             color: var(--gold-light);
         }
         .day-tab-btn.active {
-            background: var(--navy);
-            border-color: var(--navy);
-            color: #fff;
-        }
-        .day-tab-btn.today-day {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-        .day-tab-btn.today-day.active {
             background: var(--gold);
             border-color: var(--gold);
             color: var(--navy-deep);
+            box-shadow: 0 2px 10px rgba(201, 168, 76, .35);
+        }
+        .day-tab-btn.today-day:not(.active) {
+            
+            border-color: rgba(201, 168, 76, .45);
+            color: var(--gray);
+        }
+        .day-tab-btn.today-day:not(.active)::after {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gold);
+            margin-right: .35rem;
+            vertical-align: middle;
         }
         .tt-day-header {
             display: flex;
@@ -2345,9 +2412,23 @@
         }
         .admin-page {
             min-height: 100vh;
-            background: #f4f6fb;
-            display: flex;
-            transition: background var(--transition);
+            background: #f0f4f8;
+            direction: ltr;
+            text-align: left;
+        }
+        .admin-page .adm-link,
+        .admin-page .adm-card-title,
+        .admin-page .adm-label,
+        .admin-page .adm-input,
+        .admin-page .adm-select,
+        .admin-page .adm-table,
+        .admin-page .adm-msg-card {
+            text-align: right;
+            direction: rtl;
+        }
+        .admin-page .adm-input,
+        .admin-page .adm-select {
+            direction: rtl;
         }
         .dark .admin-page {
             background: #0a1628;
@@ -2581,10 +2662,14 @@
         }
         .adm-main {
             margin-left: 250px;
+            width: calc(100% - 250px);
+            max-width: calc(100% - 250px);
             flex: 1;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
+            box-sizing: border-box;
         }
         .adm-topbar {
             height: 60px;
@@ -2622,6 +2707,10 @@
         .adm-content {
             padding: 1.75rem;
             flex: 1;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow-x: hidden;
         }
         .adm-panel {
             display: none;
@@ -2681,6 +2770,9 @@
             border-radius: .875rem;
             box-shadow: 0 2px 12px rgba(0, 30, 60, .06);
             padding: 1.5rem;
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
             margin-bottom: 1.5rem;
             transition: background var(--transition);
         }
@@ -2821,6 +2913,17 @@
         }
         .adm-table-wrap {
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+            max-width: 100%;
+        }
+        .adm-content {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+        #adm-media, #adm-messages {
+            max-width: 100%;
+            overflow-x: hidden;
         }
         .adm-table {
             width: 100%;
@@ -3838,6 +3941,235 @@
             }
         }
 
+
+        
+        .adm-msg-list {
+            display: flex;
+            flex-direction: column;
+            gap: .75rem;
+        }
+        .adm-msg-card {
+            background: var(--gray-light);
+            border-radius: .85rem;
+            padding: 1rem 1.15rem;
+            cursor: pointer;
+            border-right: 3px solid transparent;
+            transition: border-color .2s, background .2s;
+            overflow: hidden;
+            word-break: break-word;
+        }
+        .dark .adm-msg-card {
+            background: #132035;
+        }
+        .adm-msg-card.unread {
+            border-right-color: var(--gold);
+        }
+        .adm-msg-card:hover {
+            background: rgba(201, 168, 76, .08);
+        }
+        .adm-msg-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: .75rem;
+            margin-bottom: .4rem;
+            flex-wrap: wrap;
+        }
+        .adm-msg-name {
+            color: var(--navy);
+            font-weight: 700;
+            font-size: .95rem;
+            min-width: 0;
+            flex: 1;
+        }
+        .dark .adm-msg-name { color: var(--gold-light); }
+        .adm-msg-date {
+            font-size: .72rem;
+            color: var(--gray);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .adm-msg-subject {
+            font-size: .85rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: .35rem;
+        }
+        .adm-msg-preview {
+            font-size: .82rem;
+            color: var(--gray);
+            line-height: 1.55;
+        }
+        .adm-msg-email {
+            font-size: .75rem;
+            color: var(--gray);
+            margin-top: .35rem;
+            direction: ltr;
+            text-align: right;
+        }
+        .adm-msg-full {
+            display: none;
+            margin-top: .75rem;
+            padding-top: .75rem;
+            border-top: 1px solid rgba(201, 168, 76, .2);
+            font-size: .875rem;
+            color: var(--text);
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+        .adm-msg-full.open {
+            display: block;
+        }
+        .adm-msg-actions {
+            display: flex;
+            gap: .5rem;
+            margin-top: .65rem;
+            flex-wrap: wrap;
+        }
+
+        
+        .media-upload-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.25rem;
+        }
+        .adm-media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+            gap: .65rem;
+            margin-top: 1rem;
+        }
+        .adm-thumb {
+            aspect-ratio: 1;
+            border-radius: .6rem;
+            overflow: hidden;
+            background: var(--gray-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(201, 168, 76, .15);
+        }
+        .adm-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .adm-thumb i {
+            font-size: 1.5rem;
+            color: var(--gold);
+        }
+        .adm-upload-zone {
+            padding: 1.75rem 1.25rem;
+        }
+        .adm-upload-zone p {
+            font-size: .88rem;
+            color: var(--gray);
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        
+        .adm-media-list {
+            display: flex;
+            flex-direction: column;
+            gap: .65rem;
+        }
+        .adm-media-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: .5rem 1rem;
+            align-items: center;
+            background: var(--gray-light);
+            border-radius: .75rem;
+            padding: .9rem 1rem;
+            border: 1px solid rgba(201, 168, 76, .12);
+        }
+        .dark .adm-media-row {
+            background: #132035;
+        }
+        .adm-media-row-main {
+            min-width: 0;
+        }
+        .adm-media-row-name {
+            font-weight: 700;
+            color: var(--navy);
+            font-size: .9rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .dark .adm-media-row-name { color: var(--gold-light); }
+        .adm-media-row-cap {
+            font-size: .8rem;
+            color: var(--gray);
+            margin-top: .15rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .adm-media-row-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .35rem;
+            margin-top: .4rem;
+        }
+        .adm-media-row-actions {
+            display: flex;
+            gap: .4rem;
+            flex-shrink: 0;
+        }
+        .adm-table-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            max-width: 100%;
+        }
+        .adm-table {
+            min-width: 0;
+        }
+        
+        @media (max-width: 700px) {
+            .adm-media .adm-table-wrap,
+            #adm-media .adm-table-wrap {
+                display: none;
+            }
+            .adm-media-list {
+                display: flex;
+            }
+            .media-upload-meta {
+                grid-template-columns: 1fr;
+            }
+            .adm-upload-zone {
+                padding: 1.35rem 1rem;
+            }
+            .adm-upload-zone i {
+                font-size: 2rem;
+            }
+            .adm-msg-top {
+                flex-direction: column;
+                gap: .25rem;
+            }
+            .adm-msg-date {
+                white-space: normal;
+            }
+            .adm-media-row {
+                grid-template-columns: 1fr;
+            }
+            .adm-media-row-actions {
+                justify-content: flex-end;
+                width: 100%;
+            }
+        }
+        @media (min-width: 701px) {
+            .adm-media-list {
+                display: none;
+            }
+            #adm-media .adm-table-wrap {
+                display: block;
+            }
+        }
+
+
     </style>
 </head>
 <body>
@@ -3846,7 +4178,7 @@
         <div class="nav container">
             <a class="nav-logo" onclick="showPage('home')">
                 <img src="https://yt3.googleusercontent.com/fDYMuJkul64KgPbt9c-u9v6JfRH1Kdz-1ugEk1uwnlohvQJUP56XnqV4f25HqqHtQSpeahv7MQ=s160-c-k-c0x00ffffff-no-rj" alt="logo" />
-                <span>كنيسة الأنبا أنطونيوس</span>
+                <span class="nav-logo-text">كنيسة الأنبا أنطونيوس</span>
             </a>
             <ul class="nav-links" id="nav-links">
                 <li><a onclick="showPage('home');scrollToSection('home-top')" class="active" data-nav="home">الرئيسية</a></li>
@@ -3859,7 +4191,7 @@
             <div class="nav-actions">
                 <button class="btn-icon" id="theme-btn" title="تغيير السمة"><i class="ri-moon-line" id="theme-icon"></i></button>
                 <button class="btn-admin" onclick="showPage('admin')">الإدارة</button>
-                <button class="nav-toggle btn-icon" id="nav-toggle"><i class="ri-menu-line"></i></button>
+                <button class="nav-toggle btn-icon" id="nav-toggle" aria-label="فتح القائمة" aria-controls="nav-links" aria-expanded="false"><i class="ri-menu-line"></i></button>
             </div>
         </div>
     </header>
@@ -3983,7 +4315,7 @@
                         <li><i class="ri-checkbox-blank-circle-fill"></i> مسرح يتسع لـ٢٠٠ فرد</li>
                         <li><i class="ri-checkbox-blank-circle-fill"></i> نادي الطفل (حضانة صغيرة)</li>
                         <li><i class="ri-checkbox-blank-circle-fill"></i> كنيسة السمائيين بالدور الثالث، تتسع لـ٢٠٠ فرد</li>
-                        <li><i class="ri-checkbox-blank-circle-fill"></i> مشغل</li>
+                        
                         <li><i class="ri-checkbox-blank-circle-fill"></i> المكتبة الاستعارية</li>
                         <li><i class="ri-checkbox-blank-circle-fill"></i> مركز القديس يوسف الصديق لوسائل الإيضاح</li>
                         <li><i class="ri-checkbox-blank-circle-fill"></i> مجلة براعم أنطونيوس</li>
@@ -4186,7 +4518,7 @@
                     <span class="sch-filter-label">نوع الجدول:</span>
                     <button class="sch-filter-btn active" id="sf-all" onclick="setScheduleFilter('all',this)">الكل</button>
                     <button class="sch-filter-btn" id="sf-general" onclick="setScheduleFilter('جدول عام',this)">جدول عام</button>
-                    <button class="sch-filter-btn" id="sf-summer" onclick="setScheduleFilter('جدول صيفي',this)">جدول صيفي</button>
+                    
                 </div>
 
                 <div class="loc-filter-wrap" id="loc-filter-wrap"></div>
@@ -4309,23 +4641,10 @@
 
                     <div class="adm-panel" id="adm-timetable">
                         <div class="adm-card">
-                            <div class="adm-card-head"><div class="adm-card-title"><i class="ri-sun-line"></i> إعدادات الجدول الصيفي / Summer Schedule Settings</div></div>
-                            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding:.5rem 0">
-                                <div>
-                                    <div style="font-weight:700;color:var(--navy);font-size:1rem;margin-bottom:.25rem">عرض الجدول الصيفي للزوار (Summer Schedule Visibility)</div>
-                                    <div style="font-size:.85rem;color:var(--gray)">عند إيقاف هذا الخيار، سيتم إخفاء أي خدمات صيفية وزر الفلتر الصيفي عن زوار الموقع تماماً</div>
-                                </div>
-                                <label style="display:inline-flex;align-items:center;gap:.75rem;cursor:pointer;user-select:none;font-weight:600">
-                                    <input type="checkbox" id="summer-schedule-toggle" style="width:20px;height:20px;accent-color:var(--gold);cursor:pointer" onchange="toggleSummerSchedule(this.checked)" />
-                                    <span id="summer-toggle-status" style="font-size:.95rem;color:var(--navy)">مفعل</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="adm-card">
-                            <div class="adm-card-head"><div class="adm-card-title"><i class="ri-group-line"></i> Add New Group / Osra</div></div>
+                            <div class="adm-card-head"><div class="adm-card-title"><i class="ri-group-line"></i> Add New Group</div></div>
                             <div class="adm-form-grid">
-                                <div class="adm-form-group"><label class="adm-label">Group Name <span>(required)</span></label><input id="os-name" class="adm-input" type="text" placeholder="مثال: أسرة الشباب" /></div>
-                                <div class="adm-form-group"><label class="adm-label">Leader(s) Name</label><input id="os-leader" class="adm-input" type="text" placeholder="مثال: مينا" /></div>
+                                <div class="adm-form-group"><label class="adm-label">Group Name</label><input id="os-name" class="adm-input" type="text" placeholder="مثال: أسرة الشاروبيم" /></div>
+                                <div class="adm-form-group"><label class="adm-label">Leader</label><input id="os-leader" class="adm-input" type="text" placeholder="اسم الخادم المسؤول" /></div>
                                 <div class="adm-form-group full"><label class="adm-label">Description</label><input id="os-desc" class="adm-input" type="text" placeholder="نبذة مختصرة..." /></div>
                             </div>
                             <div style="margin-top:1rem;display:flex;justify-content:flex-end"><button class="adm-btn adm-btn-gold" onclick="addOsra()"><i class="ri-add-line"></i> Add Group</button></div>
@@ -4339,7 +4658,7 @@
                                 <div class="adm-form-group"><label class="adm-label">Duration (hours)</label><input id="ss-dur" class="adm-input" type="number" min="0.5" max="8" step="0.5" placeholder="e.g. 1.5" style="direction:ltr" /></div>
                                 <div class="adm-form-group"><label class="adm-label">Location / Hall</label><input id="ss-loc" class="adm-input" type="text" placeholder="مثال: القاعة الكبرى بالدور الثاني" /></div>
                                 <div class="adm-form-group"><label class="adm-label">Notes <span>(optional)</span></label><input id="ss-notes" class="adm-input" type="text" placeholder="مثال: يرجى إحضار الأجبية" /></div>
-                                <div class="adm-form-group"><label class="adm-label">Schedule Type</label><select id="ss-schedule" class="adm-select"><option value="جدول عام">جدول عام</option><option value="جدول صيفي">جدول صيفي</option></select></div>
+                                <div class="adm-form-group"><label class="adm-label">Schedule Type</label><select id="ss-schedule" class="adm-select"><option value="جدول عام">جدول عام</option></select></div>
                             </div>
                             <input type="hidden" id="ss-edit-id" />
                             <div style="margin-top:1rem;display:flex;gap:.75rem;justify-content:flex-end">
@@ -4378,7 +4697,7 @@
 
                     <div class="adm-panel" id="adm-messages">
                         <div class="adm-card">
-                            <div class="adm-card-head">
+                            <div class="adm-card-head" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.75rem">
                                 <div class="adm-card-title"><i class="ri-mail-open-line"></i> Contact Form Messages</div>
                                 <button class="adm-btn adm-btn-danger adm-btn-sm" onclick="clearMessages()"><i class="ri-delete-bin-3-line"></i> Clear All</button>
                             </div>
@@ -4435,7 +4754,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         var db = { get: function(k) { return JSON.parse(localStorage.getItem(k) || 'null'); }, set: function(k, v) { localStorage.setItem(k, JSON.stringify(v)); } };
-        var correctedSchedule = [{"id":1,"name":"شاروبيم بنات كى جي","leader":"","description":"","sessions":[{"name":"شاروبيم بنات كى جي","day":"الجمعة","time":"10:30","duration":1.0,"location":"مبنى خدمات ترعة الجلاد - كنيسة السمائيين","notes":"جدول عام 1741","id":100}]},{"id":2,"name":"اجتماع خادمات اسرة ابتدائى صغير بنات","leader":"","description":"","sessions":[{"name":"اجتماع خادمات اسرة ابتدائى صغير بنات","day":"الجمعة","time":"11:30","duration":1.5,"location":"مبنى خدمات ترعة الجلاد - كنيسة السمائيين","notes":"جدول عام 1741","id":101}]},{"id":3,"name":"سيرافيم بنات","leader":"","description":"","sessions":[{"name":"سيرافيم بنات","day":"الجمعة","time":"13:00","duration":1.0,"location":"مبنى خدمات ترعة الجلاد - كنيسة السمائيين","notes":"جدول عام 1741","id":102}]},{"id":4,"name":"اسرة العذارى","leader":"","description":"","sessions":[{"name":"اسرة العذارى","day":"الجمعة","time":"14:00","duration":1.0,"location":"مبنى خدمات ترعة الجلاد - كنيسة السمائيين","notes":"جدول عام 1741","id":103}]},{"id":5,"name":"اجتماع خادمات اسرة ابتدائى كبير بنات","leader":"","description":"","sessions":[{"name":"اجتماع خادمات اسرة ابتدائى كبير بنات","day":"الجمعة","time":"15:00","duration":1.5,"location":"مبنى خدمات ترعة الجلاد - كنيسة السمائيين","notes":"جدول عام 1741","id":104}]},{"id":6,"name":"القديسات","leader":"","description":"","sessions":[{"name":"القديسات","day":"الجمعة","time":"16:30","duration":1.0,"location":"مبنى خدمات ترعة الجلاد - كنيسة السمائيين","notes":"جدول عام 1741","id":105}]},{"id":7,"name":"تلاميذ المسيح","leader":"","description":"","sessions":[{"name":"تلاميذ المسيح","day":"الثلاثاء","time":"20:00","duration":2.0,"location":"كنيسة السمائيين","notes":"أنشطة صيفية 1742","id":106},{"name":"تلاميذ المسيح","day":"الجمعة","time":"17:30","duration":2.0,"location":"مبنى خدمات ترعة الجلاد - كنيسة السمائيين","notes":"جدول عام 1741","id":107}]},{"id":8,"name":"العائلة المقدسة","leader":"","description":"","sessions":[{"name":"العائلة المقدسة","day":"الجمعة","time":"19:30","duration":2.0,"location":"مبنى خدمات ترعة الجلاد - كنيسة السمائيين","notes":"جدول عام 1741","id":108}]},{"id":9,"name":"استير ( محبة ابتدئى )","leader":"","description":"","sessions":[{"name":"استير ( محبة ابتدئى )","day":"الجمعة","time":"11:00","duration":1.5,"location":"مبنى خدمات ترعة الجلاد - المدرج","notes":"جدول عام 1741","id":109}]},{"id":10,"name":"خدام اسرة الرسل","leader":"","description":"","sessions":[{"name":"خدام اسرة الرسل","day":"الجمعة","time":"12:30","duration":1.5,"location":"مبنى خدمات ترعة الجلاد - المدرج","notes":"جدول عام 1741","id":110}]},{"id":11,"name":"الشماسة فيبى ( خادمات )","leader":"","description":"","sessions":[{"name":"الشماسة فيبى ( خادمات )","day":"الجمعة","time":"14:00","duration":1.0,"location":"مبنى خدمات ترعة الجلاد - المدرج","notes":"جدول عام 1741","id":111}]},{"id":12,"name":"حقق حلمك","leader":"","description":"","sessions":[{"name":"حقق حلمك","day":"الثلاثاء","time":"17:00","duration":2.0,"location":"مبنى خدمات ترعة الجلاد - المدرج","notes":"جدول عام 1741","id":112},{"name":"حقق حلمك","day":"الجمعة","time":"15:00","duration":3.0,"location":"مبنى خدمات ترعة الجلاد - المدرج","notes":"جدول عام 1741","id":113}]},{"id":13,"name":"خدام العائلة المقدسه","leader":"","description":"","sessions":[{"name":"خدام العائلة المقدسه","day":"الجمعة","time":"18:00","duration":1.5,"location":"مبنى خدمات ترعة الجلاد - المدرج","notes":"جدول عام 1741","id":114}]},{"id":14,"name":"مجلة العظيم","leader":"","description":"","sessions":[{"name":"مجلة العظيم","day":"الجمعة","time":"19:30","duration":1.5,"location":"الدور الثالث بالكنيسة - بحرى","notes":"أنشطة صيفية 1742","id":115},{"name":"مجلة العظيم","day":"الجمعة","time":"19:30","duration":2.0,"location":"مبنى خدمات ترعة الجلاد - المدرج","notes":"جدول عام 1741","id":116},{"name":"مجلة العظيم","day":"الجمعة","time":"20:00","duration":1.5,"location":"الدور الثالث بالكنيسة - بحرى","notes":"جدول عام 1741","id":117}]},{"id":15,"name":"مدرسة القديس بولس (مخدومين)","leader":"","description":"","sessions":[{"name":"مدرسة القديس بولس (مخدومين)","day":"السبت","time":"16:00","duration":2.0,"location":"المدرج","notes":"أنشطة صيفية 1742","id":118},{"name":"مدرسة القديس بولس (مخدومين)","day":"السبت","time":"16:00","duration":2.0,"location":"قاعة العزاء - الدور الارضى","notes":"أنشطة صيفية 1742","id":119},{"name":"مدرسة القديس بولس (مخدومين)","day":"السبت","time":"16:00","duration":3.0,"location":"كنيسة السمائيين","notes":"أنشطة صيفية 1742","id":120},{"name":"مدرسة القديس بولس (مخدومين)","day":"السبت","time":"17:00","duration":1.0,"location":"قاعة الدور الثانى","notes":"أنشطة صيفية 1742","id":121},{"name":"مدرسة القديس بولس (مخدومين)","day":"السبت","time":"17:00","duration":2.0,"location":"مبنى خدمات ترعة الجلاد - المدرج","notes":"جدول عام 1741","id":122},{"name":"مدرسة القديس بولس (مخدومين)","day":"السبت","time":"17:00","duration":2.0,"location":"مبنى خدمات ترعة الجلاد - كنيسة السمائيين","notes":"جدول عام 1741","id":123},{"name":"مدرسة القديس بولس (مخدومين)","day":"السبت","time":"17:00","duration":3.5,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة الدور الثانى","notes":"جدول عام 1741","id":124},{"name":"مدرسة القديس بولس (مخدومين)","day":"السبت","time":"17:00","duration":2.0,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":125}]},{"id":16,"name":"تسبحه","leader":"","description":"","sessions":[{"name":"تسبحه","day":"السبت","time":"19:00","duration":3.0,"location":"مبنى خدمات ترعة الجلاد - كنيسة السمائيين","notes":"جدول عام 1741","id":126}]},{"id":17,"name":"اسرة ليديا (مخدومين)","leader":"","description":"","sessions":[{"name":"اسرة ليديا (مخدومين)","day":"الأحد","time":"15:30","duration":1.5,"location":"مبنى خدمات ترعة الجلاد - كنيسة السمائيين","notes":"جدول عام 1741","id":127}]},{"id":18,"name":"اسرة ليديا (خدام)","leader":"","description":"","sessions":[{"name":"اسرة ليديا (خدام)","day":"الأحد","time":"17:00","duration":1.0,"location":"مبنى خدمات ترعة الجلاد - كنيسة السمائيين","notes":"جدول عام 1741","id":128}]},{"id":19,"name":"اسرة الصليب ( مخدومين )","leader":"","description":"","sessions":[{"name":"اسرة الصليب ( مخدومين )","day":"الأحد","time":"18:00","duration":2.0,"location":"مبنى خدمات ترعة الجلاد - كنيسة السمائيين","notes":"جدول عام 1741","id":129}]},{"id":20,"name":"اسرة مكسيموس ودوماديوس","leader":"","description":"","sessions":[{"name":"اسرة مكسيموس ودوماديوس","day":"الأحد","time":"20:00","duration":1.5,"location":"مبنى خدمات ترعة الجلاد - كنيسة السمائيين","notes":"جدول عام 1741","id":130}]},{"id":21,"name":"اسرة الصليب ( خدام )","leader":"","description":"","sessions":[{"name":"اسرة الصليب ( خدام )","day":"الأحد","time":"20:00","duration":1.5,"location":"مبنى خدمات ترعة الجلاد - المدرج","notes":"جدول عام 1741","id":131}]},{"id":22,"name":"قلب يسوع (الحياه الكنسية)","leader":"","description":"","sessions":[{"name":"قلب يسوع (الحياه الكنسية)","day":"الإثنين","time":"19:00","duration":2.5,"location":"مبنى خدمات ترعة الجلاد - المدرج","notes":"جدول عام 1741","id":132}]},{"id":23,"name":"اسرة الفادى","leader":"","description":"","sessions":[{"name":"اسرة الفادى","day":"الثلاثاء","time":"19:30","duration":1.5,"location":"المدرج","notes":"أنشطة صيفية 1742","id":133},{"name":"اسرة الفادى","day":"الثلاثاء","time":"19:30","duration":2.5,"location":"مبنى خدمات ترعة الجلاد - المدرج","notes":"جدول عام 1741","id":134}]},{"id":24,"name":"خدام الكرمة","leader":"","description":"","sessions":[{"name":"خدام الكرمة","day":"الأربعاء","time":"18:30","duration":1.0,"location":"مبنى خدمات ترعة الجلاد - كنيسة السمائيين","notes":"جدول عام 1741","id":135}]},{"id":25,"name":"كورال سانت انتونى","leader":"","description":"","sessions":[{"name":"كورال سانت انتونى","day":"الأربعاء","time":"19:00","duration":3.0,"location":"مبنى خدمات ترعة الجلاد - المدرج","notes":"جدول عام 1741","id":136}]},{"id":26,"name":"مدرسة الشمامسة","leader":"","description":"","sessions":[{"name":"مدرسة الشمامسة","day":"الخميس","time":"18:00","duration":1.5,"location":"مبنى خدمات ترعة الجلاد - المدرج","notes":"جدول عام 1741","id":137},{"name":"مدرسة الشمامسة","day":"الخميس","time":"18:30","duration":1.5,"location":"الدور الثالث بالكنيسة - بحرى","notes":"جدول عام 1741","id":138},{"name":"مدرسة الشمامسة","day":"الخميس","time":"18:30","duration":1.5,"location":"الدور الثالث بالكنيسة - بحرى","notes":"أنشطة صيفية 1742","id":139},{"name":"مدرسة الشمامسة","day":"الخميس","time":"18:30","duration":1.5,"location":"الدور الثالث بالكنيسة - بين المنارتين","notes":"جدول عام 1741","id":140},{"name":"مدرسة الشمامسة","day":"الخميس","time":"18:30","duration":1.5,"location":"الدور الثالث بالكنيسة - بين المنارتين","notes":"أنشطة صيفية 1742","id":141},{"name":"مدرسة الشمامسة","day":"الخميس","time":"18:30","duration":1.5,"location":"الدور الثالث بالكنيسة - قبلى","notes":"جدول عام 1741","id":142},{"name":"مدرسة الشمامسة","day":"الخميس","time":"18:30","duration":1.5,"location":"الدور الثالث بالكنيسة - قبلى","notes":"أنشطة صيفية 1742","id":143},{"name":"مدرسة الشمامسة","day":"الخميس","time":"18:30","duration":1.5,"location":"كنيسة السمائيين","notes":"أنشطة صيفية 1742","id":144},{"name":"مدرسة الشمامسة","day":"الخميس","time":"18:30","duration":1.5,"location":"مبنى خدمات ترعة الجلاد - كنيسة السمائيين","notes":"جدول عام 1741","id":145},{"name":"مدرسة الشمامسة","day":"الجمعة","time":"19:30","duration":2.0,"location":"الحجرة الزجاجية","notes":"جدول عام 1741","id":146},{"name":"مدرسة الشمامسة","day":"الجمعة","time":"19:30","duration":1.5,"location":"الحجرة الزجاجية","notes":"أنشطة صيفية 1742","id":147},{"name":"مدرسة الشمامسة","day":"الجمعة","time":"19:30","duration":1.5,"location":"الدور الثالث بالكنيسة - بين المنارتين","notes":"أنشطة صيفية 1742","id":148},{"name":"مدرسة الشمامسة","day":"الجمعة","time":"19:30","duration":1.5,"location":"الدور الثالث بالكنيسة - قبلى","notes":"أنشطة صيفية 1742","id":149}]},{"id":27,"name":"ابائيات","leader":"","description":"","sessions":[{"name":"ابائيات","day":"الخميس","time":"20:00","duration":2.0,"location":"كنيسة السمائيين","notes":"أنشطة صيفية 1742","id":150},{"name":"ابائيات","day":"الخميس","time":"20:00","duration":2.0,"location":"مبنى خدمات ترعة الجلاد - كنيسة السمائيين","notes":"جدول عام 1741","id":151}]},{"id":28,"name":"كورال مكسيموس ودوماديوس","leader":"","description":"","sessions":[{"name":"كورال مكسيموس ودوماديوس","day":"الخميس","time":"19:30","duration":2.5,"location":"مبنى خدمات ترعة الجلاد - المدرج","notes":"جدول عام 1741","id":152}]},{"id":29,"name":"شاروبيم بنين ( مخدومين )","leader":"","description":"","sessions":[{"name":"شاروبيم بنين ( مخدومين )","day":"الجمعة","time":"11:00","duration":1.0,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة الدور الثانى","notes":"جدول عام 1741","id":153},{"name":"شاروبيم بنين ( مخدومين )","day":"الجمعة","time":"11:00","duration":1.0,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":154},{"name":"شاروبيم بنين ( مخدومين )","day":"الجمعة","time":"11:00","duration":1.0,"location":"مكتبة الطفل","notes":"جدول عام 1741","id":155}]},{"id":30,"name":"سيرافيم بنين ( خدام )","leader":"","description":"","sessions":[{"name":"سيرافيم بنين ( خدام )","day":"الجمعة","time":"12:15","duration":1.5,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":156}]},{"id":31,"name":"انبياء ( خدام )","leader":"","description":"","sessions":[{"name":"انبياء ( خدام )","day":"الجمعة","time":"13:45","duration":1.25,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":157}]},{"id":32,"name":"اعدادى بنات ( خادمات )","leader":"","description":"","sessions":[{"name":"اعدادى بنات ( خادمات )","day":"الجمعة","time":"15:00","duration":1.5,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة الدور الثانى","notes":"جدول عام 1741","id":158},{"name":"اعدادى بنات ( خادمات )","day":"الجمعة","time":"15:00","duration":1.5,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":159}]},{"id":33,"name":"العذراء الانبا بيشوى ( خدام )","leader":"","description":"","sessions":[{"name":"العذراء الانبا بيشوى ( خدام )","day":"الجمعة","time":"16:30","duration":1.5,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":160}]},{"id":34,"name":"اعدادى بنين ( خدام )","leader":"","description":"","sessions":[{"name":"اعدادى بنين ( خدام )","day":"الجمعة","time":"18:30","duration":2.0,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":161}]},{"id":35,"name":"مكسيموس ودوماديوس","leader":"","description":"","sessions":[{"name":"مكسيموس ودوماديوس","day":"الجمعة","time":"18:00","duration":1.5,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة الدور الثانى","notes":"جدول عام 1741","id":162},{"name":"مكسيموس ودوماديوس","day":"الجمعة","time":"21:00","duration":1.0,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":163}]},{"id":36,"name":"محبه ( خدام )","leader":"","description":"","sessions":[{"name":"محبه ( خدام )","day":"الجمعة","time":"12:00","duration":1.5,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة الدور الثانى","notes":"جدول عام 1741","id":164}]},{"id":37,"name":"محبه ( مخدومين )","leader":"","description":"","sessions":[{"name":"محبه ( مخدومين )","day":"الجمعة","time":"13:30","duration":1.5,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة الدور الثانى","notes":"جدول عام 1741","id":165}]},{"id":38,"name":"الانبا باخوميوس للخريجين","leader":"","description":"","sessions":[{"name":"الانبا باخوميوس للخريجين","day":"الجمعة","time":"19:30","duration":1.5,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة الدور الثانى","notes":"جدول عام 1741","id":166}]},{"id":39,"name":"مركز الحبيب","leader":"","description":"","sessions":[{"name":"مركز الحبيب","day":"الإثنين","time":"13:00","duration":5.0,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":167},{"name":"مركز الحبيب","day":"الإثنين","time":"14:00","duration":3.0,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة الدور الثانى","notes":"جدول عام 1741","id":168},{"name":"مركز الحبيب","day":"الأربعاء","time":"14:00","duration":4.0,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":169},{"name":"مركز الحبيب","day":"الأربعاء","time":"17:00","duration":2.0,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة الدور الثانى","notes":"جدول عام 1741","id":170},{"name":"مركز الحبيب","day":"الخميس","time":"14:00","duration":4.0,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة الدور الثانى","notes":"جدول عام 1741","id":171},{"name":"مركز الحبيب","day":"الخميس","time":"14:00","duration":4.0,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":172},{"name":"مركز الحبيب","day":"السبت","time":"09:00","duration":7.5,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة الدور الثانى","notes":"جدول عام 1741","id":173},{"name":"مركز الحبيب","day":"السبت","time":"10:00","duration":7.0,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":174}]},{"id":40,"name":"كشافه","leader":"","description":"","sessions":[{"name":"كشافه","day":"الجمعة","time":"17:00","duration":2.0,"location":"الدور الثالث بالكنيسة - بحرى","notes":"جدول عام 1741","id":175},{"name":"كشافه","day":"الجمعة","time":"17:00","duration":2.0,"location":"الدور الثالث بالكنيسة - بين المنارتين","notes":"جدول عام 1741","id":176},{"name":"كشافه","day":"السبت","time":"10:00","duration":7.0,"location":"النادى الصيفى","notes":"أنشطة صيفية 1742","id":177},{"name":"كشافه","day":"السبت","time":"19:00","duration":2.0,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":178}]},{"id":41,"name":"القديس بولس للتجار ( مخدومين )","leader":"","description":"","sessions":[{"name":"القديس بولس للتجار ( مخدومين )","day":"الأحد","time":"16:30","duration":1.5,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة الدور الثانى","notes":"جدول عام 1741","id":179},{"name":"القديس بولس للتجار ( مخدومين )","day":"الأحد","time":"16:30","duration":1.5,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":180}]},{"id":42,"name":"القديس بولس للتجار ( خدام )","leader":"","description":"","sessions":[{"name":"القديس بولس للتجار ( خدام )","day":"الأحد","time":"18:00","duration":1.5,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":181}]},{"id":43,"name":"كورسات","leader":"","description":"","sessions":[{"name":"كورسات","day":"الأحد","time":"18:00","duration":3.0,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة الدور الثانى","notes":"جدول عام 1741","id":182},{"name":"كورسات","day":"الإثنين","time":"18:00","duration":3.0,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة الدور الثانى","notes":"جدول عام 1741","id":183}]},{"id":44,"name":"الانبا باخوميوس للخريجين ( خدام )","leader":"","description":"","sessions":[{"name":"الانبا باخوميوس للخريجين ( خدام )","day":"الإثنين","time":"18:00","duration":2.0,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":184}]},{"id":45,"name":"اجتماع السيدات ( خادمات )","leader":"","description":"","sessions":[{"name":"اجتماع السيدات ( خادمات )","day":"الثلاثاء","time":"18:30","duration":2.0,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":185}]},{"id":46,"name":"الراعى الصالح ( الحياه الكنسية )","leader":"","description":"","sessions":[{"name":"الراعى الصالح ( الحياه الكنسية )","day":"الثلاثاء","time":"18:00","duration":3.0,"location":"المشغل","notes":"أنشطة صيفية 1742","id":186},{"name":"الراعى الصالح ( الحياه الكنسية )","day":"الثلاثاء","time":"18:00","duration":3.0,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة الدور الثانى","notes":"جدول عام 1741","id":187}]},{"id":47,"name":"السامرى الصالح ( خدام )","leader":"","description":"","sessions":[{"name":"السامرى الصالح ( خدام )","day":"الأربعاء","time":"19:00","duration":2.0,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":188}]},{"id":48,"name":"اسرة الشهداء ( خدام )","leader":"","description":"","sessions":[{"name":"اسرة الشهداء ( خدام )","day":"الخميس","time":"18:30","duration":1.5,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":189}]},{"id":49,"name":"سمعان الشيخ ( خدام )","leader":"","description":"","sessions":[{"name":"سمعان الشيخ ( خدام )","day":"الخميس","time":"20:00","duration":1.5,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة العزاء - الدور الارضى","notes":"جدول عام 1741","id":190}]},{"id":50,"name":"انتونى تيم","leader":"","description":"","sessions":[{"name":"انتونى تيم","day":"الخميس","time":"18:00","duration":3.5,"location":"مبنى خدمات دانيال ميخائيل (الجديد) - قاعة الدور الثانى","notes":"جدول عام 1741","id":191},{"name":"انتونى تيم","day":"الخميس","time":"20:00","duration":2.0,"location":"قاعة الدور الثانى","notes":"أنشطة صيفية 1742","id":192}]},{"id":51,"name":"سيرافيم بنين ( مخدومين )","leader":"","description":"","sessions":[{"name":"سيرافيم بنين ( مخدومين )","day":"الجمعة","time":"11:00","duration":1.0,"location":"الدور الثالث بالكنيسة - بحرى","notes":"جدول عام 1741","id":193},{"name":"سيرافيم بنين ( مخدومين )","day":"الجمعة","time":"11:00","duration":1.0,"location":"الدور الثالث بالكنيسة - بين المنارتين","notes":"جدول عام 1741","id":194},{"name":"سيرافيم بنين ( مخدومين )","day":"الجمعة","time":"11:00","duration":1.0,"location":"الدور الثالث بالكنيسة - قبلى","notes":"جدول عام 1741","id":195}]},{"id":52,"name":"الشماسة فيبى","leader":"","description":"","sessions":[{"name":"الشماسة فيبى","day":"الأحد","time":"17:00","duration":1.0,"location":"الدور الثالث بالكنيسة - بين المنارتين","notes":"أنشطة صيفية 1742","id":196},{"name":"الشماسة فيبى","day":"الأحد","time":"17:00","duration":2.0,"location":"المدرج","notes":"أنشطة صيفية 1742","id":197},{"name":"الشماسة فيبى","day":"الإثنين","time":"17:00","duration":1.5,"location":"كنيسة السمائيين","notes":"أنشطة صيفية 1742","id":198},{"name":"الشماسة فيبى","day":"الثلاثاء","time":"17:00","duration":1.5,"location":"الحجرة الزجاجية","notes":"أنشطة صيفية 1742","id":199},{"name":"الشماسة فيبى","day":"الثلاثاء","time":"17:00","duration":1.5,"location":"قاعة الدور الثانى","notes":"أنشطة صيفية 1742","id":200},{"name":"الشماسة فيبى","day":"الثلاثاء","time":"18:00","duration":1.5,"location":"الدور الثالث بالكنيسة - قبلى","notes":"أنشطة صيفية 1742","id":201},{"name":"الشماسة فيبى","day":"الأربعاء","time":"16:30","duration":3.0,"location":"صحن الكنيسة","notes":"أنشطة صيفية 1742","id":202},{"name":"الشماسة فيبى","day":"الجمعة","time":"11:00","duration":1.5,"location":"الحجرة الزجاجية","notes":"أنشطة صيفية 1742","id":203},{"name":"الشماسة فيبى","day":"الجمعة","time":"11:30","duration":1.0,"location":"الحجرة الزجاجية","notes":"جدول عام 1741","id":204},{"name":"الشماسة فيبى","day":"الجمعة","time":"12:00","duration":1.5,"location":"الدور الثالث بالكنيسة - بحرى","notes":"جدول عام 1741","id":205},{"name":"الشماسة فيبى","day":"الجمعة","time":"12:00","duration":1.5,"location":"الدور الثالث بالكنيسة - بحرى","notes":"أنشطة صيفية 1742","id":206},{"name":"الشماسة فيبى","day":"الجمعة","time":"12:00","duration":1.5,"location":"الدور الثالث بالكنيسة - بين المنارتين","notes":"جدول عام 1741","id":207},{"name":"الشماسة فيبى","day":"الجمعة","time":"12:00","duration":1.5,"location":"الدور الثالث بالكنيسة - بين المنارتين","notes":"أنشطة صيفية 1742","id":208},{"name":"الشماسة فيبى","day":"الجمعة","time":"12:00","duration":1.5,"location":"الدور الثالث بالكنيسة - قبلى","notes":"جدول عام 1741","id":209},{"name":"الشماسة فيبى","day":"الجمعة","time":"12:00","duration":1.5,"location":"الدور الثالث بالكنيسة - قبلى","notes":"أنشطة صيفية 1742","id":210},{"name":"الشماسة فيبى","day":"الجمعة","time":"15:00","duration":1.5,"location":"الدور الثالث بالكنيسة - بحرى","notes":"جدول عام 1741","id":211},{"name":"الشماسة فيبى","day":"الجمعة","time":"15:00","duration":2.0,"location":"الدور الثالث بالكنيسة - بين المنارتين","notes":"جدول عام 1741","id":212},{"name":"الشماسة فيبى","day":"الجمعة","time":"15:00","duration":1.5,"location":"الدور الثالث بالكنيسة - قبلى","notes":"جدول عام 1741","id":213}]},{"id":53,"name":"ثانوى بنات ( خادمات )","leader":"","description":"","sessions":[{"name":"ثانوى بنات ( خادمات )","day":"الجمعة","time":"13:30","duration":1.5,"location":"الدور الثالث بالكنيسة - بحرى","notes":"جدول عام 1741","id":214},{"name":"ثانوى بنات ( خادمات )","day":"الجمعة","time":"13:30","duration":1.5,"location":"الدور الثالث بالكنيسة - بين المنارتين","notes":"جدول عام 1741","id":215},{"name":"ثانوى بنات ( خادمات )","day":"الجمعة","time":"13:30","duration":1.5,"location":"الدور الثالث بالكنيسة - قبلى","notes":"جدول عام 1741","id":216}]},{"id":54,"name":"مدرسة الشمامسه","leader":"","description":"","sessions":[{"name":"مدرسة الشمامسه","day":"الجمعة","time":"19:30","duration":1.5,"location":"الدور الثالث بالكنيسة - بين المنارتين","notes":"جدول عام 1741","id":217},{"name":"مدرسة الشمامسه","day":"الجمعة","time":"19:30","duration":1.5,"location":"الدور الثالث بالكنيسة - قبلى","notes":"جدول عام 1741","id":218}]},{"id":55,"name":"مغلق اجتماع ابونا باخوم","leader":"","description":"","sessions":[{"name":"مغلق اجتماع ابونا باخوم","day":"الأحد","time":"18:30","duration":1.5,"location":"الدور الثالث بالكنيسة - بحرى","notes":"جدول عام 1741","id":219},{"name":"مغلق اجتماع ابونا باخوم","day":"الأحد","time":"18:30","duration":1.5,"location":"الدور الثالث بالكنيسة - بين المنارتين","notes":"جدول عام 1741","id":220},{"name":"مغلق اجتماع ابونا باخوم","day":"الأحد","time":"18:30","duration":1.5,"location":"الدور الثالث بالكنيسة - قبلى","notes":"جدول عام 1741","id":221},{"name":"مغلق اجتماع ابونا باخوم","day":"الأحد","time":"","duration":0,"location":"الدور الثالث بالكنيسة - بحرى","notes":"أنشطة صيفية 1742","id":222},{"name":"مغلق اجتماع ابونا باخوم","day":"الأحد","time":"","duration":0,"location":"الدور الثالث بالكنيسة - قبلى","notes":"أنشطة صيفية 1742","id":223}]},{"id":56,"name":"كورال اسرة جامعة","leader":"","description":"","sessions":[{"name":"كورال اسرة جامعة","day":"الثلاثاء","time":"19:30","duration":1.5,"location":"الدور الثالث بالكنيسة - قبلى","notes":"جدول عام 1741","id":224}]},{"id":57,"name":"محو امية","leader":"","description":"","sessions":[{"name":"محو امية","day":"الأربعاء","time":"17:00","duration":4.0,"location":"الدور الثالث بالكنيسة - بين المنارتين","notes":"أنشطة صيفية 1742","id":225},{"name":"محو امية","day":"الأربعاء","time":"17:00","duration":4.0,"location":"الدور الثالث بالكنيسة - قبلى","notes":"جدول عام 1741","id":226},{"name":"محو امية","day":"الأربعاء","time":"17:00","duration":4.0,"location":"الدور الثالث بالكنيسة - قبلى","notes":"أنشطة صيفية 1742","id":227}]},{"id":58,"name":"الكتاب المقدس ( خدام )","leader":"","description":"","sessions":[{"name":"الكتاب المقدس ( خدام )","day":"الجمعة","time":"12:30","duration":2.0,"location":"الحجرة الزجاجية","notes":"جدول عام 1741","id":228}]},{"id":59,"name":"ام النور","leader":"","description":"","sessions":[{"name":"ام النور","day":"الأحد","time":"11:30","duration":2.0,"location":"الحجرة الزجاجية","notes":"جدول عام 1741","id":229}]},{"id":60,"name":"الرسل ( مخدومين )","leader":"","description":"","sessions":[{"name":"الرسل ( مخدومين )","day":"الجمعة","time":"10:30","duration":1.5,"location":"صحن الكنيسة","notes":"جدول عام 1741","id":230}]},{"id":61,"name":"الانبياء ( مخدومين )","leader":"","description":"","sessions":[{"name":"الانبياء ( مخدومين )","day":"الجمعة","time":"12:00","duration":1.5,"location":"صحن الكنيسة","notes":"جدول عام 1741","id":231}]},{"id":62,"name":"اعدادى بنات ( مخدومين )","leader":"","description":"","sessions":[{"name":"اعدادى بنات ( مخدومين )","day":"الجمعة","time":"13:30","duration":1.5,"location":"صحن الكنيسة","notes":"جدول عام 1741","id":232}]},{"id":63,"name":"ثانوى بنات ( مخدومين )","leader":"","description":"","sessions":[{"name":"ثانوى بنات ( مخدومين )","day":"الجمعة","time":"15:00","duration":1.5,"location":"صحن الكنيسة","notes":"جدول عام 1741","id":233}]},{"id":64,"name":"اعدادى بنين ( مخدومين )","leader":"","description":"","sessions":[{"name":"اعدادى بنين ( مخدومين )","day":"الجمعة","time":"16:30","duration":1.5,"location":"صحن الكنيسة","notes":"جدول عام 1741","id":234}]},{"id":65,"name":"العذراء والانبا بيشوى ( مخدومين )","leader":"","description":"","sessions":[{"name":"العذراء والانبا بيشوى ( مخدومين )","day":"الجمعة","time":"18:00","duration":1.5,"location":"صحن الكنيسة","notes":"جدول عام 1741","id":235}]},{"id":66,"name":"مكسيموس ودوماديوس ( مخدومين )","leader":"","description":"","sessions":[{"name":"مكسيموس ودوماديوس ( مخدومين )","day":"الجمعة","time":"19:30","duration":1.5,"location":"صحن الكنيسة","notes":"جدول عام 1741","id":236}]},{"id":67,"name":"الانبا باخوميوس للخريجين ( مخدومين )","leader":"","description":"","sessions":[{"name":"الانبا باخوميوس للخريجين ( مخدومين )","day":"الإثنين","time":"19:45","duration":1.5,"location":"صحن الكنيسة","notes":"جدول عام 1741","id":237}]},{"id":68,"name":"الكرمه","leader":"","description":"","sessions":[{"name":"الكرمه","day":"الأربعاء","time":"19:00","duration":2.5,"location":"صحن الكنيسة","notes":"جدول عام 1741","id":238}]},{"id":69,"name":"سمعان الشيخ ( مخدومين )","leader":"","description":"","sessions":[{"name":"سمعان الشيخ ( مخدومين )","day":"الخميس","time":"18:30","duration":1.5,"location":"صحن الكنيسة","notes":"جدول عام 1741","id":239}]},{"id":70,"name":"الشهداء ( مخدومين )","leader":"","description":"","sessions":[{"name":"الشهداء ( مخدومين )","day":"الخميس","time":"20:00","duration":1.5,"location":"صحن الكنيسة","notes":"جدول عام 1741","id":240}]},{"id":71,"name":"رجاء بنات ( خادمات )","leader":"","description":"","sessions":[{"name":"رجاء بنات ( خادمات )","day":"الجمعة","time":"11:30","duration":1.5,"location":"المكتبة الاستعارية","notes":"جدول عام 1741","id":241}]},{"id":72,"name":"المكتبة الاستعارية","leader":"","description":"","sessions":[{"name":"المكتبة الاستعارية","day":"الثلاثاء","time":"19:00","duration":2.0,"location":"المكتبة الاستعارية","notes":"جدول عام 1741","id":242},{"name":"المكتبة الاستعارية","day":"الجمعة","time":"14:00","duration":1.5,"location":"المكتبة الاستعارية","notes":"جدول عام 1741","id":243},{"name":"المكتبة الاستعارية","day":"السبت","time":"19:00","duration":2.0,"location":"المكتبة الاستعارية","notes":"جدول عام 1741","id":244}]},{"id":73,"name":"تلاميذ المسيح ( خدام )","leader":"","description":"","sessions":[{"name":"تلاميذ المسيح ( خدام )","day":"الجمعة","time":"15:30","duration":2.0,"location":"المكتبة الاستعارية","notes":"جدول عام 1741","id":245}]},{"id":74,"name":"تلاميذ المسيح ( مخدومين )","leader":"","description":"","sessions":[{"name":"تلاميذ المسيح ( مخدومين )","day":"الجمعة","time":"17:30","duration":2.0,"location":"المكتبة الاستعارية","notes":"جدول عام 1741","id":246}]},{"id":75,"name":"المكتبة الاستعارية (خدام )","leader":"","description":"","sessions":[{"name":"المكتبة الاستعارية (خدام )","day":"الإثنين","time":"19:00","duration":2.0,"location":"المكتبة الاستعارية","notes":"جدول عام 1741","id":247}]},{"id":76,"name":"شاروبيم بنين ( خدام )","leader":"","description":"","sessions":[{"name":"شاروبيم بنين ( خدام )","day":"الجمعة","time":"12:30","duration":1.5,"location":"براعم انطونيوس","notes":"جدول عام 1741","id":248}]},{"id":77,"name":"براعم انطونيوس ( خدام )","leader":"","description":"","sessions":[{"name":"براعم انطونيوس ( خدام )","day":"الجمعة","time":"19:30","duration":1.5,"location":"براعم انطونيوس","notes":"جدول عام 1741","id":249}]},{"id":78,"name":"حبة الخردل ( مخدومين )","leader":"","description":"","sessions":[{"name":"حبة الخردل ( مخدومين )","day":"الجمعة","time":"10:30","duration":1.0,"location":"المسرح","notes":"جدول عام 1741","id":250}]},{"id":79,"name":"حبة الخردل ( خادمات )","leader":"","description":"","sessions":[{"name":"حبة الخردل ( خادمات )","day":"الجمعة","time":"11:30","duration":2.0,"location":"المسرح","notes":"جدول عام 1741","id":251}]},{"id":80,"name":"مكتبة الطفل ( مخدومين )","leader":"","description":"","sessions":[{"name":"مكتبة الطفل ( مخدومين )","day":"الجمعة","time":"12:00","duration":3.0,"location":"مكتبة الطفل","notes":"جدول عام 1741","id":252}]},{"id":81,"name":"مكتبة الطفل ( خدام )","leader":"","description":"","sessions":[{"name":"مكتبة الطفل ( خدام )","day":"الجمعة","time":"15:00","duration":1.0,"location":"مكتبة الطفل","notes":"جدول عام 1741","id":253}]},{"id":82,"name":"رجاء بنات ( مخدومين )","leader":"","description":"","sessions":[{"name":"رجاء بنات ( مخدومين )","day":"الجمعة","time":"09:00","duration":2.0,"location":"النادى - الملعب","notes":"جدول عام 1741","id":254}]},{"id":83,"name":"رجاء بنين (مخدومين )","leader":"","description":"","sessions":[{"name":"رجاء بنين (مخدومين )","day":"الجمعة","time":"11:00","duration":1.5,"location":"النادى - البينج","notes":"جدول عام 1741","id":255}]},{"id":84,"name":"رجاء بنين (خدام)","leader":"","description":"","sessions":[{"name":"رجاء بنين (خدام)","day":"الجمعة","time":"12:30","duration":2.5,"location":"النادى - البينج","notes":"جدول عام 1741","id":256}]},{"id":85,"name":"الصليب","leader":"","description":"","sessions":[{"name":"الصليب","day":"الأحد","time":"18:30","duration":1.0,"location":"النادى - الملعب","notes":"جدول عام 1741","id":257}]},{"id":86,"name":"الصليب (خدام )","leader":"","description":"","sessions":[{"name":"الصليب (خدام )","day":"الأحد","time":"19:30","duration":1.5,"location":"النادى - الملعب","notes":"جدول عام 1741","id":258}]},{"id":87,"name":"قطاع التدريب","leader":"","description":"","sessions":[{"name":"قطاع التدريب","day":"السبت","time":"11:00","duration":2.0,"location":"كنيسة السمائيين","notes":"أنشطة صيفية 1742","id":259}]},{"id":88,"name":"التسبحة","leader":"","description":"","sessions":[{"name":"التسبحة","day":"السبت","time":"19:30","duration":2.5,"location":"كنيسة السمائيين","notes":"أنشطة صيفية 1742","id":260}]},{"id":89,"name":"الرجاء بنات","leader":"","description":"","sessions":[{"name":"الرجاء بنات","day":"الخميس","time":"17:30","duration":1.0,"location":"المدرج","notes":"أنشطة صيفية 1742","id":261},{"name":"الرجاء بنات","day":"السبت","time":"11:00","duration":3.0,"location":"المدرج","notes":"أنشطة صيفية 1742","id":262}]},{"id":90,"name":"ثانوى مشترك","leader":"","description":"","sessions":[{"name":"ثانوى مشترك","day":"الإثنين","time":"20:00","duration":2.0,"location":"المدرج","notes":"أنشطة صيفية 1742","id":263},{"name":"ثانوى مشترك","day":"الثلاثاء","time":"18:30","duration":3.5,"location":"الدور الثالث بالكنيسة - بحرى","notes":"أنشطة صيفية 1742","id":264},{"name":"ثانوى مشترك","day":"الثلاثاء","time":"18:30","duration":3.5,"location":"الدور الثالث بالكنيسة - بين المنارتين","notes":"أنشطة صيفية 1742","id":265},{"name":"ثانوى مشترك","day":"الأربعاء","time":"18:30","duration":1.0,"location":"الدور الثالث بالكنيسة - بحرى","notes":"أنشطة صيفية 1742","id":266},{"name":"ثانوى مشترك","day":"الجمعة","time":"18:00","duration":1.5,"location":"الدور الثالث بالكنيسة - بحرى","notes":"أنشطة صيفية 1742","id":267},{"name":"ثانوى مشترك","day":"السبت","time":"18:00","duration":1.5,"location":"المدرج","notes":"أنشطة صيفية 1742","id":268}]},{"id":91,"name":"أسرة ليديا للعاملات","leader":"","description":"","sessions":[{"name":"أسرة ليديا للعاملات","day":"الأحد","time":"15:30","duration":2.5,"location":"كنيسة السمائيين","notes":"أنشطة صيفية 1742","id":269}]},{"id":92,"name":"أسرة الصليب","leader":"","description":"","sessions":[{"name":"أسرة الصليب","day":"الأحد","time":"18:00","duration":2.0,"location":"كنيسة السمائيين","notes":"أنشطة صيفية 1742","id":270}]},{"id":93,"name":"ابتدائى مرحلة ثانية مشترك","leader":"","description":"","sessions":[{"name":"ابتدائى مرحلة ثانية مشترك","day":"الأحد","time":"19:00","duration":1.0,"location":"المشغل","notes":"أنشطة صيفية 1742","id":271},{"name":"ابتدائى مرحلة ثانية مشترك","day":"الأحد","time":"19:00","duration":3.0,"location":"قاعة الدور الثانى","notes":"أنشطة صيفية 1742","id":272},{"name":"ابتدائى مرحلة ثانية مشترك","day":"الأحد","time":"20:00","duration":2.0,"location":"قاعة العزاء - الدور الارضى","notes":"أنشطة صيفية 1742","id":273},{"name":"ابتدائى مرحلة ثانية مشترك","day":"الأحد","time":"20:00","duration":2.0,"location":"كنيسة السمائيين","notes":"أنشطة صيفية 1742","id":274},{"name":"ابتدائى مرحلة ثانية مشترك","day":"الإثنين","time":"18:00","duration":4.0,"location":"قاعة الدور الثانى","notes":"أنشطة صيفية 1742","id":275},{"name":"ابتدائى مرحلة ثانية مشترك","day":"الإثنين","time":"18:00","duration":4.0,"location":"قاعة العزاء - الدور الارضى","notes":"أنشطة صيفية 1742","id":276},{"name":"ابتدائى مرحلة ثانية مشترك","day":"الإثنين","time":"18:30","duration":3.0,"location":"الدور الثالث بالكنيسة - بين المنارتين","notes":"أنشطة صيفية 1742","id":277},{"name":"ابتدائى مرحلة ثانية مشترك","day":"الإثنين","time":"18:30","duration":3.0,"location":"المشغل","notes":"أنشطة صيفية 1742","id":278}]},{"id":94,"name":"ابتدائى مرحلة ثانية","leader":"","description":"","sessions":[{"name":"ابتدائى مرحلة ثانية","day":"الأحد","time":"19:00","duration":1.0,"location":"المدرج","notes":"أنشطة صيفية 1742","id":279}]},{"id":95,"name":"اجتماع خدام الصليب","leader":"","description":"","sessions":[{"name":"اجتماع خدام الصليب","day":"الأحد","time":"20:00","duration":1.5,"location":"المدرج","notes":"أنشطة صيفية 1742","id":280}]},{"id":96,"name":"اعدادى بنات","leader":"","description":"","sessions":[{"name":"اعدادى بنات","day":"الإثنين","time":"18:30","duration":2.0,"location":"كنيسة السمائيين","notes":"أنشطة صيفية 1742","id":281}]},{"id":97,"name":"جامعة","leader":"","description":"","sessions":[{"name":"جامعة","day":"الأحد","time":"20:00","duration":2.0,"location":"الدور الثالث بالكنيسة - بين المنارتين","notes":"أنشطة صيفية 1742","id":282},{"name":"جامعة","day":"الإثنين","time":"20:30","duration":1.5,"location":"كنيسة السمائيين","notes":"أنشطة صيفية 1742","id":283}]},{"id":98,"name":"خدام الخريجين","leader":"","description":"","sessions":[{"name":"خدام الخريجين","day":"الإثنين","time":"18:00","duration":2.0,"location":"المدرج","notes":"أنشطة صيفية 1742","id":284}]},{"id":99,"name":"حضانة مشترك","leader":"","description":"","sessions":[{"name":"حضانة مشترك","day":"الثلاثاء","time":"17:00","duration":3.0,"location":"كنيسة السمائيين","notes":"أنشطة صيفية 1742","id":285}]},{"id":100,"name":"رجاء بنات","leader":"","description":"","sessions":[{"name":"رجاء بنات","day":"الثلاثاء","time":"17:30","duration":2.0,"location":"المدرج","notes":"أنشطة صيفية 1742","id":286}]},{"id":101,"name":"أولى و ثانية ابتدائى مشترك","leader":"","description":"","sessions":[{"name":"أولى و ثانية ابتدائى مشترك","day":"الأربعاء","time":"18:00","duration":3.0,"location":"كنيسة السمائيين","notes":"أنشطة صيفية 1742","id":287},{"name":"أولى و ثانية ابتدائى مشترك","day":"الأربعاء","time":"18:30","duration":1.0,"location":"المدرج","notes":"أنشطة صيفية 1742","id":288},{"name":"أولى و ثانية ابتدائى مشترك","day":"السبت","time":"18:00","duration":2.0,"location":"قاعة الدور الثانى","notes":"أنشطة صيفية 1742","id":289}]},{"id":102,"name":"كورال سانت انتونى ( خريجين )","leader":"","description":"","sessions":[{"name":"كورال سانت انتونى ( خريجين )","day":"الأربعاء","time":"19:30","duration":2.5,"location":"المدرج","notes":"أنشطة صيفية 1742","id":290}]},{"id":103,"name":"بيبى كلاس","leader":"","description":"","sessions":[{"name":"بيبى كلاس","day":"الخميس","time":"17:00","duration":2.0,"location":"المشغل","notes":"أنشطة صيفية 1742","id":291},{"name":"بيبى كلاس","day":"الخميس","time":"17:00","duration":1.5,"location":"كنيسة السمائيين","notes":"أنشطة صيفية 1742","id":292},{"name":"بيبى كلاس","day":"السبت","time":"17:00","duration":2.0,"location":"المشغل","notes":"أنشطة صيفية 1742","id":293}]},{"id":104,"name":"كورال مكسيموس و دوماديوس","leader":"","description":"","sessions":[{"name":"كورال مكسيموس و دوماديوس","day":"الخميس","time":"19:30","duration":2.5,"location":"المدرج","notes":"أنشطة صيفية 1742","id":294}]},{"id":105,"name":"ثانوى بنين","leader":"","description":"","sessions":[{"name":"ثانوى بنين","day":"الإثنين","time":"18:30","duration":1.5,"location":"الدور الثالث بالكنيسة - بحرى","notes":"أنشطة صيفية 1742","id":295},{"name":"ثانوى بنين","day":"السبت","time":"15:00","duration":2.0,"location":"المشغل","notes":"أنشطة صيفية 1742","id":296}]},{"id":106,"name":"الشماسه فيبى","leader":"","description":"","sessions":[{"name":"الشماسه فيبى","day":"الأحد","time":"17:00","duration":1.5,"location":"المشغل","notes":"أنشطة صيفية 1742","id":297}]},{"id":107,"name":"اسرة الكرمة ( خدام )","leader":"","description":"","sessions":[{"name":"اسرة الكرمة ( خدام )","day":"الأربعاء","time":"18:30","duration":1.0,"location":"المشغل","notes":"أنشطة صيفية 1742","id":298}]},{"id":108,"name":"المسرح","leader":"","description":"","sessions":[{"name":"المسرح","day":"الأربعاء","time":"19:30","duration":2.0,"location":"الدور الثالث بالكنيسة - بحرى","notes":"أنشطة صيفية 1742","id":299},{"name":"المسرح","day":"الأربعاء","time":"19:30","duration":2.0,"location":"المشغل","notes":"أنشطة صيفية 1742","id":300}]},{"id":109,"name":"رجاء اولاد","leader":"","description":"","sessions":[{"name":"رجاء اولاد","day":"الخميس","time":"19:30","duration":2.0,"location":"المشغل","notes":"أنشطة صيفية 1742","id":301}]},{"id":110,"name":"بدون اسم محدد","leader":"","description":"","sessions":[{"name":"بدون اسم محدد","day":"الثلاثاء","time":"17:30","duration":2.0,"location":"قاعة العزاء - الدور الارضى","notes":"أنشطة صيفية 1742","id":302},{"name":"بدون اسم محدد","day":"الثلاثاء","time":"20:00","duration":1.5,"location":"قاعة الدور الثانى","notes":"أنشطة صيفية 1742","id":303},{"name":"بدون اسم محدد","day":"الخميس","time":"20:00","duration":2.0,"location":"قاعة العزاء - الدور الارضى","notes":"أنشطة صيفية 1742","id":304},{"name":"بدون اسم محدد","day":"الجمعة","time":"12:00","duration":1.5,"location":"المشغل","notes":"أنشطة صيفية 1742","id":305}]},{"id":111,"name":"اسرة القديس لوقا","leader":"","description":"","sessions":[{"name":"اسرة القديس لوقا","day":"الجمعة","time":"13:30","duration":2.0,"location":"المشغل","notes":"أنشطة صيفية 1742","id":306}]},{"id":112,"name":"كشافة","leader":"","description":"","sessions":[{"name":"كشافة","day":"الجمعة","time":"17:00","duration":2.5,"location":"الدور الثالث بالكنيسة - بين المنارتين","notes":"أنشطة صيفية 1742","id":307},{"name":"كشافة","day":"الجمعة","time":"17:00","duration":2.5,"location":"الدور الثالث بالكنيسة - قبلى","notes":"أنشطة صيفية 1742","id":308},{"name":"كشافة","day":"السبت","time":"10:00","duration":7.0,"location":"الدور الثالث بالكنيسة - بحرى","notes":"أنشطة صيفية 1742","id":309},{"name":"كشافة","day":"السبت","time":"10:00","duration":7.0,"location":"الدور الثالث بالكنيسة - بين المنارتين","notes":"أنشطة صيفية 1742","id":310},{"name":"كشافة","day":"السبت","time":"10:00","duration":7.0,"location":"الدور الثالث بالكنيسة - قبلى","notes":"أنشطة صيفية 1742","id":311},{"name":"كشافة","day":"السبت","time":"10:00","duration":3.0,"location":"قاعة العزاء - الدور الارضى","notes":"أنشطة صيفية 1742","id":312},{"name":"كشافة","day":"السبت","time":"12:00","duration":5.0,"location":"قاعة الدور الثانى","notes":"أنشطة صيفية 1742","id":313},{"name":"كشافة","day":"السبت","time":"13:00","duration":3.0,"location":"قاعة العزاء - الدور الارضى","notes":"أنشطة صيفية 1742","id":314}]},{"id":113,"name":"اعدادى مشترك","leader":"","description":"","sessions":[{"name":"اعدادى مشترك","day":"الثلاثاء","time":"18:30","duration":1.5,"location":"قاعة الدور الثانى","notes":"أنشطة صيفية 1742","id":315},{"name":"اعدادى مشترك","day":"الأربعاء","time":"19:00","duration":3.0,"location":"قاعة الدور الثانى","notes":"أنشطة صيفية 1742","id":316},{"name":"اعدادى مشترك","day":"الأربعاء","time":"20:30","duration":1.5,"location":"قاعة العزاء - الدور الارضى","notes":"أنشطة صيفية 1742","id":317},{"name":"اعدادى مشترك","day":"السبت","time":"18:00","duration":4.0,"location":"قاعة العزاء - الدور الارضى","notes":"أنشطة صيفية 1742","id":318}]},{"id":114,"name":"جامعه","leader":"","description":"","sessions":[{"name":"جامعه","day":"الثلاثاء","time":"19:30","duration":2.5,"location":"الدور الثالث بالكنيسة - قبلى","notes":"أنشطة صيفية 1742","id":319},{"name":"جامعه","day":"السبت","time":"20:00","duration":2.0,"location":"قاعة الدور الثانى","notes":"أنشطة صيفية 1742","id":320}]},{"id":115,"name":"التجار","leader":"","description":"","sessions":[{"name":"التجار","day":"الأحد","time":"16:30","duration":2.5,"location":"قاعة الدور الثانى","notes":"أنشطة صيفية 1742","id":321},{"name":"التجار","day":"الأحد","time":"16:30","duration":3.5,"location":"قاعة العزاء - الدور الارضى","notes":"أنشطة صيفية 1742","id":322}]},{"id":116,"name":"خادمات اجتماع السيدات","leader":"","description":"","sessions":[{"name":"خادمات اجتماع السيدات","day":"الثلاثاء","time":"19:30","duration":1.5,"location":"قاعة العزاء - الدور الارضى","notes":"أنشطة صيفية 1742","id":323}]},{"id":117,"name":"( الحياه الكنسية )","leader":"","description":"","sessions":[{"name":"( الحياه الكنسية )","day":"الثلاثاء","time":"21:00","duration":1.0,"location":"قاعة العزاء - الدور الارضى","notes":"أنشطة صيفية 1742","id":324}]},{"id":118,"name":"خدام و خادمات السامرى الصالح","leader":"","description":"","sessions":[{"name":"خدام و خادمات السامرى الصالح","day":"الأربعاء","time":"19:00","duration":1.5,"location":"قاعة العزاء - الدور الارضى","notes":"أنشطة صيفية 1742","id":325}]},{"id":119,"name":"نشاط رياضى مركز الحبيب","leader":"","description":"","sessions":[{"name":"نشاط رياضى مركز الحبيب","day":"الأربعاء","time":"17:00","duration":2.0,"location":"قاعة الدور الثانى","notes":"أنشطة صيفية 1742","id":326}]},{"id":120,"name":"اجتماع خدام ثانوى","leader":"","description":"","sessions":[{"name":"اجتماع خدام ثانوى","day":"الخميس","time":"18:30","duration":1.5,"location":"قاعة العزاء - الدور الارضى","notes":"أنشطة صيفية 1742","id":327}]},{"id":121,"name":"كورال ثانوى بنات","leader":"","description":"","sessions":[{"name":"كورال ثانوى بنات","day":"الخميس","time":"18:30","duration":1.5,"location":"قاعة الدور الثانى","notes":"أنشطة صيفية 1742","id":328}]},{"id":122,"name":"الخريجين","leader":"","description":"","sessions":[{"name":"الخريجين","day":"الأحد","time":"20:00","duration":2.0,"location":"الدور الثالث بالكنيسة - بحرى","notes":"أنشطة صيفية 1742","id":329}]},{"id":123,"name":"مكسيموس و دوماديوس","leader":"","description":"","sessions":[{"name":"مكسيموس و دوماديوس","day":"الإثنين","time":"19:00","duration":3.0,"location":"الدور الثالث بالكنيسة - قبلى","notes":"أنشطة صيفية 1742","id":330}]},{"id":124,"name":"خريجين وقطاع التدريب","leader":"","description":"","sessions":[{"name":"خريجين وقطاع التدريب","day":"السبت","time":"11:00","duration":2.0,"location":"الحجرة الزجاجية","notes":"أنشطة صيفية 1742","id":331}]},{"id":125,"name":"الحياه الكنسية","leader":"","description":"","sessions":[{"name":"الحياه الكنسية","day":"الإثنين","time":"18:00","duration":2.0,"location":"الحجرة الزجاجية","notes":"أنشطة صيفية 1742","id":332}]},{"id":126,"name":"ابتدائى مرحلة أولى كورال بنات","leader":"","description":"","sessions":[{"name":"ابتدائى مرحلة أولى كورال بنات","day":"الإثنين","time":"19:00","duration":3.0,"location":"المكتبة الصوتية","notes":"أنشطة صيفية 1742","id":333}]},{"id":127,"name":"ابتدائى مرحلة ثانية كورال بنات","leader":"","description":"","sessions":[{"name":"ابتدائى مرحلة ثانية كورال بنات","day":"الثلاثاء","time":"18:00","duration":4.0,"location":"المكتبة الصوتية","notes":"أنشطة صيفية 1742","id":334}]},{"id":128,"name":"ابتدائى اولاد","leader":"","description":"","sessions":[{"name":"ابتدائى اولاد","day":"الثلاثاء","time":"17:00","duration":3.0,"location":"النادى الصيفى","notes":"أنشطة صيفية 1742","id":335},{"name":"ابتدائى اولاد","day":"السبت","time":"17:00","duration":3.0,"location":"النادى الصيفى","notes":"أنشطة صيفية 1742","id":336}]},{"id":129,"name":"اعدادى اولاد","leader":"","description":"","sessions":[{"name":"اعدادى اولاد","day":"الثلاثاء","time":"20:00","duration":2.0,"location":"النادى الصيفى","notes":"أنشطة صيفية 1742","id":337},{"name":"اعدادى اولاد","day":"السبت","time":"20:00","duration":2.0,"location":"النادى الصيفى","notes":"أنشطة صيفية 1742","id":338}]},{"id":130,"name":"ليديا + اسرة ام النور","leader":"","description":"","sessions":[{"name":"ليديا + اسرة ام النور","day":"الأحد","time":"17:00","duration":2.0,"location":"النادى الصيفى","notes":"أنشطة صيفية 1742","id":339}]},{"id":131,"name":"الصليب + بولس للتجار","leader":"","description":"","sessions":[{"name":"الصليب + بولس للتجار","day":"الأحد","time":"19:00","duration":3.0,"location":"النادى الصيفى","notes":"أنشطة صيفية 1742","id":340}]},{"id":132,"name":"العائله المقدسه (الروف)","leader":"","description":"","sessions":[{"name":"العائله المقدسه (الروف)","day":"الأحد","time":"19:00","duration":3.0,"location":"النادى الصيفى","notes":"أنشطة صيفية 1742","id":341}]},{"id":133,"name":"بيبى كلاس + ابتدائى ( مرحلة اولى بنات )","leader":"","description":"","sessions":[{"name":"بيبى كلاس + ابتدائى ( مرحلة اولى بنات )","day":"الإثنين","time":"17:00","duration":2.0,"location":"النادى الصيفى","notes":"أنشطة صيفية 1742","id":342}]},{"id":134,"name":"اعدادى وثانوى بنات","leader":"","description":"","sessions":[{"name":"اعدادى وثانوى بنات","day":"الإثنين","time":"19:00","duration":2.5,"location":"النادى الصيفى","notes":"أنشطة صيفية 1742","id":343}]},{"id":135,"name":"ابتدائى مرحلة ثانيه بنات","leader":"","description":"","sessions":[{"name":"ابتدائى مرحلة ثانيه بنات","day":"الأربعاء","time":"18:00","duration":3.0,"location":"النادى الصيفى","notes":"أنشطة صيفية 1742","id":344}]},{"id":136,"name":"مكسيموس و دوماديوس + خريجين + تلاميذ المسيح","leader":"","description":"","sessions":[{"name":"مكسيموس و دوماديوس + خريجين + تلاميذ المسيح","day":"الخميس","time":"18:30","duration":3.5,"location":"النادى الصيفى","notes":"أنشطة صيفية 1742","id":345}]},{"id":137,"name":"المحبة","leader":"","description":"","sessions":[{"name":"المحبة","day":"الجمعة","time":"14:00","duration":3.0,"location":"النادى الصيفى","notes":"أنشطة صيفية 1742","id":346}]},{"id":138,"name":"ثانوى أولاد + جامعة","leader":"","description":"","sessions":[{"name":"ثانوى أولاد + جامعة","day":"الجمعة","time":"19:00","duration":3.0,"location":"النادى الصيفى","notes":"أنشطة صيفية 1742","id":347}]}];
+        var correctedSchedule = [{"id": 1, "name": "شاروبيم بنات كى جى", "leader": "", "description": "", "sessions": [{"name": "شاروبيم بنات كى جى", "day": "الجمعة", "time": "10:30", "duration": 1.0, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - كنيسة السمائيين", "notes": "جدول عام", "id": 1000}]}, {"id": 2, "name": "اجتماع خادمات اسرة ابتدائى صغير بنات", "leader": "", "description": "", "sessions": [{"name": "اجتماع خادمات اسرة ابتدائى صغير بنات", "day": "الجمعة", "time": "11:30", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - كنيسة السمائيين", "notes": "جدول عام", "id": 1001}]}, {"id": 3, "name": "سيرافيم بنات", "leader": "", "description": "", "sessions": [{"name": "سيرافيم بنات", "day": "الجمعة", "time": "13:00", "duration": 1.0, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - كنيسة السمائيين", "notes": "جدول عام", "id": 1002}]}, {"id": 4, "name": "اسرة العذارى", "leader": "", "description": "", "sessions": [{"name": "اسرة العذارى", "day": "الجمعة", "time": "14:00", "duration": 1.0, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - كنيسة السمائيين", "notes": "جدول عام", "id": 1003}]}, {"id": 5, "name": "اجتماع خادمات اسرة ابتدائى كبير بنات", "leader": "", "description": "", "sessions": [{"name": "اجتماع خادمات اسرة ابتدائى كبير بنات", "day": "الجمعة", "time": "15:00", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - كنيسة السمائيين", "notes": "جدول عام", "id": 1004}]}, {"id": 6, "name": "القديسات", "leader": "", "description": "", "sessions": [{"name": "القديسات", "day": "الجمعة", "time": "16:30", "duration": 1.0, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - كنيسة السمائيين", "notes": "جدول عام", "id": 1005}]}, {"id": 7, "name": "تلاميذ المسيح", "leader": "", "description": "", "sessions": [{"name": "تلاميذ المسيح", "day": "الجمعة", "time": "17:30", "duration": 2.0, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - كنيسة السمائيين", "notes": "جدول عام", "id": 1006}]}, {"id": 8, "name": "العائلة المقدسة", "leader": "", "description": "", "sessions": [{"name": "العائلة المقدسة", "day": "الجمعة", "time": "19:30", "duration": 2.0, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - كنيسة السمائيين", "notes": "جدول عام", "id": 1007}]}, {"id": 9, "name": "مدرسة القديس بولس (مخدومين)", "leader": "", "description": "", "sessions": [{"name": "مدرسة القديس بولس (مخدومين)", "day": "السبت", "time": "17:00", "duration": 2.0, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - كنيسة السمائيين", "notes": "جدول عام", "id": 1008}, {"name": "مدرسة القديس بولس (مخدومين)", "day": "السبت", "time": "17:00", "duration": 2.0, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - المدرج", "notes": "جدول عام", "id": 1023}, {"name": "مدرسة القديس بولس (مخدومين)", "day": "السبت", "time": "17:00", "duration": 2.0, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1039}, {"name": "مدرسة القديس بولس (مخدومين)", "day": "السبت", "time": "17:00", "duration": 3.5, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة الدور الثانى", "notes": "جدول عام", "id": 1058}]}, {"id": 10, "name": "تسبحه", "leader": "", "description": "", "sessions": [{"name": "تسبحه", "day": "السبت", "time": "19:00", "duration": 3.0, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - كنيسة السمائيين", "notes": "جدول عام", "id": 1009}]}, {"id": 11, "name": "اسرة ليديا (مخدومين)", "leader": "", "description": "", "sessions": [{"name": "اسرة ليديا (مخدومين)", "day": "الأحد", "time": "15:30", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - كنيسة السمائيين", "notes": "جدول عام", "id": 1010}]}, {"id": 12, "name": "اسرة ليديا (خدام)", "leader": "", "description": "", "sessions": [{"name": "اسرة ليديا (خدام)", "day": "الأحد", "time": "17:00", "duration": 1.0, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - كنيسة السمائيين", "notes": "جدول عام", "id": 1011}]}, {"id": 13, "name": "اسرة الصليب ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "اسرة الصليب ( مخدومين )", "day": "الأحد", "time": "18:00", "duration": 2.0, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - كنيسة السمائيين", "notes": "جدول عام", "id": 1012}]}, {"id": 14, "name": "اسرة مكسيموس ودوماديوس", "leader": "", "description": "", "sessions": [{"name": "اسرة مكسيموس ودوماديوس", "day": "الأحد", "time": "20:00", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - كنيسة السمائيين", "notes": "جدول عام", "id": 1013}]}, {"id": 15, "name": "خدام الكرمة", "leader": "", "description": "", "sessions": [{"name": "خدام الكرمة", "day": "الأربعاء", "time": "18:30", "duration": 1.0, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - كنيسة السمائيين", "notes": "جدول عام", "id": 1014}]}, {"id": 16, "name": "مدرسة الشمامسة", "leader": "", "description": "", "sessions": [{"name": "مدرسة الشمامسة", "day": "الخميس", "time": "18:30", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - كنيسة السمائيين", "notes": "جدول عام", "id": 1015}, {"name": "مدرسة الشمامسة", "day": "الخميس", "time": "18:00", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - المدرج", "notes": "جدول عام", "id": 1029}, {"name": "مدرسة الشمامسة", "day": "الخميس", "time": "18:30", "duration": 1.5, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - قبلى", "notes": "جدول عام", "id": 1076}, {"name": "مدرسة الشمامسة", "day": "الخميس", "time": "18:30", "duration": 1.5, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - بين المنارتين", "notes": "جدول عام", "id": 1084}, {"name": "مدرسة الشمامسة", "day": "الخميس", "time": "18:30", "duration": 1.5, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - بحرى", "notes": "جدول عام", "id": 1092}, {"name": "مدرسة الشمامسة", "day": "الجمعة", "time": "19:30", "duration": 2.0, "location": "الدور الثالث بالكنيسة - الحجرة الزجاجية", "notes": "جدول عام", "id": 1095}]}, {"id": 17, "name": "ابائيات", "leader": "", "description": "", "sessions": [{"name": "ابائيات", "day": "الخميس", "time": "20:00", "duration": 2.0, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - كنيسة السمائيين", "notes": "جدول عام", "id": 1016}]}, {"id": 18, "name": "استير ( محبة ابتدئى )", "leader": "", "description": "", "sessions": [{"name": "استير ( محبة ابتدئى )", "day": "الجمعة", "time": "11:00", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - المدرج", "notes": "جدول عام", "id": 1017}]}, {"id": 19, "name": "خدام اسرة الرسل", "leader": "", "description": "", "sessions": [{"name": "خدام اسرة الرسل", "day": "الجمعة", "time": "12:30", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - المدرج", "notes": "جدول عام", "id": 1018}]}, {"id": 20, "name": "الشماسة فيبى ( خادمات )", "leader": "", "description": "", "sessions": [{"name": "الشماسة فيبى ( خادمات )", "day": "الجمعة", "time": "14:00", "duration": 1.0, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - المدرج", "notes": "جدول عام", "id": 1019}]}, {"id": 21, "name": "حقق حلمك", "leader": "", "description": "", "sessions": [{"name": "حقق حلمك", "day": "الجمعة", "time": "15:00", "duration": 3.0, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - المدرج", "notes": "جدول عام", "id": 1020}, {"name": "حقق حلمك", "day": "الثلاثاء", "time": "17:00", "duration": 2.0, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - المدرج", "notes": "جدول عام", "id": 1026}]}, {"id": 22, "name": "خدام العائلة المقدسه", "leader": "", "description": "", "sessions": [{"name": "خدام العائلة المقدسه", "day": "الجمعة", "time": "18:00", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - المدرج", "notes": "جدول عام", "id": 1021}]}, {"id": 23, "name": "مجلة العظيم", "leader": "", "description": "", "sessions": [{"name": "مجلة العظيم", "day": "الجمعة", "time": "19:30", "duration": 2.0, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - المدرج", "notes": "جدول عام", "id": 1022}, {"name": "مجلة العظيم", "day": "الجمعة", "time": "20:00", "duration": 1.5, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - بحرى", "notes": "جدول عام", "id": 1090}]}, {"id": 24, "name": "اسرة الصليب ( خدام )", "leader": "", "description": "", "sessions": [{"name": "اسرة الصليب ( خدام )", "day": "الأحد", "time": "20:00", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - المدرج", "notes": "جدول عام", "id": 1024}]}, {"id": 25, "name": "قلب يسوع (الحياه الكنسية)", "leader": "", "description": "", "sessions": [{"name": "قلب يسوع (الحياه الكنسية)", "day": "الإثنين", "time": "19:00", "duration": 2.5, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - المدرج", "notes": "جدول عام", "id": 1025}]}, {"id": 26, "name": "اسرة الفادى", "leader": "", "description": "", "sessions": [{"name": "اسرة الفادى", "day": "الثلاثاء", "time": "19:30", "duration": 2.5, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - المدرج", "notes": "جدول عام", "id": 1027}]}, {"id": 27, "name": "كورال سانت انتونى", "leader": "", "description": "", "sessions": [{"name": "كورال سانت انتونى", "day": "الأربعاء", "time": "19:00", "duration": 3.0, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - المدرج", "notes": "جدول عام", "id": 1028}]}, {"id": 28, "name": "كورال مكسيموس ودوماديوس", "leader": "", "description": "", "sessions": [{"name": "كورال مكسيموس ودوماديوس", "day": "الخميس", "time": "19:30", "duration": 2.5, "location": "مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم) - المدرج", "notes": "جدول عام", "id": 1030}]}, {"id": 29, "name": "شاروبيم بنين ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "شاروبيم بنين ( مخدومين )", "day": "الجمعة", "time": "11:00", "duration": 1.0, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1031}, {"name": "شاروبيم بنين ( مخدومين )", "day": "الجمعة", "time": "11:00", "duration": 1.0, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة الدور الثانى", "notes": "جدول عام", "id": 1051}, {"name": "شاروبيم بنين ( مخدومين )", "day": "الجمعة", "time": "11:00", "duration": 1.0, "location": "مكتبة الطفل - مكتبة الطفل", "notes": "جدول عام", "id": 1119}]}, {"id": 30, "name": "سيرافيم بنين ( خدام )", "leader": "", "description": "", "sessions": [{"name": "سيرافيم بنين ( خدام )", "day": "الجمعة", "time": "12:15", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1032}]}, {"id": 31, "name": "انبياء ( خدام )", "leader": "", "description": "", "sessions": [{"name": "انبياء ( خدام )", "day": "الجمعة", "time": "13:45", "duration": 1.25, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1033}]}, {"id": 32, "name": "اعدادى بنات ( خادمات )", "leader": "", "description": "", "sessions": [{"name": "اعدادى بنات ( خادمات )", "day": "الجمعة", "time": "15:00", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1034}, {"name": "اعدادى بنات ( خادمات )", "day": "الجمعة", "time": "15:00", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة الدور الثانى", "notes": "جدول عام", "id": 1054}]}, {"id": 33, "name": "العذراء الانبا بيشوى ( خدام )", "leader": "", "description": "", "sessions": [{"name": "العذراء الانبا بيشوى ( خدام )", "day": "الجمعة", "time": "16:30", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1035}]}, {"id": 34, "name": "اعدادى بنين ( خدام )", "leader": "", "description": "", "sessions": [{"name": "اعدادى بنين ( خدام )", "day": "الجمعة", "time": "18:30", "duration": 2.0, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1036}]}, {"id": 35, "name": "مكسيموس ودوماديوس", "leader": "", "description": "", "sessions": [{"name": "مكسيموس ودوماديوس", "day": "الجمعة", "time": "21:00", "duration": 1.0, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1037}, {"name": "مكسيموس ودوماديوس", "day": "الجمعة", "time": "18:00", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة الدور الثانى", "notes": "جدول عام", "id": 1055}]}, {"id": 36, "name": "مركز الحبيب", "leader": "", "description": "", "sessions": [{"name": "مركز الحبيب", "day": "السبت", "time": "10:00", "duration": 7.0, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1038}, {"name": "مركز الحبيب", "day": "الإثنين", "time": "13:00", "duration": 5.0, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1043}, {"name": "مركز الحبيب", "day": "الأربعاء", "time": "14:00", "duration": 4.0, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1046}, {"name": "مركز الحبيب", "day": "الخميس", "time": "14:00", "duration": 4.0, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1048}, {"name": "مركز الحبيب", "day": "السبت", "time": "09:00", "duration": 7.5, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة الدور الثانى", "notes": "جدول عام", "id": 1057}, {"name": "مركز الحبيب", "day": "الإثنين", "time": "14:00", "duration": 3.0, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة الدور الثانى", "notes": "جدول عام", "id": 1061}, {"name": "مركز الحبيب", "day": "الأربعاء", "time": "17:00", "duration": 2.0, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة الدور الثانى", "notes": "جدول عام", "id": 1064}, {"name": "مركز الحبيب", "day": "الخميس", "time": "14:00", "duration": 4.0, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة الدور الثانى", "notes": "جدول عام", "id": 1065}]}, {"id": 37, "name": "كشافه", "leader": "", "description": "", "sessions": [{"name": "كشافه", "day": "السبت", "time": "19:00", "duration": 2.0, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1040}, {"name": "كشافه", "day": "الجمعة", "time": "17:00", "duration": 2.0, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - بين المنارتين", "notes": "جدول عام", "id": 1081}, {"name": "كشافه", "day": "الجمعة", "time": "17:00", "duration": 2.0, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - بحرى", "notes": "جدول عام", "id": 1089}]}, {"id": 38, "name": "القديس بولس للتجار ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "القديس بولس للتجار ( مخدومين )", "day": "الأحد", "time": "16:30", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1041}, {"name": "القديس بولس للتجار ( مخدومين )", "day": "الأحد", "time": "16:30", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة الدور الثانى", "notes": "جدول عام", "id": 1059}]}, {"id": 39, "name": "القديس بولس للتجار ( خدام )", "leader": "", "description": "", "sessions": [{"name": "القديس بولس للتجار ( خدام )", "day": "الأحد", "time": "18:00", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1042}]}, {"id": 40, "name": "الانبا باخوميوس للخريجين ( خدام )", "leader": "", "description": "", "sessions": [{"name": "الانبا باخوميوس للخريجين ( خدام )", "day": "الإثنين", "time": "18:00", "duration": 2.0, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1044}]}, {"id": 41, "name": "اجتماع السيدات ( خادمات )", "leader": "", "description": "", "sessions": [{"name": "اجتماع السيدات ( خادمات )", "day": "الثلاثاء", "time": "18:30", "duration": 2.0, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1045}]}, {"id": 42, "name": "السامرى الصالح ( خدام )", "leader": "", "description": "", "sessions": [{"name": "السامرى الصالح ( خدام )", "day": "الأربعاء", "time": "19:00", "duration": 2.0, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1047}]}, {"id": 43, "name": "اسرة الشهداء ( خدام )", "leader": "", "description": "", "sessions": [{"name": "اسرة الشهداء ( خدام )", "day": "الخميس", "time": "18:30", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1049}]}, {"id": 44, "name": "سمعان الشيخ ( خدام )", "leader": "", "description": "", "sessions": [{"name": "سمعان الشيخ ( خدام )", "day": "الخميس", "time": "20:00", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة العزاء (الدور الارضى)", "notes": "جدول عام", "id": 1050}]}, {"id": 45, "name": "محبه ( خدام )", "leader": "", "description": "", "sessions": [{"name": "محبه ( خدام )", "day": "الجمعة", "time": "12:00", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة الدور الثانى", "notes": "جدول عام", "id": 1052}]}, {"id": 46, "name": "محبه ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "محبه ( مخدومين )", "day": "الجمعة", "time": "13:30", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة الدور الثانى", "notes": "جدول عام", "id": 1053}]}, {"id": 47, "name": "الانبا باخوميوس للخريجين", "leader": "", "description": "", "sessions": [{"name": "الانبا باخوميوس للخريجين", "day": "الجمعة", "time": "19:30", "duration": 1.5, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة الدور الثانى", "notes": "جدول عام", "id": 1056}]}, {"id": 48, "name": "كورسات", "leader": "", "description": "", "sessions": [{"name": "كورسات", "day": "الأحد", "time": "18:00", "duration": 3.0, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة الدور الثانى", "notes": "جدول عام", "id": 1060}, {"name": "كورسات", "day": "الإثنين", "time": "18:00", "duration": 3.0, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة الدور الثانى", "notes": "جدول عام", "id": 1062}]}, {"id": 49, "name": "الراعى الصالح ( الحياه الكنسية )", "leader": "", "description": "", "sessions": [{"name": "الراعى الصالح ( الحياه الكنسية )", "day": "الثلاثاء", "time": "18:00", "duration": 3.0, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة الدور الثانى", "notes": "جدول عام", "id": 1063}]}, {"id": 50, "name": "انتونى تيم", "leader": "", "description": "", "sessions": [{"name": "انتونى تيم", "day": "الخميس", "time": "18:00", "duration": 3.5, "location": "مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد) - قاعة الدور الثانى", "notes": "جدول عام", "id": 1066}]}, {"id": 51, "name": "سيرافيم بنين ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "سيرافيم بنين ( مخدومين )", "day": "الجمعة", "time": "11:00", "duration": 1.0, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - قبلى", "notes": "جدول عام", "id": 1067}, {"name": "سيرافيم بنين ( مخدومين )", "day": "الجمعة", "time": "11:00", "duration": 1.0, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - بين المنارتين", "notes": "جدول عام", "id": 1077}, {"name": "سيرافيم بنين ( مخدومين )", "day": "الجمعة", "time": "11:00", "duration": 1.0, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - بحرى", "notes": "جدول عام", "id": 1085}]}, {"id": 52, "name": "الشماسة فيبى", "leader": "", "description": "", "sessions": [{"name": "الشماسة فيبى", "day": "الجمعة", "time": "12:00", "duration": 1.5, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - قبلى", "notes": "جدول عام", "id": 1068}, {"name": "الشماسة فيبى", "day": "الجمعة", "time": "15:00", "duration": 1.5, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - قبلى", "notes": "جدول عام", "id": 1070}, {"name": "الشماسة فيبى", "day": "الجمعة", "time": "12:00", "duration": 1.5, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - بين المنارتين", "notes": "جدول عام", "id": 1078}, {"name": "الشماسة فيبى", "day": "الجمعة", "time": "15:00", "duration": 2.0, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - بين المنارتين", "notes": "جدول عام", "id": 1080}, {"name": "الشماسة فيبى", "day": "الجمعة", "time": "12:00", "duration": 1.5, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - بحرى", "notes": "جدول عام", "id": 1086}, {"name": "الشماسة فيبى", "day": "الجمعة", "time": "15:00", "duration": 1.5, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - بحرى", "notes": "جدول عام", "id": 1088}, {"name": "الشماسة فيبى", "day": "الجمعة", "time": "11:30", "duration": 1.0, "location": "الدور الثالث بالكنيسة - الحجرة الزجاجية", "notes": "جدول عام", "id": 1093}]}, {"id": 53, "name": "ثانوى بنات ( خادمات )", "leader": "", "description": "", "sessions": [{"name": "ثانوى بنات ( خادمات )", "day": "الجمعة", "time": "13:30", "duration": 1.5, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - قبلى", "notes": "جدول عام", "id": 1069}, {"name": "ثانوى بنات ( خادمات )", "day": "الجمعة", "time": "13:30", "duration": 1.5, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - بين المنارتين", "notes": "جدول عام", "id": 1079}, {"name": "ثانوى بنات ( خادمات )", "day": "الجمعة", "time": "13:30", "duration": 1.5, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - بحرى", "notes": "جدول عام", "id": 1087}]}, {"id": 54, "name": "مدرسة الشمامسه", "leader": "", "description": "", "sessions": [{"name": "مدرسة الشمامسه", "day": "الجمعة", "time": "19:30", "duration": 1.5, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - قبلى", "notes": "جدول عام", "id": 1071}, {"name": "مدرسة الشمامسه", "day": "الجمعة", "time": "19:30", "duration": 1.5, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - بين المنارتين", "notes": "جدول عام", "id": 1082}]}, {"id": 55, "name": "القديس بولس ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "القديس بولس ( مخدومين )", "day": "السبت", "time": "18:00", "duration": 1.0, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - قبلى", "notes": "جدول عام", "id": 1072}]}, {"id": 56, "name": "مغلق اجتماع ابونا باخوم", "leader": "", "description": "", "sessions": [{"name": "مغلق اجتماع ابونا باخوم", "day": "الأحد", "time": "18:30", "duration": 1.5, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - قبلى", "notes": "جدول عام", "id": 1073}, {"name": "مغلق اجتماع ابونا باخوم", "day": "الأحد", "time": "18:30", "duration": 1.5, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - بين المنارتين", "notes": "جدول عام", "id": 1083}, {"name": "مغلق اجتماع ابونا باخوم", "day": "الأحد", "time": "18:30", "duration": 1.5, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - بحرى", "notes": "جدول عام", "id": 1091}]}, {"id": 57, "name": "كورال اسرة جامعة", "leader": "", "description": "", "sessions": [{"name": "كورال اسرة جامعة", "day": "الثلاثاء", "time": "19:30", "duration": 1.5, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - قبلى", "notes": "جدول عام", "id": 1074}]}, {"id": 58, "name": "محو امية", "leader": "", "description": "", "sessions": [{"name": "محو امية", "day": "الأربعاء", "time": "17:00", "duration": 4.0, "location": "جدول عام 1741 ش (الدور الثالث بالكنيسة) - قبلى", "notes": "جدول عام", "id": 1075}]}, {"id": 59, "name": "الكتاب المقدس ( خدام )", "leader": "", "description": "", "sessions": [{"name": "الكتاب المقدس ( خدام )", "day": "الجمعة", "time": "12:30", "duration": 2.0, "location": "الدور الثالث بالكنيسة - الحجرة الزجاجية", "notes": "جدول عام", "id": 1094}]}, {"id": 60, "name": "ام النور", "leader": "", "description": "", "sessions": [{"name": "ام النور", "day": "الأحد", "time": "11:30", "duration": 2.0, "location": "الدور الثالث بالكنيسة - الحجرة الزجاجية", "notes": "جدول عام", "id": 1096}]}, {"id": 61, "name": "الرسل ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "الرسل ( مخدومين )", "day": "الجمعة", "time": "10:30", "duration": 1.5, "location": "صحن الكنيسة - صحن الكنيسة", "notes": "جدول عام", "id": 1097}]}, {"id": 62, "name": "الانبياء ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "الانبياء ( مخدومين )", "day": "الجمعة", "time": "12:00", "duration": 1.5, "location": "صحن الكنيسة - صحن الكنيسة", "notes": "جدول عام", "id": 1098}]}, {"id": 63, "name": "اعدادى بنات ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "اعدادى بنات ( مخدومين )", "day": "الجمعة", "time": "13:30", "duration": 1.5, "location": "صحن الكنيسة - صحن الكنيسة", "notes": "جدول عام", "id": 1099}]}, {"id": 64, "name": "ثانوى بنات ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "ثانوى بنات ( مخدومين )", "day": "الجمعة", "time": "15:00", "duration": 1.5, "location": "صحن الكنيسة - صحن الكنيسة", "notes": "جدول عام", "id": 1100}]}, {"id": 65, "name": "اعدادى بنين ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "اعدادى بنين ( مخدومين )", "day": "الجمعة", "time": "16:30", "duration": 1.5, "location": "صحن الكنيسة - صحن الكنيسة", "notes": "جدول عام", "id": 1101}]}, {"id": 66, "name": "العذراء والانبا بيشوى ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "العذراء والانبا بيشوى ( مخدومين )", "day": "الجمعة", "time": "18:00", "duration": 1.5, "location": "صحن الكنيسة - صحن الكنيسة", "notes": "جدول عام", "id": 1102}]}, {"id": 67, "name": "مكسيموس ودوماديوس ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "مكسيموس ودوماديوس ( مخدومين )", "day": "الجمعة", "time": "19:30", "duration": 1.5, "location": "صحن الكنيسة - صحن الكنيسة", "notes": "جدول عام", "id": 1103}]}, {"id": 68, "name": "الانبا باخوميوس للخريجين ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "الانبا باخوميوس للخريجين ( مخدومين )", "day": "الإثنين", "time": "19:45", "duration": 1.5, "location": "صحن الكنيسة - صحن الكنيسة", "notes": "جدول عام", "id": 1104}]}, {"id": 69, "name": "الكرمه", "leader": "", "description": "", "sessions": [{"name": "الكرمه", "day": "الأربعاء", "time": "19:00", "duration": 2.5, "location": "صحن الكنيسة - صحن الكنيسة", "notes": "جدول عام", "id": 1105}]}, {"id": 70, "name": "سمعان الشيخ ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "سمعان الشيخ ( مخدومين )", "day": "الخميس", "time": "18:30", "duration": 1.5, "location": "صحن الكنيسة - صحن الكنيسة", "notes": "جدول عام", "id": 1106}]}, {"id": 71, "name": "الشهداء ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "الشهداء ( مخدومين )", "day": "الخميس", "time": "20:00", "duration": 1.5, "location": "صحن الكنيسة - صحن الكنيسة", "notes": "جدول عام", "id": 1107}]}, {"id": 72, "name": "رجاء بنات ( خادمات )", "leader": "", "description": "", "sessions": [{"name": "رجاء بنات ( خادمات )", "day": "الجمعة", "time": "11:30", "duration": 1.5, "location": "المكتبة الاستعارية - المكتبة الاستعارية", "notes": "جدول عام", "id": 1108}]}, {"id": 73, "name": "المكتبة الاستعارية", "leader": "", "description": "", "sessions": [{"name": "المكتبة الاستعارية", "day": "الجمعة", "time": "14:00", "duration": 1.5, "location": "المكتبة الاستعارية - المكتبة الاستعارية", "notes": "جدول عام", "id": 1109}, {"name": "المكتبة الاستعارية", "day": "السبت", "time": "19:00", "duration": 2.0, "location": "المكتبة الاستعارية - المكتبة الاستعارية", "notes": "جدول عام", "id": 1112}, {"name": "المكتبة الاستعارية", "day": "الثلاثاء", "time": "19:00", "duration": 2.0, "location": "المكتبة الاستعارية - المكتبة الاستعارية", "notes": "جدول عام", "id": 1114}]}, {"id": 74, "name": "تلاميذ المسيح ( خدام )", "leader": "", "description": "", "sessions": [{"name": "تلاميذ المسيح ( خدام )", "day": "الجمعة", "time": "15:30", "duration": 2.0, "location": "المكتبة الاستعارية - المكتبة الاستعارية", "notes": "جدول عام", "id": 1110}]}, {"id": 75, "name": "تلاميذ المسيح ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "تلاميذ المسيح ( مخدومين )", "day": "الجمعة", "time": "17:30", "duration": 2.0, "location": "المكتبة الاستعارية - المكتبة الاستعارية", "notes": "جدول عام", "id": 1111}]}, {"id": 76, "name": "المكتبة الاستعارية (خدام )", "leader": "", "description": "", "sessions": [{"name": "المكتبة الاستعارية (خدام )", "day": "الإثنين", "time": "19:00", "duration": 2.0, "location": "المكتبة الاستعارية - المكتبة الاستعارية", "notes": "جدول عام", "id": 1113}]}, {"id": 77, "name": "شاروبيم بنين ( خدام )", "leader": "", "description": "", "sessions": [{"name": "شاروبيم بنين ( خدام )", "day": "الجمعة", "time": "12:30", "duration": 1.5, "location": "براعم انطونيوس - براعم انطونيوس", "notes": "جدول عام", "id": 1115}]}, {"id": 78, "name": "براعم انطونيوس ( خدام )", "leader": "", "description": "", "sessions": [{"name": "براعم انطونيوس ( خدام )", "day": "الجمعة", "time": "19:30", "duration": 1.5, "location": "براعم انطونيوس - براعم انطونيوس", "notes": "جدول عام", "id": 1116}]}, {"id": 79, "name": "حبة الخردل ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "حبة الخردل ( مخدومين )", "day": "الجمعة", "time": "10:30", "duration": 1.0, "location": "المسرح - المسرح", "notes": "جدول عام", "id": 1117}]}, {"id": 80, "name": "حبة الخردل ( خادمات )", "leader": "", "description": "", "sessions": [{"name": "حبة الخردل ( خادمات )", "day": "الجمعة", "time": "11:30", "duration": 2.0, "location": "المسرح - المسرح", "notes": "جدول عام", "id": 1118}]}, {"id": 81, "name": "مكتبة الطفل ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "مكتبة الطفل ( مخدومين )", "day": "الجمعة", "time": "12:00", "duration": 3.0, "location": "مكتبة الطفل - مكتبة الطفل", "notes": "جدول عام", "id": 1120}]}, {"id": 82, "name": "مكتبة الطفل ( خدام )", "leader": "", "description": "", "sessions": [{"name": "مكتبة الطفل ( خدام )", "day": "الجمعة", "time": "15:00", "duration": 1.0, "location": "مكتبة الطفل - مكتبة الطفل", "notes": "جدول عام", "id": 1121}]}, {"id": 83, "name": "رجاء بنات ( مخدومين )", "leader": "", "description": "", "sessions": [{"name": "رجاء بنات ( مخدومين )", "day": "الجمعة", "time": "09:00", "duration": 2.0, "location": "النادى - الملعب", "notes": "جدول عام", "id": 1122}]}, {"id": 84, "name": "الصليب", "leader": "", "description": "", "sessions": [{"name": "الصليب", "day": "الأحد", "time": "18:30", "duration": 1.0, "location": "النادى - الملعب", "notes": "جدول عام", "id": 1123}]}, {"id": 85, "name": "رجاء بنين (مخدومين )", "leader": "", "description": "", "sessions": [{"name": "رجاء بنين (مخدومين )", "day": "الجمعة", "time": "11:00", "duration": 1.5, "location": "النادى - البينج", "notes": "جدول عام", "id": 1124}]}, {"id": 86, "name": "رجاء بنين (خدام)", "leader": "", "description": "", "sessions": [{"name": "رجاء بنين (خدام)", "day": "الجمعة", "time": "12:30", "duration": 2.5, "location": "النادى - البينج", "notes": "جدول عام", "id": 1125}]}, {"id": 87, "name": "الصليب (خدام )", "leader": "", "description": "", "sessions": [{"name": "الصليب (خدام )", "day": "الأحد", "time": "19:30", "duration": 1.5, "location": "النادى - البينج", "notes": "جدول عام", "id": 1126}]}];
+
         if (!db.get('church-events')) db.set('church-events', []);
         if (!db.get('church-osras') || !db.get('church-osras').length || db.get('church-schema-version') !== '3') {
             db.set('church-osras', correctedSchedule);
@@ -4490,7 +4810,10 @@
         }
 
         document.getElementById('nav-toggle').onclick = function() {
-            document.getElementById('nav-links').classList.toggle('open');
+            var menu = document.getElementById('nav-links');
+            var isOpen = menu.classList.toggle('open');
+            this.setAttribute('aria-expanded', String(isOpen));
+            this.innerHTML = isOpen ? '<i class="ri-close-line"></i>' : '<i class="ri-menu-line"></i>';
         };
         document.getElementById('scroll-top').onclick = function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -4605,7 +4928,7 @@
                 html += '<div class="synax-saints">';
                 if (Array.isArray(saints) && saints.length) {
                     saints.forEach(function(s) {
-                        html += '<a class="synax-saint-row" href="' + esc(s.url || 'https://coptic.io') + '" target="_blank" rel="noopener noreferrer"><i class="ri-star-line"></i><span class="synax-saint-name">' + esc(s.name) + '</span></a>';
+                        html += '<a class="synax-saint-row" href="' + esc(s.url || 'https:
                     });
                 } else {
                     html += '<div class="synax-empty"><i class="ri-information-line"></i><span>لا توجد أعياد مسجّلة لهذا اليوم.</span></div>';
@@ -4697,20 +5020,68 @@
         };
         document.getElementById('contact-form').onsubmit = async function(e) {
             e.preventDefault();
+            var btn = document.querySelector('#contact-form .form-submit');
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="ri-loader-4-line"></i> جارٍ الإرسال...';
+            }
             var msg = {
                 id: Date.now(),
                 name: document.getElementById('cf-name').value.trim(),
                 email: document.getElementById('cf-email').value.trim(),
                 subject: document.getElementById('cf-subject').value.trim() || 'بدون موضوع',
                 message: document.getElementById('cf-message').value.trim(),
-                date: new Date().toLocaleString(),
+                date: new Date().toLocaleString('ar-EG'),
                 read: false
             };
-            await API.saveMessage(msg);
+            if (!msg.name || !msg.email || !msg.message) {
+                toast('من فضلك املأ الاسم والبريد والرسالة');
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="ri-send-plane-line"></i> ابعت الرسالة';
+                }
+                return;
+            }
+            
+            var saved = await API.saveMessage(msg);
+            
+            var emailOk = false;
+            try {
+                var res = await fetch('https://formsubmit.co/ajax/info@stantonychurch.com', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: msg.name,
+                        email: msg.email,
+                        _replyto: msg.email,
+                        _subject: 'رسالة من موقع الكنيسة: ' + msg.subject,
+                        subject: msg.subject,
+                        message: msg.message,
+                        _template: 'table',
+                        _captcha: 'false'
+                    })
+                });
+                emailOk = res.ok;
+                if (!res.ok) console.warn('email status', res.status);
+            } catch (err) {
+                console.warn('email send failed', err);
+            }
             document.getElementById('contact-form').querySelectorAll('input,textarea,button').forEach(function(el) {
                 el.style.display = 'none';
             });
-            document.getElementById('form-success').style.display = 'block';
+            var success = document.getElementById('form-success');
+            success.style.display = 'block';
+            if (!saved && !emailOk) {
+                success.innerHTML = '<i class="ri-error-warning-line"></i><strong>تعذر الإرسال</strong><p>حاول مرة أخرى أو تواصل عبر الهاتف / فيسبوك.</p>';
+            } else if (!emailOk) {
+                success.innerHTML = '<i class="ri-checkbox-circle-line"></i><strong>تم حفظ الرسالة!</strong><p>وصلت للإدارة. الإيميل قد يتأخر قليلاً.</p>';
+            } else {
+                success.innerHTML = '<i class="ri-checkbox-circle-line"></i><strong>تم الإرسال!</strong><p>شكراً ليك. هنرد عليك في أقرب وقت على بريدك أو هاتفك.</p>';
+            }
+            toast(saved || emailOk ? 'تم إرسال الرسالة' : 'فشل الإرسال');
         };
 
         function isSummerSession(s) {
@@ -4719,8 +5090,7 @@
         }
 
         function isSummerScheduleActive() {
-            var val = db.get('church-summer-enabled');
-            return val !== false && val !== 'false';
+            return false; 
         }
 
         function setScheduleFilter(val, btn) {
@@ -4734,21 +5104,40 @@
             buildTimetablePage();
         }
 
+        function shortLocLabel(part) {
+            if (!part) return '';
+            return part
+                .replace('مبنى خدمات الكنيسة بشارع ترعة الجلاد (القديم)', 'مبنى خدمات ترعة الجلاد')
+                .replace('مبنى خدمات الكنيسة بشارع دانيال ميخائيل (الجديد)', 'مبنى خدمات دانيال ميخائيل (الجديد)')
+                .replace('جدول عام 1741 ش (الدور الثالث بالكنيسة)', 'الدور الثالث بالكنيسة')
+                .replace('قاعة العزاء (الدور الارضى)', 'قاعة العزاء')
+                .trim();
+        }
+
         async function buildLocFilter() {
             var osras = await API.getOsras();
+            
             var locs = new Set(['الكل']);
             osras.forEach(function(o) {
                 (o.sessions || []).forEach(function(s) {
-                    if (s.location) {
-                        var building = s.location.split('-')[0].trim();
-                        if (building) locs.add(building);
-                    }
+                    if (!s.location) return;
+                    s.location.split('-').forEach(function(part) {
+                        var label = shortLocLabel(part.trim());
+                        if (label) locs.add(label);
+                    });
                 });
             });
             var wrap = document.getElementById('loc-filter-wrap');
             if (!wrap) return;
+            var ordered = Array.from(locs);
+            
+            ordered.sort(function(a, b) {
+                if (a === 'الكل') return -1;
+                if (b === 'الكل') return 1;
+                return a.localeCompare(b, 'ar');
+            });
             var html = '';
-            locs.forEach(function(l) {
+            ordered.forEach(function(l) {
                 html += '<button class="loc-filter-btn' + (l === currentLocFilter ? ' active' : '') + '" onclick="setLocFilter(\'' + esc(l) + '\',this)">' + esc(l) + '</button>';
             });
             wrap.innerHTML = html;
@@ -4797,8 +5186,12 @@
             }
             if (currentScheduleFilter !== 'all' && s.notes !== currentScheduleFilter) return false;
             if (currentLocFilter !== 'الكل') {
-                var building = (s.location || '').split('-')[0].trim();
-                if (building !== currentLocFilter) return false;
+                var loc = s.location || '';
+                var parts = loc.split('-').map(function(p) { return shortLocLabel(p.trim()); });
+                var match = parts.some(function(p) { return p === currentLocFilter; })
+                    || loc.indexOf(currentLocFilter) !== -1
+                    || shortLocLabel(loc) === currentLocFilter;
+                if (!match) return false;
             }
             return true;
         }
@@ -4835,6 +5228,11 @@
             }
             window.ttSetDay = function(i) {
                 ttActiveDayIdx = i;
+                
+                var tabs = document.querySelectorAll('#tt-day-tabs .day-tab-btn');
+                tabs.forEach(function(btn, idx) {
+                    btn.classList.toggle('active', idx === i);
+                });
                 renderTimetableGridView();
             };
             renderDayTimeline(allSessions);
@@ -5641,15 +6039,33 @@
         async function renderAdminMedia() {
             var media = await API.getMedia();
             var tbody = document.getElementById('media-table-body');
-            if (media.length) {
-                var html = '';
-                media.forEach(function(m, mi) {
-                    html += '<tr><td>' + esc(m.name.length > 22 ? m.name.substring(0, 20) + '…' : m.name) + '</td><td>' + esc(m.caption) + '</td><td><span class="tag tag-gold">' + esc(m.category) + '</span></td><td><span class="tag tag-blue">' + esc(m.type ? m.type.split('/')[0] : 'file') + '</span></td><td style="white-space:nowrap"><button class="adm-btn adm-btn-navy adm-btn-sm" onclick="downloadMediaIdx(' + mi + ')"><i class="ri-download-2-line"></i></button><button class="adm-btn adm-btn-danger adm-btn-sm" onclick="deleteMedia(' + m.id + ')"><i class="ri-delete-bin-line"></i></button></td></tr>';
-                });
-                tbody.innerHTML = html;
-            } else {
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--gray);padding:1.5rem">لا توجد ملفات</td></tr>';
+            var list = document.getElementById('media-cards-list');
+            if (!list) {
+                var wrap = document.querySelector('#adm-media .adm-card:last-child') || document.getElementById('adm-media');
+                if (wrap) {
+                    list = document.createElement('div');
+                    list.id = 'media-cards-list';
+                    list.className = 'adm-media-list';
+                    var tableWrap = wrap.querySelector('.adm-table-wrap');
+                    if (tableWrap) tableWrap.parentNode.insertBefore(list, tableWrap);
+                    else wrap.appendChild(list);
+                }
             }
+            if (!media.length) {
+                if (tbody) tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--gray);padding:1.5rem">لا توجد ملفات</td></tr>';
+                if (list) list.innerHTML = '<p style="text-align:center;color:var(--gray);padding:1.5rem">لا توجد ملفات</p>';
+                return;
+            }
+            var tableHtml = '';
+            var cardsHtml = '';
+            media.forEach(function(m, mi) {
+                var shortName = (m.name || '').length > 28 ? (m.name || '').substring(0, 26) + '…' : (m.name || '');
+                var typeLabel = m.type ? m.type.split('/')[0] : 'file';
+                tableHtml += '<tr><td>' + esc(shortName) + '</td><td>' + esc(m.caption || '') + '</td><td><span class="tag tag-gold">' + esc(m.category || '') + '</span></td><td><span class="tag tag-blue">' + esc(typeLabel) + '</span></td><td style="white-space:nowrap"><button class="adm-btn adm-btn-navy adm-btn-sm" onclick="downloadMediaIdx(' + mi + ')"><i class="ri-download-2-line"></i></button><button class="adm-btn adm-btn-danger adm-btn-sm" onclick="deleteMedia(' + m.id + ')"><i class="ri-delete-bin-line"></i></button></td></tr>';
+                cardsHtml += '<div class="adm-media-row"><div class="adm-media-row-main"><div class="adm-media-row-name">' + esc(m.name || '') + '</div><div class="adm-media-row-cap">' + esc(m.caption || '') + '</div><div class="adm-media-row-meta"><span class="tag tag-gold">' + esc(m.category || '') + '</span><span class="tag tag-blue">' + esc(typeLabel) + '</span></div></div><div class="adm-media-row-actions"><button class="adm-btn adm-btn-navy adm-btn-sm" onclick="downloadMediaIdx(' + mi + ')"><i class="ri-download-2-line"></i></button><button class="adm-btn adm-btn-danger adm-btn-sm" onclick="deleteMedia(' + m.id + ')"><i class="ri-delete-bin-line"></i></button></div></div>';
+            });
+            if (tbody) tbody.innerHTML = tableHtml;
+            if (list) list.innerHTML = cardsHtml;
         }
 
         async function deleteMedia(id) {
@@ -5668,23 +6084,33 @@
                 c.innerHTML = '<p style="text-align:center;color:var(--gray);padding:2rem">لا توجد رسائل.</p>';
                 return;
             }
-            var html = '';
-            var reversed = Array.from(messages).reverse();
-            reversed.forEach(function(m, i) {
-                var idx = messages.length - 1 - i;
-                html += '<div style="background:var(--gray-light);border-radius:.75rem;padding:1.25rem;margin-bottom:.75rem;cursor:pointer;border-right:3px solid ' + (m.read ? 'transparent' : 'var(--gold)') + '" onclick="toggleMsg(' + idx + ')"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem"><strong style="color:var(--navy)">' + esc(m.name) + '</strong><span style="font-size:.75rem;color:var(--gray)">' + esc(m.date) + '</span></div><div style="font-size:.85rem;font-weight:600;color:var(--gold);margin-bottom:.3rem">' + esc(m.subject) + '</div><div style="font-size:.82rem;color:var(--gray)">' + esc(m.message.substring(0, 100)) + (m.message.length > 100 ? '…' : '') + '</div><div style="font-size:.75rem;color:var(--gray);margin-top:.25rem">' + esc(m.email) + '</div><div id="msg-full-' + idx + '" style="display:none;margin-top:.75rem;font-size:.875rem;padding-top:.75rem;border-top:1px solid rgba(201,168,76,.15)">' + esc(m.message) + '</div></div>';
+            var html = '<div class="adm-msg-list">';
+            messages.forEach(function(m) {
+                html += '<div class="adm-msg-card' + (m.read ? '' : ' unread') + '" data-id="' + m.id + '" onclick="toggleMsgById(' + m.id + ')">'
+                    + '<div class="adm-msg-top"><div class="adm-msg-name">' + esc(m.name || '') + '</div>'
+                    + '<div class="adm-msg-date">' + esc(m.date || '') + '</div></div>'
+                    + '<div class="adm-msg-subject">' + esc(m.subject || '') + '</div>'
+                    + '<div class="adm-msg-preview">' + esc((m.message || '').substring(0, 120)) + ((m.message || '').length > 120 ? '…' : '') + '</div>'
+                    + '<div class="adm-msg-email">' + esc(m.email || '') + '</div>'
+                    + '<div class="adm-msg-full" id="msg-full-' + m.id + '">' + esc(m.message || '') + '</div>'
+                    + '</div>';
             });
+            html += '</div>';
             c.innerHTML = html;
         }
 
-        async function toggleMsg(i) {
+        async function toggleMsgById(id) {
             var messages = await API.getMessages();
-            messages[i].read = true;
-            db.set('church-messages', messages);
-            var d = document.getElementById('msg-full-' + i);
-            if (d) d.style.display = d.style.display === 'block' ? 'none' : 'block';
+            var m = messages.find(function(x) { return x.id === id || String(x.id) === String(id); });
+            if (!m) return;
+            if (!m.read) {
+                await API.markMessageRead(m.id);
+            }
+            var d = document.getElementById('msg-full-' + id);
+            if (d) d.classList.toggle('open');
             refreshAdminStats();
-            renderAdminMessages();
+            var card = document.querySelector('.adm-msg-card[data-id="' + id + '"]');
+            if (card) card.classList.remove('unread');
         }
 
         async function clearMessages() {
@@ -5706,38 +6132,30 @@
 
         var API_CONFIG = {
             enabled: true,
-            url: 'https://lrbilmexmxtarlhycuwh.supabase.co',
+            url: 'https:
             key: 'sb_publishable_kq7K-_OQF7YDnOYwfuagGA_C8buz7np'
         };
 
         var supabaseClient = null;
         if (API_CONFIG.enabled && window.supabase) {
-            supabaseClient = window.supabase.createClient(API_CONFIG.url, API_CONFIG.key);
+            supabaseClient = window.supabase.createClient(API_CONFIG.url, API_CONFIG.key, {
+                global: {
+                    headers: {
+                        apikey: API_CONFIG.key,
+                        Authorization: 'Bearer ' + API_CONFIG.key
+                    }
+                }
+            });
         }
 
         var API = {
             async getSummerSettings() {
-                var local = db.get('church-summer-enabled');
-                if (local === null) local = true;
-                if (API_CONFIG.enabled && supabaseClient) {
-                    try {
-                        var res = await supabaseClient.from('settings').select('*').eq('key', 'summer_enabled').maybeSingle();
-                        if (res.data) {
-                            var enabled = res.data.value === true || res.data.value === 'true';
-                            db.set('church-summer-enabled', enabled);
-                            return enabled;
-                        }
-                    } catch (e) { console.warn('settings fetch', e); }
-                }
-                return local !== false && local !== 'false';
+                
+                return false;
             },
             async saveSummerSettings(enabled) {
-                db.set('church-summer-enabled', !!enabled);
-                if (API_CONFIG.enabled && supabaseClient) {
-                    try {
-                        await supabaseClient.from('settings').upsert({ key: 'summer_enabled', value: !!enabled });
-                    } catch (e) { console.warn('settings save', e); }
-                }
+                
+                db.set('church-summer-enabled', false);
             },
             async getEvents() {
                 var local = db.get('church-events') || [];
@@ -5765,33 +6183,24 @@
                 db.set('church-events', ev);
             },
             async getOsras() {
-                var local = db.get('church-osras') || correctedSchedule || [];
-                if (API_CONFIG.enabled && supabaseClient) {
-                    try {
-                        var res = await supabaseClient.from('osras').select('*').order('id');
-                        if (res.error) throw res.error;
-                        if (res.data && res.data.length) {
-                            db.set('church-osras', res.data);
-                            return res.data;
-                        }
-                        // Supabase empty → seed with full schedule once
-                        if (local && local.length) {
-                            await supabaseClient.from('osras').upsert(local);
-                            return local;
-                        }
-                    } catch (e) { console.warn('osras fetch', e); }
+                
+                var local = db.get('church-osras');
+                if (!local || !local.length) {
+                    local = correctedSchedule || [];
+                    db.set('church-osras', local);
                 }
+                
+                local = local.map(function(o) {
+                    var sessions = (o.sessions || []).filter(function(s) {
+                        var n = ((s.name || '') + ' ' + (s.notes || '')).toLowerCase();
+                        return n.indexOf('صيف') === -1 && n.indexOf('صيفي') === -1 && n.indexOf('صيفية') === -1;
+                    });
+                    return Object.assign({}, o, { sessions: sessions });
+                }).filter(function(o) { return (o.sessions || []).length > 0 || (o.name && o.name.indexOf('صيف') === -1); });
                 return local;
             },
             async saveOsras(o) {
-                if (API_CONFIG.enabled && supabaseClient) {
-                    try {
-                        await supabaseClient.from('osras').delete().neq('id', 0);
-                        if (o && o.length) {
-                            await supabaseClient.from('osras').upsert(o);
-                        }
-                    } catch (e) { console.warn('osras save', e); }
-                }
+                
                 db.set('church-osras', o);
             },
             async getMedia() {
@@ -5885,20 +6294,49 @@
             async getMessages() {
                 if (API_CONFIG.enabled && supabaseClient) {
                     try {
-                        var res = await supabaseClient.from('messages').select('*').order('id');
-                        if (!res.error) return res.data || [];
-                    } catch (e) {}
+                        var res = await supabaseClient.from('messages').select('*').order('id', { ascending: false });
+                        if (res.error) throw res.error;
+                        if (res.data) {
+                            db.set('church-messages', res.data);
+                            return res.data;
+                        }
+                    } catch (e) { console.warn('messages fetch', e); }
                 }
                 return db.get('church-messages') || [];
             },
             async saveMessage(m) {
+                var ok = false;
                 if (API_CONFIG.enabled && supabaseClient) {
                     try {
-                        await supabaseClient.from('messages').upsert(m);
-                    } catch (e) { console.warn('message save', e); }
+                        var row = {
+                            id: m.id,
+                            name: m.name,
+                            email: m.email,
+                            subject: m.subject,
+                            message: m.message,
+                            date: m.date,
+                            read: !!m.read
+                        };
+                        var ins = await supabaseClient.from('messages').upsert(row);
+                        if (ins.error) throw ins.error;
+                        ok = true;
+                    } catch (e) {
+                        console.warn('message save supabase', e);
+                    }
                 }
                 var msgs = db.get('church-messages') || [];
                 msgs.push(m);
+                db.set('church-messages', msgs);
+                return ok || true; 
+            },
+            async markMessageRead(id) {
+                if (API_CONFIG.enabled && supabaseClient) {
+                    try {
+                        await supabaseClient.from('messages').update({ read: true }).eq('id', id);
+                    } catch (e) { console.warn('mark read', e); }
+                }
+                var msgs = db.get('church-messages') || [];
+                msgs.forEach(function(m) { if (m.id === id) m.read = true; });
                 db.set('church-messages', msgs);
             },
             async clearMessages() {
@@ -5912,6 +6350,12 @@
         };
 
         (async function init() {
+            
+            try {
+                db.set('church-osras', correctedSchedule || []);
+                db.set('church-summer-enabled', false);
+            } catch (e) {}
+
             await renderEvents();
             await renderHomeCountdown();
             await loadSynaxarion();
