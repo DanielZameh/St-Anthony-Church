@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover" />
-    <title>كنيسة الأنبا أنطونيوس القبطية الأرثوذكسية</title>
+    <title>كنيسة الأنبا أنطونيوس القبطية الأرثوذكسية | الموقع الرسمي</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
@@ -5042,9 +5042,9 @@
                 }
                 return;
             }
-            
+            // 1) Save to Supabase so it appears in Admin → Messages
             var saved = await API.saveMessage(msg);
-            
+            // 2) Email the church inbox
             var emailOk = false;
             try {
                 var res = await fetch('https://formsubmit.co/ajax/info@stantonychurch.com', {
@@ -5090,7 +5090,7 @@
         }
 
         function isSummerScheduleActive() {
-            return false; 
+            return false; // Summer schedule removed — normal schedule only
         }
 
         function setScheduleFilter(val, btn) {
@@ -5116,7 +5116,7 @@
 
         async function buildLocFilter() {
             var osras = await API.getOsras();
-            
+            // Collect distinct places: rooms + buildings (short labels), like the full filter list
             var locs = new Set(['الكل']);
             osras.forEach(function(o) {
                 (o.sessions || []).forEach(function(s) {
@@ -5130,7 +5130,7 @@
             var wrap = document.getElementById('loc-filter-wrap');
             if (!wrap) return;
             var ordered = Array.from(locs);
-            
+            // keep الكل first, rest alphabetical-ish by Arabic string
             ordered.sort(function(a, b) {
                 if (a === 'الكل') return -1;
                 if (b === 'الكل') return 1;
@@ -5228,7 +5228,7 @@
             }
             window.ttSetDay = function(i) {
                 ttActiveDayIdx = i;
-                
+                // Update active class immediately so gold border moves with selection
                 var tabs = document.querySelectorAll('#tt-day-tabs .day-tab-btn');
                 tabs.forEach(function(btn, idx) {
                     btn.classList.toggle('active', idx === i);
@@ -6084,7 +6084,8 @@
                 c.innerHTML = '<p style="text-align:center;color:var(--gray);padding:2rem">لا توجد رسائل.</p>';
                 return;
             }
-                        var html = '<div class="adm-msg-list">';
+            // API already returns newest-first when possible
+            var html = '<div class="adm-msg-list">';
             messages.forEach(function(m) {
                 html += '<div class="adm-msg-card' + (m.read ? '' : ' unread') + '" data-id="' + m.id + '" onclick="toggleMsgById(' + m.id + ')">'
                     + '<div class="adm-msg-top"><div class="adm-msg-name">' + esc(m.name || '') + '</div>'
@@ -6108,8 +6109,10 @@
             }
             var d = document.getElementById('msg-full-' + id);
             if (d) d.classList.toggle('open');
-                        refreshAdminStats();
-                        var card = document.querySelector('.adm-msg-card[data-id="' + id + '"]');
+            // keep card open state without full re-render wipe
+            refreshAdminStats();
+            // soft update unread border
+            var card = document.querySelector('.adm-msg-card[data-id="' + id + '"]');
             if (card) card.classList.remove('unread');
         }
 
@@ -6150,7 +6153,8 @@
 
         var API = {
             async getSummerSettings() {
-                               return false;
+                // Summer schedule disabled permanently — no summer data in normal schedule
+                return false;
             },
             async saveSummerSettings(enabled) {
                 // Summer schedule permanently off
@@ -6182,12 +6186,13 @@
                 db.set('church-events', ev);
             },
             async getOsras() {
-                               var local = db.get('church-osras');
+                // Schedule is LOCAL ONLY from the normal Excel schedule — no Supabase
+                var local = db.get('church-osras');
                 if (!local || !local.length) {
                     local = correctedSchedule || [];
                     db.set('church-osras', local);
                 }
-                
+                // Drop any leftover summer sessions if present
                 local = local.map(function(o) {
                     var sessions = (o.sessions || []).filter(function(s) {
                         var n = ((s.name || '') + ' ' + (s.notes || '')).toLowerCase();
@@ -6198,7 +6203,7 @@
                 return local;
             },
             async saveOsras(o) {
-                
+                // Schedule is LOCAL ONLY — no Supabase
                 db.set('church-osras', o);
             },
             async getMedia() {
@@ -6325,7 +6330,7 @@
                 var msgs = db.get('church-messages') || [];
                 msgs.push(m);
                 db.set('church-messages', msgs);
-                return ok || true; 
+                return ok || true; // local always kept; true if at least local saved
             },
             async markMessageRead(id) {
                 if (API_CONFIG.enabled && supabaseClient) {
@@ -6348,7 +6353,7 @@
         };
 
         (async function init() {
-           
+            // Always seed normal schedule from Excel (clears any old/summer cache once)
             try {
                 db.set('church-osras', correctedSchedule || []);
                 db.set('church-summer-enabled', false);
