@@ -148,11 +148,31 @@
             width: 100%;
             height: var(--header-h);
             z-index: 1000;
+            background: transparent;
             transition: background var(--transition), box-shadow var(--transition), opacity var(--transition), visibility var(--transition);
         }
         .header.scrolled {
             background: var(--navy);
             box-shadow: var(--shadow);
+        }
+        .header.over-light:not(.scrolled) .nav-logo-text,
+        .header.over-light:not(.scrolled) .nav-links a,
+        .header.over-light:not(.scrolled) .btn-icon,
+        .header.over-light:not(.scrolled) .nav-toggle {
+            color: var(--navy);
+        }
+        .header.over-light:not(.scrolled) .nav-links a {
+            color: rgba(0, 26, 56, 0.88);
+        }
+        .header.over-light:not(.scrolled) .nav-links a:hover,
+        .header.over-light:not(.scrolled) .nav-links a.active {
+            color: var(--gold);
+        }
+        .dark .header.over-light:not(.scrolled) .nav-logo-text,
+        .dark .header.over-light:not(.scrolled) .nav-links a,
+        .dark .header.over-light:not(.scrolled) .btn-icon,
+        .dark .header.over-light:not(.scrolled) .nav-toggle {
+            color: var(--gold-light);
         }
         .header.header-hidden {
             opacity: 0;
@@ -1912,25 +1932,32 @@
             border-radius: 4px;
         }
         .pill-share {
-            position: absolute;
-            top: .5rem;
-            left: .5rem;
-            background: rgba(0, 0, 0, .12);
-            border: none;
+            position: static;
+            margin-top: .4rem;
+            background: rgba(0, 0, 0, .1);
+            border: 1px solid rgba(201, 168, 76, .35);
             color: inherit;
-            border-radius: 4px;
-            padding: .2rem .4rem;
-            font-size: .65rem;
+            border-radius: 6px;
+            padding: .3rem .55rem;
+            font-size: .7rem;
             font-weight: 700;
             cursor: pointer;
             opacity: 0;
-            transition: opacity .2s;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity .2s, max-height .2s, margin .2s, padding .2s;
             display: flex;
             align-items: center;
-            gap: .2rem;
+            justify-content: center;
+            gap: .3rem;
+            width: 100%;
+            box-sizing: border-box;
         }
         .session-pill:hover .pill-share {
             opacity: 1;
+            max-height: 40px;
+            padding: .3rem .55rem;
+            margin-top: .4rem;
         }
         .pc0 {
             background: #dbeafe;
@@ -4787,6 +4814,7 @@
             if (ne) ne.classList.add('active');
             var hdr = document.getElementById('header');
             if (p === 'admin') { hdr.classList.add('header-hidden'); } else { hdr.classList.remove('header-hidden'); }
+            updateHeaderTone();
             window.scrollTo(0, 0);
             document.getElementById('nav-links').classList.remove('open');
             if (p === 'timetable') { buildTimetablePage(); }
@@ -4817,11 +4845,26 @@
             this.setAttribute('aria-expanded', String(isOpen));
             this.innerHTML = isOpen ? '<i class="ri-close-line"></i>' : '<i class="ri-menu-line"></i>';
         };
+        
+        function updateHeaderTone() {
+            var hdr = document.getElementById('header');
+            if (!hdr) return;
+            var scrolled = window.scrollY > 50;
+            hdr.classList.toggle('scrolled', scrolled);
+            var overLight = false;
+            if (!scrolled) {
+                var home = document.getElementById('page-home');
+                var onHome = home && home.classList.contains('active');
+                overLight = !onHome;
+            }
+            hdr.classList.toggle('over-light', overLight);
+        }
+
         document.getElementById('scroll-top').onclick = function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
         window.addEventListener('scroll', function() {
-            document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+            updateHeaderTone();
             document.getElementById('scroll-top').classList.toggle('show', window.scrollY > 300);
         });
 
@@ -4857,12 +4900,30 @@
 
         function toArTime(t) {
             if (!t) return '--';
-            var parts = t.split(':').map(Number);
+            var parts = String(t).split(':').map(Number);
             var h = parts[0],
-                m = parts[1];
+                m = parts[1] || 0;
+            if (isNaN(h)) return String(t);
             var am = h < 12;
             var h12 = h % 12 || 12;
             return toAr(h12) + ':' + toAr(String(m).padStart(2, '0')) + ' ' + (am ? 'ص' : 'م');
+        }
+
+        function formatEventDate(dateStr) {
+            if (!dateStr) return '';
+            var d = new Date(dateStr);
+            if (isNaN(d.getTime())) return String(dateStr);
+            var weekdays = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+            var dayName = weekdays[d.getDay()];
+            var dd = d.getDate();
+            var mm = d.getMonth() + 1;
+            var yyyy = d.getFullYear();
+            var h = d.getHours();
+            var min = d.getMinutes();
+            var am = h < 12;
+            var h12 = h % 12 || 12;
+            var timePart = toAr(h12) + ':' + toAr(String(min).padStart(2, '0')) + ' ' + (am ? 'ص' : 'م');
+            return dayName + ' ' + toAr(dd) + '/' + toAr(mm) + '/' + toAr(yyyy) + ' · ' + timePart;
         }
 
         function updateTimeAr(iid, lid) {
@@ -4953,7 +5014,7 @@
             var html = '';
             upcoming.forEach(function(ev) {
                 var cd = countdown(ev.date);
-                html += '<div class="cdown-card"><div class="cdown-icon"><i class="ri-calendar-check-line"></i></div><div class="cdown-info"><div class="cdown-title">' + esc(ev.title) + '</div><div class="cdown-date">' + esc(ev.date) + '</div></div><div><div class="cdown-num">' + cd.text.split(' ')[0] + '</div><div class="cdown-unit">' + (cd.text.split(' ')[1] || '') + '</div></div></div>';
+                html += '<div class="cdown-card"><div class="cdown-icon"><i class="ri-calendar-check-line"></i></div><div class="cdown-info"><div class="cdown-title">' + esc(ev.title) + '</div><div class="cdown-date">' + esc(formatEventDate(ev.date)) + '</div></div><div><div class="cdown-num">' + cd.text.split(' ')[0] + '</div><div class="cdown-unit">' + (cd.text.split(' ')[1] || '') + '</div></div></div>';
             });
             c.innerHTML = html;
         }
@@ -4968,7 +5029,7 @@
             }
             var html = '';
             events.forEach(function(ev) {
-                html += '<article class="ev-card reveal"><div class="ev-img">' + (ev.img ? '<img src="' + esc(ev.img) + '" alt="' + esc(ev.title) + '"/>' : '<i class="ri-image-line"></i>') + '</div><div class="ev-body"><p class="ev-tag">' + esc(ev.category || 'عام') + '</p><h3>' + esc(ev.title) + '</h3><div class="ev-meta"><span class="ev-meta-item"><i class="ri-calendar-line"></i>' + esc(ev.date) + '</span>' + (ev.duration ? '<span class="ev-meta-item"><i class="ri-time-line"></i>' + esc(ev.duration) + '</span>' : '') + '</div><p>' + esc(ev.description || '') + '</p>' + (ev.bookable ? '<button class="btn-book" onclick="openBooking(' + ev.id + ',\'' + esc(ev.title) + '\')"><i class="ri-ticket-line"></i> احجز مكانك</button>' : '<span style="font-size:.8rem;color:var(--gray)"><i class="ri-group-line"></i> حضور عام مفتوح</span>') + '<button class="btn-share-ev" onclick="copyText(\'' + esc(ev.title + ' — ' + ev.date + (ev.duration ? ' · ' + ev.duration : '')) + '\')"><i class="ri-share-line"></i> مشاركة</button></div></article>';
+                html += '<article class="ev-card reveal"><div class="ev-img">' + (ev.img ? '<img src="' + esc(ev.img) + '" alt="' + esc(ev.title) + '"/>' : '<i class="ri-image-line"></i>') + '</div><div class="ev-body"><p class="ev-tag">' + esc(ev.category || 'عام') + '</p><h3>' + esc(ev.title) + '</h3><div class="ev-meta"><span class="ev-meta-item"><i class="ri-calendar-line"></i>' + esc(formatEventDate(ev.date)) + '</span>' + (ev.duration ? '<span class="ev-meta-item"><i class="ri-time-line"></i>' + esc(ev.duration) + '</span>' : '') + '</div><p>' + esc(ev.description || '') + '</p>' + (ev.bookable ? '<button class="btn-book" onclick="openBooking(' + ev.id + ',\'' + esc(ev.title) + '\')"><i class="ri-ticket-line"></i> احجز مكانك</button>' : '<span style="font-size:.8rem;color:var(--gray)"><i class="ri-group-line"></i> حضور عام مفتوح</span>') + '</div></article>';
             });
             c.innerHTML = html;
             c.querySelectorAll('.reveal').forEach(function(el) { io.observe(el); });
@@ -5717,7 +5778,7 @@
                 var html = '';
                 upcoming.forEach(function(e) {
                     var cd = countdown(e.date);
-                    html += '<tr><td><strong>' + esc(e.title) + '</strong></td><td>' + esc(e.date) + '</td><td><span class="tag tag-gold">' + esc(e.category) + '</span></td><td><span class="tag ' + cd.cls + '">' + cd.text + '</span></td></tr>';
+                    html += '<tr><td><strong>' + esc(e.title) + '</strong></td><td>' + esc(formatEventDate(e.date)) + '</td><td><span class="tag tag-gold">' + esc(e.category) + '</span></td><td><span class="tag ' + cd.cls + '">' + cd.text + '</span></td></tr>';
                 });
                 tbody.innerHTML = html;
             } else {
@@ -5758,7 +5819,7 @@
             if (events.length) {
                 var html = '';
                 events.forEach(function(ev) {
-                    html += '<tr><td><strong>' + esc(ev.title) + '</strong></td><td>' + esc(ev.date) + '</td><td><span class="tag tag-gold">' + esc(ev.category) + '</span></td><td>' + (ev.bookable ? '<span class="tag tag-green">نعم</span>' : '<span class="tag tag-red">لا</span>') + '</td><td><button class="adm-btn adm-btn-danger adm-btn-sm" onclick="deleteEvent(' + ev.id + ')"><i class="ri-delete-bin-line"></i> حذف</button></td></tr>';
+                    html += '<tr><td><strong>' + esc(ev.title) + '</strong></td><td>' + esc(formatEventDate(ev.date)) + '</td><td><span class="tag tag-gold">' + esc(ev.category) + '</span></td><td>' + (ev.bookable ? '<span class="tag tag-green">نعم</span>' : '<span class="tag tag-red">لا</span>') + '</td><td><button class="adm-btn adm-btn-danger adm-btn-sm" onclick="deleteEvent(' + ev.id + ')"><i class="ri-delete-bin-line"></i> حذف</button></td></tr>';
                 });
                 tbody.innerHTML = html;
             } else {
@@ -6365,6 +6426,7 @@
                 db.set('church-summer-enabled', false);
             } catch (e) {}
 
+            updateHeaderTone();
             await renderEvents();
             await renderHomeCountdown();
             await loadSynaxarion();
