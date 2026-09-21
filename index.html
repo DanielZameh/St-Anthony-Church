@@ -359,7 +359,7 @@
             .nav-logo-text {
                 font-size: .78rem;
                 letter-spacing: 0;
-                /* full name, smaller — no ellipsis mid-word */
+                
                 overflow: visible;
                 text-overflow: clip;
                 max-width: none;
@@ -1802,7 +1802,7 @@
             box-shadow: 0 2px 10px rgba(201, 168, 76, .35);
         }
         .day-tab-btn.today-day:not(.active) {
-            /* subtle today marker only when not selected — no gold border stuck on Sunday */
+            
             border-color: rgba(201, 168, 76, .45);
             color: var(--gray);
         }
@@ -2870,7 +2870,7 @@
             white-space: nowrap;
         }
 
-    </style>
+</style>
 </head>
 <body>
 
@@ -2882,11 +2882,11 @@
             </a>
             <ul class="nav-links" id="nav-links">
                 <li><a onclick="showPage('home');scrollToSection('home-top')" class="active" data-nav="home">الرئيسية</a></li>
-                <li><a onclick="showPage('home');scrollToSection('about')" data-nav="about">عن الكنيسة</a></li>
-                <li><a onclick="showPage('home');scrollToSection('events')" data-nav="events">الفعاليات</a></li>
+                <li><a onclick="showPage('home','about');scrollToSection('about')" data-nav="about">عن الكنيسة</a></li>
+                <li><a onclick="showPage('home','events');scrollToSection('events')" data-nav="events">الفعاليات</a></li>
                 <li><a onclick="showPage('timetable')" data-nav="timetable">الجداول</a></li>
                 <li><a onclick="showPage('media')" data-nav="media">الميديا</a></li>
-                <li><a onclick="showPage('home');scrollToSection('contact')" data-nav="contact">تواصل معنا</a></li>
+                <li><a onclick="showPage('home','contact');scrollToSection('contact')" data-nav="contact">تواصل معنا</a></li>
             </ul>
             <div class="nav-actions">
                 <button class="btn-icon" id="theme-btn" title="تغيير السمة"><i class="ri-moon-line" id="theme-icon"></i></button>
@@ -3175,11 +3175,11 @@
                         <h4>روابط سريعة</h4>
                         <ul>
                             <li><a onclick="showPage('home');scrollToSection('home-top')">الرئيسية</a></li>
-                            <li><a onclick="showPage('home');scrollToSection('about')">عن الكنيسة</a></li>
+                            <li><a onclick="showPage('home','about');scrollToSection('about')">عن الكنيسة</a></li>
                             <li><a onclick="showPage('home');scrollToSection('annexes')">ملحقات الكنيسة</a></li>
                             <li><a onclick="showPage('home');scrollToSection('projects')">مشاريع خدمية</a></li>
                             <li><a onclick="showPage('timetable')">الجداول</a></li>
-                            <li><a onclick="showPage('home');scrollToSection('events')">الفعاليات</a></li>
+                            <li><a onclick="showPage('home','events');scrollToSection('events')">الفعاليات</a></li>
                             <li><a onclick="showPage('media')">الميديا</a></li>
                             <li><a onclick="showPage('home');scrollToSection('social')">تابعنا</a></li>
                         </ul>
@@ -3188,7 +3188,7 @@
                         <h4>الإيبارشية</h4>
                         <ul>
                             <li><a href="#">شبرا الجنوبية</a></li>
-                            <li><a href="#">نيافة الأنبا مكاري</a></li>
+                            <li><a href="#">نيافة الأنبا مكاريوس</a></li>
                             <li><a href="#">الكنيسة القبطية الأرثوذكسية</a></li>
                         </ul>
                     </div>
@@ -3296,8 +3296,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-
     <script>
 
         var db = { get: function(k) { return JSON.parse(localStorage.getItem(k) || 'null'); }, set: function(k, v) { localStorage.setItem(k, JSON.stringify(v)); } };
@@ -3322,21 +3320,23 @@
         var ttActiveDayIdx = new Date().getDay();
         var ttSessionLookup = {};
 
-        function showPage(p) {
+        function showPage(p, navKey) {
             document.querySelectorAll('.page-view').forEach(function(el) { el.classList.remove('active'); });
             var ap = document.getElementById('page-' + p);
             if (ap) ap.classList.add('active');
             currentPage = p;
             document.querySelectorAll('.nav-links a').forEach(function(a) { a.classList.remove('active'); });
-            var ne = document.querySelector('.nav-links a[data-nav="' + p + '"]');
+            var activeNav = navKey || p;
+            var ne = document.querySelector('.nav-links a[data-nav="' + activeNav + '"]');
             if (ne) ne.classList.add('active');
             var hdr = document.getElementById('header');
-            hdr.classList.remove('header-hidden');
+            if (p === 'admin') { hdr.classList.add('header-hidden'); } else { hdr.classList.remove('header-hidden'); }
             updateHeaderTone();
             window.scrollTo(0, 0);
             document.getElementById('nav-links').classList.remove('open');
             if (p === 'timetable') { buildTimetablePage(); }
             if (p === 'media') { renderPublicMedia(); }
+            if (p === 'admin') { checkAdminAuth(); }
         }
 
         function toggleHistory() {
@@ -3367,9 +3367,10 @@
             var hdr = document.getElementById('header');
             if (!hdr) return;
             var scrolled = window.scrollY > 50;
-            hdr.classList.toggle('scrolled', scrolled);
+            var mediaPage = currentPage === 'media';
+            hdr.classList.toggle('scrolled', scrolled || mediaPage);
             var overLight = false;
-            if (!scrolled) {
+            if (!scrolled && !mediaPage) {
                 var home = document.getElementById('page-home');
                 var onHome = home && home.classList.contains('active');
                 overLight = !onHome;
@@ -3622,8 +3623,9 @@
                 }
                 return;
             }
+
             var saved = await API.saveMessage(msg);
-            // 2) Email the church inbox
+
             var emailOk = false;
             try {
                 var res = await fetch('https://formsubmit.co/ajax/info@stantonychurch.com', {
@@ -3669,7 +3671,7 @@
         }
 
         function isSummerScheduleActive() {
-            return false; // Summer schedule removed — normal schedule only
+            return false;
         }
 
         function setScheduleFilter(val, btn) {
@@ -3695,7 +3697,7 @@
 
         async function buildLocFilter() {
             var osras = await API.getOsras();
-            // Collect distinct places: rooms + buildings (short labels), like the full filter list
+
             var locs = new Set(['الكل']);
             osras.forEach(function(o) {
                 (o.sessions || []).forEach(function(s) {
@@ -3709,7 +3711,7 @@
             var wrap = document.getElementById('loc-filter-wrap');
             if (!wrap) return;
             var ordered = Array.from(locs);
-            // keep الكل first, rest alphabetical-ish by Arabic string
+
             ordered.sort(function(a, b) {
                 if (a === 'الكل') return -1;
                 if (b === 'الكل') return 1;
@@ -3807,7 +3809,7 @@
             }
             window.ttSetDay = function(i) {
                 ttActiveDayIdx = i;
-                // Update active class immediately so gold border moves with selection
+
                 var tabs = document.querySelectorAll('#tt-day-tabs .day-tab-btn');
                 tabs.forEach(function(btn, idx) {
                     btn.classList.toggle('active', idx === i);
@@ -4144,11 +4146,11 @@
 
         var API = {
             async getSummerSettings() {
-                // Summer schedule disabled permanently — no summer data in normal schedule
+
                 return false;
             },
             async saveSummerSettings(enabled) {
-                // Summer schedule permanently off
+
                 db.set('church-summer-enabled', false);
             },
             async getEvents() {
@@ -4177,13 +4179,13 @@
                 db.set('church-events', ev);
             },
             async getOsras() {
-                // Schedule is LOCAL ONLY from the normal Excel schedule — no Supabase
+
                 var local = db.get('church-osras');
                 if (!local || !local.length) {
                     local = correctedSchedule || [];
                     db.set('church-osras', local);
                 }
-                // Drop any leftover summer sessions if present
+
                 local = local.map(function(o) {
                     var sessions = (o.sessions || []).filter(function(s) {
                         var n = ((s.name || '') + ' ' + (s.notes || '')).toLowerCase();
@@ -4194,7 +4196,7 @@
                 return local;
             },
             async saveOsras(o) {
-                // Schedule is LOCAL ONLY — no Supabase
+
                 db.set('church-osras', o);
             },
             async getMedia() {
@@ -4322,7 +4324,7 @@
                 var msgs = db.get('church-messages') || [];
                 msgs.push(m);
                 db.set('church-messages', msgs);
-                return ok || true; // local always kept; true if at least local saved
+                return ok || true;
             },
             async markMessageRead(id) {
                 if (API_CONFIG.enabled && supabaseClient) {
@@ -4346,7 +4348,7 @@
 
 
         (async function init() {
-            // Always seed normal schedule from Excel (clears any old/summer cache once)
+
             try {
                 db.set('church-osras', correctedSchedule || []);
                 db.set('church-summer-enabled', false);
@@ -4359,5 +4361,7 @@
             setInterval(renderHomeCountdown, 60000);
         })();
     </script>
+
+
 </body>
 </html>
