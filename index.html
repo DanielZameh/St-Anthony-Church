@@ -1040,9 +1040,11 @@
         }
         .contact-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            grid-template-columns: 1fr;
+            gap: 2rem;
             align-items: start;
+            max-width: 640px;
+            margin: 0 auto;
         }
         .contact-info h2 {
             font-size: clamp(1.5rem, 3vw, 2rem);
@@ -1092,86 +1094,6 @@
             font-size: .85rem;
             color: var(--gray);
             margin: 0;
-        }
-        .contact-form {
-            display: grid;
-            gap: 1rem;
-        }
-        .form-row-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: .9rem 1.1rem;
-            border-radius: .6rem;
-            font-family: inherit;
-            font-size: .9rem;
-            border: 1.5px solid #e5e7eb;
-            background: var(--white);
-            color: var(--text);
-            transition: border-color var(--transition);
-            outline: none;
-        }
-        .dark .contact-form input,
-        .dark .contact-form textarea {
-            background: #132035;
-            border-color: #1e3a5f;
-            color: #e5e7eb;
-        }
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            border-color: var(--gold);
-        }
-        .contact-form textarea {
-            height: 130px;
-            resize: vertical;
-        }
-        .form-submit {
-            padding: .9rem;
-            border-radius: .6rem;
-            background: var(--navy);
-            color: #fff;
-            font-size: .9rem;
-            font-weight: 600;
-            transition: all var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: .5rem;
-        }
-        .dark .form-submit {
-            background: var(--gold);
-            color: var(--navy-deep);
-        }
-        .form-submit:hover {
-            background: var(--gold);
-            color: var(--navy-deep);
-            transform: translateY(-2px);
-        }
-        .form-success {
-            display: none;
-            text-align: center;
-            padding: 2rem;
-            border-radius: var(--radius);
-            background: rgba(201, 168, 76, .1);
-            border: 1px solid var(--gold);
-        }
-        .form-success i {
-            color: var(--gold);
-            display: block;
-            margin: 0 auto .75rem;
-            font-size: 2rem;
-        }
-        @media(max-width:768px) {
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-            .form-row-2 {
-                grid-template-columns: 1fr;
-            }
         }
         .footer {
             background: var(--navy-deep);
@@ -3064,7 +2986,7 @@
 
         <section class="section container" id="contact">
             <span class="section-label">تواصل معنا</span>
-            <h2 class="section-title">ابعت لنا رسالة</h2>
+            <h2 class="section-title">تواصل معنا</h2>
             <div class="contact-grid reveal">
                 <div class="contact-info">
                     <h2>يسعدنا نسمع منك</h2>
@@ -3075,16 +2997,6 @@
                         <div class="contact-item"><div class="contact-icon"><i class="ri-facebook-box-line"></i></div><div class="contact-item-text"><h4>فيسبوك</h4><p><a href="https://www.facebook.com/St.Antony.Church" target="_blank" style="color:var(--gold)">St.Antony.Church</a></p></div></div>
                     </div>
                 </div>
-                <form class="contact-form" id="contact-form">
-                    <div class="form-row-2">
-                        <input type="text" id="cf-name" placeholder="الاسم الكامل" required />
-                        <input type="email" id="cf-email" placeholder="البريد الإلكتروني" required />
-                    </div>
-                    <input type="text" id="cf-subject" placeholder="الموضوع" />
-                    <textarea id="cf-message" placeholder="رسالتك…" required></textarea>
-                    <button type="submit" class="form-submit"><i class="ri-send-plane-line"></i> ابعت الرسالة</button>
-                    <div class="form-success" id="form-success"><i class="ri-checkbox-circle-line"></i><strong>تم الإرسال!</strong><p>شكراً ليك. هنرد عليك في أقرب وقت.</p></div>
-                </form>
             </div>
         </section>
 
@@ -3598,71 +3510,6 @@
             await API.saveBooking(b);
             document.getElementById('booking-form').style.display = 'none';
             document.getElementById('booking-success').style.display = 'flex';
-        };
-        document.getElementById('contact-form').onsubmit = async function(e) {
-            e.preventDefault();
-            var btn = document.querySelector('#contact-form .form-submit');
-            if (btn) {
-                btn.disabled = true;
-                btn.innerHTML = '<i class="ri-loader-4-line"></i> جارٍ الإرسال...';
-            }
-            var msg = {
-                id: Date.now(),
-                name: document.getElementById('cf-name').value.trim(),
-                email: document.getElementById('cf-email').value.trim(),
-                subject: document.getElementById('cf-subject').value.trim() || 'بدون موضوع',
-                message: document.getElementById('cf-message').value.trim(),
-                date: new Date().toLocaleString('ar-EG'),
-                read: false
-            };
-            if (!msg.name || !msg.email || !msg.message) {
-                toast('من فضلك املأ الاسم والبريد والرسالة');
-                if (btn) {
-                    btn.disabled = false;
-                    btn.innerHTML = '<i class="ri-send-plane-line"></i> ابعت الرسالة';
-                }
-                return;
-            }
-
-            var saved = await API.saveMessage(msg);
-
-            var emailOk = false;
-            try {
-                var res = await fetch('https://formsubmit.co/ajax/info@stantonychurch.com', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        name: msg.name,
-                        email: msg.email,
-                        _replyto: msg.email,
-                        _subject: 'رسالة من موقع الكنيسة: ' + msg.subject,
-                        subject: msg.subject,
-                        message: msg.message,
-                        _template: 'table',
-                        _captcha: 'false'
-                    })
-                });
-                emailOk = res.ok;
-                if (!res.ok) console.warn('email status', res.status);
-            } catch (err) {
-                console.warn('email send failed', err);
-            }
-            document.getElementById('contact-form').querySelectorAll('input,textarea,button').forEach(function(el) {
-                el.style.display = 'none';
-            });
-            var success = document.getElementById('form-success');
-            success.style.display = 'block';
-            if (!saved && !emailOk) {
-                success.innerHTML = '<i class="ri-error-warning-line"></i><strong>تعذر الإرسال</strong><p>حاول مرة أخرى أو تواصل عبر الهاتف / فيسبوك.</p>';
-            } else if (!emailOk) {
-                success.innerHTML = '<i class="ri-checkbox-circle-line"></i><strong>تم حفظ الرسالة!</strong><p>وصلت للإدارة. الإيميل قد يتأخر قليلاً.</p>';
-            } else {
-                success.innerHTML = '<i class="ri-checkbox-circle-line"></i><strong>تم الإرسال!</strong><p>شكراً ليك. هنرد عليك في أقرب وقت على بريدك أو هاتفك.</p>';
-            }
-            toast(saved || emailOk ? 'تم إرسال الرسالة' : 'فشل الإرسال');
         };
 
         function isSummerSession(s) {
